@@ -2,16 +2,20 @@ package pt.ulusofona.lp2.deisiGreatGame;
 //Imports
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Random;
+
+import static pt.ulusofona.lp2.deisiGreatGame.GameManager.maxId;
+import static pt.ulusofona.lp2.deisiGreatGame.GameManager.minId;
 
 /*
-Programmer color
+Programmer game color
  */
 enum ProgrammerColor {
-    Red, Green, Blue
+    Purple, Green, Brown, Blue
 }
 
 /*
-Programmer Status
+Programmer game Status
  */
 enum ProgrammerStatus
 {
@@ -32,24 +36,52 @@ Represents a programmer
  */
 public class Programmer
 {
+    /*
+    Identifies programmer id
+     */
     private Integer id;
+    /*
+    Identifies programmer name
+     */
     private String name;
-    private ProgrammerColor color;
+    /*
+    Identifies programmer preferred programming languages
+     */
     private ArrayList<String> languages;
+    /*
+    Identifies programmer current position on board game
+     */
     private Integer position;
+    /*
+    Identifies programmer status on game: "Em Jogo"; Derrotado
+     */
     private ProgrammerStatus status;
 
     /*
-    Constructor
+    Identifies programmer game color
      */
-    Programmer(Integer id, String name, ProgrammerColor color, ArrayList<String> languageList, Integer position)
+    private ProgrammerColor color;
+
+    /*
+    Identifies if programmer is current player
+     */
+    private Boolean currentProgrammer;
+
+    //################
+    //Constructor
+    //################
+    Programmer(Integer id, String name, ArrayList<String> languageList, ProgrammerColor color)
     {
         this.id = id;
         this.name = name;
-        this.color = color;
         this.languages = languageList;
-        this.position = position;
+        this.color = color;
+        this.position = 0;
     }
+
+    //#################
+    //Methods
+    //#################
 
     /*
     Returns programmer Id
@@ -73,7 +105,40 @@ public class Programmer
     }
 
     /*
+    Throw dice to calculate number of positions to move
+    Result must be [1,6]
+     */
+    private Integer throwDice()
+    {
+        Random rand = new Random();
+        Integer min = 1;
+        Integer max = 6;
+        return rand.nextInt(max) + min;
+    }
+
+    /*
+    Throw dice to calculate number of positions to move
+    Result must be [1,50]
+    */
+    private Integer generateProgrammerId()
+    {
+        Random rand = new Random();
+        return rand.nextInt(maxId) + minId;
+    }
+
+    /*
+    Programmer play
+     */
+    public Boolean play()
+    {
+        Integer nrPosition = throwDice();
+
+        return false;
+    }
+
+    /*
     Returns programmer string
+    <id> | <nome> | <position> | <languages> | <status>
      */
     @Override
     public String toString(){
