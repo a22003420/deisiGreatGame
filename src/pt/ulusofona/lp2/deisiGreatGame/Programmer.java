@@ -4,8 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
-import static pt.ulusofona.lp2.deisiGreatGame.GameManager.maxId;
-import static pt.ulusofona.lp2.deisiGreatGame.GameManager.minId;
+
 
 /*
 Programmer game color
@@ -122,8 +121,9 @@ public class Programmer
     */
     private Integer generateProgrammerId()
     {
-        Random rand = new Random();
-        return rand.nextInt(maxId) + minId;
+        //Random rand = new Random();
+        //return rand.nextInt(MAXID) + minId;
+        return 0;
     }
 
     /*

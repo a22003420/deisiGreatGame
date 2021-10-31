@@ -13,8 +13,8 @@ public class GameManager {
     /*
     Max Id allowed for user
      */
-    static final int maxId = 50;
-    static final int minId = 50;
+    static final int MAXID = 50;
+    static final int MINID = 50;
 
     /*
     Board size
@@ -68,7 +68,7 @@ public class GameManager {
             }
 
             //validate max id
-            if(id<minId || id>maxId)
+            if(id<MINID || id>MAXID)
             {
                 return false;
             }
@@ -84,17 +84,17 @@ public class GameManager {
             //Programming Languages
             String languages = playerInfo[row][2]; //C#;Java;....
             //Validate languages length
-            if(languages==null || languages.length()==0)
+            if(languages==null || languages.length()==0){
                 return false;
+            }
+
             //Add to language
             ArrayList<String> languagesList = addToLanguageList(languages);
 
             //Color
             String color = playerInfo[row][3];
             //Validate parameter color length
-            if(color ==null || color.length()>0)
-                return false;
-            if (!isValidColorValue(color)) {
+            if(color ==null || color.length()==0 || !isValidColorValue(color)) {
                 return false;
             }
 
@@ -128,8 +128,9 @@ public class GameManager {
             programmerList.add(programmer);
         }
 
-        if(boardSize != programmerList.stream().count() * 2)
+        if(boardSize != programmerList.stream().count() * 2){
             return false;
+        }
 
         this.boardSize = boardSize;
 
