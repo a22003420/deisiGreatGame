@@ -11,7 +11,7 @@ import static pt.ulusofona.lp2.deisiGreatGame.GameManager.minId;
 Programmer game color
  */
 enum ProgrammerColor {
-    Purple, Green, Brown, Blue
+    PURPLE, GREEN, BROWN, BLUE
 }
 
 /*
