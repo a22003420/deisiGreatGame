@@ -2,8 +2,10 @@ package pt.ulusofona.lp2.deisiGreatGame;
 //Imports
 import javax.swing.*;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+
+import static java.util.stream.Collectors.toList;
 
 /*
 Represents the Game board Manager
@@ -14,7 +16,7 @@ public class GameManager {
     Max Id allowed for user
      */
     static final int MAXID = 50;
-    static final int MINID = 50;
+    static final int MINID = 1;
 
     /*
     Board size
@@ -55,6 +57,7 @@ public class GameManager {
         //list of programmers/players
         List<Programmer> programmerList = new ArrayList<>();
 
+        //iterate over matrix
         for (int row = 0; row < playerInfo.length; row++)
         {
             //Id
@@ -111,16 +114,15 @@ public class GameManager {
                     }
 
                     //validate unique name
-                    if(programmer.getName() == name) {
-                        return false;
-                    }
+                    //if(programmer.getName() == name) {
+                    //return false;
+                    //}
 
                     //validate unique color
                     if(programmer.getColor().equals(enumColor)) {
                         return false;
                     }
                 }
-
             }
 
             //Instantiate programmer
@@ -128,14 +130,20 @@ public class GameManager {
             programmerList.add(programmer);
         }
 
-        if(boardSize != programmerList.stream().count() * 2){
+        if(programmerList.size()<2 || programmerList.size()>4)       {
             return false;
         }
 
+        // Board Size two positions for each player
+        if(boardSize >= programmerList.size()*2){
+            return false;
+        }
+
+        //set boardsize
         this.boardSize = boardSize;
 
-        //Collections.sort(programmerList.);
-
+        //Order programmers by name
+        programmerList.sort(Comparator.comparing(Programmer::getName));
         this.programmers = programmerList;
 
         return false;
@@ -181,8 +189,17 @@ public class GameManager {
      */
     public String getImagePng(int position){
 
-        return "";
+        String image = null;
 
+        if(position>boardSize){
+            return image;
+        }
+
+        if(position==boardSize){
+            image="glory.png";
+        }
+
+        return image;
     }
 
     /*
@@ -197,19 +214,33 @@ public class GameManager {
      */
     public ArrayList<Programmer> getProgrammers(int position){
 
-        ArrayList<Programmer> programmerList = new ArrayList<>();
-
-        for (Programmer programmer: programmerList)
-        {
-
+        if(position>boardSize){
+            return null;
         }
-        return null;
+
+        List<Programmer> programmerOnPositionList = programmers.stream().filter(c -> c.getPosition()==position)
+                .collect(toList());
+
+        return new ArrayList(programmerOnPositionList);
     }
 
     /*
     Get current player Id
      */
     public int getCurrentPlayerID(){
+
+        List<Programmer> programmerList = getProgrammers();
+
+        if (programmerList==null || programmerList.size()==0){
+            return 0;
+        }
+
+        for(Programmer programmer:programmerList){
+            if(programmer.isCurrentPlayer()){
+                return programmer.getId();
+            }
+        }
+
         return 0;
     }
 
@@ -218,16 +249,46 @@ public class GameManager {
      */
     public boolean moveCurrentPlayer(int nrPositions){
 
+        if(nrPositions<1 || nrPositions>6) {
+            return false;
+        }
+
         List<Programmer> programmerList = getProgrammers();
+        if (programmerList==null || programmerList.size()==0){
+            return false;
+        }
 
+        //current player
+        int index;
+        int nrOfPlayers = programmerList.size();
+        for (index = 0; index<nrOfPlayers; index++)
+        {
+            Programmer programmer = programmerList.get(index);
 
+            if(programmer.isCurrentPlayer())
+            {
+                Integer position = programmer.getPosition();
+                Integer newPosition = position+nrPositions;
 
-        //Integer nrOfPositions = throwDice();
+                //TODO: Check BoardSize
 
+                programmer.setPosition(newPosition);
 
+                break;
 
-        return false;
+            }
+        }
 
+        //check if exist next player
+        if(++index>nrOfPlayers){
+            index=0;
+        }
+
+        //get next player
+        Programmer programmer = programmerList.get(index);
+        programmer.isCurrentPlayer();
+
+        return true;
     }
 
     /*
@@ -235,8 +296,17 @@ public class GameManager {
      */
     public boolean gameIsOver(){
 
+        List<Programmer> programmerList = getProgrammers();
 
+        if (programmerList==null || programmerList.size()==0){
+            return false;
+        }
 
+        for (Programmer programmer:programmerList) {
+            if(programmer.getPosition()==boardSize){
+                return true;
+            }
+        }
         return false;
     }
 
