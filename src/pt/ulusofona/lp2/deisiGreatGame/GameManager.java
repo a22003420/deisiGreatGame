@@ -150,7 +150,7 @@ public class GameManager {
         //set programmers
         setProgrammerList(programmerList);
 
-        return true;
+        return false;
     }
 
     private void setProgrammerList(List<Programmer> programmerList)
