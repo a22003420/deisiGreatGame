@@ -65,6 +65,11 @@ public class Programmer
      */
     private Boolean currentProgrammer;
 
+    /*
+    Identifies the number of moves
+     */
+    private Integer nrMoves;
+
     //################
     //Constructor
     //################
@@ -174,5 +179,13 @@ public class Programmer
 
     public void setCurrentPlayer() {
         this.currentProgrammer=true;
+    }
+
+    public void addNrMoves() {
+        this.nrMoves++;
+    }
+
+    public int getNrTurns() {
+        return nrMoves;
     }
 }

@@ -22,6 +22,22 @@ public class GameManager {
     Board size
      */
     private int boardSize;
+    
+    /*
+        public int BoardSize
+        {
+            get boardSize;
+            set this.boardSize = value;
+
+        }*/
+
+
+
+
+        /*
+        Total number of turns
+         */
+    private int totalNrTurns;
 
     /*
     Gamers on game
@@ -29,7 +45,8 @@ public class GameManager {
     private List<Programmer> programmers;
 
     //Constructor
-    public GameManager() {
+    public GameManager()
+    {
     }
 
     /*
@@ -140,13 +157,22 @@ public class GameManager {
         }
 
         //set boardsize
-        this.boardSize = boardSize;
+        SetBoardSize(boardSize);
 
-        //Order programmers by name
-        programmerList.sort(Comparator.comparing(Programmer::getName));
-        this.programmers = programmerList;
+        //set programmers
+        SetProgrammerList(programmerList);
 
         return false;
+    }
+
+    private void SetProgrammerList(List<Programmer> programmerList)
+    {
+        programmerList.sort(Comparator.comparing(Programmer::getName));
+        this.programmers=programmerList;
+    }
+
+    private void SetBoardSize(int boardSize) {
+        this.boardSize=boardSize;
     }
 
     /*
@@ -273,7 +299,7 @@ public class GameManager {
                 //TODO: Check BoardSize
 
                 programmer.setPosition(newPosition);
-
+                programmer.addNrMoves();
                 break;
 
             }
@@ -310,12 +336,64 @@ public class GameManager {
         return false;
     }
 
-    /**
+    /*
     Get game statistics
      */
-    public ArrayList<String> getGameResults(){
-        return null;
+    public ArrayList<String> getGameResults() {
+
+        ArrayList<String> resultList = new ArrayList<>();
+
+        resultList.add("O GRANDE JOGO DO DEISI");
+        resultList.add("");
+        resultList.add("NR. DE TURNOS");
+
+        List<Programmer> programmerList = getProgrammers();
+
+        if (programmerList==null || programmerList.size()==0){
+            resultList.add("0");
+            return resultList;
+        }
+
+        int totalNrTurns=0;
+        for (Programmer programmer:programmerList) {
+            totalNrTurns=+programmer.getNrTurns();
+        }
+        resultList.add(Integer.toString(totalNrTurns));
+
+        //Order programmers descending by Position
+        programmerList.sort(Comparator.comparing(Programmer::getPosition).reversed());
+
+        int index;
+        int nrOfPlayers = programmerList.size();
+        for (index = 0; index<nrOfPlayers; index++)
+        {
+            Programmer programmer = programmerList.get(index);
+
+            Integer position = programmer.getPosition();
+            if(index==0 && position!=boardSize){
+                return resultList;
+            }
+
+            if(position==boardSize)
+            {
+                resultList.add("");
+                resultList.add("VENCEDOR");
+                resultList.add(programmer.getName());
+                if( nrOfPlayers>1)
+                {
+                    resultList.add("");
+                    resultList.add("RESTANTES");
+                }
+            }
+            else
+            {
+                resultList.add(programmer.getName() + " " + Integer.toString(programmer.getPosition()));
+            }
+        }
+        return resultList;
     }
+
+
 
     /*
     Get About
