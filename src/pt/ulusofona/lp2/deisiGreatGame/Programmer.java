@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.Random;
 
 
-
 /*
 Programmer game color
  */
@@ -35,9 +34,6 @@ Represents a programmer
  */
 public class Programmer
 {
-
-
-
     /*
     Identifies programmer id
      */
@@ -140,6 +136,14 @@ public class Programmer
     }
 
     /*
+    is Programmer CurrentPlayer
+     */
+    public Boolean isCurrentPlayer()
+    {
+        return currentProgrammer;
+    }
+
+    /*
     Returns programmer string
     <id> | <nome> | <position> | <languages> | <status>
      */
@@ -158,5 +162,17 @@ public class Programmer
 
         //concatenate and return final string
         return id.toString() + " | " + name + " | " + position.toString() + " | " + strLanguages + " | " + status;
+    }
+
+    public Integer getPosition() {
+        return position;
+    }
+
+    public void setPosition(Integer newPosition) {
+        this.position=newPosition;
+    }
+
+    public void setCurrentPlayer() {
+        this.currentProgrammer=true;
     }
 }
