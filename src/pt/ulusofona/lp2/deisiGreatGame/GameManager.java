@@ -22,7 +22,7 @@ public class GameManager {
     Board size
      */
     private int boardSize;
-    
+
     /*
         public int BoardSize
         {
