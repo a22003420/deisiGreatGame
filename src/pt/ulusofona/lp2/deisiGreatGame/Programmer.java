@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
-
 /*
 Programmer game color
  */
@@ -137,6 +136,11 @@ public class Programmer
     {
         Integer nrPosition = throwDice();
 
+        /*
+        GameManager game = new GameManager();
+        game.moveCurrentPlayer(nrPosition);
+        */
+
         return false;
     }
 
@@ -169,22 +173,37 @@ public class Programmer
         return id.toString() + " | " + name + " | " + position.toString() + " | " + strLanguages + " | " + status;
     }
 
+    /*
+    Returns gamer position
+     */
     public Integer getPosition() {
         return position;
     }
 
+    /*
+    Set game position
+     */
     public void setPosition(Integer newPosition) {
         this.position=newPosition;
     }
 
+    /*
+    Set current player
+     */
     public void setCurrentPlayer() {
         this.currentProgrammer=true;
     }
 
+    /*
+    Add nr Moves
+     */
     public void addNrMoves() {
         this.nrMoves++;
     }
 
+    /*
+    Get Number of turns
+     */
     public int getNrTurns() {
         return nrMoves;
     }

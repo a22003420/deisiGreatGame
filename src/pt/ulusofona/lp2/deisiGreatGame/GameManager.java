@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-
 import static java.util.stream.Collectors.toList;
 
 /*
@@ -21,22 +20,11 @@ public class GameManager {
     /*
     Board size
      */
-    private int boardSize;
+    public int boardSize;
 
     /*
-        public int BoardSize
-        {
-            get boardSize;
-            set this.boardSize = value;
-
-        }*/
-
-
-
-
-        /*
-        Total number of turns
-         */
+    Total number of turns
+     */
     private int totalNrTurns;
 
     /*
