@@ -20,7 +20,7 @@ public class GameManager {
     /*
     Board size
      */
-    public int boardSize;
+    private int boardSize;
 
     /*
     Total number of turns
@@ -145,21 +145,21 @@ public class GameManager {
         }
 
         //set boardsize
-        SetBoardSize(boardSize);
+        setBoardSize(boardSize);
 
         //set programmers
-        SetProgrammerList(programmerList);
+        setProgrammerList(programmerList);
 
-        return false;
+        return true;
     }
 
-    private void SetProgrammerList(List<Programmer> programmerList)
+    private void setProgrammerList(List<Programmer> programmerList)
     {
         programmerList.sort(Comparator.comparing(Programmer::getName));
         this.programmers=programmerList;
     }
 
-    private void SetBoardSize(int boardSize) {
+    private void setBoardSize(int boardSize) {
         this.boardSize=boardSize;
     }
 
