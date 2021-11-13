@@ -21,15 +21,13 @@ public class GameManager {
     private int totalNrTurns;
 
     /*
-    Gamers on game
+    Players on game
      */
     private ArrayList<Programmer> programmers;
-    private Programmer current, winner;
 
     //###########
     //REQUIRED Constructor
     public GameManager(){
-
     }
 
     //###########
@@ -40,10 +38,6 @@ public class GameManager {
      */
     public boolean createInitialBoard(String[][] playerInfo, int boardSize)
     {
-        current=new Programmer();
-        winner=new Programmer();
-        totalNrTurns=1;
-
         //check null value
         if(playerInfo==null) {
             return false;
@@ -90,14 +84,14 @@ public class GameManager {
 
             //###
             //Begin: Programming Languages (prevent duplicates and convert to ArrayList<String>
-            ArrayList<String> languagesList = fillLanguageList(playerInfo[playerRow][2]);
+            ArrayList<String> languagesList = fillLanguageList(playerInfo[playerRow][2].toUpperCase());
             //End: Programming Languages
             //###
 
             //####
             //Begin: Color
-            String color = playerInfo[playerRow][3];
-            if(color == null || !isValidColorValue(color)) {
+            String color = playerInfo[playerRow][3].toUpperCase();
+            if(!isValidColorValue(color)) {
                 return false;
             }
             ProgrammerColor enumColor = ProgrammerColor.valueOf(color.toUpperCase());
@@ -121,16 +115,16 @@ public class GameManager {
                 }
             }
 
-            //Create programmer and add to programmer list
+            //Create new programmer and add to programmer list
             programmerList.add(new Programmer(id, name, languagesList, enumColor));
         }
 
         //set BoardSize
         setBoardSize(boardSize);
 
-        //sort programmer by Id and set game players
+        //sort programmer by ID and set game players
         setProgrammerList(programmerList);
-        current=programmers.get(0);
+
         return true;
     }
 
@@ -192,60 +186,72 @@ public class GameManager {
      */
     public int getCurrentPlayerID()
     {
-        return current.getId();
-
+        return getCurrentPlayer().getId();
     }
 
     /*
-    Move current player n positions
+    Get current player
      */
-    public boolean moveCurrentPlayer(int nrPositions){
+    public Programmer getCurrentPlayer()
+    {
+        //fetch programmer list
+        ArrayList<Programmer> programmerArrayList = getProgrammerList();
 
+        int nrPlayers = programmerArrayList.size();
+
+        //nr turns
+        int nrTurns = getNrTurns();
+
+        //calculate current player
+        int index = 0;
+        if(nrTurns>0)
+        {
+            if (nrTurns < nrPlayers) {
+                index = nrTurns % nrPlayers;
+            } else if (nrTurns == nrPlayers) {
+                index = nrPlayers - 1;
+            } else if (nrTurns > nrPlayers) {
+                index = (nrPlayers % nrTurns) -1;
+            }
+        }
+
+        //return current player
+        return programmerArrayList.get(index);
+    }
+
+    /*
+    Move current player given positions
+     */
+    public boolean moveCurrentPlayer(int nrPositions)
+    {
         //check number positions range
         if(nrPositions<1 || nrPositions>6) {
             return false;
         }
 
-        this.totalNrTurns++;
+        //get current player
+        Programmer currentPlayer = getCurrentPlayer();
+        //get current player position
+        int currentPlayerPosition = currentPlayer.getBoardPosition();
 
-        int newPlayerPosition =current.getBoardPosition()+nrPositions;
+        //get board dimension
+        int boardSize = getBoardSize();
 
-        if(newPlayerPosition>boardSize){
+        //calculate new current player position
+        int newPosition = currentPlayerPosition+nrPositions;
 
-            int returnsSteps=newPlayerPosition-boardSize;
-
-            for(Programmer programmer: programmers) {
-
-                if(programmer.getId()==current.getId()){
-                    programmer.setBoardPosition(boardSize-returnsSteps);
-                    return true;
-                }
-            }
-
-        } else if(newPlayerPosition==boardSize) {
-            for(Programmer programmer: programmers) {
-
-                if(programmer.getId()==current.getId()){
-                    programmer.setBoardPosition(boardSize);
-                    winner=current;
-                    return true;
-                }
-            }
+        //check max position logic
+        if(newPosition>boardSize)
+        {
+            currentPlayer.setBoardPosition(boardSize-(newPosition-boardSize));
+        }
+        else
+        {
+            currentPlayer.setBoardPosition(newPosition);
         }
 
-        for(Programmer programmer: programmers) {
-
-            if(programmer.getId()==current.getId()){
-                programmer.setBoardPosition(newPlayerPosition);
-            }
-        }
-
-        if(current.getId()==programmers.get(programmers.size()-1).getId()){
-            current=programmers.get(0);
-
-        }else{
-            current=programmers.get(programmers.indexOf(current)+1);
-        }
+        //add turn to game turns
+        addTurn();
 
         return true;
     }
@@ -330,10 +336,17 @@ public class GameManager {
     //PRIVATE METHODS
 
     /*
-    Get total number of turns played
+    Returns Board Size
+     */
+    private int getBoardSize() {
+        return this.boardSize;
+    }
+
+    /*
+    Returns total number of turns played
      */
     private int getNrTurns(){
-        return totalNrTurns;
+        return this.totalNrTurns;
     }
 
     /*
@@ -354,6 +367,14 @@ public class GameManager {
         programmerList.sort(Comparator.comparing(Programmer::getId));
         //fill attribute
         this.programmers=programmerList;
+    }
+
+    /*
+    Get Programmer List
+     */
+    private ArrayList<Programmer> getProgrammerList()
+    {
+        return this.programmers;
     }
 
     /*
@@ -382,17 +403,17 @@ public class GameManager {
     }
 
     /*
-    Validate if color is valid, exist on enumerator
+    Validate if color exist on enumerator
+    Validation is made by using uppercase
      */
     private boolean isValidColorValue(String color)
     {
         ProgrammerColor[] programmerColorArr = ProgrammerColor.values();
         for (ProgrammerColor colorOnEnum : programmerColorArr){
-            if(colorOnEnum.toString().equals(color)) {
+            if(colorOnEnum.name().equals(color)) {
                 return true;
             }
         }
         return false;
     }
-
 }

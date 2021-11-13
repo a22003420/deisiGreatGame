@@ -1,46 +1,35 @@
 package pt.ulusofona.lp2.deisiGreatGame;
 //Imports
 import org.junit.Test;
-
-import java.util.ArrayList;
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 public class TestGameManager {
 
-    static GameManager game = new GameManager();
-    static String[][] board = new String[2][4];
     /*
-    Check if programmer is moved with given positions
+    Check if player moves given positions
      */
     @Test
     public void moveCurrentPlayer01()
     {
-        board[0][0] = "23";
-        board[0][1] = "Joao";
-        board[0][2] = "C#;Java";
-        board[0][3] = "PURPLE";
+        GameManager game1 = new GameManager();
+        String[][] board1 = new String[2][4];
 
-        board[1][0] = "2";
-        board[1][1] = "Rui";
-        board[1][2] = "Pyton;TypeScript";
-        board[1][3] = "BROWN";
+        board1[0][0] = "23";
+        board1[0][1] = "Joao";
+        board1[0][2] = "C#;Java";
+        board1[0][3] = "PURPLE";
 
-        game.createInitialBoard(board, 20);
-        int id = game.getCurrentPlayerID();
+        board1[1][0] = "2";
+        board1[1][1] = "Rui";
+        board1[1][2] = "Pyton;TypeScript";
+        board1[1][3] = "BROWN";
 
-        ArrayList<Programmer> programmers = game.getProgrammers();
-        Programmer programmerToTest = null;
-        for (Programmer programmer: programmers)
-        {
-            if(programmer.getId() == id)
-            {
-                programmerToTest = programmer;
-            }
-        }
+        game1.createInitialBoard(board1, 20);
+
+        Programmer programmerToTest = game1.getCurrentPlayer();
 
         int nrPositionsToMove = 4;
-        game.moveCurrentPlayer(nrPositionsToMove);
+        game1.moveCurrentPlayer(nrPositionsToMove);
 
         assertTrue("CheckFirtsPlayerPosition",programmerToTest.getBoardPosition() == 5);
     }
@@ -51,82 +40,63 @@ public class TestGameManager {
     @Test
     public void moveCurrentPlayer02()
     {
-        board[0][0] = "23";
-        board[0][1] = "Joao";
-        board[0][2] = "C#;Java";
-        board[0][3] = "PURPLE";
+        GameManager game2 = new GameManager();
+        String[][] board2 = new String[2][4];
 
-        board[1][0] = "2";
-        board[1][1] = "Rui";
-        board[1][2] = "Pyton;TypeScript";
-        board[1][3] = "BROWN";
+        board2[0][0] = "23";
+        board2[0][1] = "Joao";
+        board2[0][2] = "C#;Java";
+        board2[0][3] = "PURPLE";
 
-        game.createInitialBoard(board, 20);
+        board2[1][0] = "2";
+        board2[1][1] = "Rui";
+        board2[1][2] = "Pyton;TypeScript";
+        board2[1][3] = "BROWN";
 
-        int id = game.getCurrentPlayerID();
-
-        ArrayList<Programmer> programmers = game.getProgrammers();
-        Programmer programmer1ToTest = null;
-        for (Programmer programmer: programmers)
-        {
-            if(programmer.getId() == id)
-            {
-                programmer1ToTest = programmer;
-            }
-        }
+        game2.createInitialBoard(board2, 20);
 
         int nrPositionsToMove = 4;
-        game.moveCurrentPlayer(nrPositionsToMove);
+        Programmer programmerToTest = game2.getCurrentPlayer();
+        game2.moveCurrentPlayer(nrPositionsToMove);
 
-        //check second programmer
-        id = game.getCurrentPlayerID();
-        Programmer programmer2ToTest = null;
-        for (Programmer programmer: programmers)
-        {
-            if(programmer.getId() == id)
-            {
-                programmer2ToTest = programmer;
-            }
-        }
+        assertTrue("CheckPlayerPosition",programmerToTest.getBoardPosition() == 5);
 
-        nrPositionsToMove = 1;
-        game.moveCurrentPlayer(nrPositionsToMove);
+        nrPositionsToMove = 2;
+        programmerToTest = game2.getCurrentPlayer();
+        game2.moveCurrentPlayer(nrPositionsToMove);
 
-        assertTrue("CheckFirtsPlayerPosition",programmer1ToTest.getBoardPosition() == 5);
-        assertTrue("CheckSecondPlayerPosition",programmer2ToTest.getBoardPosition() == 2);
-
+        assertTrue("CheckPlayerPosition",programmerToTest.getBoardPosition() == 3);
     }
 
     @Test
     public void moveCurrentPlayer03()
     {
-        board[0][0] = "23";
-        board[0][1] = "Joao";
-        board[0][2] = "C#;Java";
-        board[0][3] = "PURPLE";
+        GameManager game3 = new GameManager();
+        String[][] board3 = new String[2][4];
 
-        board[1][0] = "2";
-        board[1][1] = "Rui";
-        board[1][2] = "Pyton;TypeScript";
-        board[1][3] = "BROWN";
+        board3[0][0] = "23";
+        board3[0][1] = "Joao";
+        board3[0][2] = "C#;Java";
+        board3[0][3] = "PURPLE";
 
-        game.createInitialBoard(board, 4);
-        int playerId2 = game.getCurrentPlayerID();
+        board3[1][0] = "2";
+        board3[1][1] = "Rui";
+        board3[1][2] = "Pyton;TypeScript";
+        board3[1][3] = "BROWN";
 
-        ArrayList<Programmer> programmers = game.getProgrammers();
-        Programmer programmerToTest = null;
-        for (Programmer programmer: programmers)
-        {
-            if(programmer.getId() == playerId2)
-            {
-                programmerToTest = programmer;
-            }
-        }
+        game3.createInitialBoard(board3, 4);
 
         int nrPositionsToMove = 4;
-        game.moveCurrentPlayer(nrPositionsToMove);
+        Programmer programmerToTest = game3.getCurrentPlayer();
+        game3.moveCurrentPlayer(nrPositionsToMove);
 
-        assertTrue("CheckFirtsPlayerPosition",programmerToTest.getBoardPosition() == 1);
+        assertTrue("CheckPlayerPosition",programmerToTest.getBoardPosition() == 5);
+
+        nrPositionsToMove = 4;
+        programmerToTest = game3.getCurrentPlayer();
+        game3.moveCurrentPlayer(nrPositionsToMove);
+
+        assertTrue("CheckPlayerPosition",programmerToTest.getBoardPosition() == 2);
     }
 
     @Test

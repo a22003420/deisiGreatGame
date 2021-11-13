@@ -5,7 +5,7 @@ import java.util.Collections;
 
 /*
 Player game color
- */
+*/
 enum ProgrammerColor
 {
     PURPLE("Purple"), GREEN("Green"), BROWN("Brown"), BLUE("Blue");
@@ -59,6 +59,12 @@ public class Programmer
     //################
     //Constructor
     //################
+    /*
+    public Programmer() {
+
+    }
+    */
+
     Programmer(int id, String name, ArrayList<String> languageList, ProgrammerColor color)
     {
         this.id = id;
@@ -67,10 +73,6 @@ public class Programmer
         this.color = color;
         this.positionOnBoard = 1;
         this.status = true;
-    }
-
-    public Programmer() {
-
     }
 
     //#################
@@ -140,5 +142,4 @@ public class Programmer
     public void setBoardPosition(int newPosition) {
         this.positionOnBoard=newPosition;
     }
-
 }
