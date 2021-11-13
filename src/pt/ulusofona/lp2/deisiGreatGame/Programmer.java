@@ -2,29 +2,21 @@ package pt.ulusofona.lp2.deisiGreatGame;
 //Imports
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Random;
 
 /*
 Player game color
  */
-enum PlayerColor {
-    PURPLE, GREEN, BROWN, BLUE
-}
+enum ProgrammerColor {
+    PURPLE("Purple"), GREEN("Green"), BROWN("Brown"), BLUE("Blue");
+    final String cor;
 
-/*
-Player game Status
- */
-enum PlayerStatus
-{
-    Run {
-        public String toString() {
-            return "Em Jogo";
-        }
-    },
-    Exit {
-        public String toString() {
-            return "Derrotado";
-        }
+    ProgrammerColor(String cor) {
+        this.cor=cor;
+    }
+
+    @Override
+    public String toString() {
+        return cor;
     }
 }
 
@@ -36,7 +28,7 @@ public class Programmer
     /*
     Identifies programmer id
      */
-    private Integer id;
+    private int id;
 
     /*
     Identifies programmer name
@@ -51,29 +43,33 @@ public class Programmer
     /*
     Identifies programmer current position on board game
      */
-    private Integer positionOnBoard;
+    private int positionOnBoard;
 
     /*
     Identifies programmer status on game
      */
-    private PlayerStatus status;
+    private boolean status;
 
     /*
     Identifies programmer game color
      */
-    private PlayerColor color;
+    private ProgrammerColor color;
 
     //################
     //Constructor
     //################
-    Programmer(Integer id, String name, ArrayList<String> languageList, PlayerColor color)
+    Programmer(int id, String name, ArrayList<String> languageList, ProgrammerColor color)
     {
         this.id = id;
         this.name = name;
         this.languages = languageList;
         this.color = color;
         this.positionOnBoard = 1;
-        this.status = PlayerStatus.Run;
+        this.status = true;
+    }
+
+    public Programmer() {
+
     }
 
     //#################
@@ -97,7 +93,7 @@ public class Programmer
     /*
     Returns programmer Color
      */
-    public PlayerColor getColor(){
+    public ProgrammerColor getColor(){
         return this.color;
     }
 
@@ -127,7 +123,7 @@ public class Programmer
         }
 
         //concatenate and return final string
-        return id.toString() + " | " + name + " | " + positionOnBoard.toString() + " | " + strLanguages + " | " + status;
+        return id + " | " + name + " | " + positionOnBoard + " | " + strLanguages + " | " + status;
     }
 
     /*
@@ -144,18 +140,4 @@ public class Programmer
         this.positionOnBoard=newPosition;
     }
 
-    //################
-    //PRIVATE METHODS
-
-    /*
-    Throw dice to calculate number of positions to move
-    Result must be [1,6]
-    */
-    private Integer throwDice()
-    {
-        Random rand = new Random();
-        Integer min = 1;
-        Integer max = 6;
-        return rand.nextInt(max) + min;
-    }
 }

@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 
 /*
 Represents the Game board Manager
@@ -13,7 +14,6 @@ public class GameManager {
     /*
     Range Id allowed for gammer
      */
-    static final int MAXID = 50;
     static final int MINID = 1;
 
     /*
@@ -31,6 +31,8 @@ public class GameManager {
      */
     private ArrayList<Programmer> programmers;
 
+    private Programmer current, winner;
+
     //###########
     //REQUIRED Constructor
     public GameManager(){
@@ -45,6 +47,11 @@ public class GameManager {
      */
     public boolean createInitialBoard(String[][] playerInfo, int boardSize)
     {
+
+        current=new Programmer();
+        winner=new Programmer();
+        totalNrTurns=1;
+
         //check null value
         if(playerInfo==null) {
             return false;
@@ -74,8 +81,8 @@ public class GameManager {
                 return false;
             }
 
-            //validate min and max id
-            if(id<MINID || id>MAXID)
+            //validate min id
+            if(id<MINID)
             {
                 return false;
             }
@@ -83,7 +90,7 @@ public class GameManager {
             //###
             //Begin:Name
             String name = playerInfo[playerRow][1];
-            if(name == null || name.length()==0) {
+            if(name == null || name.isEmpty()) {
                 return false;
             }
             //End:Name
@@ -101,7 +108,7 @@ public class GameManager {
             if(color == null || !isValidColorValue(color)) {
                 return false;
             }
-            PlayerColor enumColor = PlayerColor.valueOf(color);
+            ProgrammerColor enumColor = ProgrammerColor.valueOf(color.toUpperCase());
             //End: Color
             //####
 
@@ -126,22 +133,13 @@ public class GameManager {
             programmerList.add(new Programmer(id, name, languagesList, enumColor));
         }
 
-        //count nr of Players
-        ++playerRow;
-
-        //check programmer list size
-        //Board Size must have at least two positions for each player
-        if((playerRow<2 || playerRow>4) || (boardSize < playerRow*2)){
-            return false;
-        }
-
         //set BoardSize
         setBoardSize(boardSize);
 
         //sort programmer by Id and set game players
         setProgrammerList(programmerList);
-
-        return true ;
+        current=programmers.get(0);
+        return true;
     }
 
     /*
@@ -159,8 +157,7 @@ public class GameManager {
         if(position==boardSize){
             return "glory.png";
         }
-
-        return null;
+        return "blank.png";
     }
 
     /*
@@ -201,14 +198,8 @@ public class GameManager {
      */
     public int getCurrentPlayerID()
     {
-        List<Programmer> programmerList = getProgrammers();
-        if (programmerList==null){
-            return 0;
-        }
+        return current.getId();
 
-        int index = (getNrTurns() % programmerList.size());
-
-        return programmerList.get(index > 0 ? --index : index).getId();
     }
 
     /*
@@ -221,37 +212,45 @@ public class GameManager {
             return false;
         }
 
-        //get current player id
-        int currentPlayerId = getCurrentPlayerID();
-        if(currentPlayerId==0){
-            return false;
+        this.totalNrTurns++;
+
+        int newPlayerPosition =current.getBoardPosition()+nrPositions;
+
+        if(newPlayerPosition>boardSize){
+
+            int returnsSteps=newPlayerPosition-boardSize;
+
+            for(Programmer programmer: programmers) {
+
+                if(programmer.getId()==current.getId()){
+                    programmer.setBoardPosition(boardSize-returnsSteps);
+                    return true;
+                }
+            }
+
+        } else if(newPlayerPosition==boardSize) {
+            for(Programmer programmer: programmers) {
+
+                if(programmer.getId()==current.getId()){
+                    programmer.setBoardPosition(boardSize);
+                    winner=current;
+                    return true;
+                }
+            }
         }
 
-        //get programmers List
-        List<Programmer> programmerList = getProgrammers();
+        for(Programmer programmer: programmers) {
 
-        //find programmer for currentPlayerId
-        int index;
-        int nrOfPlayers = programmerList.size();
-        for (index = 0; index<nrOfPlayers; index++)
-        {
-            Programmer programmer = programmerList.get(index);
-            if(programmer.getId() == currentPlayerId)
-            {
-                int position = programmer.getBoardPosition();
-                int newPosition = position+nrPositions;
-
-                //check if new position is greater than boardSize
-                if(newPosition>boardSize)
-                {
-                    newPosition = boardSize - (newPosition - boardSize);
-                }
-
-                //Set current programmer player new Position
-                programmer.setBoardPosition(newPosition);
-
-                break;
+            if(programmer.getId()==current.getId()){
+                programmer.setBoardPosition(newPlayerPosition);
             }
+        }
+
+        if(current.getId()==programmers.get(programmers.size()-1).getId()){
+            current=programmers.get(0);
+
+        }else{
+            current=programmers.get(programmers.indexOf(current)+1);
         }
 
         return true;
@@ -384,7 +383,7 @@ public class GameManager {
                 languagesList.add(language);
             }
         }
-        return languagesList == null ? null : languagesList;
+        return languagesList;
     }
 
     /*
@@ -392,8 +391,8 @@ public class GameManager {
      */
     private boolean isValidColorValue(String color)
     {
-        PlayerColor[] programmerColorArr = PlayerColor.values();
-        for (PlayerColor colorOnEnum : programmerColorArr){
+        ProgrammerColor[] programmerColorArr = ProgrammerColor.values();
+        for (ProgrammerColor colorOnEnum : programmerColorArr){
             if(colorOnEnum.toString().equals(color)) {
                 return true;
             }
