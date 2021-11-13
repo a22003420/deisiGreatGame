@@ -83,7 +83,7 @@ public class Programmer
         this.name = name;
         this.languages = languageList;
         this.color = color;
-        this.position = 0;
+        this.position = 1;
     }
 
     //#################

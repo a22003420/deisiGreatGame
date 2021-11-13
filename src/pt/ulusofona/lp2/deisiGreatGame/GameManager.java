@@ -148,7 +148,7 @@ public class GameManager {
         }
 
         // Board Size must have two positions for each player
-        if(boardSize >= programmerCount*2){
+        if(boardSize < programmerCount*2){
             return false;
         }
 
@@ -208,7 +208,6 @@ public class GameManager {
     public int getCurrentPlayerID(){
 
         List<Programmer> programmerList = getProgrammers();
-
         if (programmerList==null || programmerList.size()==0){
             return 0;
         }
