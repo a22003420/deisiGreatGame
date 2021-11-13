@@ -22,7 +22,7 @@ public class TestGameManager {
 
         game.createInitialBoard(board, 20);
 
-        game.moveCurrentPlayer(4);
+        //game.moveCurrentPlayer(4);
 
         int i = game.getCurrentPlayerID();
         assertTrue("GetCurrentPlayerId_Ok",i>0);

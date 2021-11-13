@@ -54,6 +54,11 @@ public class Programmer
     private Integer position;
 
     /*
+    Identifies programmer nr positions to move
+     */
+    private Integer nrPositions;
+
+    /*
     Identifies programmer status on game
      */
     private ProgrammerStatus status;
@@ -111,13 +116,7 @@ public class Programmer
      */
     public Boolean play()
     {
-        Integer nrPositions = throwDice();
-
-        /*
-        GameManager game = new GameManager();
-        game.moveCurrentPlayer(nrPosition);
-        */
-
+        this.nrPositions = throwDice();
         return false;
     }
 
@@ -153,8 +152,15 @@ public class Programmer
     /*
     Returns gamer position
      */
-    public Integer getPosition() {
+    public Integer getBoardPosition() {
         return position;
+    }
+
+    /*
+    Returns gamer nr Positions to move
+     */
+    public Integer getNrPositionsToMove() {
+        return nrPositions;
     }
 
     /*
@@ -177,7 +183,7 @@ public class Programmer
     /*
     Throw dice to calculate number of positions to move
     Result must be [1,6]
-     */
+    */
     private Integer throwDice()
     {
         Random rand = new Random();
@@ -185,5 +191,4 @@ public class Programmer
         Integer max = 6;
         return rand.nextInt(max) + min;
     }
-
 }

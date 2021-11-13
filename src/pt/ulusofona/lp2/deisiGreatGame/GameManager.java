@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Random;
+
 import static java.util.stream.Collectors.toList;
 
 /*
@@ -12,7 +14,7 @@ Represents the Game board Manager
 public class GameManager {
 
     /*
-    Max Id allowed for user
+    Range Id allowed for gammer
      */
     static final int MAXID = 50;
     static final int MINID = 1;
@@ -51,18 +53,13 @@ public class GameManager {
             return false;
         }
 
-        //check number of players
+        //check number of players and board size before validation
         int numberOfPlayers = playerInfo.length;
-        if(numberOfPlayers<2 || numberOfPlayers>4){
+        if(numberOfPlayers<2 || numberOfPlayers>4 || boardSize<numberOfPlayers* 2){
             return false;
         }
 
-        //check board size
-        if(boardSize<numberOfPlayers* 2){
-            return false;
-        }
-
-        //list of programmers/players
+        //list of programmers/players to fill
         List<Programmer> programmerList = new ArrayList<>();
 
         //iterate over matrix
@@ -96,7 +93,6 @@ public class GameManager {
             //###
             //Begin: Programming Languages
             String languagesS = playerInfo[row][2]; //C#;Java;....
-            //Validate languages length
             if(languagesS==null || languagesS.length()==0){
                 return false;
             }
@@ -121,29 +117,27 @@ public class GameManager {
             {
                 for (Programmer programmer : programmerList)
                 {
-                    //validate unique id
+                    //validate unique player id
                     if(programmer.getId() == id) {
                         return false;
                     }
 
-                    //validate unique color
+                    //validate unique player color
                     if(programmer.getColor().equals(enumColor)) {
                         return false;
                     }
                 }
             }
 
-            //Create programmer
-            Programmer programmer = new Programmer(id, name, languagesList, enumColor);
-            //Add programmer to list
-            programmerList.add(programmer);
+            //Create programmer and to programmer list
+            programmerList.add(new Programmer(id, name, languagesList, enumColor));
         }
 
         //count nr of Players
         int programmerCount = programmerList.size();
 
         //check programmer list size
-        if(programmerCount<2 || programmerCount>4)       {
+        if(programmerCount<2 || programmerCount>4){
             return false;
         }
 
@@ -152,11 +146,18 @@ public class GameManager {
             return false;
         }
 
-        /*setBoardSize(boardSize);*/
+        //set BoardSize
         setBoardSize(boardSize);
 
         //set programmers
         setProgrammerList(programmerList);
+
+        while (!gameIsOver())
+        {
+            Programmer programmer = getCurrentPlayer();
+            programmer.play();
+            moveCurrentPlayer(programmer.getNrPositionsToMove());
+        }
 
         return true;
     }
@@ -184,23 +185,20 @@ public class GameManager {
     Get players
      */
     public List<Programmer> getProgrammers(){
-
         return this.programmers;
     }
 
     /*
     Get players on a given position
      */
-    public ArrayList<Programmer> getProgrammers(int position){
+    public ArrayList getProgrammers(int position){
 
         if(position==0 || position>boardSize){
             return null;
         }
 
-        List<Programmer> programmerOnPositionList = programmers.stream().filter(c -> c.getPosition()==position)
-                .collect(toList());
-
-        return new ArrayList(programmerOnPositionList);
+        return new ArrayList(programmers.stream().filter(c -> c.getBoardPosition()==position)
+                .collect(toList()));
     }
 
     /*
@@ -209,9 +207,11 @@ public class GameManager {
     public int getCurrentPlayerID(){
 
         List<Programmer> programmerList = getProgrammers();
+        /*
         if (programmerList==null){
             return 0;
         }
+        */
 
         for(Programmer programmer:programmerList){
             if(programmer.isCurrentPlayer()){
@@ -219,7 +219,23 @@ public class GameManager {
             }
         }
 
-        return 10;
+        return 0;
+    }
+
+    /*
+    Get current player
+     */
+    public Programmer getCurrentPlayer(){
+
+        List<Programmer> programmerList = getProgrammers();
+
+        for(Programmer programmer:programmerList){
+            if(programmer.isCurrentPlayer()){
+                return programmer;
+            }
+        }
+
+        return null;
     }
 
     /*
@@ -249,20 +265,21 @@ public class GameManager {
             Programmer programmer = programmerList.get(index);
             if(programmer.getId() == currentPlayerId)
             {
-                int position = programmer.getPosition();
+                int position = programmer.getBoardPosition();
                 int newPosition = position+nrPositions;
 
+                //check if new position is greater than boardSize
                 if(newPosition>boardSize)
                 {
-                    int subtractPosition = newPosition - boardSize;
-                    newPosition = boardSize - subtractPosition;
+                    newPosition = boardSize - (newPosition - boardSize);
                 }
 
                 //Set current programmer player new Position
                 programmer.setPosition(newPosition);
+                //set current programmer not current player
                 programmer.setCurrentPlayer(false);
 
-                //Increment turns on game
+                //Increment turn on game turns
                 addTurn();
 
                 break;
@@ -276,7 +293,7 @@ public class GameManager {
 
         //get next player
         Programmer programmer = programmerList.get(index);
-        //set next player current player
+        //set next player new current player
         programmer.setCurrentPlayer(true);
 
         return true;
@@ -289,12 +306,14 @@ public class GameManager {
 
         List<Programmer> programmerList = getProgrammers();
 
+        /*
         if (programmerList==null || programmerList.size()==0){
             return false;
         }
+        */
 
         for (Programmer programmer:programmerList) {
-            if(programmer.getPosition()==boardSize){
+            if(programmer.getBoardPosition()==boardSize){
                 return true;
             }
         }
@@ -323,7 +342,7 @@ public class GameManager {
         }
 
         //Order programmers descending by Position
-        programmerList.sort(Comparator.comparing(Programmer::getPosition).reversed());
+        programmerList.sort(Comparator.comparing(Programmer::getBoardPosition).reversed());
 
         int index;
         int nrOfPlayers = programmerList.size();
@@ -331,7 +350,7 @@ public class GameManager {
         {
             Programmer programmer = programmerList.get(index);
 
-            Integer position = programmer.getPosition();
+            Integer position = programmer.getBoardPosition();
             if(index==0 && position!=boardSize){
                 return resultList;
             }
@@ -349,7 +368,7 @@ public class GameManager {
             }
             else
             {
-                resultList.add(programmer.getName() + " " + Integer.toString(programmer.getPosition()));
+                resultList.add(programmer.getName() + " " + programmer.getBoardPosition());
             }
         }
         return resultList;
@@ -381,7 +400,7 @@ public class GameManager {
         //order list ascending by id
         programmerList.sort(Comparator.comparing(Programmer::getId));
 
-        //fetch first programmer
+        //fetch first programmer from list
         Programmer programmer = programmerList.get(0);
 
         //set first programmer as current player
@@ -395,8 +414,10 @@ public class GameManager {
      */
     private ArrayList<String> convertLanguageStringToArrayList(String languages) {
 
+        //split string by ";"
         String[] languagesArr = languages.split(";");
 
+        //fill list of languages
         ArrayList<String> languagesList = new ArrayList<>();
         for (String language: languagesArr)
         {
@@ -409,7 +430,7 @@ public class GameManager {
     }
 
     /*
-    Validate if color value
+    Validate if programmer color is valid
      */
     private boolean isValidColorValue(String color)
     {
@@ -421,4 +442,7 @@ public class GameManager {
         }
         return false;
     }
+
+
+
 }
