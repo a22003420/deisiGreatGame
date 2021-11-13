@@ -18,7 +18,7 @@ public class TestGameManager {
         board[0][2] = "C#;Java";
         board[0][3] = "PURPLE";
 
-        board[1][0] = "2";
+        board[1][0] = "0";
         board[1][1] = "Rui";
         board[1][2] = "Pyton;TypeScript";
         board[1][3] = "BROWN";

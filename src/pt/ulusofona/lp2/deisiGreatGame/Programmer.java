@@ -195,8 +195,8 @@ public class Programmer
     /*
     Set current player
      */
-    public void setCurrentPlayer() {
-        this.currentProgrammer=true;
+    public void setCurrentPlayer(boolean isCurrent) {
+        this.currentProgrammer=isCurrent;
     }
 
     /*

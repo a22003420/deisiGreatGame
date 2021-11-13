@@ -209,7 +209,7 @@ public class GameManager {
 
         List<Programmer> programmerList = getProgrammers();
         if (programmerList==null || programmerList.size()==0){
-            return 0;
+            return 5;
         }
 
         for(Programmer programmer:programmerList){
@@ -218,7 +218,7 @@ public class GameManager {
             }
         }
 
-        return 0;
+        return 9;
     }
 
     /*
@@ -256,6 +256,7 @@ public class GameManager {
 
                 //Set programmer new Position
                 programmer.setPosition(newPosition);
+                programmer.setCurrentPlayer(false);
 
                 //Increment turns on game
                 addTurn();
@@ -272,7 +273,7 @@ public class GameManager {
         //get next player
         Programmer programmer = programmerList.get(index);
         //set next player current player
-        programmer.setCurrentPlayer();
+        programmer.setCurrentPlayer(true);
 
         return true;
     }
@@ -380,7 +381,7 @@ public class GameManager {
         Programmer programmer = programmerList.get(0);
 
         //set first programmer as current player
-        programmer.setCurrentPlayer();
+        programmer.setCurrentPlayer(true);
 
         this.programmers=programmerList;
     }
