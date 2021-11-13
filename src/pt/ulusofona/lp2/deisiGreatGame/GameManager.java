@@ -63,7 +63,8 @@ public class GameManager {
         List<Programmer> programmerList = new ArrayList<>();
 
         //iterate over matrix
-        for (int row = 0; row < playerInfo.length; row++)
+        int row;
+        for (row = 0; row < playerInfo.length; row++)
         {
             //Id
             int id;
@@ -112,7 +113,7 @@ public class GameManager {
             //End: Color
             //####
 
-            //validation on second iteration
+            //validation values on second iteration
             if(row>1)
             {
                 for (Programmer programmer : programmerList)
@@ -133,16 +134,12 @@ public class GameManager {
             programmerList.add(new Programmer(id, name, languagesList, enumColor));
         }
 
-        //count nr of Players
-        int programmerCount = programmerList.size();
+        //count nr of Gammers
+        int programmerCount = row+1;
 
         //check programmer list size
-        if(programmerCount<2 || programmerCount>4){
-            return false;
-        }
-
-        // Board Size must have at least two positions for each player
-        if(boardSize < programmerCount*2){
+        //Board Size must have at least two positions for each player
+        if((programmerCount<2 || programmerCount>4) || (boardSize < programmerCount*2)){
             return false;
         }
 
@@ -152,12 +149,14 @@ public class GameManager {
         //set programmers
         setProgrammerList(programmerList);
 
+        /*
         while (!gameIsOver())
         {
             Programmer programmer = getCurrentPlayer();
             programmer.play();
             moveCurrentPlayer(programmer.getNrPositionsToMove());
         }
+        */
 
         return true;
     }
@@ -207,11 +206,9 @@ public class GameManager {
     public int getCurrentPlayerID(){
 
         List<Programmer> programmerList = getProgrammers();
-        /*
         if (programmerList==null){
             return 0;
         }
-        */
 
         for(Programmer programmer:programmerList){
             if(programmer.isCurrentPlayer()){
@@ -239,7 +236,7 @@ public class GameManager {
     }
 
     /*
-    Move player n positions
+    Move current player n positions
      */
     public boolean moveCurrentPlayer(int nrPositions){
 
@@ -442,7 +439,5 @@ public class GameManager {
         }
         return false;
     }
-
-
 
 }

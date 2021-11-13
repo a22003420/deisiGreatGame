@@ -56,7 +56,7 @@ public class Programmer
     /*
     Identifies programmer nr positions to move
      */
-    private Integer nrPositions;
+    private Integer nrPositionsToMove;
 
     /*
     Identifies programmer status on game
@@ -116,7 +116,7 @@ public class Programmer
      */
     public Boolean play()
     {
-        this.nrPositions = throwDice();
+        this.nrPositionsToMove = throwDice();
         return false;
     }
 
@@ -160,7 +160,7 @@ public class Programmer
     Returns gamer nr Positions to move
      */
     public Integer getNrPositionsToMove() {
-        return nrPositions;
+        return nrPositionsToMove;
     }
 
     /*
