@@ -50,7 +50,6 @@ public class Programmer
 
     /*
     Identifies programmer current position on board game
-    Begin position is 1
      */
     private Integer position;
 
@@ -67,7 +66,7 @@ public class Programmer
     /*
     Identifies if programmer is current player
      */
-    private Boolean currentProgrammer;
+    private Boolean isCurrentPlayer;
 
     //################
     //Constructor
@@ -112,7 +111,7 @@ public class Programmer
      */
     public Boolean play()
     {
-        Integer nrPosition = throwDice();
+        Integer nrPositions = throwDice();
 
         /*
         GameManager game = new GameManager();
@@ -127,7 +126,7 @@ public class Programmer
      */
     public Boolean isCurrentPlayer()
     {
-        return currentProgrammer;
+        return isCurrentPlayer;
     }
 
     /*
@@ -169,7 +168,7 @@ public class Programmer
     Set current player
      */
     public void setCurrentPlayer(boolean isCurrentPlayer) {
-        this.currentProgrammer=isCurrentPlayer;
+        this.isCurrentPlayer=isCurrentPlayer;
     }
 
     //################
