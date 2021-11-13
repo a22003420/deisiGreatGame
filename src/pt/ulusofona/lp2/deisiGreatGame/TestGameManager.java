@@ -1,10 +1,7 @@
 package pt.ulusofona.lp2.deisiGreatGame;
-
-import junit.framework.Assert;
+//Imports
 import org.junit.Test;
 import static org.junit.Assert.*;
-
-
 
 public class TestGameManager {
     @Test
@@ -18,12 +15,14 @@ public class TestGameManager {
         board[0][2] = "C#;Java";
         board[0][3] = "PURPLE";
 
-        board[1][0] = "0";
+        board[1][0] = "2";
         board[1][1] = "Rui";
         board[1][2] = "Pyton;TypeScript";
         board[1][3] = "BROWN";
 
         game.createInitialBoard(board, 20);
+
+        game.moveCurrentPlayer(4);
 
         int i = game.getCurrentPlayerID();
         assertTrue("GetCurrentPlayerId_Ok",i>0);

@@ -52,7 +52,7 @@ public class Programmer
     Identifies programmer current position on board game
     Begin position is 1
      */
-    private Integer position = 1;
+    private Integer position;
 
     /*
     Identifies programmer status on game: "Em Jogo"; Derrotado
@@ -69,11 +69,6 @@ public class Programmer
      */
     private Boolean currentProgrammer;
 
-    /*
-    Identifies the number of moves
-     */
-    private Integer nrMoves;
-
     //################
     //Constructor
     //################
@@ -84,54 +79,32 @@ public class Programmer
         this.languages = languageList;
         this.color = color;
         this.position = 1;
+        this.status = ProgrammerStatus.Run;
     }
 
     //#################
-    //Methods
+    //Public Methods
     //#################
 
     /*
     Returns programmer Id
      */
-    int getId(){
+    public int getId(){
         return id;
     }
 
     /*
     Returns programmer Name
      */
-    String getName(){
+    public String getName(){
         return name;
     }
 
     /*
     Returns programmer Color
      */
-    ProgrammerColor getColor(){
+    public ProgrammerColor getColor(){
         return color;
-    }
-
-    /*
-    Throw dice to calculate number of positions to move
-    Result must be [1,6]
-     */
-    private Integer throwDice()
-    {
-        Random rand = new Random();
-        Integer min = 1;
-        Integer max = 6;
-        return rand.nextInt(max) + min;
-    }
-
-    /*
-    Throw dice to calculate number of positions to move
-    Result must be [1,50]
-    */
-    private Integer generateProgrammerId()
-    {
-        //Random rand = new Random();
-        //return rand.nextInt(MAXID) + minId;
-        return 0;
     }
 
     /*
@@ -195,21 +168,23 @@ public class Programmer
     /*
     Set current player
      */
-    public void setCurrentPlayer(boolean isCurrent) {
-        this.currentProgrammer=isCurrent;
+    public void setCurrentPlayer(boolean isCurrentPlayer) {
+        this.currentProgrammer=isCurrentPlayer;
     }
 
-    /*
-    Add nr Moves
-     */
-    public void addNrMoves() {
-        this.nrMoves++;
-    }
+    //################
+    //PRIVATE METHODS
 
     /*
-    Get Number of turns
+    Throw dice to calculate number of positions to move
+    Result must be [1,6]
      */
-    public int getNrTurns() {
-        return nrMoves;
+    private Integer throwDice()
+    {
+        Random rand = new Random();
+        Integer min = 1;
+        Integer max = 6;
+        return rand.nextInt(max) + min;
     }
+
 }

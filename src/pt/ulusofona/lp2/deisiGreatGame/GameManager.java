@@ -184,6 +184,7 @@ public class GameManager {
     Get players
      */
     public List<Programmer> getProgrammers(){
+
         return this.programmers;
     }
 
