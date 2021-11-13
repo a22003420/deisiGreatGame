@@ -6,7 +6,8 @@ import java.util.Collections;
 /*
 Player game color
  */
-enum ProgrammerColor {
+enum ProgrammerColor
+{
     PURPLE("Purple"), GREEN("Green"), BROWN("Brown"), BLUE("Blue");
     final String cor;
 
@@ -105,7 +106,7 @@ public class Programmer
         return true;
     }
 
-    /*dasdasda
+    /*
     Returns programmer string
     <id> | <nome> | <position> | <languages> | <status>
      */
