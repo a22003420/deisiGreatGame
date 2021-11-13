@@ -4,8 +4,6 @@ import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Random;
-
 import static java.util.stream.Collectors.toList;
 
 /*
@@ -32,7 +30,7 @@ public class GameManager {
     /*
     Gamers on game
      */
-    private List<Programmer> programmers;
+    private ArrayList<Programmer> programmers;
 
     //###########
     //REQUIRED Constructor
@@ -60,16 +58,17 @@ public class GameManager {
         }
 
         //list of programmers/players to fill
-        List<Programmer> programmerList = new ArrayList<>();
+        ArrayList<Programmer> programmerList = new ArrayList<>();
 
         //iterate over matrix
-        int row;
-        for (row = 0; row < playerInfo.length; row++)
+        //each row represents a player
+        int playerRow;
+        for (playerRow = 0; playerRow < playerInfo.length; playerRow++)
         {
             //Id
             int id;
             try{
-                id = Integer.parseInt(playerInfo[row][0]);
+                id = Integer.parseInt(playerInfo[playerRow][0]);
             }
             catch (Exception e)
             {
@@ -84,7 +83,7 @@ public class GameManager {
 
             //###
             //Begin:Name
-            String name = playerInfo[row][1];
+            String name = playerInfo[playerRow][1];
             if(name == null || name.length()==0) {
                 return false;
             }
@@ -92,29 +91,23 @@ public class GameManager {
             //###
 
             //###
-            //Begin: Programming Languages
-            String languagesS = playerInfo[row][2]; //C#;Java;....
-            if(languagesS==null || languagesS.length()==0){
-                return false;
-            }
-
-            //Convert Language String to ArrayList<String>
-            ArrayList<String> languagesList = convertLanguageStringToArrayList(languagesS);
+            //Begin: Programming Languages (prevent duplicates and convert to ArrayList<String>
+            ArrayList<String> languagesList = fillLanguageList(playerInfo[playerRow][2]);
             //End: Programming Languages
             //###
 
             //####
             //Begin: Color
-            String color = playerInfo[row][3];
+            String color = playerInfo[playerRow][3];
             if(color == null || !isValidColorValue(color)) {
                 return false;
             }
-            ProgrammerColor enumColor = ProgrammerColor.valueOf(color);
+            PlayerColor enumColor = PlayerColor.valueOf(color);
             //End: Color
             //####
 
             //validation values on second iteration
-            if(row>1)
+            if(playerRow>0)
             {
                 for (Programmer programmer : programmerList)
                 {
@@ -130,35 +123,26 @@ public class GameManager {
                 }
             }
 
-            //Create programmer and to programmer list
+            //Create programmer and add to programmer list
             programmerList.add(new Programmer(id, name, languagesList, enumColor));
         }
 
-        //count nr of Gammers
-        int programmerCount = row+1;
+        //count nr of Players
+        ++playerRow;
 
         //check programmer list size
         //Board Size must have at least two positions for each player
-        if((programmerCount<2 || programmerCount>4) || (boardSize < programmerCount*2)){
+        if((playerRow<2 || playerRow>4) || (boardSize < playerRow*2)){
             return false;
         }
 
         //set BoardSize
         setBoardSize(boardSize);
 
-        //set programmers
+        //sort programmer by Id and set game players
         setProgrammerList(programmerList);
 
-        /*
-        while (!gameIsOver())
-        {
-            Programmer programmer = getCurrentPlayer();
-            programmer.play();
-            moveCurrentPlayer(programmer.getNrPositionsToMove());
-        }
-        */
-
-        return true;
+        return true ;
     }
 
     /*
@@ -183,56 +167,49 @@ public class GameManager {
     /*
     Get players
      */
-    public List<Programmer> getProgrammers(){
-        return this.programmers;
+    public ArrayList<Programmer> getProgrammers()
+    {
+        return this.programmers==null ? new ArrayList<>() : this.programmers;
     }
 
     /*
     Get players on a given position
+    If none found returns null
      */
-    public ArrayList getProgrammers(int position){
+    public ArrayList<Programmer> getProgrammers(int position){
 
-        if(position==0 || position>boardSize){
+        if(position==0 || position>boardSize || programmers == null){
             return null;
         }
 
-        return new ArrayList(programmers.stream().filter(c -> c.getBoardPosition()==position)
-                .collect(toList()));
+        ArrayList<Programmer> programmerArrayList = new ArrayList<>();
+        for (Programmer programmer: programmers)
+        {
+            if(programmer.getId() == position)
+            {
+                programmerArrayList.add(programmer);
+            }
+        }
+
+        if(programmerArrayList.size() == 0)
+            return null;
+
+        return programmerArrayList;
     }
 
     /*
     Get current player ID
      */
-    public int getCurrentPlayerID(){
-
+    public int getCurrentPlayerID()
+    {
         List<Programmer> programmerList = getProgrammers();
         if (programmerList==null){
             return 0;
         }
 
-        for(Programmer programmer:programmerList){
-            if(programmer.isCurrentPlayer()){
-                return programmer.getId();
-            }
-        }
+        int index = (getNrTurns() % programmerList.size());
 
-        return 0;
-    }
-
-    /*
-    Get current player
-     */
-    public Programmer getCurrentPlayer(){
-
-        List<Programmer> programmerList = getProgrammers();
-
-        for(Programmer programmer:programmerList){
-            if(programmer.isCurrentPlayer()){
-                return programmer;
-            }
-        }
-
-        return null;
+        return programmerList.get(index > 0 ? --index : index).getId();
     }
 
     /*
@@ -272,26 +249,11 @@ public class GameManager {
                 }
 
                 //Set current programmer player new Position
-                programmer.setPosition(newPosition);
-                //set current programmer not current player
-                programmer.setCurrentPlayer(false);
-
-                //Increment turn on game turns
-                addTurn();
+                programmer.setBoardPosition(newPosition);
 
                 break;
             }
         }
-
-        //calculate next player
-        if(++index==nrOfPlayers){
-            index=0;
-        }
-
-        //get next player
-        Programmer programmer = programmerList.get(index);
-        //set next player new current player
-        programmer.setCurrentPlayer(true);
 
         return true;
     }
@@ -302,12 +264,6 @@ public class GameManager {
     public boolean gameIsOver(){
 
         List<Programmer> programmerList = getProgrammers();
-
-        /*
-        if (programmerList==null || programmerList.size()==0){
-            return false;
-        }
-        */
 
         for (Programmer programmer:programmerList) {
             if(programmer.getBoardPosition()==boardSize){
@@ -382,7 +338,14 @@ public class GameManager {
     //PRIVATE METHODS
 
     /*
-    Add Turn to total turns
+    Get total number of turns played
+     */
+    private int getNrTurns(){
+        return totalNrTurns;
+    }
+
+    /*
+    Add turn to total turns
      */
     private void addTurn()
     {
@@ -390,32 +353,31 @@ public class GameManager {
     }
 
     /*
+    Orders Programmer List by Id Ascending
     Set Programmer List
      */
-    private void setProgrammerList(List<Programmer> programmerList)
+    private void setProgrammerList(ArrayList<Programmer> programmerList)
     {
-        //order list ascending by id
+        //order list ascending by id ascending
         programmerList.sort(Comparator.comparing(Programmer::getId));
-
-        //fetch first programmer from list
-        Programmer programmer = programmerList.get(0);
-
-        //set first programmer as current player
-        programmer.setCurrentPlayer(true);
-
+        //fill attribute
         this.programmers=programmerList;
     }
 
     /*
     Convert Language String to ArrayList<String>
      */
-    private ArrayList<String> convertLanguageStringToArrayList(String languages) {
+    private ArrayList<String> fillLanguageList(String languages) {
+
+        if(languages == null || languages.length()==0)
+            return null;
+
+        //create list of languages
+        ArrayList<String> languagesList = new ArrayList<>();
 
         //split string by ";"
         String[] languagesArr = languages.split(";");
 
-        //fill list of languages
-        ArrayList<String> languagesList = new ArrayList<>();
         for (String language: languagesArr)
         {
             //avoid duplicates
@@ -423,16 +385,16 @@ public class GameManager {
                 languagesList.add(language);
             }
         }
-        return languagesList;
+        return languagesList == null ? null : languagesList;
     }
 
     /*
-    Validate if programmer color is valid
+    Validate if color is valid, exist on enumerator
      */
     private boolean isValidColorValue(String color)
     {
-        ProgrammerColor[] programmerColorArr = ProgrammerColor.values();
-        for (ProgrammerColor colorOnEnum : programmerColorArr){
+        PlayerColor[] programmerColorArr = PlayerColor.values();
+        for (PlayerColor colorOnEnum : programmerColorArr){
             if(colorOnEnum.toString().equals(color)) {
                 return true;
             }

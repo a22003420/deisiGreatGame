@@ -5,16 +5,16 @@ import java.util.Collections;
 import java.util.Random;
 
 /*
-Programmer game color
+Player game color
  */
-enum ProgrammerColor {
+enum PlayerColor {
     PURPLE, GREEN, BROWN, BLUE
 }
 
 /*
-Programmer game Status
+Player game Status
  */
-enum ProgrammerStatus
+enum PlayerStatus
 {
     Run {
         public String toString() {
@@ -51,39 +51,29 @@ public class Programmer
     /*
     Identifies programmer current position on board game
      */
-    private Integer position;
-
-    /*
-    Identifies programmer nr positions to move
-     */
-    private Integer nrPositionsToMove;
+    private Integer positionOnBoard;
 
     /*
     Identifies programmer status on game
      */
-    private ProgrammerStatus status;
+    private PlayerStatus status;
 
     /*
     Identifies programmer game color
      */
-    private ProgrammerColor color;
-
-    /*
-    Identifies if programmer is current player
-     */
-    private Boolean isCurrentPlayer;
+    private PlayerColor color;
 
     //################
     //Constructor
     //################
-    Programmer(Integer id, String name, ArrayList<String> languageList, ProgrammerColor color)
+    Programmer(Integer id, String name, ArrayList<String> languageList, PlayerColor color)
     {
         this.id = id;
         this.name = name;
         this.languages = languageList;
         this.color = color;
-        this.position = 1;
-        this.status = ProgrammerStatus.Run;
+        this.positionOnBoard = 1;
+        this.status = PlayerStatus.Run;
     }
 
     //#################
@@ -94,21 +84,21 @@ public class Programmer
     Returns programmer Id
      */
     public int getId(){
-        return id;
+        return this.id;
     }
 
     /*
     Returns programmer Name
      */
     public String getName(){
-        return name;
+        return this.name;
     }
 
     /*
     Returns programmer Color
      */
-    public ProgrammerColor getColor(){
-        return color;
+    public PlayerColor getColor(){
+        return this.color;
     }
 
     /*
@@ -116,16 +106,7 @@ public class Programmer
      */
     public Boolean play()
     {
-        this.nrPositionsToMove = throwDice();
-        return false;
-    }
-
-    /*
-    is Programmer CurrentPlayer
-     */
-    public Boolean isCurrentPlayer()
-    {
-        return isCurrentPlayer;
+        return true;
     }
 
     /*
@@ -146,35 +127,21 @@ public class Programmer
         }
 
         //concatenate and return final string
-        return id.toString() + " | " + name + " | " + position.toString() + " | " + strLanguages + " | " + status;
+        return id.toString() + " | " + name + " | " + positionOnBoard.toString() + " | " + strLanguages + " | " + status;
     }
 
     /*
-    Returns gamer position
+    Returns player game board position
      */
     public Integer getBoardPosition() {
-        return position;
+        return this.positionOnBoard;
     }
 
     /*
-    Returns gamer nr Positions to move
+    Set player game board position
      */
-    public Integer getNrPositionsToMove() {
-        return nrPositionsToMove;
-    }
-
-    /*
-    Set game position
-     */
-    public void setPosition(Integer newPosition) {
-        this.position=newPosition;
-    }
-
-    /*
-    Set current player
-     */
-    public void setCurrentPlayer(boolean isCurrentPlayer) {
-        this.isCurrentPlayer=isCurrentPlayer;
+    public void setBoardPosition(Integer newPosition) {
+        this.positionOnBoard=newPosition;
     }
 
     //################
