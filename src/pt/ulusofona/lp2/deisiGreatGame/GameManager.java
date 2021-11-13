@@ -147,7 +147,7 @@ public class GameManager {
             return false;
         }
 
-        // Board Size must have two positions for each player
+        // Board Size must have at least two positions for each player
         if(boardSize < programmerCount*2){
             return false;
         }
