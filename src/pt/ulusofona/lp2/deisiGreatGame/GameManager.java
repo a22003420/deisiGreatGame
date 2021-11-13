@@ -231,19 +231,22 @@ public class GameManager {
             return false;
         }
 
-        List<Programmer> programmerList = getProgrammers();
-        if (programmerList==null || programmerList.size()==0){
+        //get current player id
+        int currentPlayerId = getCurrentPlayerID();
+        if(currentPlayerId==0){
             return false;
         }
 
-        //current player
+        //get programmers List
+        List<Programmer> programmerList = getProgrammers();
+
+        //find programmer for currentPlayerId
         int index;
         int nrOfPlayers = programmerList.size();
         for (index = 0; index<nrOfPlayers; index++)
         {
             Programmer programmer = programmerList.get(index);
-
-            if(programmer.isCurrentPlayer())
+            if(programmer.getId() == currentPlayerId)
             {
                 int position = programmer.getPosition();
                 int newPosition = position+nrPositions;
@@ -251,10 +254,10 @@ public class GameManager {
                 if(newPosition>boardSize)
                 {
                     int subtractPosition = newPosition - boardSize;
-                    newPosition = boardSize -subtractPosition;
+                    newPosition = boardSize - subtractPosition;
                 }
 
-                //Set programmer new Position
+                //Set current programmer player new Position
                 programmer.setPosition(newPosition);
                 programmer.setCurrentPlayer(false);
 
