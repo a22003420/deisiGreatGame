@@ -203,7 +203,7 @@ public class GameManager {
     }
 
     /*
-    Get current player Id
+    Get current player ID
      */
     public int getCurrentPlayerID(){
 
