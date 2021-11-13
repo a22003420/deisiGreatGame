@@ -46,8 +46,6 @@ public class GameManager {
      */
     public boolean createInitialBoard(String[][] playerInfo, int boardSize)
     {
-
-
         //check null value
         if(playerInfo==null) {
             return false;
@@ -213,11 +211,9 @@ public class GameManager {
     public int getCurrentPlayerID(){
 
         List<Programmer> programmerList = getProgrammers();
-        /*
         if (programmerList==null || programmerList.size()==0){
-            return 5;
+            return 0;
         }
-         */
 
         for(Programmer programmer:programmerList){
             if(programmer.isCurrentPlayer()){
