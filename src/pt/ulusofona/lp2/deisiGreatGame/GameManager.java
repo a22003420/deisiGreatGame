@@ -357,7 +357,7 @@ public class GameManager {
      */
     private void setProgrammerList(ArrayList<Programmer> programmerList)
     {
-        //order list ascending by id ascending
+        //order list by id ascending
         programmerList.sort(Comparator.comparing(Programmer::getId));
         //fill attribute
         this.programmers=programmerList;
