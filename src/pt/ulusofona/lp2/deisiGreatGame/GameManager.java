@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import static java.util.stream.Collectors.toList;
 
 /*
 Represents the Game board Manager
