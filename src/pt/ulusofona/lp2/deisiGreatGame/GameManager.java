@@ -4,17 +4,11 @@ import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Locale;
 
 /*
 Represents the Game board Manager
  */
 public class GameManager {
-
-    /*
-    Range Id allowed for gammer
-     */
-    static final int MINID = 1;
 
     /*
     Board size
@@ -30,7 +24,6 @@ public class GameManager {
     Gamers on game
      */
     private ArrayList<Programmer> programmers;
-
     private Programmer current, winner;
 
     //###########
@@ -47,7 +40,6 @@ public class GameManager {
      */
     public boolean createInitialBoard(String[][] playerInfo, int boardSize)
     {
-
         current=new Programmer();
         winner=new Programmer();
         totalNrTurns=1;
@@ -82,7 +74,7 @@ public class GameManager {
             }
 
             //validate min id
-            if(id<MINID)
+            if(id<1)
             {
                 return false;
             }
