@@ -32,14 +32,17 @@ public class GameManager {
      */
     private List<Programmer> programmers;
 
-    //Constructor
-    public GameManager()
-    {
+    //###########
+    //REQUIRED Constructor
+    public GameManager(){
+
     }
+
+    //###########
+    //PUBLIC METHODS
 
     /*
     Creates game initial board
-    Validates data to cre
      */
     public boolean createInitialBoard(String[][] playerInfo, int boardSize)
     {
@@ -49,7 +52,7 @@ public class GameManager {
         }
 
         //check number of players
-        Integer numberOfPlayers = playerInfo.length;
+        int numberOfPlayers = playerInfo.length;
         if(numberOfPlayers<2 || numberOfPlayers>4){
             return false;
         }
@@ -66,7 +69,7 @@ public class GameManager {
         for (int row = 0; row < playerInfo.length; row++)
         {
             //Id
-            Integer id = 0;
+            int id;
             try{
                 id = Integer.parseInt(playerInfo[row][0]);
             }
@@ -75,38 +78,43 @@ public class GameManager {
                 return false;
             }
 
-            //validate max id
+            //validate min and max id
             if(id<MINID || id>MAXID)
             {
                 return false;
             }
 
-            //Name
+            //###
+            //Begin:Name
             String name = playerInfo[row][1];
-
-            //Validate Name
             if(name == null || name.length()==0) {
                 return false;
             }
+            //End:Name
+            //###
 
-            //Programming Languages
-            String languages = playerInfo[row][2]; //C#;Java;....
+            //###
+            //Begin: Programming Languages
+            String languagesS = playerInfo[row][2]; //C#;Java;....
             //Validate languages length
-            if(languages==null || languages.length()==0){
+            if(languagesS==null || languagesS.length()==0){
                 return false;
             }
 
-            //Add to language
-            ArrayList<String> languagesList = addToLanguageList(languages);
+            //Convert Language String to ArrayList<String>
+            ArrayList<String> languagesList = convertLanguageStringToArrayList(languagesS);
+            //End: Programming Languages
+            //###
 
-            //Color
+            //####
+            //Begin: Color
             String color = playerInfo[row][3];
-            //Validate parameter color length
-            if(color ==null || color.length()==0 || !isValidColorValue(color)) {
+            if(color == null || !isValidColorValue(color)) {
                 return false;
             }
-
             ProgrammerColor enumColor = ProgrammerColor.valueOf(color);
+            //End: Color
+            //####
 
             //validation on second iteration
             if(row>1)
@@ -118,11 +126,6 @@ public class GameManager {
                         return false;
                     }
 
-                    //validate unique name
-                    //if(programmer.getName() == name) {
-                    //return false;
-                    //}
-
                     //validate unique color
                     if(programmer.getColor().equals(enumColor)) {
                         return false;
@@ -130,17 +133,22 @@ public class GameManager {
                 }
             }
 
-            //Instantiate programmer
+            //Create programmer
             Programmer programmer = new Programmer(id, name, languagesList, enumColor);
+            //Add programmer to list
             programmerList.add(programmer);
         }
 
-        if(programmerList.size()<2 || programmerList.size()>4)       {
+        //count nr of Players
+        int programmerCount = programmerList.size();
+
+        //check programmer list size
+        if(programmerCount<2 || programmerCount>4)       {
             return false;
         }
 
-        // Board Size two positions for each player
-        if(boardSize >= programmerList.size()*2){
+        // Board Size must have two positions for each player
+        if(boardSize >= programmerCount*2){
             return false;
         }
 
@@ -153,49 +161,11 @@ public class GameManager {
         return false;
     }
 
-    private void setProgrammerList(List<Programmer> programmerList)
-    {
-        programmerList.sort(Comparator.comparing(Programmer::getName));
-        this.programmers=programmerList;
-    }
-
-    private void setBoardSize(int boardSize) {
+    /*
+    Set Board Size
+     */
+    public void setBoardSize(int boardSize) {
         this.boardSize=boardSize;
-    }
-
-    /*
-    Add to language list
-     */
-    private ArrayList<String> addToLanguageList(String languages) {
-        String[] languagesArr = languages.split(";");
-        ArrayList<String> languagesList = new ArrayList<>();
-        for (String language: languagesArr)
-        {
-            if (!languagesList.contains(language)) {
-                languagesList.add(language);
-            }
-        }
-        return languagesList;
-    }
-
-    /*
-    Validate color value
-     */
-    private boolean isValidColorValue(String color)
-    {
-        boolean returnExistColor = false;
-
-        //Validate parameter color value
-        ProgrammerColor[] programmerColorArr = ProgrammerColor.values();
-        for (ProgrammerColor colorOnEnum : programmerColorArr) {
-            if (colorOnEnum.equals(color)) {
-                returnExistColor = true;
-                if(returnExistColor) {
-                    break;
-                }
-            }
-        }
-        return returnExistColor;
     }
 
     /*
@@ -203,17 +173,11 @@ public class GameManager {
      */
     public String getImagePng(int position){
 
-        String image = null;
-
-        if(position>boardSize){
-            return image;
-        }
-
         if(position==boardSize){
-            image="glory.png";
+            return "glory.png";
         }
 
-        return image;
+        return null;
     }
 
     /*
@@ -228,7 +192,7 @@ public class GameManager {
      */
     public ArrayList<Programmer> getProgrammers(int position){
 
-        if(position>boardSize){
+        if(position==0 || position>boardSize){
             return null;
         }
 
@@ -263,6 +227,7 @@ public class GameManager {
      */
     public boolean moveCurrentPlayer(int nrPositions){
 
+        //check number positions range
         if(nrPositions<1 || nrPositions>6) {
             return false;
         }
@@ -281,26 +246,34 @@ public class GameManager {
 
             if(programmer.isCurrentPlayer())
             {
-                Integer position = programmer.getPosition();
-                Integer newPosition = position+nrPositions;
+                int position = programmer.getPosition();
+                int newPosition = position+nrPositions;
 
-                //TODO: Check BoardSize
+                if(newPosition>boardSize)
+                {
+                    int subtractPosition = newPosition - boardSize;
+                    newPosition = boardSize -subtractPosition;
+                }
 
+                //Set programmer new Position
                 programmer.setPosition(newPosition);
-                programmer.addNrMoves();
-                break;
 
+                //Increment turns on game
+                addTurn();
+
+                break;
             }
         }
 
-        //check if exist next player
-        if(++index>nrOfPlayers){
+        //calculate next player
+        if(++index==nrOfPlayers){
             index=0;
         }
 
         //get next player
         Programmer programmer = programmerList.get(index);
-        programmer.isCurrentPlayer();
+        //set next player current player
+        programmer.setCurrentPlayer();
 
         return true;
     }
@@ -341,12 +314,9 @@ public class GameManager {
             resultList.add("0");
             return resultList;
         }
-
-        int totalNrTurns=0;
-        for (Programmer programmer:programmerList) {
-            totalNrTurns=+programmer.getNrTurns();
+        else {
+            resultList.add(Integer.toString(totalNrTurns));
         }
-        resultList.add(Integer.toString(totalNrTurns));
 
         //Order programmers descending by Position
         programmerList.sort(Comparator.comparing(Programmer::getPosition).reversed());
@@ -381,12 +351,70 @@ public class GameManager {
         return resultList;
     }
 
-
-
     /*
     Get About
      */
     public JPanel getAuthorsPanel(){
         return null;
+    }
+
+    //################
+    //PRIVATE METHODS
+
+    /*
+    Add Turn to total turns
+     */
+    private void addTurn()
+    {
+        this.totalNrTurns +=1;
+    }
+
+    /*
+    Set Programmer List
+     */
+    private void setProgrammerList(List<Programmer> programmerList)
+    {
+        //order list ascending by id
+        programmerList.sort(Comparator.comparing(Programmer::getId));
+
+        //fetch first programmer
+        Programmer programmer = programmerList.get(0);
+
+        //set first programmer as current player
+        programmer.setCurrentPlayer();
+
+        this.programmers=programmerList;
+    }
+
+    /*
+    Convert Language String to ArrayList<String>
+     */
+    private ArrayList<String> convertLanguageStringToArrayList(String languages) {
+
+        String[] languagesArr = languages.split(";");
+
+        ArrayList<String> languagesList = new ArrayList<>();
+        for (String language: languagesArr)
+        {
+            //avoid duplicates
+            if (!languagesList.contains(language)) {
+                languagesList.add(language);
+            }
+        }
+        return languagesList;
+    }
+
+    /*
+    Validate if color value
+     */
+    private boolean isValidColorValue(String color)
+    {
+        ProgrammerColor[] programmerColorArr = ProgrammerColor.values();
+        for (ProgrammerColor colorOnEnum : programmerColorArr){
+            if(colorOnEnum.toString().equals(color)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

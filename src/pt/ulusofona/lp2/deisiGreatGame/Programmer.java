@@ -37,18 +37,23 @@ public class Programmer
     Identifies programmer id
      */
     private Integer id;
+
     /*
     Identifies programmer name
      */
     private String name;
+
     /*
     Identifies programmer preferred programming languages
      */
     private ArrayList<String> languages;
+
     /*
     Identifies programmer current position on board game
+    Begin position is 1
      */
-    private Integer position;
+    private Integer position = 1;
+
     /*
     Identifies programmer status on game: "Em Jogo"; Derrotado
      */
