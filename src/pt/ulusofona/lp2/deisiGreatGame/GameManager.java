@@ -161,7 +161,7 @@ public class GameManager {
         //set programmers
         game.setProgrammerList(programmerList);
 
-        return false;
+        return true;
     }
 
     /*
