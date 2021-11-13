@@ -208,7 +208,7 @@ public class GameManager {
     public int getCurrentPlayerID(){
 
         List<Programmer> programmerList = getProgrammers();
-        if (programmerList.size()==0){
+        if (programmerList==null){
             return 0;
         }
 
@@ -218,7 +218,7 @@ public class GameManager {
             }
         }
 
-        return 0;
+        return 10;
     }
 
     /*
