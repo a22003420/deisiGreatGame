@@ -54,7 +54,7 @@ public class Programmer
     private Integer position;
 
     /*
-    Identifies programmer status on game: "Em Jogo"; Derrotado
+    Identifies programmer status on game
      */
     private ProgrammerStatus status;
 
