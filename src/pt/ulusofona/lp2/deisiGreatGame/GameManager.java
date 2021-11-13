@@ -152,14 +152,11 @@ public class GameManager {
             return false;
         }
 
-        GameManager game = new GameManager();
-
-        //set boardsize
         /*setBoardSize(boardSize);*/
-        game.setBoardSize(boardSize);
+        setBoardSize(boardSize);
 
         //set programmers
-        game.setProgrammerList(programmerList);
+        setProgrammerList(programmerList);
 
         return true;
     }
