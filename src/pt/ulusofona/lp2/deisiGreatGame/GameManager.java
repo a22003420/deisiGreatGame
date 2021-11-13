@@ -187,8 +187,10 @@ public class GameManager {
             }
         }
 
-        if(programmerArrayList.size() == 0)
+        if(programmerArrayList.size() == 0){
             return null;
+        }
+
 
         return programmerArrayList;
     }
@@ -367,8 +369,9 @@ public class GameManager {
      */
     private ArrayList<String> fillLanguageList(String languages) {
 
-        if(languages == null || languages.length()==0)
+        if(languages == null || languages.length()==0){
             return null;
+        }
 
         //create list of languages
         ArrayList<String> languagesList = new ArrayList<>();
