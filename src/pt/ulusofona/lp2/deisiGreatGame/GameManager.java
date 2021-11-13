@@ -46,6 +46,8 @@ public class GameManager {
      */
     public boolean createInitialBoard(String[][] playerInfo, int boardSize)
     {
+
+
         //check null value
         if(playerInfo==null) {
             return false;
@@ -152,11 +154,14 @@ public class GameManager {
             return false;
         }
 
+        GameManager game = new GameManager();
+
         //set boardsize
-        setBoardSize(boardSize);
+        /*setBoardSize(boardSize);*/
+        game.setBoardSize(boardSize);
 
         //set programmers
-        setProgrammerList(programmerList);
+        game.setProgrammerList(programmerList);
 
         return false;
     }
