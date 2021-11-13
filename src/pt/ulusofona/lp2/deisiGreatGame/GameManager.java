@@ -146,8 +146,13 @@ public class GameManager {
      */
     public String getImagePng(int position){
 
+        ArrayList<Programmer> programmerPosition = new ArrayList<>(getProgrammers(position));
         if(position==boardSize){
             return "glory.png";
+        }
+
+        for (Programmer programmer:programmerPosition) {
+            return "player" + programmer.getColor() + ".png";
         }
         return "blank.png";
     }
@@ -177,10 +182,6 @@ public class GameManager {
             {
                 programmerArrayList.add(programmer);
             }
-        }
-
-        if(programmerArrayList.size() == 0){
-            return null;
         }
 
         return programmerArrayList;

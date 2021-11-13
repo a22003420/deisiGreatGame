@@ -130,14 +130,14 @@ public class Programmer
     /*
     Returns player game board position
      */
-    public Integer getBoardPosition() {
+    public int getBoardPosition() {
         return this.positionOnBoard;
     }
 
     /*
     Set player game board position
      */
-    public void setBoardPosition(Integer newPosition) {
+    public void setBoardPosition(int newPosition) {
         this.positionOnBoard=newPosition;
     }
 
