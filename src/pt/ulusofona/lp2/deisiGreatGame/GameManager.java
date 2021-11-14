@@ -2,7 +2,6 @@ package pt.ulusofona.lp2.deisiGreatGame;
 //Imports
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
