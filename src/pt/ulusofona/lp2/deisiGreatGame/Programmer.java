@@ -109,10 +109,10 @@ public class Programmer
         //remove right ;
         strLanguages.delete(strLanguages.length()-1,strLanguages.length());
 
-        System.out.println(id + " | " + name + " | " + positionOnBoard + " | " + strLanguages + " | " + "Em Jogo");
+        //System.out.println(id + " | " + name + " | " + positionOnBoard + " |" + strLanguages + " | " + "Em Jogo");
 
         //concatenate and return final string
-        return id + " | " + name + " | " + positionOnBoard + " | " + strLanguages + " | " + "Em Jogo";
+        return id + " | " + name + " | " + positionOnBoard + " |" + strLanguages + " | " + "Em Jogo";
     }
 
     /*
