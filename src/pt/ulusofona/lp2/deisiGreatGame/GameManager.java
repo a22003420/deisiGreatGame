@@ -324,17 +324,11 @@ public class GameManager {
     /*
     Get About
      */
-    public JPanel getAuthorsPanel(){
-
+    public JPanel getAuthorsPanel() {
         JPanel newPanel = new JPanel(new BorderLayout());
-        JLabel label = new JLabel("-----Trabalho realizador por:-----");
-        JLabel label1 = new JLabel("-----João Matos & Rui Fazendeiro-----");
+        JLabel label = new JLabel("                 ---João Matos & Rui Fazendeiro---");
         newPanel.add(label, BorderLayout.CENTER);
-        newPanel.add(label1, BorderLayout.CENTER);
-        newPanel.add(label,BorderLayout.AFTER_LINE_ENDS);
-        newPanel.add(label1,BorderLayout.AFTER_LINE_ENDS);
         return newPanel;
-
     }
 
     //################
