@@ -342,7 +342,7 @@ public class GameManager {
     }
 
     /*
-    Validate Board Size: >nrOfPlayers* 2
+    Validate Board Size: >=nrOfPlayers* 2
     */
     private boolean isValidBoardSize(int boardSize, int nrOfPlayers) {
 
