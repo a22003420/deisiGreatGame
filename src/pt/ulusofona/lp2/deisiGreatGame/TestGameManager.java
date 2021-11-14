@@ -32,12 +32,12 @@ public class TestGameManager {
 
         //generate positions to move
         int nrPositionsToMove = programmerToTest.throwDice();
+        int currentPosition = programmerToTest.getBoardPosition();
+        int mockNewPosition = currentPosition + nrPositionsToMove;
 
         game1.moveCurrentPlayer(nrPositionsToMove);
 
-
-
-        assertTrue("CheckPlayerPosition",programmerToTest.getBoardPosition() == 5);
+        assertTrue("CheckPlayerPosition",programmerToTest.getBoardPosition() == mockNewPosition);
     }
 
     /*
