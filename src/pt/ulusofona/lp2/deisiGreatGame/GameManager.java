@@ -38,15 +38,7 @@ public class GameManager {
     //###########
     //PUBLIC METHODS
 
-    /*
-    Reset current game
-     */
-    public void reiniciar()
-    {
-        boardSize=0;
-        programmers = new ArrayList<>();
-        totalNrTurns = 0;
-    }
+
 
     /*
     Creates game initial board
@@ -54,7 +46,7 @@ public class GameManager {
     public boolean createInitialBoard(String[][] playerInfo, int boardSize)
     {
         reiniciar();
-        
+
         //check null value
         if(playerInfo==null) {
             return false;
@@ -346,6 +338,16 @@ public class GameManager {
 
     //################
     //PRIVATE METHODS
+
+    /*
+    Reset current game
+     */
+    private void reiniciar()
+    {
+        boardSize=0;
+        programmers = new ArrayList<>();
+        totalNrTurns = 0;
+    }
 
     /*
     Validate number of Players: [2,4]
