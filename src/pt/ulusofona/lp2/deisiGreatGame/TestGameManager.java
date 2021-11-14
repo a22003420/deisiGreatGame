@@ -85,7 +85,7 @@ public class TestGameManager {
     public void moveCurrentPlayer03()
     {
         GameManager game3 = new GameManager();
-        String[][] board3 = new String[2][4];
+        String[][] board3 = new String[4][4];
 
         board3[0][0] = "23";
         board3[0][1] = "Joao";
@@ -97,19 +97,31 @@ public class TestGameManager {
         board3[1][2] = "Pyton;TypeScript";
         board3[1][3] = "BROWN";
 
-        game3.createInitialBoard(board3, 4);
+        board3[2][0] = "123";
+        board3[2][1] = "Joaquim";
+        board3[2][2] = "Pyton;TypeScript";
+        board3[2][3] = "GREEN";
+
+        board3[3][0] = "4";
+        board3[3][1] = "Mata";
+        board3[3][2] = "Pyton;TypeScript";
+        board3[3][3] = "BLUE";
+
+        game3.createInitialBoard(board3, 20);
 
         int nrPositionsToMove = 4;
         Programmer programmerToTest = game3.getCurrentPlayer();
         game3.moveCurrentPlayer(nrPositionsToMove);
 
-        assertTrue("CheckPlayerPosition",programmerToTest.getBoardPosition() == 3);
+        assertTrue("CheckPlayerPosition",programmerToTest.getBoardPosition() == 5);
 
-        nrPositionsToMove = 6;
+        nrPositionsToMove = 4;
         programmerToTest = game3.getCurrentPlayer();
         game3.moveCurrentPlayer(nrPositionsToMove);
 
-        assertTrue("CheckPlayerPosition",programmerToTest.getBoardPosition() == 1);
+        assertTrue("CheckPlayerPosition",programmerToTest.getBoardPosition() == 5);
+
+        System.out.println(game3.getProgrammers(5));
     }
 
     /*
@@ -138,5 +150,7 @@ public class TestGameManager {
         game4.moveCurrentPlayer(nrPositionsToMove);
 
         assertTrue("Game is Over",game4.gameIsOver());
+
+
     }
 }

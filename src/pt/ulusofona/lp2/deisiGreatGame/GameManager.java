@@ -189,6 +189,9 @@ public class GameManager {
             return null;
         }
 
+        //order list by name descending
+        programmerArrayList.sort(Comparator.comparing(Programmer::getName).reversed());
+
         return programmerArrayList;
     }
 
