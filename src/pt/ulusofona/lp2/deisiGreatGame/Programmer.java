@@ -95,11 +95,20 @@ public class Programmer
     @Override
     public String toString(){
 
-        //order language list to present language
+        //order language list
         Collections.sort(languages);
 
+        //create concatenated languages with ;
+        StringBuilder strLanguages = new StringBuilder();
+        for (String language : languages) {
+            strLanguages.append(" ");
+            strLanguages.append(language);
+            strLanguages.append(";");
+        }
+        strLanguages.delete(strLanguages.length()-1,strLanguages.length());
+
         //concatenate and return final string
-        return id + " | " + name + " | " + positionOnBoard + " | " + String.join(", ",languages ) + " | " + "Em Jogo";
+        return id + " | " + name + " | " + positionOnBoard + " | " + strLanguages + " | " + "Em Jogo";
     }
 
     /*
