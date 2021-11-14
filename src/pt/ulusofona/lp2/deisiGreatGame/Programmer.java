@@ -75,6 +75,10 @@ public class Programmer
         this.status = true;
     }
 
+    public Programmer() {
+
+    }
+
     //#################
     //Public Methods
     //#################
@@ -121,9 +125,11 @@ public class Programmer
         //create concatenated languages with ;
         StringBuilder strLanguages = new StringBuilder();
         for (String language : languages) {
+            strLanguages.append(" ");
             strLanguages.append(language);
-            strLanguages.append("; ");
+            strLanguages.append(";");
         }
+        strLanguages.delete(strLanguages.length()-1,strLanguages.length());
         String aux;
         if(status){
             aux="Em Jogo";
@@ -132,7 +138,7 @@ public class Programmer
         }
 
         //concatenate and return final string
-        return id + " | " + name + " | " + positionOnBoard + " | " + strLanguages + " | " + aux;
+        return id + " | " + name + " | " + positionOnBoard + " |" + strLanguages + " | " + aux;
     }
 
     /*
