@@ -215,7 +215,7 @@ public class GameManager {
         int nrTurns = getNrTurns();
 
         //calculate current player index
-        int index = nrTurns==0 ? 0 : nrTurns % nrPlayers;
+        int index = nrTurns % nrPlayers;
 
         //return current player
         return programmerArrayList.get(index);
