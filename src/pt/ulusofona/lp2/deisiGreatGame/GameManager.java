@@ -28,6 +28,7 @@ public class GameManager {
     //###########
     //REQUIRED Constructor
     public GameManager(){
+        programmers = new ArrayList<>();
     }
 
     //###########
@@ -143,7 +144,7 @@ public class GameManager {
         if(position==boardSize){
             return "glory.png";
         }
-        return "blank.png";
+        return "";
     }
 
     /*
@@ -167,7 +168,7 @@ public class GameManager {
         ArrayList<Programmer> programmerArrayList = new ArrayList<>();
         for (Programmer programmer: programmers)
         {
-            if(programmer.getId() == position)
+            if(programmer.getBoardPosition() == position)
             {
                 programmerArrayList.add(programmer);
             }
@@ -205,13 +206,13 @@ public class GameManager {
         int index = 0;
         if(nrTurns>0)
         {
-            if (nrTurns < nrPlayers) {
+            //if (nrTurns < nrPlayers) {
                 index = nrTurns % nrPlayers;
-            } else if (nrTurns == nrPlayers) {
-                index = nrPlayers - 1;
-            } else if (nrTurns > nrPlayers) {
-                index = (nrPlayers % nrTurns) -1;
-            }
+            //} else if (nrTurns == nrPlayers) {
+            //    index = nrPlayers - 1;
+            //} else if (nrTurns > nrPlayers) {
+             //   index = (nrPlayers % nrTurns) -1;
+            //}
         }
 
         //return current player

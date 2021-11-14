@@ -1,6 +1,7 @@
 package pt.ulusofona.lp2.deisiGreatGame;
 //Imports
 import org.junit.Test;
+import java.util.ArrayList;
 import static org.junit.Assert.assertTrue;
 
 public class TestGameManager {
@@ -31,7 +32,7 @@ public class TestGameManager {
         int nrPositionsToMove = 4;
         game1.moveCurrentPlayer(nrPositionsToMove);
 
-        assertTrue("CheckFirtsPlayerPosition",programmerToTest.getBoardPosition() == 5);
+        assertTrue("CheckPlayerPosition",programmerToTest.getBoardPosition() == 5);
     }
 
     /*
@@ -55,8 +56,12 @@ public class TestGameManager {
 
         game2.createInitialBoard(board2, 20);
 
-        int nrPositionsToMove = 4;
+        ArrayList<Programmer> programmersList = game2.getProgrammers();
+
         Programmer programmerToTest = game2.getCurrentPlayer();
+        assertTrue("CheckPlayerPosition",programmerToTest.getBoardPosition() == 1);
+
+        int nrPositionsToMove = 4;
         game2.moveCurrentPlayer(nrPositionsToMove);
 
         assertTrue("CheckPlayerPosition",programmerToTest.getBoardPosition() == 5);
@@ -68,6 +73,9 @@ public class TestGameManager {
         assertTrue("CheckPlayerPosition",programmerToTest.getBoardPosition() == 3);
     }
 
+    /*
+    Check if two programmers are required to move more than the max board size
+    */
     @Test
     public void moveCurrentPlayer03()
     {
@@ -90,20 +98,40 @@ public class TestGameManager {
         Programmer programmerToTest = game3.getCurrentPlayer();
         game3.moveCurrentPlayer(nrPositionsToMove);
 
-        assertTrue("CheckPlayerPosition",programmerToTest.getBoardPosition() == 5);
+        assertTrue("CheckPlayerPosition",programmerToTest.getBoardPosition() == 3);
 
-        nrPositionsToMove = 4;
+        nrPositionsToMove = 6;
         programmerToTest = game3.getCurrentPlayer();
         game3.moveCurrentPlayer(nrPositionsToMove);
 
-        assertTrue("CheckPlayerPosition",programmerToTest.getBoardPosition() == 2);
+        assertTrue("CheckPlayerPosition",programmerToTest.getBoardPosition() == 1);
     }
 
+    /*
+    Check if Game is Over
+     */
     @Test
     public void moveCurrentPlayer04(){
 
+        GameManager game4 = new GameManager();
+        String[][] board4 = new String[2][4];
 
+        board4[0][0] = "23";
+        board4[0][1] = "Joao";
+        board4[0][2] = "C#;Java";
+        board4[0][3] = "PURPLE";
 
+        board4[1][0] = "2";
+        board4[1][1] = "Rui";
+        board4[1][2] = "Pyton;TypeScript";
+        board4[1][3] = "BROWN";
 
+        game4.createInitialBoard(board4, 4);
+
+        int nrPositionsToMove = 3;
+        Programmer programmerToTest = game4.getCurrentPlayer();
+        game4.moveCurrentPlayer(nrPositionsToMove);
+
+        assertTrue("Game is Over",game4.gameIsOver());
     }
 }

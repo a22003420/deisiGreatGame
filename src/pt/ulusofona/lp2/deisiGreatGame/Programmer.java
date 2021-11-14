@@ -47,11 +47,6 @@ public class Programmer
     private int positionOnBoard;
 
     /*
-    Identifies programmer status on game
-     */
-    private boolean status;
-
-    /*
     Identifies programmer game color
      */
     private ProgrammerColor color;
@@ -59,12 +54,6 @@ public class Programmer
     //################
     //Constructor
     //################
-    /*
-    public Programmer() {
-
-    }
-    */
-
     Programmer(int id, String name, ArrayList<String> languageList, ProgrammerColor color)
     {
         this.id = id;
@@ -72,7 +61,6 @@ public class Programmer
         this.languages = languageList;
         this.color = color;
         this.positionOnBoard = 1;
-        this.status = true;
     }
 
     //#################
@@ -101,14 +89,6 @@ public class Programmer
     }
 
     /*
-    Programmer play
-     */
-    public Boolean play()
-    {
-        return true;
-    }
-
-    /*
     Returns programmer string
     <id> | <nome> | <position> | <languages> | <status>
      */
@@ -118,15 +98,8 @@ public class Programmer
         //order language list
         Collections.sort(languages);
 
-        //create concatenated languages with ;
-        StringBuilder strLanguages = new StringBuilder();
-        for (String language : languages) {
-            strLanguages.append(language);
-            strLanguages.append("; ");
-        }
-
         //concatenate and return final string
-        return id + " | " + name + " | " + positionOnBoard + " | " + strLanguages + " | " + status;
+        return id + " | " + name + " | " + positionOnBoard + " | " + String.join(", ",languages ) + " | " + "Em Jogo";
     }
 
     /*
