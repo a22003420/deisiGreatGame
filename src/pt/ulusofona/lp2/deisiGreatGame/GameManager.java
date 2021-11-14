@@ -246,8 +246,9 @@ public class GameManager {
         currentPlayer.setBoardPosition(newPosition>boardSize ? (boardSize-(newPosition-boardSize)) : newPosition);
 
         //add turn to game turns
-        if(!gameIsOver())
-        {
+        addTurn();
+
+        if(gameIsOver()) {
             addTurn();
         }
 
