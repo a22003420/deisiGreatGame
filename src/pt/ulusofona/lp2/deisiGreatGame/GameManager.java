@@ -206,13 +206,7 @@ public class GameManager {
         int index = 0;
         if(nrTurns>0)
         {
-            //if (nrTurns < nrPlayers) {
-                index = nrTurns % nrPlayers;
-            //} else if (nrTurns == nrPlayers) {
-            //    index = nrPlayers - 1;
-            //} else if (nrTurns > nrPlayers) {
-             //   index = (nrPlayers % nrTurns) -1;
-            //}
+            index = nrTurns % nrPlayers;
         }
 
         //return current player
