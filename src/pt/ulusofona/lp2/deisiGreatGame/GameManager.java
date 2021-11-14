@@ -215,7 +215,7 @@ public class GameManager {
         int nrTurns = getNrTurns();
 
         //calculate current player index
-        int index = nrTurns % nrPlayers;
+        int index = nrTurns==0 ? 0 : nrTurns % nrPlayers;
 
         //return current player
         return programmerArrayList.get(index);
@@ -338,8 +338,7 @@ public class GameManager {
     */
     private boolean isValidNrPlayers(int nrOfPlayers) {
 
-        return !(nrOfPlayers<2 || nrOfPlayers>4);
-
+        return (nrOfPlayers>1 && nrOfPlayers<5);
     }
 
     /*
@@ -347,7 +346,7 @@ public class GameManager {
     */
     private boolean isValidBoardSize(int boardSize, int nrOfPlayers) {
 
-        return (boardSize>nrOfPlayers* 2);
+        return (boardSize>=nrOfPlayers* 2);
 
     }
 
