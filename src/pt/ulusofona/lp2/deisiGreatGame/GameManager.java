@@ -338,7 +338,7 @@ public class GameManager {
     */
     private boolean isValidNrPlayers(int nrOfPlayers) {
 
-        return (nrOfPlayers>1 && nrOfPlayers<5);
+        return !(nrOfPlayers<2 || nrOfPlayers>4);
 
     }
 
