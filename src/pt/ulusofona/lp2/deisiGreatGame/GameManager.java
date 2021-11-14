@@ -248,10 +248,6 @@ public class GameManager {
         //add turn to game turns
         addTurn();
 
-        if(gameIsOver()) {
-            addTurn();
-        }
-
         return true;
     }
 
@@ -287,8 +283,10 @@ public class GameManager {
             resultList.add("0");
             return resultList;
         }
-        else {
-            resultList.add(Integer.toString(totalNrTurns));
+        else
+        {
+            //hack: solve
+            resultList.add(Integer.toString(totalNrTurns+1));
         }
 
         //Order programmers descending by Position
