@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /*
-Player game color
+Player set game color
 */
 enum ProgrammerColor
 {
@@ -27,7 +27,7 @@ Represents a programmer
 public class Programmer
 {
     /*
-    Identifies programmer id
+    Identifies programmer Id
      */
     private int id;
 
@@ -95,7 +95,7 @@ public class Programmer
     @Override
     public String toString(){
 
-        //order language list
+        //order language list to present language
         Collections.sort(languages);
 
         //concatenate and return final string

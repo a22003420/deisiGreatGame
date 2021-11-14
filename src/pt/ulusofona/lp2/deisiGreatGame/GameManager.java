@@ -403,7 +403,7 @@ public class GameManager {
     }
 
     /*
-    Validate if color exist on enumerator
+    Validate if color exist on enumerator color
     Validation is made by using uppercase
      */
     private boolean isValidColorValue(String color)

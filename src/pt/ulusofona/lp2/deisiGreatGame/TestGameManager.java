@@ -8,6 +8,7 @@ public class TestGameManager {
 
     /*
     Check if player moves given positions
+    Checked
      */
     @Test
     public void moveCurrentPlayer01()
