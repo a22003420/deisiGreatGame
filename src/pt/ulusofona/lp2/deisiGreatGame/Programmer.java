@@ -101,6 +101,7 @@ public class Programmer
         //create concatenated languages with ;
         StringBuilder strLanguages = new StringBuilder();
         for (String language : languages) {
+            strLanguages.append(" ");
             strLanguages.append(language);
             strLanguages.append(";");
         }

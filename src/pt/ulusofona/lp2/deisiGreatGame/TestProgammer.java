@@ -7,7 +7,8 @@ import static org.junit.Assert.*;
 /*
 To do
  */
-public class TestProgammer {
+public class TestProgammer
+{
     @Test
     public void test01(){
 
@@ -30,7 +31,4 @@ public class TestProgammer {
 
 
     }*/
-
-
-
 }
