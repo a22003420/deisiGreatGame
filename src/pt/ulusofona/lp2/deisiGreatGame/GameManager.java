@@ -11,6 +11,9 @@ Represents the Game board Manager
  */
 public class GameManager {
 
+    //###########
+    //ATTRIBUTES
+
     /*
     Board size
      */
@@ -45,9 +48,16 @@ public class GameManager {
             return false;
         }
 
-        //check number of players and board size before validation
+        //calculate nr of players
         int numberOfPlayers = playerInfo.length;
-        if(numberOfPlayers<2 || numberOfPlayers>4 || boardSize<numberOfPlayers* 2){
+
+        //check number of players
+        if (!isValidNrPlayers(numberOfPlayers)) {
+            return false;
+        }
+
+        //check board size
+        if (!isValidBoardSize(boardSize, numberOfPlayers)) {
             return false;
         }
 
@@ -57,7 +67,7 @@ public class GameManager {
         //iterate over matrix
         //each row represents a player
         int playerRow;
-        for (playerRow = 0; playerRow < playerInfo.length; playerRow++)
+        for (playerRow = 0; playerRow < numberOfPlayers; playerRow++)
         {
             //Id
             int id;
@@ -196,19 +206,16 @@ public class GameManager {
     public Programmer getCurrentPlayer()
     {
         //fetch programmer list
-        ArrayList<Programmer> programmerArrayList = getProgrammerList();
+        ArrayList<Programmer> programmerArrayList = getProgrammers();
 
+        //calculate number of players
         int nrPlayers = programmerArrayList.size();
 
         //nr turns
         int nrTurns = getNrTurns();
 
-        //calculate current player
-        int index = 0;
-        if(nrTurns>0)
-        {
-            index = nrTurns % nrPlayers;
-        }
+        //calculate current player index
+        int index = nrTurns % nrPlayers;
 
         //return current player
         return programmerArrayList.get(index);
@@ -235,15 +242,8 @@ public class GameManager {
         //calculate new current player position
         int newPosition = currentPlayerPosition+nrPositions;
 
-        //check max position logic
-        if(newPosition>boardSize)
-        {
-            currentPlayer.setBoardPosition(boardSize-(newPosition-boardSize));
-        }
-        else
-        {
-            currentPlayer.setBoardPosition(newPosition);
-        }
+        //set position
+        currentPlayer.setBoardPosition(newPosition>boardSize ? (boardSize-(newPosition-boardSize)) : newPosition);
 
         //add turn to game turns
         addTurn();
@@ -334,6 +334,24 @@ public class GameManager {
     //PRIVATE METHODS
 
     /*
+    Validate number of Players: [2,4]
+    */
+    private boolean isValidNrPlayers(int nrOfPlayers) {
+
+        return (nrOfPlayers>1 && nrOfPlayers<5);
+
+    }
+
+    /*
+    Validate Board Size: >nrOfPlayers* 2
+    */
+    private boolean isValidBoardSize(int boardSize, int nrOfPlayers) {
+
+        return (boardSize>nrOfPlayers* 2);
+
+    }
+
+    /*
     Returns Board Size
      */
     private int getBoardSize() {
@@ -359,20 +377,12 @@ public class GameManager {
     Orders Programmer List by Id Ascending
     Set Programmer List
      */
-    private void setProgrammerList(ArrayList<Programmer> programmerList)
+    private void setProgrammerList(ArrayList<Programmer> programmers)
     {
         //order list by id ascending
-        programmerList.sort(Comparator.comparing(Programmer::getId));
-        //fill attribute
-        this.programmers=programmerList;
-    }
-
-    /*
-    Get Programmer List
-     */
-    private ArrayList<Programmer> getProgrammerList()
-    {
-        return this.programmers;
+        programmers.sort(Comparator.comparing(Programmer::getId));
+        //fill programmers
+        this.programmers=programmers;
     }
 
     /*

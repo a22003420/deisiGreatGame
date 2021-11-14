@@ -30,8 +30,12 @@ public class TestGameManager {
 
         Programmer programmerToTest = game1.getCurrentPlayer();
 
-        int nrPositionsToMove = 4;
+        //generate positions to move
+        int nrPositionsToMove = programmerToTest.throwDice();
+
         game1.moveCurrentPlayer(nrPositionsToMove);
+
+
 
         assertTrue("CheckPlayerPosition",programmerToTest.getBoardPosition() == 5);
     }

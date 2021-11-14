@@ -2,9 +2,10 @@ package pt.ulusofona.lp2.deisiGreatGame;
 //Imports
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Random;
 
 /*
-Player set game color
+Player game color
 */
 enum ProgrammerColor
 {
@@ -17,7 +18,7 @@ enum ProgrammerColor
 
     @Override
     public String toString() {
-        return cor;
+        return this.cor;
     }
 }
 
@@ -26,6 +27,9 @@ Represents a programmer
  */
 public class Programmer
 {
+    //###########
+    //ATTRIBUTES
+
     /*
     Identifies programmer Id
      */
@@ -54,6 +58,14 @@ public class Programmer
     //################
     //Constructor
     //################
+
+    /*
+    Constructor por programmer:
+    id: programmer id
+    name: programmer name
+    languageList: preferred programmer programming languages
+    color: programmer color
+     */
     Programmer(int id, String name, ArrayList<String> languageList, ProgrammerColor color)
     {
         this.id = id;
@@ -68,28 +80,28 @@ public class Programmer
     //#################
 
     /*
-    Returns programmer Id
+    Return programmer Id
      */
     public int getId(){
         return this.id;
     }
 
     /*
-    Returns programmer Name
+    Return programmer Name
      */
     public String getName(){
         return this.name;
     }
 
     /*
-    Returns programmer Color
+    Return programmer Color
      */
     public ProgrammerColor getColor(){
         return this.color;
     }
 
     /*
-    Returns programmer string
+    Return programmer custom string
     <id> | <nome> | <position> | <languages> | <status>
      */
     @Override
@@ -116,16 +128,32 @@ public class Programmer
     }
 
     /*
-    Returns player game board position
+    Return player game position on board
      */
     public Integer getBoardPosition() {
         return this.positionOnBoard;
     }
 
     /*
-    Set player game board position
+    Set player game position on board
      */
     public void setBoardPosition(Integer newPosition) {
         this.positionOnBoard=newPosition;
+    }
+
+    //#################
+    //Private Methods
+    //#################
+
+    /*
+    Throw dice to calculate number of positions to move
+    Result must be [1,6]
+     */
+    public Integer throwDice()
+    {
+        Random rand = new Random();
+        Integer min = 1;
+        Integer max = 6;
+        return rand.nextInt(max) + min;
     }
 }
