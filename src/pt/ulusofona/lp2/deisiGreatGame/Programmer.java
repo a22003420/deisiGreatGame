@@ -124,9 +124,15 @@ public class Programmer
             strLanguages.append(language);
             strLanguages.append("; ");
         }
+        String aux;
+        if(status){
+            aux="Em Jogo";
+        }else{
+            aux="Derrotado";
+        }
 
         //concatenate and return final string
-        return id + " | " + name + " | " + positionOnBoard + " | " + strLanguages + " | " + status;
+        return id + " | " + name + " | " + positionOnBoard + " | " + strLanguages + " | " + aux;
     }
 
     /*

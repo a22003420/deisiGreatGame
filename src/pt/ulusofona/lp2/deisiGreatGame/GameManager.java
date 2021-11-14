@@ -84,13 +84,13 @@ public class GameManager {
 
             //###
             //Begin: Programming Languages (prevent duplicates and convert to ArrayList<String>
-            ArrayList<String> languagesList = fillLanguageList(playerInfo[playerRow][2].toUpperCase());
+            ArrayList<String> languagesList = fillLanguageList(playerInfo[playerRow][2]);
             //End: Programming Languages
             //###
 
             //####
             //Begin: Color
-            String color = playerInfo[playerRow][3].toUpperCase();
+            String color = playerInfo[playerRow][3];
             if(!isValidColorValue(color)) {
                 return false;
             }
