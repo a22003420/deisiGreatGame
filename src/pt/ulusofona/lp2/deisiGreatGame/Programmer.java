@@ -46,6 +46,11 @@ public class Programmer
     private ArrayList<String> languages;
 
     /*
+    Identifies programmer tools
+     */
+    private ArrayList<Tool> tools;
+
+    /*
     Identifies programmer current position on board game
      */
     private int positionOnBoard;
@@ -139,13 +144,9 @@ public class Programmer
         this.positionOnBoard=newPosition;
     }
 
-    //#################
-    //Private Methods
-    //#################
-
     /*
     Throw dice to calculate number of positions to move
-    Result must be [1,6]
+    Result must be inside range [1,6]
      */
     public Integer throwDice()
     {
@@ -154,4 +155,10 @@ public class Programmer
         Integer max = 6;
         return rand.nextInt(max) + min;
     }
+
+    //#################
+    //Private Methods
+    //#################
+
+
 }
