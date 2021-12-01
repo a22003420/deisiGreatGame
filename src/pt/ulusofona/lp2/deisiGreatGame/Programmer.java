@@ -29,6 +29,7 @@ public class Programmer
 {
     //###########
     //ATTRIBUTES
+    //###########
 
     /*
     Identifies programmer Id
@@ -65,7 +66,7 @@ public class Programmer
     //################
 
     /*
-    Constructor por programmer:
+    Constructor for programmer:
     id: programmer id
     name: programmer name
     languageList: preferred programmer programming languages

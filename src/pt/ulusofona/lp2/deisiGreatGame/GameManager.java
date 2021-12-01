@@ -13,6 +13,7 @@ public class GameManager {
 
     //###########
     //ATTRIBUTES
+    //###########
 
     /*
     Game Board
@@ -36,12 +37,14 @@ public class GameManager {
 
     //###########
     //REQUIRED Constructor
+    //###########
     public GameManager(){
         reiniciar();
     }
 
     //###########
     //PUBLIC METHODS
+    //###########
 
     /*
     Creates game initial board

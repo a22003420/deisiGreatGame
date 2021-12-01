@@ -1,10 +1,32 @@
 package pt.ulusofona.lp2.deisiGreatGame;
+//Imports
+import java.util.ArrayList;
 
 /*
 Represents a Tool
+Enables to skip penalty for set abysses
  */
 public class Tool
 {
-    private int id;
+    //###########
+    //ATTRIBUTES
+    //###########
 
+    private int id;
+    private String title;
+
+    /*
+    Abysses where tool applies
+     */
+    private ArrayList<Abyss> abysses;
+
+    //################
+    //Constructor
+    //################
+
+    public Tool(int id, String title, ArrayList<Abyss> abysses) {
+        this.id =id;
+        this.title = title;
+        this.abysses = abysses;
+    }
 }

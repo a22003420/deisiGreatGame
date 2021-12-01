@@ -1,4 +1,5 @@
 package pt.ulusofona.lp2.deisiGreatGame;
+//Imports
 import java.util.ArrayList;
 
 /*
@@ -6,18 +7,31 @@ Represents a Game Board Tile
  */
 public class Tile
 {
+    //###########
+    //ATTRIBUTES
+    //###########
+
     /*
-    Players on given tile position
+    Players on tile
      */
     private ArrayList<Programmer> players;
 
     /*
-    Board Tile Tool
+    Tool on tile
      */
     private Tool tool;
 
     /*
-    Board Tile Abyss
+    Abyss on tile
      */
     private Abyss abyss;
+
+    //################
+    //Constructor
+    //################
+
+
+    //################
+    //Public Methods
+    //################
 }

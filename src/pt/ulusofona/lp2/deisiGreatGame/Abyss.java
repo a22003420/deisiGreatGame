@@ -5,6 +5,10 @@ Represents an Abyss
  */
 public abstract class Abyss
 {
+    //###########
+    //ATTRIBUTES
+    //###########
+
     private int id;
     private String title;
 
@@ -19,8 +23,8 @@ public abstract class Abyss
     }
 
     //################
-    //Public Methods
+    //Abstract Methods
     //################
 
-    protected abstract void applyBehaviour();
+    protected abstract void applyPenalty();
 }

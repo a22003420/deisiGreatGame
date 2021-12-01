@@ -10,7 +10,7 @@ public class Abyss_Exception extends Abyss
     }
 
     @Override
-    protected void applyBehaviour() {
+    protected void applyPenalty() {
 
     }
 }
