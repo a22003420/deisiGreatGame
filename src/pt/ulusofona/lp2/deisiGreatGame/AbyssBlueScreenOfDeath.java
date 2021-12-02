@@ -11,7 +11,7 @@ public class AbyssBlueScreenOfDeath extends Abyss
 
     @Override
     protected void applyPenalty() {
-        
+
 
     }
 }
