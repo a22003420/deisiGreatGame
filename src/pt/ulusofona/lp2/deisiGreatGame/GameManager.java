@@ -48,7 +48,43 @@ public class GameManager {
 
     /*
     Creates game initial board
+     //###########
+    //NEW METHODS to implementation on GameManager
+    //###########
+
+    boolean createInitialBoard(String[][]playerInfo, int worldSize,String[][] abyssesAndTools){
+    }
+
+
+
+    boolean createInitialBoard(String[][] playerInfo, int worldSize){
+
+    }
+
+    String getTitle(int position){
+
+    }
+
+    List<Programmer> getProgrammers(boolean includeDefeated){
+
+    }
+
+    String getProgrammersInfo(){
+
+    }
+
+    String reactToAbyssOrTool(){
+
+    }
+
+*/
+
+
+    /*
+    Creates game initial board
      */
+
+
     public boolean createInitialBoard(String[][] playerInfo, int boardSize)
     {
         reiniciar();
@@ -171,6 +207,8 @@ public class GameManager {
     /*
     Get players
      */
+
+    //Devolve uma lista agora com todos os objects Programmers
     public ArrayList<Programmer> getProgrammers()
     {
         return this.programmers==null ? new ArrayList<>() : this.programmers;
@@ -234,6 +272,8 @@ public class GameManager {
     /*
     Move current player given positions
      */
+
+    // Alterar
     public boolean moveCurrentPlayer(int nrPositions)
     {
         //check number positions range
@@ -279,6 +319,7 @@ public class GameManager {
     /*
     Get game statistics
      */
+    // Agora devolve uma lista de Strings
     public ArrayList<String> getGameResults() {
 
         ArrayList<String> resultList = new ArrayList<>();
