@@ -124,11 +124,15 @@ public class Programmer
             strLanguages.append(";");
         }
 
+        // Missing for to tools
+
         //remove right ;
         strLanguages.delete(strLanguages.length()-1,strLanguages.length());
 
         //concatenate and return final string
         return id + " | " + name + " | " + positionOnBoard + " |" + strLanguages + " | " + "Em Jogo";
+        /*New Sintaxe
+        return id + "| " + name + " | " + positionOnBoard + " | " + tools *fazer ternário* (tools ? : "No tools") + " |" + strLanguages + " | " + "Em Jogo"; */
     }
 
     /*

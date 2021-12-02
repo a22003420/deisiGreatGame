@@ -18,7 +18,7 @@ public class Tool
     /*
     Abysses where tool applies
      */
-    private ArrayList<Abyss> abysses;
+    //private ArrayList<Abyss> abysses;
 
     //################
     //Constructor
@@ -29,9 +29,9 @@ public class Tool
         this.title = title;
     }
 
-    public Tool(int id, String title, ArrayList<Abyss> abysses) {
+    /*public Tool(int id, String title, ArrayList<Abyss> abysses) {
         this.id =id;
         this.title = title;
         this.abysses = abysses;
-    }
+    }*/
 }
