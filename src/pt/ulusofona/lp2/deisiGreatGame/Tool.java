@@ -24,6 +24,11 @@ public class Tool
     //Constructor
     //################
 
+    public Tool(int id, String title) {
+        this.id =id;
+        this.title = title;
+    }
+
     public Tool(int id, String title, ArrayList<Abyss> abysses) {
         this.id =id;
         this.title = title;

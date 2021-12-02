@@ -34,4 +34,5 @@ public class Tile
     //################
     //Public Methods
     //################
+    protected void xpto(){};
 }
