@@ -3,9 +3,9 @@ package pt.ulusofona.lp2.deisiGreatGame;
 /*
 Represents an Abyss of type Exception
  */
-public class Abyss_Exception extends Abyss
+public class AbyssException extends Abyss
 {
-    protected Abyss_Exception(int id, String title) {
+    protected AbyssException(int id, String title) {
         super(id, title);
     }
 
