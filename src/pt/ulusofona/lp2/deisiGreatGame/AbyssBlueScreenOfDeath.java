@@ -5,13 +5,21 @@ Represents an Abyss of type Exception
  */
 public class AbyssBlueScreenOfDeath extends Abyss
 {
+    //################
+    //Constructor
+    //################
+
     protected AbyssBlueScreenOfDeath(int id, String title) {
         super(id, title);
     }
 
-    @Override
-    protected void applyPenalty() {
+    //################
+    //Methods
+    //################
 
+    @Override
+    protected void applyPenalty(Programmer programmer) {
+        //loses game
 
     }
 }
