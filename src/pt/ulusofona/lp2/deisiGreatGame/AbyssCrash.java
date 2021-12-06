@@ -5,12 +5,20 @@ Represents an Abyss of type Exception
  */
 public class AbyssCrash extends Abyss
 {
+    //################
+    //Constructor
+    //################
+
     protected AbyssCrash(int id, String title) {
         super(id, title);
     }
 
-    @Override
-    protected void applyPenalty() {
+    //################
+    //Methods
+    //################
 
+    @Override
+    protected void applyPenalty(Programmer programmer) {
+        //go back to start (tile 1)
     }
 }

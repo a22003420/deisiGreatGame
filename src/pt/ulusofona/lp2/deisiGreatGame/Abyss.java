@@ -13,7 +13,6 @@ public abstract class Abyss
 
     private int id;
     private String title;
-    private ArrayList<Tool> tools;
 
     //################
     //Constructor
@@ -25,16 +24,9 @@ public abstract class Abyss
         this.title = title;
     }
 
-    public Abyss(int id, String title, ArrayList<Tool> tools)
-    {
-        this.id = id;
-        this.title = title;
-        this.tools = tools;
-    }
-
     //################
     //Abstract Methods
     //################
 
-    protected abstract void applyPenalty();
+    protected abstract void applyPenalty(Programmer programmer);
 }

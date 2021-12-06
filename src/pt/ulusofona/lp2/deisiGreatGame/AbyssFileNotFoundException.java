@@ -5,12 +5,19 @@ Represents an Abyss of type Exception
  */
 public class AbyssFileNotFoundException extends Abyss
 {
+    //################
+    //Constructor
+    //################
     protected AbyssFileNotFoundException(int id, String title) {
         super(id, title);
     }
 
-    @Override
-    protected void applyPenalty() {
+    //################
+    //Methods
+    //################
 
+    @Override
+    protected void applyPenalty(Programmer programmer) {
+        //go back 3 houses
     }
 }
