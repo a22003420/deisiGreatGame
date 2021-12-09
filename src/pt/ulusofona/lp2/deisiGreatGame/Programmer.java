@@ -2,6 +2,7 @@ package pt.ulusofona.lp2.deisiGreatGame;
 //Imports
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Random;
 
 /*
@@ -49,7 +50,7 @@ public class Programmer
     /*
     Identifies programmer tools
      */
-    private ArrayList<Tool> tools;
+    private HashMap<Integer,ToolAbyss> tools;
 
     /*
     Identifies programmer current position on board game
@@ -60,6 +61,22 @@ public class Programmer
     Identifies programmer game color
      */
     private ProgrammerColor color;
+
+    /*
+    Identifies programmer status during the game
+     */
+    private boolean status;
+    /*
+    Save all positions regarding the programmer
+     */
+    private ArrayList<Integer> savedPositions;
+    /*
+    Check if the Programmer is locked or unlocked
+     */
+    private boolean locked;
+
+
+
 
     //################
     //Constructor
@@ -79,6 +96,13 @@ public class Programmer
         this.languages = languageList;
         this.color = color;
         this.positionOnBoard = 1;
+        this.status = true;
+        this.savedPositions = new ArrayList<>();
+        this.tools = new HashMap<>();
+        this.locked = false;
+    }
+
+    public Programmer() {
     }
 
     //#################
@@ -107,8 +131,89 @@ public class Programmer
     }
 
     /*
+   Return player game position on board
+    */
+    public Integer getBoardPosition() {
+        return this.positionOnBoard;
+    }
+
+    /*
+    Set player game position on board
+     */
+    public void setBoardPosition(Integer newPosition) {
+        this.positionOnBoard=newPosition;
+    }
+
+    /*
+    Adiciona posição no ArrayList
+     */
+    public void addPosition (int position){
+        savedPositions.add(position);
+    }
+    /*
+     Retorna ultima posição guardada
+     */
+    public Integer lastPosition (){
+        return savedPositions.get(savedPositions.size()-1);
+    }
+    /*
+     Retorna penúltima posição guardada
+     */
+    public Integer lastPosition2 (){
+        return savedPositions.get(savedPositions.size()-2);
+    }
+    /*
+     Retorna estado atual do jogador
+     */
+    public boolean inGame(){
+        return status;
+    }
+    /*
+     coloca o status a false
+     */
+    public void gameOver(){
+        status=false;
+    }
+    /*
+     retorna o locked status
+     */
+    public boolean isLocked(){
+        return locked;
+    }
+    /*
+     coloca o locked a true
+     */
+    public void setLocked(){
+        locked=true;
+    }
+    /*
+     coloca o locked a false
+     */
+    public void setUnlocked(){
+        locked=false;
+    }
+
+    /*
+     Return tools custom string
+     */
+
+    public String showTools(){
+        if(tools==null || tools.isEmpty()){
+            return "No tools";
+        }
+        StringBuilder userTools = new StringBuilder();
+        for (ToolAbyss toolsAbyss:tools.values()) {
+            userTools.append(toolsAbyss.toString());
+            userTools.append(";");
+        }
+        userTools.delete(userTools.length()-1,userTools.length());
+        return userTools.toString();
+    }
+
+
+    /*
     Return programmer custom string
-    <id> | <nome> | <position> | <languages> | <status>
+    <id> | <nome> | <position> | <tools> | <languages> | <status>
      */
     @Override
     public String toString(){
@@ -130,40 +235,18 @@ public class Programmer
         strLanguages.delete(strLanguages.length()-1,strLanguages.length());
 
         //concatenate and return final string
-        return id + " | " + name + " | " + positionOnBoard + " |" + strLanguages + " | " + "Em Jogo";
-        /*New Sintaxe
-        return id + "| " + name + " | " + positionOnBoard + " | " + tools *fazer ternário* (tools ? : "No tools") + " |" + strLanguages + " | " + "Em Jogo"; */
+        return id + "| " + name + " | " + positionOnBoard + " | " + showTools() + " |" + strLanguages + " | " + showStatus();
     }
 
-    /*
-    Return player game position on board
-     */
-    public Integer getBoardPosition() {
-        return this.positionOnBoard;
-    }
-
-    /*
-    Set player game position on board
-     */
-    public void setBoardPosition(Integer newPosition) {
-        this.positionOnBoard=newPosition;
-    }
-
-    /*
-    Throw dice to calculate number of positions to move
-    Result must be inside range [1,6]
-     */
-    public Integer throwDice()
-    {
-        Random rand = new Random();
-        Integer min = 1;
-        Integer max = 6;
-        return rand.nextInt(max) + min;
-    }
 
     //#################
     //Private Methods
     //#################
 
+    // Se true retorna "Em Jogo", caso contrário "Derrotado"
+    private String showStatus(){
+     return status ? "Em Jogo":"Derrotado";
+
+    }
 
 }

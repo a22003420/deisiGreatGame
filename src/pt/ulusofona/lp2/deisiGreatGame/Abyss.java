@@ -5,28 +5,28 @@ import java.util.ArrayList;
 /*
 Represents an Abyss
  */
-public abstract class Abyss
+public abstract class Abyss extends ToolAbyss
 {
     //###########
     //ATTRIBUTES
     //###########
 
-    private int id;
-    private String title;
+    // Estão no pai ToolAbyss
 
     //################
     //Constructor
     //################
 
-    public Abyss(int id, String title)
+    public Abyss(int id, String title,String image, String description)
     {
-        this.id = id;
-        this.title = title;
+        super(id,title,image,description);
     }
 
     //################
     //Abstract Methods
     //################
 
-    protected abstract void applyPenalty(Programmer programmer);
+    protected abstract void applyEffects(Programmer programmer);
+
+
 }

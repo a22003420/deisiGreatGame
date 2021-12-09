@@ -8,8 +8,9 @@ public class AbyssLogic extends Abyss
     //################
     //Constructor
     //################
-    public AbyssLogic(int id, String title) {
-        super(id, title);
+    public AbyssLogic(int id, String title,String image, String description)
+    {
+        super(id,title,image,description);
     }
 
     //################
@@ -17,7 +18,7 @@ public class AbyssLogic extends Abyss
     //################
 
     @Override
-    protected void applyPenalty(Programmer programmer)
+    protected void applyEffects(Programmer programmer)
     {
         //go back (positions\2) house
     }

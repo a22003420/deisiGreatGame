@@ -9,8 +9,9 @@ public class AbyssCrash extends Abyss
     //Constructor
     //################
 
-    protected AbyssCrash(int id, String title) {
-        super(id, title);
+    protected AbyssCrash(int id, String title,String image, String description)
+    {
+        super(id,title,image,description);
     }
 
     //################
@@ -18,7 +19,7 @@ public class AbyssCrash extends Abyss
     //################
 
     @Override
-    protected void applyPenalty(Programmer programmer) {
+    protected void applyEffects(Programmer programmer) {
         //go back to start (tile 1)
     }
 }

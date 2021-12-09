@@ -8,8 +8,9 @@ public class AbyssSecondaryEffects extends Abyss
     //################
     //Constructor
     //################
-    protected AbyssSecondaryEffects(int id, String title) {
-        super(id, title);
+    protected AbyssSecondaryEffects(int id, String title,String image, String description)
+    {
+        super(id,title,image,description);
     }
 
     //################
@@ -17,7 +18,7 @@ public class AbyssSecondaryEffects extends Abyss
     //################
 
     @Override
-    protected void applyPenalty(Programmer programmer) {
+    protected void applyEffects(Programmer programmer) {
         //go back to previous previous tile
     }
 }

@@ -9,8 +9,9 @@ public class AbyssBlueScreenOfDeath extends Abyss
     //Constructor
     //################
 
-    protected AbyssBlueScreenOfDeath(int id, String title) {
-        super(id, title);
+    protected AbyssBlueScreenOfDeath(int id, String title,String image, String description)
+    {
+        super(id,title,image,description);
     }
 
     //################
@@ -18,7 +19,7 @@ public class AbyssBlueScreenOfDeath extends Abyss
     //################
 
     @Override
-    protected void applyPenalty(Programmer programmer) {
+    protected void applyEffects(Programmer programmer) {
         //loses game
 
     }

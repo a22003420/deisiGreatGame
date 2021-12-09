@@ -6,17 +6,13 @@ import java.util.ArrayList;
 Represents a tool
 Includes abysses where tool applies
  */
-public class Tool
+public abstract class Tool extends ToolAbyss
 {
     //###########
     //ATTRIBUTES
     //###########
 
-    /* Tool id */
-    private int id;
-
-    /*Tool title*/
-    private String title;
+    // Estão no pai ToolAbyss (title, id)
 
     /* Abysses where Tool applies */
     private ArrayList<Abyss> abysses;
@@ -25,9 +21,8 @@ public class Tool
     //Constructor
     //################
 
-    public Tool(int id, String title, ArrayList<Abyss> abysses) {
-        this.id =id;
-        this.title = title;
+    public Tool(int id, String title, ArrayList<Abyss> abysses,String image, String description) {
+        super(id,title,image,description);
         this.abysses = abysses;
     }
 

@@ -8,8 +8,9 @@ public class AbyssSyntax extends Abyss
     //################
     //Constructor
     //################
-    public AbyssSyntax(int id, String title) {
-        super(id, title);
+    public AbyssSyntax(int id, String title,String image, String description)
+    {
+        super(id,title,image,description);
     }
 
     //################
@@ -17,7 +18,7 @@ public class AbyssSyntax extends Abyss
     //################
 
     @Override
-    protected void applyPenalty(Programmer programmer)
+    protected void applyEffects(Programmer programmer)
     {
         //go back 1 house
 
