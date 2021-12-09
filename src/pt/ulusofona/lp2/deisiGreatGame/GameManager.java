@@ -15,10 +15,6 @@ public class GameManager {
     //ATTRIBUTES
     //###########
 
-    /*
-    Game Board
-     */
-    private Board board;
 
     /*
     Board size

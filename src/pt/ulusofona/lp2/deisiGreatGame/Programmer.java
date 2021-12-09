@@ -256,6 +256,17 @@ public class Programmer
         return id + "| " + name + " | " + positionOnBoard + " | " + showTools() + " |" + strLanguages + " | " + showStatus();
     }
 
+    /*
+       Throw dice to calculate number of positions to move
+       Result must be inside range [1,6]
+        */
+    public Integer throwDice()
+    {
+        Random rand = new Random();
+        Integer min = 1;
+        Integer max = 6;
+        return rand.nextInt(max) + min;
+    }
 
     //#################
     //Private Methods

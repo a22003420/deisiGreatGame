@@ -26,7 +26,5 @@ public abstract class Abyss extends ToolAbyss
     //Abstract Methods
     //################
 
-    protected abstract void applyEffects(Programmer programmer);
-
 
 }

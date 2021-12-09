@@ -20,5 +20,13 @@ public class AbyssDuplicatedCode extends Abyss
     @Override
     protected void applyEffects(Programmer programmer) {
         //go back to previous tile
+        if(!programmer.isLocked()){
+            if(!programmer.checkTool(0)){
+                programmer.setLocked();
+                programmer.setBoardPosition(programmer.lastPosition());
+            }else{
+                programmer.removeTool(0);
+            }
+        }
     }
 }

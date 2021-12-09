@@ -19,6 +19,7 @@ public class AbyssInfiniteCycle extends Abyss
 
     @Override
     protected void applyEffects(Programmer programmer) {
+        
 
     }
 }

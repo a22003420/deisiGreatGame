@@ -21,6 +21,10 @@ public class AbyssBlueScreenOfDeath extends Abyss
     @Override
     protected void applyEffects(Programmer programmer) {
         //loses game
+        if(!programmer.isLocked()){
+            programmer.setLocked();
+            programmer.gameOver();
+        }
 
     }
 }

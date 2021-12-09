@@ -21,5 +21,9 @@ public class AbyssCrash extends Abyss
     @Override
     protected void applyEffects(Programmer programmer) {
         //go back to start (tile 1)
+        if(!programmer.isLocked()){
+            programmer.setLocked();
+            programmer.setBoardPosition(1);
+        }
     }
 }
