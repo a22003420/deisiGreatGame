@@ -14,19 +14,21 @@ public abstract class Tool extends ToolAbyss
 
     // Estão no pai ToolAbyss (title, id)
 
-    /* Abysses where Tool applies */
-    private ArrayList<Abyss> abysses;
-
     //################
     //Constructor
     //################
 
-    public Tool(int id, String title, ArrayList<Abyss> abysses,String image, String description) {
+    public Tool(int id, String title,String image, String description) {
         super(id,title,image,description);
-        this.abysses = abysses;
     }
 
     //################
     //Methods
     //################
+
+
+    @Override
+    protected void applyEffects(Programmer programmer) {
+        programmer.addTool(this); //passa o objecto para dentro do addTool
+    }
 }

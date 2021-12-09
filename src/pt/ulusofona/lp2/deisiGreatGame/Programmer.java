@@ -192,6 +192,24 @@ public class Programmer
     public void setUnlocked(){
         locked=false;
     }
+    /*
+     checka se o jogador tem a ferramenta especifica
+     */
+    public boolean checkTool(int toolID){
+        return tools.containsKey(toolID);
+    }
+    /*
+     adiciona ferramenta ao Hashmap (chave (id tool), valor(obj ToolAbyss))
+     */
+    public void addTool(ToolAbyss tool){
+        tools.put(tool.getId(),tool);
+    }
+    /*
+     remove ferramenta ao Hashmap
+     */
+    public void removeTool(int toolID){
+        tools.remove(toolID);
+    }
 
     /*
      Return tools custom string
