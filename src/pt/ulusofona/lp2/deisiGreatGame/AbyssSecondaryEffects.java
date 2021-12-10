@@ -19,6 +19,6 @@ public class AbyssSecondaryEffects extends Abyss
 
     @Override
     protected void applyEffects(Programmer programmer) {
-        //go back to previous previous tile
+        //go back to previous position not tile (penultimo)
     }
 }

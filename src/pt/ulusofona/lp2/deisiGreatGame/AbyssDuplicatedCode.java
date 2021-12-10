@@ -19,7 +19,7 @@ public class AbyssDuplicatedCode extends Abyss
 
     @Override
     protected void applyEffects(Programmer programmer) {
-        //go back to previous tile
+        //go back to previous position
         if(!programmer.isLocked()){
             if(!programmer.checkTool(0)){
                 programmer.setLocked();

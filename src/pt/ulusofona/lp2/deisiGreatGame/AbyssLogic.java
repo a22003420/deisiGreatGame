@@ -20,6 +20,6 @@ public class AbyssLogic extends Abyss
     @Override
     protected void applyEffects(Programmer programmer)
     {
-        //go back (positions\2) house
+        //go back (numero do dado\2) house
     }
 }

@@ -19,7 +19,8 @@ public class AbyssInfiniteCycle extends Abyss
 
     @Override
     protected void applyEffects(Programmer programmer) {
-        
+        // fica preso na casa até que alguém o substitua/venha salvar;
+        // Não pode ter ferramentas nem estar locked;
 
     }
 }
