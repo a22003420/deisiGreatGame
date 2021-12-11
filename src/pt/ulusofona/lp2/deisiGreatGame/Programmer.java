@@ -63,7 +63,7 @@ public class Programmer
     private boolean status;
     /*
 
-    Save all positions regarding the programmer
+    Log all positions regarding the programmer
      */
     private ArrayList<Integer> positionsOnBoard;
 
@@ -133,35 +133,39 @@ public class Programmer
     }
 
     /*
-     Set player game position on board
+     move player position on board
      */
-    public void setBoardPosition(Integer newPosition) {
-        this.positionOnBoard=newPosition;
+    public void move(Integer boardSize, Integer nrPositions)
+    {
+        //calculate new current player position
+        int newPosition = getBoardPosition()+nrPositions;
+
+        this.positionOnBoard=newPosition>boardSize ? (boardSize-(newPosition-boardSize)) : newPosition;
     }
 
     /*
-     Adiciona posição no ArrayList
+     Add new Position
      */
-    public void addPosition (int position){
+    public void logNewPosition (int position){
         positionsOnBoard.add(position);
     }
 
     /*
-     Retorna ultima posição guardada
+     Return Previous Position
      */
     public Integer lastPosition (){
         return positionsOnBoard.get(positionsOnBoard.size()-1);
     }
 
     /*
-     Retorna penúltima posição guardada
+     Return Previous Previous Position
      */
     public Integer lastPosition2 (){
         return positionsOnBoard.get(positionsOnBoard.size()-2);
     }
 
     /*
-     Retorna estado atual do jogador
+     Return Programmer Status on Game
      */
     public boolean inGame(){
         return status;
@@ -223,7 +227,7 @@ public class Programmer
     /*
      Return programmer tools custom string
      */
-     public String showTools()
+    public String showTools()
     {
         if(tools==null || tools.isEmpty()){
             return "No tools";
@@ -234,6 +238,8 @@ public class Programmer
             userTools.append(tools.title);
             userTools.append(";");
         }
+
+        //remove right ;
         userTools.delete(userTools.length()-1,userTools.length());
 
         return userTools.toString();
@@ -256,8 +262,6 @@ public class Programmer
             strLanguages.append(language);
             strLanguages.append(";");
         }
-
-        // Missing for to tools
 
         //remove right ;
         strLanguages.delete(strLanguages.length()-1,strLanguages.length());

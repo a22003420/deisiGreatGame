@@ -223,11 +223,17 @@ public class GameManager {
         return tiles.get(position).getTitle();
     }
 
+    /*
+    Get all Programmers
+     */
     List<Programmer> getProgrammers(boolean includeDefeated)
     {
         return null;
     }
 
+    /*
+    Get Programmers Info
+     */
     String getProgrammersInfo(){
         return "";
     }
@@ -245,7 +251,7 @@ public class GameManager {
     }
 
     /*
-    Get players
+    Get Programmers
      */
     public List<Programmer> getProgrammers()
     {
@@ -253,7 +259,7 @@ public class GameManager {
     }
 
     /*
-    Get players on a given position
+    Get Programmers on a given position
     If none found returns null
      */
     public ArrayList<Programmer> getProgrammers(int position){
@@ -279,7 +285,7 @@ public class GameManager {
     }
 
     /*
-    Get current player ID
+    Get current Programmers ID
      */
     public int getCurrentPlayerID()
     {
@@ -287,7 +293,7 @@ public class GameManager {
     }
 
     /*
-    Get current player
+    Get current Programmers
      */
     public Programmer getCurrentPlayer()
     {
@@ -308,7 +314,7 @@ public class GameManager {
     }
 
     /*
-    Move current player given positions
+    Move current Programmers given positions
      */
     public boolean moveCurrentPlayer(int nrPositions)
     {
@@ -319,17 +325,12 @@ public class GameManager {
 
         //get current player
         Programmer currentPlayer = getCurrentPlayer();
-        //get current player position
-        int currentPlayerPosition = currentPlayer.getBoardPosition();
 
         //get board dimension
         int boardSize = getBoardSize();
 
-        //calculate new current player position
-        int newPosition = currentPlayerPosition+nrPositions;
-
-        //set position
-        currentPlayer.setBoardPosition(newPosition>boardSize ? (boardSize-(newPosition-boardSize)) : newPosition);
+        //set new position
+        currentPlayer.move(boardSize, nrPositions);
 
         //add turn to game turns
         addTurn();
@@ -355,7 +356,6 @@ public class GameManager {
     /*
     Get game statistics
      */
-    // Agora devolve uma lista de Strings
     public List<String> getGameResults() {
 
         List<String> resultList = new ArrayList<>();
@@ -449,7 +449,7 @@ public class GameManager {
     }
 
     /*
-    Returns Board Size
+    Returns Board Size: number of tiles
      */
     private int getBoardSize() {
         return this.tiles.size();
