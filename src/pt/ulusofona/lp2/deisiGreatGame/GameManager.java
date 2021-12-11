@@ -3,8 +3,10 @@ package pt.ulusofona.lp2.deisiGreatGame;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /*
 Represents the Game board Manager
@@ -224,21 +226,6 @@ public class GameManager {
     }
 
     /*
-    Get all Programmers
-     */
-    List<Programmer> getProgrammers(boolean includeDefeated)
-    {
-        return null;
-    }
-
-    /*
-    Get Programmers Info
-     */
-    String getProgrammersInfo(){
-        return "";
-    }
-
-    /*
     Get player image for given position
      */
     public String getImagePng(int position){
@@ -251,10 +238,19 @@ public class GameManager {
     }
 
     /*
+    Get all Programmers or only those not defeated
+     */
+    List<Programmer> getProgrammers(boolean includeDefeated)
+    {
+        return includeDefeated ? this.programmers : programmers.stream().collect(Collectors.filtering(p-> p.inGame() == false, Collectors.toList()));
+    }
+
+
+
+    /*
     Get Programmers
      */
-    public List<Programmer> getProgrammers()
-    {
+    public List<Programmer> getProgrammers(){
         return this.programmers==null ? new ArrayList<>() : this.programmers;
     }
 
@@ -262,7 +258,7 @@ public class GameManager {
     Get Programmers on a given position
     If none found returns null
      */
-    public ArrayList<Programmer> getProgrammers(int position){
+    public List<Programmer> getProgrammers(int position){
 
         if(position==0 || position>getBoardSize() || programmers == null){
             return null;
@@ -314,7 +310,7 @@ public class GameManager {
     }
 
     /*
-    Move current Programmers given positions
+    Move current Player given positions
      */
     public boolean moveCurrentPlayer(int nrPositions)
     {
@@ -329,8 +325,15 @@ public class GameManager {
         //get board dimension
         int boardSize = getBoardSize();
 
-        //set new position
+        //move programmer
         currentPlayer.move(boardSize, nrPositions);
+
+        //verify tile
+        Tile tile = tiles.get(currentPlayer.getBoardPosition());
+
+        //react to title
+        tile.reactToAbyssOrTool();
+
 
         //add turn to game turns
         addTurn();
@@ -407,6 +410,28 @@ public class GameManager {
             }
         }
         return resultList;
+    }
+
+    /*
+    Get Programmers Info
+     */
+    String getProgrammersInfo(){
+
+        //create concatenated programmers with ;
+        StringBuilder strProgrammers = new StringBuilder();
+        for (Programmer programmer : programmers) {
+            strProgrammers.append(" ");
+            strProgrammers.append(programmer.getName());
+            strProgrammers.append(":");
+            strProgrammers.append(programmer.showTools());
+            strProgrammers.append("|");
+        }
+
+        //remove right |
+        strProgrammers.delete(strProgrammers.length()-1,strProgrammers.length());
+
+        //return final string
+        return strProgrammers.toString();
     }
 
     /*

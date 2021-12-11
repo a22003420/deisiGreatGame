@@ -270,6 +270,8 @@ public class Programmer
         return id + "| " + name + " | " + positionOnBoard + " | " + showTools() + " |" + strLanguages + " | " + showStatus();
     }
 
+
+
     /*
     Throw dice to calculate number of positions to move
     Result must be inside range [1,6]
@@ -289,6 +291,23 @@ public class Programmer
     // Se true retorna "Em Jogo", caso contrário "Derrotado"
     private String showStatus(){
         return status ? "Em Jogo":"Derrotado";
+    }
+
+    /*
+
+     */
+    private String programmerToolstoString(){
+
+        //create concatenated languages with ;
+        StringBuilder strLanguages = new StringBuilder();
+        for (Tool tool : tools) {
+            strLanguages.append(" ");
+            strLanguages.append(tool.getTitle());
+            strLanguages.append(";");
+        }
+
+        //concatenate and return final string
+        return name + " : " + positionOnBoard + " | " + showTools() + " |" + strLanguages + " | " + showStatus();
     }
 
 }

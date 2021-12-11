@@ -27,6 +27,9 @@ public class AbyssInfiniteCycle extends Abyss
         return 0;
     }
 
+    /*
+    Return image
+     */
     @Override
     protected String getImagePng() {
         return "infinite-loop.png";

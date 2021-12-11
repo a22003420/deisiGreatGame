@@ -27,6 +27,9 @@ public class AbyssLogic extends Abyss
         return 0;
     }
 
+    /*
+    Return image
+     */
     @Override
     protected String getImagePng() {
         return "logic.png";

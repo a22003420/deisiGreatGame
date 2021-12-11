@@ -27,6 +27,9 @@ public class AbyssException extends Abyss
         return 0;
     }
 
+    /*
+    Return image
+     */
     @Override
     protected String getImagePng() {
         return "exception.png";

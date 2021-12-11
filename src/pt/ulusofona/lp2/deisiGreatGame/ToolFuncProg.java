@@ -29,6 +29,9 @@ public class ToolFuncProg extends Tool {
         return 0;
     }
 
+    /*
+    Return image
+     */
     @Override
     protected String getImagePng() {
         return "bsod.png";

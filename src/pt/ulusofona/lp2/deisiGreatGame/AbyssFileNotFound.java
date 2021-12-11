@@ -28,6 +28,9 @@ public class AbyssFileNotFound extends Abyss
         return 0;
     }
 
+    /*
+    Return image
+     */
     @Override
     protected String getImagePng() {
         return "file-not-found-exception.png";

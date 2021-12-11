@@ -28,6 +28,9 @@ public class AbyssDuplicatedCode extends Abyss
         return 0;
     }
 
+    /*
+    Return image
+     */
     @Override
     protected String getImagePng() {
         return "duplicated-code.png";
