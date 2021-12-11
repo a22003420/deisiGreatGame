@@ -3,20 +3,37 @@ package pt.ulusofona.lp2.deisiGreatGame;
 /*
 Represents an Abyss of type Exception
  */
-public class AbyssFileNotFoundException extends Abyss
+public class AbyssFileNotFound extends Abyss
 {
     //################
     //Constructor
     //################
-    protected AbyssFileNotFoundException(int id, String title,String image, String description)
+    protected AbyssFileNotFound(int id, String title)
     {
-        super(id,title,image,description);
+        super(id,title);
     }
+
 
     //################
     //Methods
     //################
 
+    @Override
+    protected String getTitle() {
+        return null;
+    }
+
+    @Override
+    protected int reactToAbyssOrTool() {
+        return 0;
+    }
+
+    @Override
+    protected String getImagePng() {
+        return "file-not-found-exception.png";
+    }
+
+    /*
     @Override
     protected void applyEffects(Programmer programmer) {
         //go back 3 houses
@@ -33,4 +50,6 @@ public class AbyssFileNotFoundException extends Abyss
             }
         }
     }
+
+     */
 }

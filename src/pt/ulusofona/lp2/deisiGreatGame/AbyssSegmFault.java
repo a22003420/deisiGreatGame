@@ -5,19 +5,37 @@ import java.util.List;
 /*
 Represents an Abyss of type Exception
  */
-public class AbyssSegmentationFault extends Abyss
+public class AbyssSegmFault extends Abyss
 {
     //################
     //Constructor
     //################
-    protected AbyssSegmentationFault(int id, String title,String image, String description)
+
+    protected AbyssSegmFault(int id, String title)
     {
-        super(id,title,image,description);
+        super(id,title);
     }
 
     //################
     //Methods
     //################
+
+    @Override
+    protected String getTitle() {
+        return null;
+    }
+
+    @Override
+    protected int reactToAbyssOrTool() {
+        return 0;
+    }
+
+    @Override
+    protected String getImagePng() {
+        return "null";
+    }
+
+    /*
     @Override
     public void executeEffects(List<Programmer> programmers){
         if(programmers.size()>1){
@@ -36,5 +54,5 @@ public class AbyssSegmentationFault extends Abyss
             programmer.setBoardPosition(programmer.getBoardPosition() - 3);
         }
     }
-
+    */
 }

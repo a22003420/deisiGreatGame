@@ -1,16 +1,18 @@
 package pt.ulusofona.lp2.deisiGreatGame;
+//imports
+import java.util.List;
 
 /*
-Represents an Abyss of type Error Logic
+Represents a Tool of type IDE
  */
-public class AbyssLogic extends Abyss
-{
+public class ToolIDE extends Tool {
+
     //################
     //Constructor
     //################
-    public AbyssLogic(int id, String title)
-    {
-        super(id,title);
+
+    public ToolIDE(int id, String title, List<Abyss> abysses) {
+        super(id, title, abysses);
     }
 
     //################
@@ -29,14 +31,6 @@ public class AbyssLogic extends Abyss
 
     @Override
     protected String getImagePng() {
-        return "logic.png";
+        return "bsod.png";
     }
-
-    /*
-    @Override
-    protected void applyEffects(Programmer programmer)
-    {
-        //go back (numero do dado\2) house
-    }
-     */
 }

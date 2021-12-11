@@ -13,23 +13,21 @@ public class GameManager {
 
     //###########
     //ATTRIBUTES
-    //###########
-
 
     /*
-    Board size
+    Players on game
      */
-    private int boardSize;
+    private List<Programmer> programmers;
+
+    /*
+    Tiles on game
+     */
+    private List<Tile> tiles;
 
     /*
     Total number of turns
      */
     private int totalNrTurns;
-
-    /*
-    Players on game
-     */
-    private ArrayList<Programmer> programmers;
 
     //###########
     //REQUIRED Constructor
@@ -43,45 +41,9 @@ public class GameManager {
     //###########
 
     /*
-    Creates game initial board
-     //###########
-    //NEW METHODS to implementation on GameManager
-    //###########
-
-    boolean createInitialBoard(String[][]playerInfo, int worldSize,String[][] abyssesAndTools){
-    }
-
-
-
-    boolean createInitialBoard(String[][] playerInfo, int worldSize){
-
-    }
-
-    String getTitle(int position){
-
-    }
-
-    List<Programmer> getProgrammers(boolean includeDefeated){
-
-    }
-
-    String getProgrammersInfo(){
-
-    }
-
-    String reactToAbyssOrTool(){
-
-    }
-
-*/
-
-
-    /*
-    Creates game initial board
+    Creates game initial board. not includes Tools and Abyss
      */
-
-
-    public boolean createInitialBoard(String[][] playerInfo, int boardSize)
+    public boolean createInitialBoard(String[][] playerInfo, int worldSize)
     {
         reiniciar();
 
@@ -99,7 +61,7 @@ public class GameManager {
         }
 
         //check board size
-        if (!isValidBoardSize(boardSize, numberOfPlayers)) {
+        if (!isValidBoardSize(worldSize, numberOfPlayers)) {
             return false;
         }
 
@@ -138,7 +100,7 @@ public class GameManager {
 
             //###
             //Begin: Programming Languages (prevent duplicates and convert to ArrayList<String>
-            ArrayList<String> languagesList = fillLanguageList(playerInfo[playerRow][2]);
+            List<String> languagesList = fillLanguageList(playerInfo[playerRow][2]);
             //End: Programming Languages
             //###
 
@@ -173,9 +135,6 @@ public class GameManager {
             programmerList.add(new Programmer(id, name, languagesList, enumColor));
         }
 
-        //set BoardSize
-        setBoardSize(boardSize);
-
         //sort programmer by ID and set game players
         setProgrammerList(programmerList);
 
@@ -183,10 +142,94 @@ public class GameManager {
     }
 
     /*
-    Set Board Size
+    Creates game initial board. include Tools and Abyss
      */
-    public void setBoardSize(int boardSize) {
-        this.boardSize=boardSize;
+    public boolean createInitialBoard(String[][] playerInfo, int worldSize,String[][] abyssesAndTools)
+    {
+        boolean success = createInitialBoard(playerInfo,  worldSize);
+        if(!success) {
+            return false;
+        }
+
+        //######
+        //Create and fill Game Tile
+        this.tiles = new ArrayList<>();
+
+        int tileRow;
+        for (tileRow = 0; tileRow < worldSize; tileRow++)
+        {
+            //fill Object on Tile
+            for (String[] abyssesAndTool : abyssesAndTools)
+            {
+                //#######
+                //validate position
+                int positionOnTile;
+                try {
+                    positionOnTile = Integer.parseInt(abyssesAndTool[2]);
+                } catch (Exception e) {
+                    return false;
+                }
+                if (positionOnTile > worldSize) {
+                    return false;
+                }
+
+                //#######
+                //validate Object Type
+                int typeObjectId; //0 - Abyss; 1 - Tool
+                try {
+                    typeObjectId = Integer.parseInt(abyssesAndTool[0]);
+                } catch (Exception e) {
+                    return false;
+                }
+                if (typeObjectId > 1) {
+                    return false;
+                }
+
+                //#######
+                //validate Object Abyss SubType and ToolFactory
+                int subTypeObject;
+                try {
+                    subTypeObject = Integer.parseInt(abyssesAndTool[1]);
+                } catch (Exception e) {
+                    return false;
+                }
+
+                if(tileRow == positionOnTile)
+                {
+                    //Fill Tile with object
+                    switch (typeObjectId) {
+                        case 0: //Abyss
+                            tiles.add(Abyss.createAbyss(subTypeObject));
+                            break;
+                        case 1: //Tool Factory
+                            tiles.add(new ToolFactory(subTypeObject));
+                            break;
+                    }
+                }
+                else
+                {
+                    //add title empty
+                    tiles.add(new Empty(0,""));
+                }
+            }
+        }
+        return true;
+    }
+
+    /*
+    Get Tile Title
+     */
+    String getTitle(int position){
+        return tiles.get(position).getTitle();
+    }
+
+    List<Programmer> getProgrammers(boolean includeDefeated)
+    {
+        return null;
+    }
+
+    String getProgrammersInfo(){
+        return "";
     }
 
     /*
@@ -194,18 +237,17 @@ public class GameManager {
      */
     public String getImagePng(int position){
 
-        if(position==boardSize){
+        if(position==getBoardSize()){
             return "glory.png";
         }
+
         return "";
     }
 
     /*
     Get players
      */
-
-    //Devolve uma lista agora com todos os objects Programmers
-    public ArrayList<Programmer> getProgrammers()
+    public List<Programmer> getProgrammers()
     {
         return this.programmers==null ? new ArrayList<>() : this.programmers;
     }
@@ -216,7 +258,7 @@ public class GameManager {
      */
     public ArrayList<Programmer> getProgrammers(int position){
 
-        if(position==0 || position>boardSize || programmers == null){
+        if(position==0 || position>getBoardSize() || programmers == null){
             return null;
         }
 
@@ -250,7 +292,7 @@ public class GameManager {
     public Programmer getCurrentPlayer()
     {
         //fetch programmer list
-        ArrayList<Programmer> programmerArrayList = getProgrammers();
+        List<Programmer> programmerArrayList = getProgrammers();
 
         //calculate number of players
         int nrPlayers = programmerArrayList.size();
@@ -268,8 +310,6 @@ public class GameManager {
     /*
     Move current player given positions
      */
-
-    // Alterar
     public boolean moveCurrentPlayer(int nrPositions)
     {
         //check number positions range
@@ -305,7 +345,7 @@ public class GameManager {
         List<Programmer> programmerList = getProgrammers();
 
         for (Programmer programmer:programmerList) {
-            if(programmer.getBoardPosition()==boardSize){
+            if(programmer.getBoardPosition()== getBoardSize()){
                 return true;
             }
         }
@@ -316,9 +356,9 @@ public class GameManager {
     Get game statistics
      */
     // Agora devolve uma lista de Strings
-    public ArrayList<String> getGameResults() {
+    public List<String> getGameResults() {
 
-        ArrayList<String> resultList = new ArrayList<>();
+        List<String> resultList = new ArrayList<>();
 
         resultList.add("O GRANDE JOGO DO DEISI");
         resultList.add("");
@@ -346,11 +386,11 @@ public class GameManager {
             Programmer programmer = programmerList.get(index);
 
             Integer position = programmer.getBoardPosition();
-            if(index==0 && position!=boardSize){
+            if(index==0 && position!=getBoardSize()){
                 return resultList;
             }
 
-            if(position==boardSize)
+            if(position==getBoardSize())
             {
                 resultList.add("");
                 resultList.add("VENCEDOR");
@@ -387,7 +427,7 @@ public class GameManager {
      */
     private void reiniciar()
     {
-        boardSize=0;
+        tiles=new ArrayList<>();
         programmers = new ArrayList<>();
         totalNrTurns = 0;
     }
@@ -412,7 +452,7 @@ public class GameManager {
     Returns Board Size
      */
     private int getBoardSize() {
-        return this.boardSize;
+        return this.tiles.size();
     }
 
     /*
@@ -425,8 +465,7 @@ public class GameManager {
     /*
     Add turn to total turns
      */
-    private void addTurn()
-    {
+    private void addTurn(){
         this.totalNrTurns +=1;
     }
 
@@ -445,14 +484,14 @@ public class GameManager {
     /*
     Convert Language String to ArrayList<String>
      */
-    private ArrayList<String> fillLanguageList(String languages) {
+    private List<String> fillLanguageList(String languages) {
 
         if(languages == null || languages.length()==0){
             return null;
         }
 
         //create list of languages
-        ArrayList<String> languagesList = new ArrayList<>();
+        List<String> languagesList = new ArrayList<>();
 
         //split string by ";"
         String[] languagesArr = languages.split(";");

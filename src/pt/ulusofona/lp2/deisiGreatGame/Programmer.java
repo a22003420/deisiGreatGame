@@ -2,7 +2,7 @@ package pt.ulusofona.lp2.deisiGreatGame;
 //Imports
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
 
 /*
@@ -45,12 +45,7 @@ public class Programmer
     /*
     Identifies programmer preferred programming languages
      */
-    private ArrayList<String> languages;
-
-    /*
-    Identifies programmer tools
-     */
-    private HashMap<Integer,ToolAbyss> tools;
+    private List<String> languages;
 
     /*
     Identifies programmer current position on board game
@@ -67,16 +62,20 @@ public class Programmer
      */
     private boolean status;
     /*
+
     Save all positions regarding the programmer
      */
-    private ArrayList<Integer> savedPositions;
+    private ArrayList<Integer> positionsOnBoard;
+
     /*
     Check if the Programmer is locked or unlocked
      */
     private boolean locked;
 
-
-
+    /*
+    Identifies programmer tools
+     */
+    private List<Tool> tools;
 
     //################
     //Constructor
@@ -89,7 +88,7 @@ public class Programmer
     languageList: preferred programmer programming languages
     color: programmer color
      */
-    Programmer(int id, String name, ArrayList<String> languageList, ProgrammerColor color)
+    Programmer(int id, String name, List<String> languageList, ProgrammerColor color)
     {
         this.id = id;
         this.name = name;
@@ -97,12 +96,8 @@ public class Programmer
         this.color = color;
         this.positionOnBoard = 1;
         this.status = true;
-        this.savedPositions = new ArrayList<>();
-        this.tools = new HashMap<>();
-        this.locked = false;
-    }
-
-    public Programmer() {
+        this.positionsOnBoard = new ArrayList<>();
+        this.tools = new ArrayList<>();
     }
 
     //#################
@@ -110,124 +105,139 @@ public class Programmer
     //#################
 
     /*
-    Return programmer Id
+     Return programmer Id
      */
     public int getId(){
         return this.id;
     }
 
     /*
-    Return programmer Name
+     Return programmer Name
      */
     public String getName(){
         return this.name;
     }
 
     /*
-    Return programmer Color
+     Return programmer Color
      */
     public ProgrammerColor getColor(){
         return this.color;
     }
 
     /*
-   Return player game position on board
+     Return player game position on board
     */
     public Integer getBoardPosition() {
         return this.positionOnBoard;
     }
 
     /*
-    Set player game position on board
+     Set player game position on board
      */
     public void setBoardPosition(Integer newPosition) {
         this.positionOnBoard=newPosition;
     }
 
     /*
-    Adiciona posição no ArrayList
+     Adiciona posição no ArrayList
      */
     public void addPosition (int position){
-        savedPositions.add(position);
+        positionsOnBoard.add(position);
     }
+
     /*
      Retorna ultima posição guardada
      */
     public Integer lastPosition (){
-        return savedPositions.get(savedPositions.size()-1);
+        return positionsOnBoard.get(positionsOnBoard.size()-1);
     }
+
     /*
      Retorna penúltima posição guardada
      */
     public Integer lastPosition2 (){
-        return savedPositions.get(savedPositions.size()-2);
+        return positionsOnBoard.get(positionsOnBoard.size()-2);
     }
+
     /*
      Retorna estado atual do jogador
      */
     public boolean inGame(){
         return status;
     }
+
     /*
      coloca o status a false
      */
     public void gameOver(){
         status=false;
     }
+
     /*
-     retorna o locked status
+     Check if Programmer is locked
      */
     public boolean isLocked(){
         return locked;
     }
+
     /*
-     coloca o locked a true
+     Lock Programmer
      */
-    public void setLocked(){
+    public void lock(){
         locked=true;
     }
+
     /*
-     coloca o locked a false
+     Unlock Programmer
      */
-    public void setUnlocked(){
+    public void unlock(){
         locked=false;
     }
+
     /*
-     checka se o jogador tem a ferramenta especifica
+     Check if programmer contains a tool
      */
-    public boolean checkTool(int toolID){
-        return tools.containsKey(toolID);
-    }
-    /*
-     adiciona ferramenta ao Hashmap (chave (id tool), valor(obj ToolAbyss))
-     */
-    public void addTool(ToolAbyss tool){
-        tools.put(tool.getId(),tool);
-    }
-    /*
-     remove ferramenta ao Hashmap
-     */
-    public void removeTool(int toolID){
-        tools.remove(toolID);
+    public boolean ContainsTool(Tool tool){
+        return tools.contains(tool);
     }
 
     /*
-     Return tools custom string
+     Add tool to programmer tools
      */
+    public void addTool(Tool tool){
+        if(!ContainsTool(tool)) {
+            tools.add(tool);
+        }
+    }
 
-    public String showTools(){
+    /*
+     Remove tool from programmer tools
+     */
+    public void removeTool(Tool tool){
+        if(!ContainsTool(tool)) {
+            tools.remove(tool);
+        }
+    }
+
+    /*
+     Return programmer tools custom string
+     */
+     public String showTools()
+    {
         if(tools==null || tools.isEmpty()){
             return "No tools";
         }
+
         StringBuilder userTools = new StringBuilder();
-        for (ToolAbyss toolsAbyss:tools.values()) {
-            userTools.append(toolsAbyss.toString());
+        for (Tool tools:tools) {
+            userTools.append(tools.title);
             userTools.append(";");
         }
         userTools.delete(userTools.length()-1,userTools.length());
+
         return userTools.toString();
     }
-
 
     /*
     Return programmer custom string
@@ -257,14 +267,14 @@ public class Programmer
     }
 
     /*
-       Throw dice to calculate number of positions to move
-       Result must be inside range [1,6]
-        */
+    Throw dice to calculate number of positions to move
+    Result must be inside range [1,6]
+    */
     public Integer throwDice()
     {
         Random rand = new Random();
-        Integer min = 1;
-        Integer max = 6;
+        int min = 1;
+        int max = 6;
         return rand.nextInt(max) + min;
     }
 
@@ -274,8 +284,7 @@ public class Programmer
 
     // Se true retorna "Em Jogo", caso contrário "Derrotado"
     private String showStatus(){
-     return status ? "Em Jogo":"Derrotado";
-
+        return status ? "Em Jogo":"Derrotado";
     }
 
 }

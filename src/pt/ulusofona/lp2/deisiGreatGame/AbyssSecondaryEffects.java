@@ -8,9 +8,10 @@ public class AbyssSecondaryEffects extends Abyss
     //################
     //Constructor
     //################
-    protected AbyssSecondaryEffects(int id, String title,String image, String description)
+
+    protected AbyssSecondaryEffects(int id, String title)
     {
-        super(id,title,image,description);
+        super(id,title);
     }
 
     //################
@@ -18,7 +19,24 @@ public class AbyssSecondaryEffects extends Abyss
     //################
 
     @Override
+    protected String getTitle() {
+        return null;
+    }
+
+    @Override
+    protected int reactToAbyssOrTool() {
+        return 0;
+    }
+
+    @Override
+    protected String getImagePng() {
+        return "secondary-effects.png";
+    }
+/*
+    @Override
     protected void applyEffects(Programmer programmer) {
         //go back to previous position not tile (penultimo)
     }
+
+ */
 }

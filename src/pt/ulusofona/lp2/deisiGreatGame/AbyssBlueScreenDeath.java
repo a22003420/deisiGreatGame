@@ -3,21 +3,37 @@ package pt.ulusofona.lp2.deisiGreatGame;
 /*
 Represents an Abyss of type Exception
  */
-public class AbyssBlueScreenOfDeath extends Abyss
+public class AbyssBlueScreenDeath extends Abyss
 {
     //################
     //Constructor
     //################
 
-    protected AbyssBlueScreenOfDeath(int id, String title,String image, String description)
+    protected AbyssBlueScreenDeath(int id, String title)
     {
-        super(id,title,image,description);
+        super(id,title);
     }
 
     //################
     //Methods
     //################
 
+    @Override
+    protected String getTitle() {
+        return null;
+    }
+
+    @Override
+    protected int reactToAbyssOrTool() {
+        return 0;
+    }
+
+    @Override
+    protected String getImagePng() {
+        return "bsod.png";
+    }
+
+    /*
     @Override
     protected void applyEffects(Programmer programmer) {
         //loses game
@@ -27,4 +43,5 @@ public class AbyssBlueScreenOfDeath extends Abyss
         }
 
     }
+    */
 }

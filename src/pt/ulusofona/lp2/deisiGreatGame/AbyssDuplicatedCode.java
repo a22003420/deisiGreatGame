@@ -8,9 +8,10 @@ public class AbyssDuplicatedCode extends Abyss
     //################
     //Constructor
     //################
-    protected AbyssDuplicatedCode(int id, String title,String image, String description)
+
+    protected AbyssDuplicatedCode(int id, String title)
     {
-        super(id,title,image,description);
+        super(id,title);
     }
 
     //################
@@ -18,15 +19,17 @@ public class AbyssDuplicatedCode extends Abyss
     //################
 
     @Override
-    protected void applyEffects(Programmer programmer) {
-        //go back to previous position
-        if(!programmer.isLocked()){
-            if(!programmer.checkTool(0)){
-                programmer.setLocked();
-                programmer.setBoardPosition(programmer.lastPosition());
-            }else{
-                programmer.removeTool(0);
-            }
-        }
+    protected String getTitle() {
+        return null;
+    }
+
+    @Override
+    protected int reactToAbyssOrTool() {
+        return 0;
+    }
+
+    @Override
+    protected String getImagePng() {
+        return "duplicated-code.png";
     }
 }
