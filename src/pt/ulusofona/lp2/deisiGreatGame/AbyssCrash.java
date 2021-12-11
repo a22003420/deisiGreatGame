@@ -9,31 +9,33 @@ public class AbyssCrash extends Abyss
     //Constructor
     //################
 
-    protected AbyssCrash(int id, String title)
+    protected AbyssCrash(int id, String title, String image)
     {
-        super(id,title);
+        super(id,title, image);
     }
 
     //################
     //Methods
     //################
 
+    /*
+    Return title
+     */
     @Override
     protected String getTitle() {
-        return null;
+        return this.title;
+    }
+
+    /*
+    Return image
+     */
+    @Override
+    protected String getImagePng() {
+        return this.image;
     }
 
     @Override
     protected int reactToAbyssOrTool() {
         return 0;
     }
-
-    /*
-    Return image
-    */
-    @Override
-    protected String getImagePng() {
-        return "crash.png";
-    }
-
 }

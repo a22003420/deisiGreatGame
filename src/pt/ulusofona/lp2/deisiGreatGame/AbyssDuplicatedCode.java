@@ -9,23 +9,21 @@ public class AbyssDuplicatedCode extends Abyss
     //Constructor
     //################
 
-    protected AbyssDuplicatedCode(int id, String title)
+    protected AbyssDuplicatedCode(int id, String title, String image)
     {
-        super(id,title);
+        super(id,title, image);
     }
 
     //################
     //Methods
     //################
 
+    /*
+    Return title
+     */
     @Override
     protected String getTitle() {
-        return null;
-    }
-
-    @Override
-    protected int reactToAbyssOrTool() {
-        return 0;
+        return this.title;
     }
 
     /*
@@ -33,6 +31,11 @@ public class AbyssDuplicatedCode extends Abyss
      */
     @Override
     protected String getImagePng() {
-        return "duplicated-code.png";
+        return this.image;
+    }
+
+    @Override
+    protected int reactToAbyssOrTool() {
+        return 0;
     }
 }

@@ -11,8 +11,8 @@ public class ToolTeacher extends Tool {
     //Constructor
     //################
 
-    public ToolTeacher(int id, String title, List<Abyss> abysses) {
-        super(id, title, abysses);
+    public ToolTeacher(int id, String title, String image, List<Abyss> abysses) {
+        super(id, title, image,abysses);
     }
 
     //################
@@ -21,7 +21,7 @@ public class ToolTeacher extends Tool {
 
     @Override
     protected String getTitle() {
-        return null;
+        return this.title;
     }
 
     @Override
@@ -34,6 +34,6 @@ public class ToolTeacher extends Tool {
      */
     @Override
     protected String getImagePng() {
-        return "bsod.png";
+        return this.image;
     }
 }

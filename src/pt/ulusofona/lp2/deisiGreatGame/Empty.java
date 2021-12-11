@@ -9,20 +9,23 @@ public class Empty extends Tile {
     //ATTRIBUTES
     //###########
 
-    /* Abyss id */
+    /* Empty id */
     protected int id;
 
-    /*Abyss title*/
+    /* Empty title */
     protected String title;
+
+    /* Empty image */
+    protected String image;
 
     //################
     //Constructor
     //################
 
-    public Empty(int id, String title)
-    {
+    public Empty(int id, String title){
         this.id = id;
         this.title = title;
+        this.image = null;
     }
 
     //################
@@ -32,18 +35,19 @@ public class Empty extends Tile {
     /*
     Get Title
      */
-    protected String getTitle(){return "";}
-
-    /*
-    React to AbyssOrTool
-    */
-    protected int reactToAbyssOrTool(){return 0;}
+    protected String getTitle() {
+        return this.title;
+    }
 
     /*
     Return image for Empty
      */
     protected String getImagePng() {
-        return null;
+        return this.image;
     }
 
+    /*
+    React to AbyssOrTool
+    */
+    protected int reactToAbyssOrTool(){return 0;}
 }

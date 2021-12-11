@@ -6,6 +6,11 @@ Represents a Tile on the Board
 public class Tile
 {
     /*
+    Identifies Tile Id: [1, WordlSize]
+     */
+    private int tileId;
+
+    /*
      Returns Tile Title
     */
     protected String getTitle()

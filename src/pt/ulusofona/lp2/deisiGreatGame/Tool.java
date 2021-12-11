@@ -19,6 +19,9 @@ public abstract class Tool
     /*Tool title*/
     protected String title;
 
+    /*Tool image*/
+    protected String image;
+
     /*Tool Abysses*/
     protected List<Abyss> abysses;
 
@@ -26,9 +29,10 @@ public abstract class Tool
     //Constructor
     //################
 
-    public Tool(int id, String title, List<Abyss> abysses) {
+    public Tool(int id, String title, String image, List<Abyss> abysses) {
         this.id = id;
         this.title = title;
+        this.image = image;
         this.abysses = abysses;
     }
 

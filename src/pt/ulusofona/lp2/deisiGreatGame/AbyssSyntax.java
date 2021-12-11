@@ -8,23 +8,21 @@ public class AbyssSyntax extends Abyss
     //################
     //Constructor
     //################
-    public AbyssSyntax(int id, String title)
+    public AbyssSyntax(int id, String title, String image)
     {
-        super(id,title);
+        super(id,title, image);
     }
 
     //################
     //Methods
     //################
 
+    /*
+    Return title
+     */
     @Override
     protected String getTitle() {
-        return null;
-    }
-
-    @Override
-    protected int reactToAbyssOrTool() {
-        return 0;
+        return this.title;
     }
 
     /*
@@ -32,6 +30,14 @@ public class AbyssSyntax extends Abyss
      */
     @Override
     protected String getImagePng() {
-        return "syntax.png";
+        return this.image;
+    }
+
+    /*
+    ???
+     */
+    @Override
+    protected int reactToAbyssOrTool() {
+        return 0;
     }
 }

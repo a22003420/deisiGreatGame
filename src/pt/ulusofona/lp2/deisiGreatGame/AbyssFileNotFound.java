@@ -8,9 +8,9 @@ public class AbyssFileNotFound extends Abyss
     //################
     //Constructor
     //################
-    protected AbyssFileNotFound(int id, String title)
+    protected AbyssFileNotFound(int id, String title, String image)
     {
-        super(id,title);
+        super(id,title, image);
     }
 
 
@@ -18,14 +18,12 @@ public class AbyssFileNotFound extends Abyss
     //Methods
     //################
 
+    /*
+    Return title
+     */
     @Override
     protected String getTitle() {
-        return null;
-    }
-
-    @Override
-    protected int reactToAbyssOrTool() {
-        return 0;
+        return this.title;
     }
 
     /*
@@ -33,7 +31,12 @@ public class AbyssFileNotFound extends Abyss
      */
     @Override
     protected String getImagePng() {
-        return "file-not-found-exception.png";
+        return this.image;
+    }
+
+    @Override
+    protected int reactToAbyssOrTool() {
+        return 0;
     }
 
     /*

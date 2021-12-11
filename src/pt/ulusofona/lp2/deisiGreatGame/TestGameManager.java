@@ -61,14 +61,23 @@ public class TestGameManager {
         board2[1][2] = "Pyton;TypeScript";
         board2[1][3] = "BROWN";
 
-        game2.createInitialBoard(board2, 20);
+        String[][] objects = new String[2][3];
+        objects[0][0] = "0";
+        objects[0][1] = "2";
+        objects[0][2] = "1";
+
+        objects[1][0] = "1";
+        objects[1][1] = "3";
+        objects[1][2] = "2";
+
+        game2.createInitialBoard(board2, 8, objects);
 
         List<Programmer> programmersList = game2.getProgrammers();
 
         Programmer programmerToTest = game2.getCurrentPlayer();
         assertTrue("CheckPlayerPosition",programmerToTest.getBoardPosition() == 1);
 
-        int nrPositionsToMove = 4;
+        int nrPositionsToMove = 1;
         game2.moveCurrentPlayer(nrPositionsToMove);
 
         assertTrue("CheckPlayerPosition",programmerToTest.getBoardPosition() == 5);
@@ -78,6 +87,12 @@ public class TestGameManager {
         game2.moveCurrentPlayer(nrPositionsToMove);
 
         assertTrue("CheckPlayerPosition",programmerToTest.getBoardPosition() == 3);
+
+        //Tile xxx = game2..t.getT(1);
+
+
+        //String xxx = game2.getTitle(1);
+        //String aaa = game2.getTitle(1);
     }
 
     /*

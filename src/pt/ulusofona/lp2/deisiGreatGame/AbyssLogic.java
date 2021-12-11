@@ -8,23 +8,21 @@ public class AbyssLogic extends Abyss
     //################
     //Constructor
     //################
-    public AbyssLogic(int id, String title)
+    public AbyssLogic(int id, String title, String image)
     {
-        super(id,title);
+        super(id,title, image);
     }
 
     //################
     //Methods
     //################
 
+    /*
+    Return title
+     */
     @Override
     protected String getTitle() {
-        return null;
-    }
-
-    @Override
-    protected int reactToAbyssOrTool() {
-        return 0;
+        return this.title;
     }
 
     /*
@@ -32,7 +30,12 @@ public class AbyssLogic extends Abyss
      */
     @Override
     protected String getImagePng() {
-        return "logic.png";
+        return this.image;
+    }
+
+    @Override
+    protected int reactToAbyssOrTool() {
+        return 0;
     }
 
     /*

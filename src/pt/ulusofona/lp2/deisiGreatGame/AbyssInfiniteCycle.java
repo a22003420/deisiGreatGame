@@ -8,23 +8,21 @@ public class AbyssInfiniteCycle extends Abyss
     //################
     //Constructor
     //################
-    protected AbyssInfiniteCycle(int id, String title)
+    protected AbyssInfiniteCycle(int id, String title, String image)
     {
-        super(id,title);
+        super(id,title, image);
     }
 
     //################
     //Methods
     //################
 
+    /*
+    Return title
+     */
     @Override
     protected String getTitle() {
-        return null;
-    }
-
-    @Override
-    protected int reactToAbyssOrTool() {
-        return 0;
+        return this.title;
     }
 
     /*
@@ -32,8 +30,16 @@ public class AbyssInfiniteCycle extends Abyss
      */
     @Override
     protected String getImagePng() {
-        return "infinite-loop.png";
+        return this.image;
     }
+
+    @Override
+    protected int reactToAbyssOrTool() {
+        return 0;
+    }
+
+
+
 /*
     @Override
     protected void applyEffects(Programmer programmer) {

@@ -8,23 +8,21 @@ public class AbyssException extends Abyss
     //################
     //Constructor
     //################
-    protected AbyssException(int id, String title)
+    protected AbyssException(int id, String title, String image)
     {
-        super(id,title);
+        super(id,title, image);
     }
 
     //################
     //Methods
     //################
 
+    /*
+    Return title
+     */
     @Override
     protected String getTitle() {
-        return null;
-    }
-
-    @Override
-    protected int reactToAbyssOrTool() {
-        return 0;
+        return this.title;
     }
 
     /*
@@ -32,7 +30,12 @@ public class AbyssException extends Abyss
      */
     @Override
     protected String getImagePng() {
-        return "exception.png";
+        return this.image;
+    }
+
+    @Override
+    protected int reactToAbyssOrTool() {
+        return 0;
     }
 
     /*

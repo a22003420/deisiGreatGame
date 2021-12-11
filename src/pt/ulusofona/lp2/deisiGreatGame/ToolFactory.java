@@ -33,27 +33,30 @@ public class ToolFactory extends Tile
      */
     public static Tool fabricateTool(int toolType)
     {
+        List<Abyss> abysses = new ArrayList<>();
+
         switch (toolType)
         {
             case 0:
                 //TODO: Load chosen Abyss
-                List<Abyss> xxx = new ArrayList<>();
-                return new ToolInheritance(toolType, "Herança", xxx);
+                Abyss duplicated = Abyss.createAbyss(5);
+                abysses.add(duplicated);
+                return new ToolInheritance(toolType, "Herança", "inheritance.png", abysses);
             case 1:
                 //TODO: Load chosen Abyss
-                return new ToolFuncProg(toolType, "Programação funcional", new ArrayList<>());
+                return new ToolFuncProg(toolType, "Programação funcional", "functional.png", abysses);
             case 2:
                 //TODO: Load chosen Abyss
-                return new ToolUnitTest(toolType, "Testes unitários", new ArrayList<>());
+                return new ToolUnitTest(toolType, "Testes unitários", "unit-tests.png", abysses);
             case 3:
                 //TODO: Load chosen Abyss
-                return new ToolExcHandler(toolType, "Tratamento de Excepções", new ArrayList<>());
+                return new ToolExcHandler(toolType, "Tratamento de Excepções", "exception.png", abysses);
             case 4:
                 //TODO: Load chosen Abyss
-                return new ToolIDE(toolType, "IDE", new ArrayList<>());
+                return new ToolIDE(toolType, "IDE", "IDE.png", abysses);
             case 5:
                 //TODO: Load chosen Abyss
-                return new ToolTeacher(toolType, "Ajuda Do Professor", new ArrayList<>());
+                return new ToolTeacher(toolType, "Ajuda Do Professor", "ajuda-professor.png", abysses);
         }
 
         //if returns null there is something wrong!!!
@@ -82,6 +85,8 @@ public class ToolFactory extends Tile
         if(tool==null) {
             return 0;
         }
+
+        tool.reactToAbyssOrTool();
 
         return 1;
     }

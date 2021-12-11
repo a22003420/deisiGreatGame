@@ -11,23 +11,21 @@ public class AbyssSegmFault extends Abyss
     //Constructor
     //################
 
-    protected AbyssSegmFault(int id, String title)
+    protected AbyssSegmFault(int id, String title, String image)
     {
-        super(id,title);
+        super(id,title, image);
     }
 
     //################
     //Methods
     //################
 
+    /*
+    Return title
+     */
     @Override
     protected String getTitle() {
-        return null;
-    }
-
-    @Override
-    protected int reactToAbyssOrTool() {
-        return 0;
+        return this.title;
     }
 
     /*
@@ -35,7 +33,12 @@ public class AbyssSegmFault extends Abyss
      */
     @Override
     protected String getImagePng() {
-        return "null";
+        return this.image;
+    }
+
+    @Override
+    protected int reactToAbyssOrTool() {
+        return 0;
     }
 
     /*

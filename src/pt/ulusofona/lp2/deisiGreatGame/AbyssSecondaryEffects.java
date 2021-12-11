@@ -9,23 +9,21 @@ public class AbyssSecondaryEffects extends Abyss
     //Constructor
     //################
 
-    protected AbyssSecondaryEffects(int id, String title)
+    protected AbyssSecondaryEffects(int id, String title, String image)
     {
-        super(id,title);
+        super(id,title, image);
     }
 
     //################
     //Methods
     //################
 
+    /*
+    Return title
+     */
     @Override
     protected String getTitle() {
-        return null;
-    }
-
-    @Override
-    protected int reactToAbyssOrTool() {
-        return 0;
+        return this.title;
     }
 
     /*
@@ -33,8 +31,15 @@ public class AbyssSecondaryEffects extends Abyss
      */
     @Override
     protected String getImagePng() {
-        return "secondary-effects.png";
+        return this.image;
     }
+
+    @Override
+    protected int reactToAbyssOrTool() {
+        return 0;
+    }
+
+
 /*
     @Override
     protected void applyEffects(Programmer programmer) {

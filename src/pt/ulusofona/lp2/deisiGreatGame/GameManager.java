@@ -3,7 +3,6 @@ package pt.ulusofona.lp2.deisiGreatGame;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,7 +23,7 @@ public class GameManager {
     /*
     Tiles on game
      */
-    private List<Tile> tiles;
+    private ArrayList<Tile> tiles;
 
     /*
     Total number of turns
@@ -153,99 +152,99 @@ public class GameManager {
             return false;
         }
 
-        //######
-        //Create and fill Game Tile
         this.tiles = new ArrayList<>();
 
+        //######
+        //Create and fill Game Tile
         int tileRow;
         for (tileRow = 0; tileRow < worldSize; tileRow++)
         {
-            //fill Object on Tile
-            for (String[] abyssesAndTool : abyssesAndTools)
-            {
-                //#######
-                //validate position
-                int positionOnTile;
-                try {
-                    positionOnTile = Integer.parseInt(abyssesAndTool[2]);
-                } catch (Exception e) {
-                    return false;
-                }
-                if (positionOnTile > worldSize) {
-                    return false;
-                }
+            tiles.add(new Empty(0, "Casa Vazia"));
+        }
 
-                //#######
-                //validate Object Type
-                int typeObjectId; //0 - Abyss; 1 - Tool
-                try {
-                    typeObjectId = Integer.parseInt(abyssesAndTool[0]);
-                } catch (Exception e) {
-                    return false;
-                }
-                if (typeObjectId > 1) {
-                    return false;
-                }
+        //fill Objects
+        for (String[] abyssesAndTool : abyssesAndTools)
+        {
+            //#######
+            //validate position
+            int positionOnTile;
+            try {
+                positionOnTile = Integer.parseInt(abyssesAndTool[2]);
+            } catch (Exception e) {
+                return false;
+            }
+            if (positionOnTile > worldSize) {
+                return false;
+            }
 
-                //#######
-                //validate Object Abyss SubType and ToolFactory
-                int subTypeObject;
-                try {
-                    subTypeObject = Integer.parseInt(abyssesAndTool[1]);
-                } catch (Exception e) {
-                    return false;
-                }
+            //#######
+            //validate Object Type
+            int typeObjectId; //0 - Abyss; 1 - Tool
+            try {
+                typeObjectId = Integer.parseInt(abyssesAndTool[0]);
+            } catch (Exception e) {
+                return false;
+            }
+            if (typeObjectId > 1) {
+                return false;
+            }
 
-                if(tileRow == positionOnTile)
-                {
-                    //Fill Tile with object
-                    switch (typeObjectId) {
-                        case 0: //Abyss
-                            tiles.add(Abyss.createAbyss(subTypeObject));
-                            break;
-                        case 1: //Tool Factory
-                            tiles.add(new ToolFactory(subTypeObject));
-                            break;
-                    }
-                }
-                else
-                {
-                    //add title empty
-                    tiles.add(new Empty(0,""));
-                }
+            //#######
+            //validate Object Abyss SubType and ToolFactory
+            int subTypeObject;
+            try {
+                subTypeObject = Integer.parseInt(abyssesAndTool[1]);
+            } catch (Exception e) {
+                return false;
+            }
+
+            Tile tile = tiles.get(positionOnTile);
+
+            //Fill Tile with object
+            switch (typeObjectId) {
+                case 0: //Abyss
+                    tiles.set(positionOnTile, Abyss.createAbyss(subTypeObject));
+                    break;
+                case 1: //Tool Factory
+                    tiles.add(positionOnTile, new ToolFactory(subTypeObject));
+                    break;
             }
         }
+
         return true;
     }
 
     /*
     Get Tile Title
      */
-    String getTitle(int position){
-        return tiles.get(position).getTitle();
+    public String getTitle(int position){
+        Tile tile = tiles.get(position-1);
+        return tile.getTitle();
     }
 
     /*
     Get player image for given position
      */
     public String getImagePng(int position){
-
-        if(position==getBoardSize()){
+        if(position-1==getBoardSize()){
             return "glory.png";
         }
 
-        return "";
+        Tile tile = tiles.get(position-1);
+        return tile.getImagePng();
     }
 
     /*
     Get all Programmers or only those not defeated
      */
-    List<Programmer> getProgrammers(boolean includeDefeated)
+    public List<Programmer> getProgrammers(boolean includeDefeated)
     {
-        return includeDefeated ? this.programmers : programmers.stream().collect(Collectors.filtering(p-> p.inGame() == false, Collectors.toList()));
+        if(programmers==null) {
+            return null;
+        }
+
+        return includeDefeated ? this.programmers : programmers.stream().collect(Collectors.filtering(p-> p.inGame() == true, Collectors.toList()));
     }
-
-
 
     /*
     Get Programmers
@@ -415,16 +414,16 @@ public class GameManager {
     /*
     Get Programmers Info
      */
-    String getProgrammersInfo(){
-
+    public String getProgrammersInfo()
+    {
         //create concatenated programmers with ;
         StringBuilder strProgrammers = new StringBuilder();
         for (Programmer programmer : programmers) {
             strProgrammers.append(" ");
             strProgrammers.append(programmer.getName());
-            strProgrammers.append(":");
+            strProgrammers.append(": ");
             strProgrammers.append(programmer.showTools());
-            strProgrammers.append("|");
+            strProgrammers.append(" | ");
         }
 
         //remove right |
@@ -469,7 +468,6 @@ public class GameManager {
     Validate Board Size: >=nrOfPlayers* 2
     */
     private boolean isValidBoardSize(int boardSize, int nrOfPlayers) {
-
         return (boardSize>=nrOfPlayers* 2);
     }
 
