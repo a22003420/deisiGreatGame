@@ -35,17 +35,17 @@ public class Programmer
     /*
     Identifies programmer Id
      */
-    private int id;
+    private final int id;
 
     /*
     Identifies programmer name
      */
-    private String name;
+    private final String name;
 
     /*
     Identifies programmer preferred programming languages
      */
-    private List<String> languages;
+    private final List<String> languages;
 
     /*
     Identifies programmer current position on board game
@@ -55,7 +55,7 @@ public class Programmer
     /*
     Identifies programmer game color
      */
-    private ProgrammerColor color;
+    private final ProgrammerColor color;
 
     /*
     Identifies programmer status during the game
@@ -201,6 +201,12 @@ public class Programmer
         locked=false;
     }
 
+
+
+    /*########
+    METHODS: TOOLS
+     */
+
     /*
      Check if programmer contains a tool
      */
@@ -211,19 +217,33 @@ public class Programmer
     /*
      Add tool to programmer tools
      */
-    public void addTool(Tool tool){
-        if(!ContainsTool(tool)) {
-            tools.add(tool);
+    public boolean addTool(Tool tool){
+
+        if(tool==null){
+            return false;
         }
+
+        if(!ContainsTool(tool)) {
+            return tools.add(tool);
+        }
+
+        return false;
     }
 
     /*
      Remove tool from programmer tools
      */
-    public void removeTool(Tool tool){
-        if(!ContainsTool(tool)) {
-            tools.remove(tool);
+    public boolean removeTool(Tool tool){
+
+        if(tool==null){
+            return false;
         }
+
+        if(!ContainsTool(tool)) {
+            return tools.remove(tool);
+        }
+
+        return false;
     }
 
     /*

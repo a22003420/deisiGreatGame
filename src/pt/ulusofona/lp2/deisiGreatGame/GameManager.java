@@ -344,7 +344,7 @@ public class GameManager {
         //add turn to game turns
         addTurn();
 
-        return tile.reactToAbyssOrTool(currentPlayer);
+        return tile.reactToAbyssOrTool(currentPlayer, getBoardSize());
     }
 
     /*

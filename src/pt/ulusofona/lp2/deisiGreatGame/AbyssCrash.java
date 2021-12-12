@@ -34,9 +34,11 @@ public class AbyssCrash extends Abyss
         return this.image;
     }
 
+    /*
 
+     */
     @Override
-    protected String reactToAbyssOrTool(Programmer programmer) {
+    protected String reactToAbyssOrTool(Programmer programmer, int boardSize) {
         return title;
 
     }

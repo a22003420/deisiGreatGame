@@ -14,16 +14,16 @@ public abstract class Tool
     //###########
 
     /*Tool id */
-    protected int id;
+    protected final int id;
 
     /*Tool title*/
-    protected String title;
+    protected final String title;
 
     /*Tool image*/
-    protected String image;
+    protected final String image;
 
     /*Tool Abysses*/
-    protected List<Abyss> abysses;
+    protected final List<Abyss> abysses;
 
     //################
     //Constructor
@@ -53,5 +53,5 @@ public abstract class Tool
     /*
     React to AbyssOrTool
     */
-    abstract protected String reactToAbyssOrTool(Programmer programmer);
+    abstract protected String reactToAbyssOrTool(Programmer programmer, int boardSize);
 }

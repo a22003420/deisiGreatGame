@@ -37,7 +37,7 @@ public class AbyssSecondaryEffects extends Abyss
     }
 
     @Override
-    protected String reactToAbyssOrTool(Programmer programmer) {
+    protected String reactToAbyssOrTool(Programmer programmer, int boardSize) {
         return title;
 
     }

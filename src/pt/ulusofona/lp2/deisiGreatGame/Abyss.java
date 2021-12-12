@@ -10,10 +10,10 @@ public abstract class Abyss extends Tile
     //###########
 
     /*Abyss title*/
-    protected String title;
+    protected final String title;
 
     /*Abyss image*/
-    protected String image;
+    protected final String image;
 
     //################
     //Constructor
@@ -69,17 +69,18 @@ public abstract class Abyss extends Tile
     /*
     Return Abyss Title
      */
+    @Override
     abstract protected String getTitle();
 
     /*
     Return Abyss Image
      */
+    @Override
     abstract protected String getImagePng();
 
     /*
     React to Abyss
     */
-    abstract protected String reactToAbyssOrTool(Programmer programmer);
-
-
+    @Override
+    abstract protected String reactToAbyssOrTool(Programmer programmer, int boardSize);
 }

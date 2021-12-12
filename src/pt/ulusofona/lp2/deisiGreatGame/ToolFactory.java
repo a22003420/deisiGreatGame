@@ -13,7 +13,7 @@ public class ToolFactory extends Tile
     //###########
 
     /* Tool id to Produce*/
-    protected int toolTypeId;
+    protected final int toolTypeId;
 
     //################
     //Constructor
@@ -93,9 +93,13 @@ public class ToolFactory extends Tile
     React to Tool on Tile
     */
     @Override
-    protected String reactToAbyssOrTool(Programmer programmer)
+    protected String reactToAbyssOrTool(Programmer programmer, int boardSize)
     {
         Tool tool = fabricateTool(this.toolTypeId);
-        return "Fábrica de " + tool.reactToAbyssOrTool(programmer);
+
+        if(tool==null)
+            return null;
+
+        return tool.reactToAbyssOrTool(programmer, boardSize);
     }
 }

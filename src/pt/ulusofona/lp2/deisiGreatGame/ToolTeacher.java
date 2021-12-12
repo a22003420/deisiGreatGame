@@ -35,8 +35,11 @@ public class ToolTeacher extends Tool {
         return this.image;
     }
 
+    /*
+    React to Tool
+     */
     @Override
-    protected String reactToAbyssOrTool(Programmer programmer) {
-        return this.title;
+    protected String reactToAbyssOrTool(Programmer programmer, int boardSize) {
+        return (programmer.addTool(this) ? "Fixe!\nSortudo a Ferramenta: " : "Azar!\nJá tinha a Ferramenta: ") + title;
     }
 }

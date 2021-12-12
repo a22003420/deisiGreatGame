@@ -10,10 +10,10 @@ public class Empty extends Tile {
     //###########
 
     /*Abyss title*/
-    protected String title;
+    protected final String title;
 
     /*Abyss image*/
-    protected String image;
+    protected final String image;
 
     //################
     //Constructor
@@ -32,6 +32,7 @@ public class Empty extends Tile {
     /*
     Get Title
      */
+    @Override
     protected String getTitle() {
         return this.title;
     }
@@ -39,6 +40,7 @@ public class Empty extends Tile {
     /*
     Return image for Empty
      */
+    @Override
     protected String getImagePng() {
         return this.image;
     }
@@ -46,7 +48,8 @@ public class Empty extends Tile {
     /*
     React to AbyssOrTool
     */
-    protected String reactToAbyssOrTool(){
+    @Override
+    protected String reactToAbyssOrTool(Programmer programmer, int boardSize){
         return null;
     }
 }

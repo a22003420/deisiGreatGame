@@ -32,7 +32,7 @@ public class Tile
     /*
      React to: Empty Title, Abyss Tile or Tool Title
      */
-    protected String reactToAbyssOrTool(Programmer programmer){
-        return reactToAbyssOrTool(programmer);
+    protected String reactToAbyssOrTool(Programmer programmer, int boardSize){
+        return reactToAbyssOrTool(programmer, boardSize);
     }
 }

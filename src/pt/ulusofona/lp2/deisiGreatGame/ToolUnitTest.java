@@ -35,9 +35,11 @@ public class ToolUnitTest extends Tool{
         return this.image;
     }
 
-
+    /*
+    React to Tool
+     */
     @Override
-    protected String reactToAbyssOrTool(Programmer programmer) {
-        return this.title;
+    protected String reactToAbyssOrTool(Programmer programmer, int boardSize) {
+        return (programmer.addTool(this) ? "Sortudo!\nAdicionei a Ferramenta: " : "Azar!\nJá tinha a Ferramenta: ") + this.title;
     }
 }
