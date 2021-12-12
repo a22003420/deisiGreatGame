@@ -39,7 +39,22 @@ public class AbyssCrash extends Abyss
      */
     @Override
     protected String reactToAbyssOrTool(Programmer programmer, int boardSize) {
-        return title;
+
+        String result = programmer.ContainsToolForAbyss(this);
+        int positions = programmer.getBoardPosition();
+        String message = "";
+
+        if(result!="")
+        {
+            programmer.move(boardSize, positions);
+            message = "Azar!\nNão tinha uma Ferramenta!\nVou voltar ao início";
+        }
+        else
+        {
+            message = "Sortudo!\nTinha a Ferramenta!\nUsei e safei-me";
+        }
+
+        return message;
 
     }
 }

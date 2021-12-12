@@ -146,27 +146,6 @@ public class Programmer
     }
 
     /*
-     Add new Position
-     */
-    public void logNewPosition (int position){
-        positionsOnBoard.add(position);
-    }
-
-    /*
-     Return Previous Position
-     */
-    public Integer lastPosition (){
-        return positionsOnBoard.get(positionsOnBoard.size()-1);
-    }
-
-    /*
-     Return Previous Previous Position
-     */
-    public Integer lastPosition2 (){
-        return positionsOnBoard.get(positionsOnBoard.size()-2);
-    }
-
-    /*
      Return Programmer Status on Game
      */
     public boolean inGame(){
@@ -179,6 +158,9 @@ public class Programmer
     public void gameOver(){
         status=false;
     }
+
+    //#################
+    //BEGIN METHODS: LOCK
 
     /*
      Check if Programmer is locked
@@ -201,17 +183,61 @@ public class Programmer
         locked=false;
     }
 
+    //END METHODS: LOCK
+    //#################
 
+    //#################
+    //BEGIN METHODS: POSITION
 
-    /*########
-    METHODS: TOOLS
+    /*
+     Add new Position
      */
+    public void logNewPosition (int position){
+        positionsOnBoard.add(position);
+    }
+
+    /*
+     Return Previous Position
+     */
+    public Integer lastPosition (){
+        return positionsOnBoard.get(positionsOnBoard.size()-1);
+    }
+
+    /*
+     Return Previous Previous Position
+     */
+    public Integer lastPosition2 (){
+        return positionsOnBoard.get(positionsOnBoard.size()-2);
+    }
+
+    //END METHODS: POSITION
+    //#################
+
+    //#################
+    //BEGIN METHODS: TOOLS
 
     /*
      Check if programmer contains a tool
      */
     public boolean ContainsTool(Tool tool){
         return tools.contains(tool);
+    }
+
+    /*
+     Check if programmer contains a tool for a given Abyss
+     */
+    public String ContainsToolForAbyss(Abyss abyss)
+    {
+        for (Tool tool: tools)
+        {
+            if(tool.abysses.contains(abyss))
+            {
+                removeTool(tool);
+                return tool.getTitle();
+            }
+        }
+
+        return "";
     }
 
     /*
@@ -266,6 +292,9 @@ public class Programmer
 
         return userTools.toString();
     }
+
+    //END METHODS: TOOLS
+    //#################
 
     /*
     Return programmer custom string

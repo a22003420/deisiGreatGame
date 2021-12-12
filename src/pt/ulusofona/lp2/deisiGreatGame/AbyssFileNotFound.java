@@ -36,7 +36,21 @@ public class AbyssFileNotFound extends Abyss
 
     @Override
     protected String reactToAbyssOrTool(Programmer programmer, int boardSize) {
-        return title;
+
+        String result = programmer.ContainsToolForAbyss(this);
+        String message = "";
+
+        if(result!="")
+        {
+            programmer.move(boardSize, -1);
+            message = "Azar!\nNão tinha uma Ferramenta!\nVou andar para trás três casa";
+        }
+        else
+        {
+            message = "Sortudo!\nTinha a Ferramenta!\nUsei e safei-me";
+        }
+
+        return message;
 
     }
 
