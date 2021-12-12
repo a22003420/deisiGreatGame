@@ -47,7 +47,8 @@ public abstract class Abyss extends Tile
             case 2:
                 return new AbyssException(abyssType, "Exception", "exception.png");
             case 3:
-                return new AbyssFileNotFound(abyssType, "File Not Found Exception", "file-not-found-exception.png");
+                return new AbyssFileNotFound(abyssType, "File " +
+                        "Not Found Exception", "file-not-found-exception.png");
             case 4:
                 return new AbyssCrash(abyssType, "Crash (aka Rebentanço)", "crash.png");
             case 5:
@@ -78,7 +79,7 @@ public abstract class Abyss extends Tile
     /*
     React to AbyssOrTool
     */
-    abstract protected int reactToAbyssOrTool();
+    abstract protected void reactToAbyssOrTool(Programmer programmer);
 
     /*
     Return image for Abyss

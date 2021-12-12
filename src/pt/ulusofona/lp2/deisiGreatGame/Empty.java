@@ -49,5 +49,5 @@ public class Empty extends Tile {
     /*
     React to AbyssOrTool
     */
-    protected int reactToAbyssOrTool(){return 0;}
+    protected void reactToAbyssOrTool(){}
 }

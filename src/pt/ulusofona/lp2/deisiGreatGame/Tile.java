@@ -21,8 +21,8 @@ public class Tile
     /*
      React to Abyss or Tool in Tile
      */
-    protected int reactToAbyssOrTool() {
-        return reactToAbyssOrTool();
+    protected void reactToAbyssOrTool() {
+        reactToAbyssOrTool();
     }
 
     /*

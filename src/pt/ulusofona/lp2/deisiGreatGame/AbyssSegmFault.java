@@ -37,8 +37,8 @@ public class AbyssSegmFault extends Abyss
     }
 
     @Override
-    protected int reactToAbyssOrTool() {
-        return 0;
+    protected void reactToAbyssOrTool(Programmer programmer) {
+
     }
 
     /*
@@ -52,13 +52,13 @@ public class AbyssSegmFault extends Abyss
     }
 
     @Override
-    protected void applyEffects(Programmer programmer) {
+    protected void reactToAbyssOrTool(Programmer programmer) {
         //se tiver mais que uma pessoa, ele anda 3 para trás houses neste caso
         //go back 3 houses
         if (!programmer.isLocked()) {
-            programmer.setLocked();
+            programmer.lock();
             programmer.setBoardPosition(programmer.getBoardPosition() - 3);
         }
-    }
-    */
+    }*/
+
 }

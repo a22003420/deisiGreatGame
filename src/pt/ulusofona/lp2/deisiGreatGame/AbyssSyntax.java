@@ -37,7 +37,7 @@ public class AbyssSyntax extends Abyss
     ???
      */
     @Override
-    protected int reactToAbyssOrTool() {
-        return 0;
+    protected void reactToAbyssOrTool(Programmer programmer) {
+
     }
 }

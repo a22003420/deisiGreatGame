@@ -1,5 +1,7 @@
 package pt.ulusofona.lp2.deisiGreatGame;
 
+import java.util.List;
+
 /*
 Represents an Abyss of type Exception
  */
@@ -33,9 +35,21 @@ public class AbyssInfiniteCycle extends Abyss
         return this.image;
     }
 
+    /*@Override
+    public void executeEffects(List<Programmer> programmers){
+        if(programmers.size()>1){
+        }
+
+        if(programmers.size()>1){
+            for (Programmer programmer: programmers) {
+                applyEffects(programmer);
+            }
+        }
+    }*/
+
     @Override
-    protected int reactToAbyssOrTool() {
-        return 0;
+    protected void reactToAbyssOrTool(Programmer programmer) {
+
     }
 
 
@@ -45,6 +59,13 @@ public class AbyssInfiniteCycle extends Abyss
     protected void applyEffects(Programmer programmer) {
         // fica preso na casa até que alguém o substitua/venha salvar;
         // Não pode ter ferramentas nem estar locked;
+        if (!programmer.isLocked()) {
+            if (!programmer.checkTool(0)) {
+                programmer.setLocked();
+                programmer.setBoardPosition(programmer.getBoardPosition());
+            }
+
+        }
 
     }
 

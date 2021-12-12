@@ -79,16 +79,15 @@ public class ToolFactory extends Tile
     /*
     React to Tool on Tile
     */
-    protected int reactToAbyssOrTool(){
+    protected void reactToAbyssOrTool(Programmer programmer){
         Tool tool = fabricateTool(this.idType);
 
-        if(tool==null) {
-            return 0;
+
+        if(!programmer.ContainsTool(tool)){
+           programmer.addTool(tool);
         }
 
-        tool.reactToAbyssOrTool();
 
-        return 1;
     }
 
     /*

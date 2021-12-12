@@ -1,5 +1,7 @@
 package pt.ulusofona.lp2.deisiGreatGame;
 
+import java.awt.*;
+
 /*
 Represents an Abyss of type Exception
  */
@@ -33,17 +35,24 @@ public class AbyssSecondaryEffects extends Abyss
     protected String getImagePng() {
         return this.image;
     }
+    protected void reactToAbyssOrTool(Programmer programmer){
 
-    @Override
-    protected int reactToAbyssOrTool() {
-        return 0;
     }
 
-
 /*
-    @Override
-    protected void applyEffects(Programmer programmer) {
-        //go back to previous position not tile (penultimo)
+    protected void reactToAbyssOrTool(Programmer programmer) {
+        //go back to previous-1 position not tile (penultimo)
+        {
+            //go back to previous position
+            if(!programmer.isLocked()){
+                if(!programmer.ContainsTool()){
+                    programmer.lock();
+                    programmer.move();
+                }else{
+                    programmer.removeTool();
+                }
+            }
+        }
     }
 
  */

@@ -34,20 +34,16 @@ public class AbyssBlueScreenDeath extends Abyss
         return this.image;
     }
 
-    @Override
-    protected int reactToAbyssOrTool() {
-        return 0;
-    }
 
-    /*
-    @Override
-    protected void applyEffects(Programmer programmer) {
+
+
+    protected void reactToAbyssOrTool(Programmer programmer) {
         //loses game
         if(!programmer.isLocked()){
-            programmer.setLocked();
+            programmer.lock();
             programmer.gameOver();
         }
 
     }
-    */
+
 }
