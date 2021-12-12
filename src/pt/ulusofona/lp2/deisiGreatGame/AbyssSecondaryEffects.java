@@ -9,7 +9,6 @@ public class AbyssSecondaryEffects extends Abyss
 {
     //################
     //Constructor
-    //################
 
     protected AbyssSecondaryEffects(String title, String image)
     {
@@ -18,7 +17,6 @@ public class AbyssSecondaryEffects extends Abyss
 
     //################
     //Methods
-    //################
 
     /*
     Return title
@@ -36,6 +34,9 @@ public class AbyssSecondaryEffects extends Abyss
         return this.image;
     }
 
+    /*
+    React to Abyss
+    */
     @Override
     protected String reactToAbyssOrTool(Programmer programmer, int boardSize) {
         return title;

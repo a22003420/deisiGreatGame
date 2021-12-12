@@ -9,7 +9,6 @@ public class ToolFuncProg extends Tool {
 
     //################
     //Constructor
-    //################
 
     public ToolFuncProg(int id, String title, String image, List<Abyss> abysses) {
         super(id, title, image,abysses);
@@ -17,7 +16,6 @@ public class ToolFuncProg extends Tool {
 
     //################
     //Methods
-    //################
 
     /*
     Return title

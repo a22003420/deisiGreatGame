@@ -5,15 +5,6 @@ Represents a Tile on the Board
  */
 public class Tile
 {
-    //###########
-    //ATTRIBUTES
-    //###########
-
-    //################
-    //Constructor
-    //################
-
-
     /*
      Returns Tile Title
     */

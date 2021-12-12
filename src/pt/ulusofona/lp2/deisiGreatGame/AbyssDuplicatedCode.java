@@ -7,7 +7,6 @@ public class AbyssDuplicatedCode extends Abyss
 {
     //################
     //Constructor
-    //################
 
     protected AbyssDuplicatedCode(String title, String image)
     {
@@ -16,7 +15,6 @@ public class AbyssDuplicatedCode extends Abyss
 
     //################
     //Methods
-    //################
 
     /*
     Return title
@@ -35,8 +33,8 @@ public class AbyssDuplicatedCode extends Abyss
     }
 
     /*
-
-     */
+    React to Abyss
+    */
     @Override
     protected String reactToAbyssOrTool(Programmer programmer, int boardSize) {
         return title;

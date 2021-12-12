@@ -9,7 +9,7 @@ public class AbyssSyntax extends Abyss
 {
     //################
     //Constructor
-    //################
+
     public AbyssSyntax(String title, String image)
     {
         super(title, image);
@@ -17,7 +17,6 @@ public class AbyssSyntax extends Abyss
 
     //################
     //Methods
-    //################
 
     /*
     Return title
@@ -36,8 +35,8 @@ public class AbyssSyntax extends Abyss
     }
 
     /*
-    ???
-     */
+    React to Abyss
+    */
     @Override
     protected String reactToAbyssOrTool(Programmer programmer, int boardSize) {
 

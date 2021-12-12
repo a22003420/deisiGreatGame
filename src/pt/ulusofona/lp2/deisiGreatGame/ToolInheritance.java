@@ -9,7 +9,6 @@ public class ToolInheritance extends Tool{
 
     //################
     //Constructor
-    //################
 
     public ToolInheritance(int id, String title, String image, List<Abyss> abysses) {
         super(id, title, image,abysses);
@@ -17,7 +16,6 @@ public class ToolInheritance extends Tool{
 
     //################
     //Methods
-    //################
 
     /*
     Return title

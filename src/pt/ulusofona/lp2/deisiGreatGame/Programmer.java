@@ -30,7 +30,6 @@ public class Programmer
 {
     //###########
     //ATTRIBUTES
-    //###########
 
     /*
     Identifies programmer Id
@@ -79,7 +78,6 @@ public class Programmer
 
     //################
     //Constructor
-    //################
 
     /*
     Constructor for programmer:
@@ -102,7 +100,6 @@ public class Programmer
 
     //#################
     //Public Methods
-    //#################
 
     /*
      Return programmer Id

@@ -32,14 +32,13 @@ public class GameManager {
 
     //###########
     //REQUIRED Constructor
-    //###########
+
     public GameManager(){
         reiniciar();
     }
 
     //###########
-    //PUBLIC METHODS
-    //###########
+    //METHODS
 
     /*
     Creates game initial board. does not include Tools and Abyss

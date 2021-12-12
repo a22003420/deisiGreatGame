@@ -7,16 +7,14 @@ public class AbyssFileNotFound extends Abyss
 {
     //################
     //Constructor
-    //################
+
     protected AbyssFileNotFound(String title, String image)
     {
         super(title, image);
     }
 
-
     //################
     //Methods
-    //################
 
     /*
     Return title
@@ -34,6 +32,9 @@ public class AbyssFileNotFound extends Abyss
         return this.image;
     }
 
+    /*
+    React to Abyss
+    */
     @Override
     protected String reactToAbyssOrTool(Programmer programmer, int boardSize) {
 

@@ -9,7 +9,6 @@ public class ToolIDE extends Tool {
 
     //################
     //Constructor
-    //################
 
     public ToolIDE(int id, String title, String image, List<Abyss> abysses) {
         super(id, title, image,abysses);
@@ -17,7 +16,6 @@ public class ToolIDE extends Tool {
 
     //################
     //Methods
-    //################
 
     /*
     Return title

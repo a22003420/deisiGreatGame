@@ -9,7 +9,7 @@ public class AbyssInfiniteCycle extends Abyss
 {
     //################
     //Constructor
-    //################
+
     protected AbyssInfiniteCycle(String title, String image)
     {
         super(title, image);
@@ -17,7 +17,6 @@ public class AbyssInfiniteCycle extends Abyss
 
     //################
     //Methods
-    //################
 
     /*
     Return title
@@ -47,6 +46,9 @@ public class AbyssInfiniteCycle extends Abyss
         }
     }*/
 
+    /*
+    React to Abyss
+    */
     @Override
     protected String reactToAbyssOrTool(Programmer programmer, int boardSize) {
         return title;

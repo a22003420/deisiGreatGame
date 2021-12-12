@@ -7,7 +7,7 @@ public class AbyssLogic extends Abyss
 {
     //################
     //Constructor
-    //################
+
     public AbyssLogic(String title, String image)
     {
         super(title, image);
@@ -15,7 +15,6 @@ public class AbyssLogic extends Abyss
 
     //################
     //Methods
-    //################
 
     /*
     Return title
@@ -33,6 +32,9 @@ public class AbyssLogic extends Abyss
         return this.image;
     }
 
+    /*
+    React to Abyss
+    */
     @Override
     protected String reactToAbyssOrTool(Programmer programmer, int boardSize) {
         return title;

@@ -1,7 +1,5 @@
 package pt.ulusofona.lp2.deisiGreatGame;
 
-import java.util.List;
-
 /*
 Represents an Abyss of type Exception
  */
@@ -9,7 +7,6 @@ public class AbyssSegmFault extends Abyss
 {
     //################
     //Constructor
-    //################
 
     protected AbyssSegmFault(String title, String image)
     {
@@ -18,7 +15,6 @@ public class AbyssSegmFault extends Abyss
 
     //################
     //Methods
-    //################
 
     /*
     Return title
@@ -36,6 +32,9 @@ public class AbyssSegmFault extends Abyss
         return this.image;
     }
 
+    /*
+    React to Abyss
+     */
     @Override
     protected String reactToAbyssOrTool(Programmer programmer, int boardSize) {
         return title;

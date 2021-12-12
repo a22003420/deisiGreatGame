@@ -10,14 +10,12 @@ public class ToolFactory extends Tile
 {
     //###########
     //ATTRIBUTES
-    //###########
 
     /* Tool id to Produce*/
     protected final int toolTypeId;
 
     //################
     //Constructor
-    //################
 
     public ToolFactory(int toolTypeId)
     {
@@ -26,7 +24,6 @@ public class ToolFactory extends Tile
 
     //################
     //Factory
-    //################
 
     /*
     Factory for Creating a type of tool
@@ -63,9 +60,13 @@ public class ToolFactory extends Tile
         return null;
     }
 
+    //################
+    //Other Methods
+
     /*
     Return Produced Tool Title
     */
+    @Override
     protected String getTitle(){
         Tool tool = fabricateTool(this.toolTypeId);
 
@@ -79,6 +80,7 @@ public class ToolFactory extends Tile
     /*
     Return Produced Tool Image
      */
+    @Override
     protected String getImagePng(){
         Tool tool = fabricateTool(this.toolTypeId);
 

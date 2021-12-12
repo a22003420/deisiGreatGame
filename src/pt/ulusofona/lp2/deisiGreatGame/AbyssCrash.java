@@ -7,7 +7,6 @@ public class AbyssCrash extends Abyss
 {
     //################
     //Constructor
-    //################
 
     protected AbyssCrash(String title, String image)
     {
@@ -16,7 +15,6 @@ public class AbyssCrash extends Abyss
 
     //################
     //Methods
-    //################
 
     /*
     Return title
@@ -35,8 +33,8 @@ public class AbyssCrash extends Abyss
     }
 
     /*
-
-     */
+    React to Abyss
+    */
     @Override
     protected String reactToAbyssOrTool(Programmer programmer, int boardSize) {
 

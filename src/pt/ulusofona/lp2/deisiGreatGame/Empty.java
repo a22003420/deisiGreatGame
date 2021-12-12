@@ -7,17 +7,15 @@ public class Empty extends Tile {
 
     //###########
     //ATTRIBUTES
-    //###########
 
-    /*Abyss title*/
+    /*Empty title*/
     protected final String title;
 
-    /*Abyss image*/
+    /*Empty image*/
     protected final String image;
 
     //################
     //Constructor
-    //################
 
     public Empty(String title, String image)
     {
@@ -26,8 +24,7 @@ public class Empty extends Tile {
     }
 
     //################
-    //Abstract Methods
-    //################
+    //Methods
 
     /*
     Get Title
