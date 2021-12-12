@@ -9,9 +9,9 @@ public class AbyssCrash extends Abyss
     //Constructor
     //################
 
-    protected AbyssCrash(int id, String title, String image)
+    protected AbyssCrash(String title, String image)
     {
-        super(id,title, image);
+        super(title, image);
     }
 
     //################
@@ -34,8 +34,10 @@ public class AbyssCrash extends Abyss
         return this.image;
     }
 
+
     @Override
-    protected void reactToAbyssOrTool(Programmer programmer) {
+    protected String reactToAbyssOrTool() {
+        return title;
 
     }
 }

@@ -10,9 +10,9 @@ public class AbyssInfiniteCycle extends Abyss
     //################
     //Constructor
     //################
-    protected AbyssInfiniteCycle(int id, String title, String image)
+    protected AbyssInfiniteCycle(String title, String image)
     {
-        super(id,title, image);
+        super(title, image);
     }
 
     //################
@@ -48,13 +48,12 @@ public class AbyssInfiniteCycle extends Abyss
     }*/
 
     @Override
-    protected void reactToAbyssOrTool(Programmer programmer) {
+    protected String reactToAbyssOrTool() {
+        return title;
 
     }
 
-
-
-/*
+    /*
     @Override
     protected void applyEffects(Programmer programmer) {
         // fica preso na casa até que alguém o substitua/venha salvar;

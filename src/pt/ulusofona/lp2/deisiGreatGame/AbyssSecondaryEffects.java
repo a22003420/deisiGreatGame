@@ -11,9 +11,9 @@ public class AbyssSecondaryEffects extends Abyss
     //Constructor
     //################
 
-    protected AbyssSecondaryEffects(int id, String title, String image)
+    protected AbyssSecondaryEffects(String title, String image)
     {
-        super(id,title, image);
+        super(title, image);
     }
 
     //################
@@ -35,7 +35,10 @@ public class AbyssSecondaryEffects extends Abyss
     protected String getImagePng() {
         return this.image;
     }
-    protected void reactToAbyssOrTool(Programmer programmer){
+
+    @Override
+    protected String reactToAbyssOrTool() {
+        return title;
 
     }
 

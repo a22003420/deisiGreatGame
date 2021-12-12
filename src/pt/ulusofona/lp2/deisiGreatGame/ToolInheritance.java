@@ -19,14 +19,12 @@ public class ToolInheritance extends Tool{
     //Methods
     //################
 
+    /*
+    Return title
+     */
     @Override
     protected String getTitle() {
         return this.title;
-    }
-
-    @Override
-    protected int reactToAbyssOrTool() {
-        return 0;
     }
 
     /*
@@ -35,5 +33,10 @@ public class ToolInheritance extends Tool{
     @Override
     protected String getImagePng() {
         return this.image;
+    }
+
+    @Override
+    protected String reactToAbyssOrTool() {
+        return this.title;
     }
 }

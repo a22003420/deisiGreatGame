@@ -8,9 +8,9 @@ public class AbyssSyntax extends Abyss
     //################
     //Constructor
     //################
-    public AbyssSyntax(int id, String title, String image)
+    public AbyssSyntax(String title, String image)
     {
-        super(id,title, image);
+        super(title, image);
     }
 
     //################
@@ -37,7 +37,8 @@ public class AbyssSyntax extends Abyss
     ???
      */
     @Override
-    protected void reactToAbyssOrTool(Programmer programmer) {
+    protected String reactToAbyssOrTool() {
+        return title;
 
     }
 }

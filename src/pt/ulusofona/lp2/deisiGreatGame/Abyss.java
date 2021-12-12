@@ -9,9 +9,6 @@ public abstract class Abyss extends Tile
     //ATTRIBUTES
     //###########
 
-    /* Abyss id */
-    protected int id;
-
     /*Abyss title*/
     protected String title;
 
@@ -22,9 +19,8 @@ public abstract class Abyss extends Tile
     //Constructor
     //################
 
-    public Abyss(int id, String title, String image)
+    public Abyss(String title, String image)
     {
-        this.id = id;
         this.title = title;
         this.image = image;
     }
@@ -34,33 +30,32 @@ public abstract class Abyss extends Tile
     //################
 
     /*
-    Factory for Creating Type Abyss
+    Factory for creating abyss of a given type
      */
-    public static Abyss createAbyss(int abyssType)
+    public static Abyss createAbyss(int abyssTypeId)
     {
-        switch (abyssType)
+        switch (abyssTypeId)
         {
             case 0:
-                return new AbyssSyntax(abyssType, "Erro de sintaxe","syntax.png");
+                return new AbyssSyntax("Erro de sintaxe","syntax.png");
             case 1:
-                return new AbyssLogic(abyssType, "Erro de lógica", "logic.png");
+                return new AbyssLogic("Erro de lógica", "logic.png");
             case 2:
-                return new AbyssException(abyssType, "Exception", "exception.png");
+                return new AbyssException("Exception", "exception.png");
             case 3:
-                return new AbyssFileNotFound(abyssType, "File " +
-                        "Not Found Exception", "file-not-found-exception.png");
+                return new AbyssFileNotFound("File Not Found Exception", "file-not-found-exception.png");
             case 4:
-                return new AbyssCrash(abyssType, "Crash (aka Rebentanço)", "crash.png");
+                return new AbyssCrash("Crash (aka Rebentanço)", "crash.png");
             case 5:
-                return new AbyssDuplicatedCode(abyssType, "Duplicated Code", "duplicated-code.png");
+                return new AbyssDuplicatedCode("Duplicated Code", "duplicated-code.png");
             case 6:
-                return new AbyssSecondaryEffects(abyssType, "Efeitos secundários", "secondary-effects.png");
+                return new AbyssSecondaryEffects("Efeitos secundários", "secondary-effects.png");
             case 7:
-                return new AbyssBlueScreenDeath(abyssType, "Blue Screen of Death", "bsod.png");
+                return new AbyssBlueScreenDeath("Blue Screen of Death", "bsod.png");
             case 8:
-                return new AbyssInfiniteCycle(abyssType, "Ciclo infinito", "infinite-loop.png");
+                return new AbyssInfiniteCycle("Ciclo infinito", "infinite-loop.png");
             case 9:
-                return new AbyssSegmFault(abyssType, "Segmentation Fault", "core-dumped.jpg");
+                return new AbyssSegmFault("Segmentation Fault", "core-dumped.png");
         }
 
         //if returns null there is something wrong!!!
@@ -72,17 +67,19 @@ public abstract class Abyss extends Tile
     //################
 
     /*
-    Get Title
+    Return Abyss Title
      */
     abstract protected String getTitle();
 
     /*
-    React to AbyssOrTool
-    */
-    abstract protected void reactToAbyssOrTool(Programmer programmer);
-
-    /*
-    Return image for Abyss
+    Return Abyss Image
      */
     abstract protected String getImagePng();
+
+    /*
+    React to Abyss
+    */
+    abstract protected String reactToAbyssOrTool();
+
+
 }

@@ -13,15 +13,15 @@ public class ToolFactory extends Tile
     //###########
 
     /* Tool id to Produce*/
-    protected int idType;
+    protected int toolTypeId;
 
     //################
     //Constructor
     //################
 
-    public ToolFactory(int idType)
+    public ToolFactory(int toolTypeId)
     {
-        this.idType = idType;
+        this.toolTypeId = toolTypeId;
     }
 
     //################
@@ -29,34 +29,34 @@ public class ToolFactory extends Tile
     //################
 
     /*
-    Factory for Creating the type of tool
+    Factory for Creating a type of tool
      */
-    public static Tool fabricateTool(int toolType)
+    public static Tool fabricateTool(int toolTypeId)
     {
         List<Abyss> abysses = new ArrayList<>();
 
-        switch (toolType)
+        switch (toolTypeId)
         {
             case 0:
                 //TODO: Load chosen Abyss
                 Abyss duplicated = Abyss.createAbyss(5);
                 abysses.add(duplicated);
-                return new ToolInheritance(toolType, "Herança", "inheritance.png", abysses);
+                return new ToolInheritance(toolTypeId, "Herança", "inheritance.png", abysses);
             case 1:
                 //TODO: Load chosen Abyss
-                return new ToolFuncProg(toolType, "Programação funcional", "functional.png", abysses);
+                return new ToolFuncProg(toolTypeId, "Programação funcional", "functional.png", abysses);
             case 2:
                 //TODO: Load chosen Abyss
-                return new ToolUnitTest(toolType, "Testes unitários", "unit-tests.png", abysses);
+                return new ToolUnitTest(toolTypeId, "Testes unitários", "unit-tests.png", abysses);
             case 3:
                 //TODO: Load chosen Abyss
-                return new ToolExcHandler(toolType, "Tratamento de Excepções", "exception.png", abysses);
+                return new ToolExcHandler(toolTypeId, "Tratamento de Excepções", "exception.png", abysses);
             case 4:
                 //TODO: Load chosen Abyss
-                return new ToolIDE(toolType, "IDE", "IDE.png", abysses);
+                return new ToolIDE(toolTypeId, "IDE", "IDE.png", abysses);
             case 5:
                 //TODO: Load chosen Abyss
-                return new ToolTeacher(toolType, "Ajuda Do Professor", "ajuda-professor.png", abysses);
+                return new ToolTeacher(toolTypeId, "Ajuda Do Professor", "ajuda-professor.png", abysses);
         }
 
         //if returns null there is something wrong!!!
@@ -67,7 +67,7 @@ public class ToolFactory extends Tile
     Return Produced Tool Title
     */
     protected String getTitle(){
-        Tool tool = fabricateTool(this.idType);
+        Tool tool = fabricateTool(this.toolTypeId);
 
         if(tool == null) {
             return "";
@@ -77,29 +77,25 @@ public class ToolFactory extends Tile
     }
 
     /*
-    React to Tool on Tile
-    */
-    protected void reactToAbyssOrTool(Programmer programmer){
-        Tool tool = fabricateTool(this.idType);
-
-
-        if(!programmer.ContainsTool(tool)){
-           programmer.addTool(tool);
-        }
-
-
-    }
-
-    /*
     Return Produced Tool Image
      */
     protected String getImagePng(){
-        Tool tool = fabricateTool(this.idType);
+        Tool tool = fabricateTool(this.toolTypeId);
 
         if(tool==null) {
             return "";
         }
 
         return tool.getImagePng();
+    }
+
+    /*
+    React to Tool on Tile
+    */
+    @Override
+    protected String reactToAbyssOrTool()
+    {
+        Tool tool = fabricateTool(this.toolTypeId);
+        return tool.reactToAbyssOrTool();
     }
 }

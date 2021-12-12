@@ -41,17 +41,17 @@ public abstract class Tool
     //################
 
     /*
-    Get Title
+    Return Title for Tile
     */
     abstract protected String getTitle();
 
     /*
-    React to AbyssOrTool
-    */
-    abstract protected int reactToAbyssOrTool();
-
-    /*
-    Return image for Abyss
+    Return image for Tile
      */
     abstract protected String getImagePng();
+
+    /*
+    React to AbyssOrTool
+    */
+    abstract protected String reactToAbyssOrTool();
 }

@@ -64,35 +64,29 @@ public class TestGameManager {
         String[][] objects = new String[2][3];
         objects[0][0] = "0";
         objects[0][1] = "2";
-        objects[0][2] = "1";
+        objects[0][2] = "2";
 
         objects[1][0] = "1";
         objects[1][1] = "3";
-        objects[1][2] = "2";
+        objects[1][2] = "3";
 
         game2.createInitialBoard(board2, 8, objects);
 
         List<Programmer> programmersList = game2.getProgrammers();
 
+        int nrPositionsToMove =2;
         Programmer programmerToTest = game2.getCurrentPlayer();
-        assertTrue("CheckPlayerPosition",programmerToTest.getBoardPosition() == 1);
-
-        int nrPositionsToMove = 1;
         game2.moveCurrentPlayer(nrPositionsToMove);
-
-        assertTrue("CheckPlayerPosition",programmerToTest.getBoardPosition() == 5);
-
-        nrPositionsToMove = 2;
-        programmerToTest = game2.getCurrentPlayer();
-        game2.moveCurrentPlayer(nrPositionsToMove);
-
         assertTrue("CheckPlayerPosition",programmerToTest.getBoardPosition() == 3);
+        String abyssMsg = game2.reactToAbyssOrTool();
 
-        //Tile xxx = game2..t.getT(1);
-
-
-        //String xxx = game2.getTitle(1);
-        //String aaa = game2.getTitle(1);
+        /*
+        nrPositionsToMove = 2;
+        Programmer programmerToTest2 = game2.getCurrentPlayer();
+        game2.moveCurrentPlayer(nrPositionsToMove);
+        assertTrue("CheckPlayerPosition",programmerToTest2.getBoardPosition() == 3);
+        String toolMsg = game2.reactToAbyssOrTool();
+        */
     }
 
     /*

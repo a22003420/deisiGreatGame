@@ -11,9 +11,9 @@ public class AbyssSegmFault extends Abyss
     //Constructor
     //################
 
-    protected AbyssSegmFault(int id, String title, String image)
+    protected AbyssSegmFault(String title, String image)
     {
-        super(id,title, image);
+        super(title, image);
     }
 
     //################
@@ -37,7 +37,8 @@ public class AbyssSegmFault extends Abyss
     }
 
     @Override
-    protected void reactToAbyssOrTool(Programmer programmer) {
+    protected String reactToAbyssOrTool() {
+        return title;
 
     }
 

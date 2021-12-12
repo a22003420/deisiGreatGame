@@ -1,14 +1,20 @@
 package pt.ulusofona.lp2.deisiGreatGame;
 
+import java.util.List;
+
 /*
 Represents a Tile on the Board
  */
 public class Tile
 {
-    /*
-    Identifies Tile Id: [1, WordlSize]
-     */
-    private int tileId;
+    //###########
+    //ATTRIBUTES
+    //###########
+
+    //################
+    //Constructor
+    //################
+
 
     /*
      Returns Tile Title
@@ -19,16 +25,16 @@ public class Tile
     }
 
     /*
-     React to Abyss or Tool in Tile
-     */
-    protected void reactToAbyssOrTool() {
-        reactToAbyssOrTool();
-    }
-
-    /*
-     Get Abyss or Tool image
+     Returns Empty, Abyss or Tool image
      */
     protected String getImagePng(){
         return getImagePng();
+    }
+
+    /*
+     React to: Empty Title, Abyss Tile or Tool Title
+     */
+    protected String reactToAbyssOrTool(){
+        return reactToAbyssOrTool();
     }
 }

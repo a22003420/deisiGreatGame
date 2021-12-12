@@ -8,9 +8,9 @@ public class AbyssFileNotFound extends Abyss
     //################
     //Constructor
     //################
-    protected AbyssFileNotFound(int id, String title, String image)
+    protected AbyssFileNotFound(String title, String image)
     {
-        super(id,title, image);
+        super(title, image);
     }
 
 
@@ -35,7 +35,9 @@ public class AbyssFileNotFound extends Abyss
     }
 
     @Override
-    protected void reactToAbyssOrTool(Programmer programmer) {
+    protected String reactToAbyssOrTool() {
+        return title;
+
     }
 
     /*

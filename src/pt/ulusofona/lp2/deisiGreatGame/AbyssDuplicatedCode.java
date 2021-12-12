@@ -9,9 +9,9 @@ public class AbyssDuplicatedCode extends Abyss
     //Constructor
     //################
 
-    protected AbyssDuplicatedCode(int id, String title, String image)
+    protected AbyssDuplicatedCode(String title, String image)
     {
-        super(id,title, image);
+        super(title, image);
     }
 
     //################
@@ -35,6 +35,8 @@ public class AbyssDuplicatedCode extends Abyss
     }
 
     @Override
-    protected void reactToAbyssOrTool(Programmer programmer) {
+    protected String reactToAbyssOrTool() {
+        return title;
+
     }
 }

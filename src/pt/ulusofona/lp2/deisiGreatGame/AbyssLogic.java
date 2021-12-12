@@ -8,9 +8,9 @@ public class AbyssLogic extends Abyss
     //################
     //Constructor
     //################
-    public AbyssLogic(int id, String title, String image)
+    public AbyssLogic(String title, String image)
     {
-        super(id,title, image);
+        super(title, image);
     }
 
     //################
@@ -34,7 +34,9 @@ public class AbyssLogic extends Abyss
     }
 
     @Override
-    protected void reactToAbyssOrTool(Programmer programmer) {
+    protected String reactToAbyssOrTool() {
+        return title;
+
     }
 
     /*

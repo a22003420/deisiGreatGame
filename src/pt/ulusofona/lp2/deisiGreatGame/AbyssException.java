@@ -8,9 +8,9 @@ public class AbyssException extends Abyss
     //################
     //Constructor
     //################
-    protected AbyssException(int id, String title, String image)
+    protected AbyssException(String title, String image)
     {
-        super(id,title, image);
+        super(title, image);
     }
 
     //################
@@ -34,7 +34,9 @@ public class AbyssException extends Abyss
     }
 
     @Override
-    protected void reactToAbyssOrTool(Programmer programmer) {
+    protected String reactToAbyssOrTool() {
+        return title;
+
     }
 
     /*

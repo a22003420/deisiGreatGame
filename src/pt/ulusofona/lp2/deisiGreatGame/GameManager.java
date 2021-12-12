@@ -42,7 +42,7 @@ public class GameManager {
     //###########
 
     /*
-    Creates game initial board. not includes Tools and Abyss
+    Creates game initial board. does not include Tools and Abyss
      */
     public boolean createInitialBoard(String[][] playerInfo, int worldSize)
     {
@@ -143,9 +143,9 @@ public class GameManager {
     }
 
     /*
-    Creates game initial board. include Tools and Abyss
+    Creates game initial board. includes: Empty, Tool Factory and Abyss
      */
-    public boolean createInitialBoard(String[][] playerInfo, int worldSize,String[][] abyssesAndTools)
+    public boolean createInitialBoard(String[][] playerInfo, int worldSize, String[][] abyssesAndTools)
     {
         boolean success = createInitialBoard(playerInfo,  worldSize);
         if(!success) {
@@ -159,7 +159,7 @@ public class GameManager {
         int tileRow;
         for (tileRow = 0; tileRow < worldSize; tileRow++)
         {
-            tiles.add(new Empty(0, "Casa Vazia"));
+            tiles.add(new Empty("Casa Vazia", "blank.png"));
         }
 
         //fill Objects
@@ -198,15 +198,13 @@ public class GameManager {
                 return false;
             }
 
-            Tile tile = tiles.get(positionOnTile);
-
             //Fill Tile with object
             switch (typeObjectId) {
                 case 0: //Abyss
                     tiles.set(positionOnTile, Abyss.createAbyss(subTypeObject));
                     break;
                 case 1: //Tool Factory
-                    tiles.add(positionOnTile, new ToolFactory(subTypeObject));
+                    tiles.set(positionOnTile, new ToolFactory(subTypeObject));
                     break;
             }
         }
@@ -223,14 +221,22 @@ public class GameManager {
     }
 
     /*
-    Get player image for given position
+    Get tile image for given position
      */
     public String getImagePng(int position){
+
+        //image for start
+        if(position==1){
+            return "start.png";
+        }
+
+        //image for finish
         if(position-1==getBoardSize()){
             return "glory.png";
         }
 
-        Tile tile = tiles.get(position-1);
+        //return other tile images: Empty, TooFactory and Abyss
+        Tile tile = tiles.get(position);
         return tile.getImagePng();
     }
 
@@ -243,13 +249,14 @@ public class GameManager {
             return null;
         }
 
-        return includeDefeated ? this.programmers : programmers.stream().collect(Collectors.filtering(p-> p.inGame() == true, Collectors.toList()));
+        return includeDefeated ? this.programmers : programmers.stream().collect(Collectors.filtering(Programmer::inGame, Collectors.toList()));
     }
 
     /*
     Get Programmers
      */
-    public List<Programmer> getProgrammers(){
+    public List<Programmer> getProgrammers()
+    {
         return this.programmers==null ? new ArrayList<>() : this.programmers;
     }
 
@@ -280,7 +287,7 @@ public class GameManager {
     }
 
     /*
-    Get current Programmers ID
+    Get current Programmer ID
      */
     public int getCurrentPlayerID()
     {
@@ -288,7 +295,7 @@ public class GameManager {
     }
 
     /*
-    Get current Programmers
+    Get current Programmer
      */
     public Programmer getCurrentPlayer()
     {
@@ -327,17 +334,24 @@ public class GameManager {
         //move programmer
         currentPlayer.move(boardSize, nrPositions);
 
+        return true;
+    }
+
+    /*
+    Reaction to Abyss Title or Tool Factory
+     */
+    public String reactToAbyssOrTool()
+    {
+        //get current player
+        Programmer currentPlayer = getCurrentPlayer();
+
         //verify tile
         Tile tile = tiles.get(currentPlayer.getBoardPosition());
-
-        //react to title
-        tile.reactToAbyssOrTool();
-
 
         //add turn to game turns
         addTurn();
 
-        return true;
+        return tile.reactToAbyssOrTool();
     }
 
     /*
@@ -475,7 +489,7 @@ public class GameManager {
     Returns Board Size: number of tiles
      */
     private int getBoardSize() {
-        return this.tiles.size();
+        return this.tiles.size() - 1;
     }
 
     /*

@@ -9,9 +9,9 @@ public class AbyssBlueScreenDeath extends Abyss
     //Constructor
     //################
 
-    protected AbyssBlueScreenDeath(int id, String title, String image)
+    protected AbyssBlueScreenDeath(String title, String image)
     {
-        super(id,title, image);
+        super(title, image);
     }
 
     //################
@@ -35,15 +35,16 @@ public class AbyssBlueScreenDeath extends Abyss
     }
 
 
+    protected String reactToAbyssOrTool() {
+        return title;
 
-
-    protected void reactToAbyssOrTool(Programmer programmer) {
+        /*
         //loses game
         if(!programmer.isLocked()){
             programmer.lock();
             programmer.gameOver();
         }
-
+        */
     }
 
 }
