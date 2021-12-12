@@ -140,7 +140,9 @@ public class Programmer
         //calculate new current player position
         int newPosition = getBoardPosition()+nrPositions;
 
-        this.positionOnBoard=newPosition>boardSize ? (boardSize-(newPosition-boardSize)) : newPosition;
+        int positionCheckBoundaries=newPosition>boardSize ? (boardSize-(newPosition-boardSize)) : newPosition;
+
+        this.positionOnBoard=positionCheckBoundaries;
     }
 
     /*
@@ -269,8 +271,6 @@ public class Programmer
         //concatenate and return final string
         return id + "| " + name + " | " + positionOnBoard + " | " + showTools() + " |" + strLanguages + " | " + showStatus();
     }
-
-
 
     /*
     Throw dice to calculate number of positions to move

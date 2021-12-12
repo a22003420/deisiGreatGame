@@ -157,7 +157,7 @@ public class GameManager {
         //######
         //Create and fill Game Tile
         int tileRow;
-        for (tileRow = 0; tileRow < worldSize; tileRow++)
+        for (tileRow = 0; tileRow <= worldSize; tileRow++)
         {
             tiles.add(new Empty("Casa Vazia", "blank.png"));
         }
@@ -167,13 +167,13 @@ public class GameManager {
         {
             //#######
             //validate position
-            int positionOnTile;
+            int tilePosition;
             try {
-                positionOnTile = Integer.parseInt(abyssesAndTool[2]);
+                tilePosition = Integer.parseInt(abyssesAndTool[2]);
             } catch (Exception e) {
                 return false;
             }
-            if (positionOnTile > worldSize) {
+            if (tilePosition > worldSize) {
                 return false;
             }
 
@@ -201,10 +201,10 @@ public class GameManager {
             //Fill Tile with object
             switch (typeObjectId) {
                 case 0: //Abyss
-                    tiles.set(positionOnTile, Abyss.createAbyss(subTypeObject));
+                    tiles.set(getPositionIgnoringIndex(tilePosition), Abyss.createAbyss(subTypeObject));
                     break;
                 case 1: //Tool Factory
-                    tiles.set(positionOnTile, new ToolFactory(subTypeObject));
+                    tiles.set(getPositionIgnoringIndex(tilePosition), new ToolFactory(subTypeObject));
                     break;
             }
         }
@@ -216,7 +216,7 @@ public class GameManager {
     Get Tile Title
      */
     public String getTitle(int position){
-        Tile tile = tiles.get(position-1);
+        Tile tile = getTile(position);
         return tile.getTitle();
     }
 
@@ -231,13 +231,12 @@ public class GameManager {
         }
 
         //image for finish
-        if(position-1==getBoardSize()){
+        if(position==getBoardSize()){
             return "glory.png";
         }
 
-        //return other tile images: Empty, TooFactory and Abyss
-        Tile tile = tiles.get(position);
-        return tile.getImagePng();
+        //return other tile images: Empty, ToolFactory and Abyss
+        return getTile(position).getImagePng();
     }
 
     /*
@@ -325,14 +324,8 @@ public class GameManager {
             return false;
         }
 
-        //get current player
-        Programmer currentPlayer = getCurrentPlayer();
-
-        //get board dimension
-        int boardSize = getBoardSize();
-
-        //move programmer
-        currentPlayer.move(boardSize, nrPositions);
+        //move current programmer
+        getCurrentPlayer().move(getBoardSize(), nrPositions);
 
         return true;
     }
@@ -351,7 +344,7 @@ public class GameManager {
         //add turn to game turns
         addTurn();
 
-        return tile.reactToAbyssOrTool();
+        return tile.reactToAbyssOrTool(currentPlayer);
     }
 
     /*
@@ -487,9 +480,10 @@ public class GameManager {
 
     /*
     Returns Board Size: number of tiles
+    Subtract 1 unit to skip index
      */
     private int getBoardSize() {
-        return this.tiles.size() - 1;
+        return getPositionIgnoringIndex(this.tiles.size());
     }
 
     /*
@@ -497,6 +491,13 @@ public class GameManager {
      */
     private int getNrTurns(){
         return this.totalNrTurns;
+    }
+
+    /*
+    Returns title in a given position
+    */
+    private Tile getTile(int position) {
+        return tiles.get(position);
     }
 
     /*
@@ -556,5 +557,13 @@ public class GameManager {
             }
         }
         return false;
+    }
+
+    /*
+    Gets position on board
+    Subtract 1 unit to skip index 0
+     */
+    private int getPositionIgnoringIndex(int position) {
+        return position - 1;
     }
 }

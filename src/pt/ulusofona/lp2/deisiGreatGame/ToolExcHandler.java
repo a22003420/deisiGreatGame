@@ -36,7 +36,7 @@ public class ToolExcHandler extends Tool
     }
 
     @Override
-    protected String reactToAbyssOrTool() {
+    protected String reactToAbyssOrTool(Programmer programmer) {
         return this.title;
     }
 }

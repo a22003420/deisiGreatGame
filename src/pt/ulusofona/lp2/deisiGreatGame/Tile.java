@@ -1,7 +1,5 @@
 package pt.ulusofona.lp2.deisiGreatGame;
 
-import java.util.List;
-
 /*
 Represents a Tile on the Board
  */
@@ -34,7 +32,7 @@ public class Tile
     /*
      React to: Empty Title, Abyss Tile or Tool Title
      */
-    protected String reactToAbyssOrTool(){
-        return reactToAbyssOrTool();
+    protected String reactToAbyssOrTool(Programmer programmer){
+        return reactToAbyssOrTool(programmer);
     }
 }

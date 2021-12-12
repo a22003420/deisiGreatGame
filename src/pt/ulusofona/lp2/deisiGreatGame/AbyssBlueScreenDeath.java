@@ -35,7 +35,7 @@ public class AbyssBlueScreenDeath extends Abyss
     }
 
 
-    protected String reactToAbyssOrTool() {
+    protected String reactToAbyssOrTool(Programmer programmer) {
         return title;
 
         /*

@@ -79,7 +79,7 @@ public abstract class Abyss extends Tile
     /*
     React to Abyss
     */
-    abstract protected String reactToAbyssOrTool();
+    abstract protected String reactToAbyssOrTool(Programmer programmer);
 
 
 }

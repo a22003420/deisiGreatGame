@@ -36,7 +36,7 @@ public class AbyssCrash extends Abyss
 
 
     @Override
-    protected String reactToAbyssOrTool() {
+    protected String reactToAbyssOrTool(Programmer programmer) {
         return title;
 
     }

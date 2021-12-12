@@ -37,13 +37,6 @@ public class Empty extends Tile {
     }
 
     /*
-    Get Message
-     */
-    protected String showMessage() {
-        return "aaaaaa";
-    }
-
-    /*
     Return image for Empty
      */
     protected String getImagePng() {

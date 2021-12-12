@@ -53,5 +53,5 @@ public abstract class Tool
     /*
     React to AbyssOrTool
     */
-    abstract protected String reactToAbyssOrTool();
+    abstract protected String reactToAbyssOrTool(Programmer programmer);
 }
