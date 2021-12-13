@@ -196,8 +196,16 @@ public class Programmer {
     //#################
     //BEGIN METHODS: PROGRAMMER POSITION
 
+    public void setCurrent(){
+        current = true;
+    }
+
+    public boolean isCurrent() {
+        return current;
+    }
+
     /*
-     Add new Position
+    Add new Position
      */
     public void logNewPosition (int position){
         positionsOnBoard.add(position);

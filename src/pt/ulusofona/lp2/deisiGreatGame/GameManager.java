@@ -251,10 +251,10 @@ public class GameManager {
     }
 
     /*
-    Get Programmers
+    Get Programmers ignoring state
      */
-    public List<Programmer> getProgrammers()
-    {
+
+    public List<Programmer> getProgrammers(){
         return this.programmers==null ? new ArrayList<>() : this.programmers;
     }
 
@@ -529,6 +529,10 @@ public class GameManager {
     {
         //order list by id ascending
         programmers.sort(Comparator.comparing(Programmer::getId));
+
+        //set first programmer current player
+        programmers.get(0).setCurrent();
+
         //fill programmers
         this.programmers=programmers;
     }
