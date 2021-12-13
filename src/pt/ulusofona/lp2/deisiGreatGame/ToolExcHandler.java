@@ -18,7 +18,7 @@ public class ToolExcHandler extends Tool
     //Methods
 
     /*
-    Return title to Tool Exception Handler
+    Return title Tool Exception Handler
      */
     @Override
     protected String getTitle() {
@@ -26,7 +26,7 @@ public class ToolExcHandler extends Tool
     }
 
     /*
-    Return image to Tool Exception Handler
+    Return image Tool Exception Handler
      */
     @Override
     protected String getImagePng() {

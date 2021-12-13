@@ -18,7 +18,7 @@ public class ToolUnitTest extends Tool{
     //Methods
 
     /*
-    Return title
+    Return title Tool Unit Test
      */
     @Override
     protected String getTitle() {
@@ -26,7 +26,7 @@ public class ToolUnitTest extends Tool{
     }
 
     /*
-    Return image
+    Return image Tool Unit Test
      */
     @Override
     protected String getImagePng() {

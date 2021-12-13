@@ -18,7 +18,7 @@ public class ToolInheritance extends Tool{
     //Methods
 
     /*
-    Return title
+    Return title Tool Inheritance
      */
     @Override
     protected String getTitle() {
@@ -26,7 +26,7 @@ public class ToolInheritance extends Tool{
     }
 
     /*
-    Return image
+    Return image Tool Inheritance
      */
     @Override
     protected String getImagePng() {

@@ -18,7 +18,7 @@ public class ToolTeacher extends Tool {
     //Methods
 
     /*
-    Return title
+    Return title Tool Teacher Help
      */
     @Override
     protected String getTitle() {
@@ -26,7 +26,7 @@ public class ToolTeacher extends Tool {
     }
 
     /*
-    Return image
+    Return image Tool Teacher Help
      */
     @Override
     protected String getImagePng() {

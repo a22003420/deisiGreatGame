@@ -18,7 +18,7 @@ public class ToolFuncProg extends Tool {
     //Methods
 
     /*
-    Return title
+    Return title Tool Functional Programming
      */
     @Override
     protected String getTitle() {
@@ -26,7 +26,7 @@ public class ToolFuncProg extends Tool {
     }
 
     /*
-    Return image
+    Return image Tool Functional Programming
      */
     @Override
     protected String getImagePng() {

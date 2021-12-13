@@ -18,7 +18,7 @@ public class ToolIDE extends Tool {
     //Methods
 
     /*
-    Return title
+    Return title Tool IDE
      */
     @Override
     protected String getTitle() {
@@ -26,7 +26,7 @@ public class ToolIDE extends Tool {
     }
 
     /*
-    Return image
+    Return image Tool IDE
      */
     @Override
     protected String getImagePng() {

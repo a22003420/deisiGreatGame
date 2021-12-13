@@ -16,18 +16,16 @@ public class Tile
     }
 
     /*
-     Returns Empty, Abyss or Tool image
+     Returns Tile image
      */
     protected String getImagePng(){
         return getImagePng();
     }
 
     /*
-     React to: Empty Title, Abyss Tile or Tool Title
+    React to Title
      */
     protected String reactToAbyssOrTool(List<Programmer> programmers, Programmer programmer, int boardSize){
-
-        String xxx = "123";
         return reactToAbyssOrTool(programmers, programmer, boardSize);
     }
 }

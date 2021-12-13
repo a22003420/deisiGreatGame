@@ -10,7 +10,6 @@ public abstract class Tool
 {
     //###########
     //ATTRIBUTES
-    //###########
 
     /*Tool id */
     protected final int id;
@@ -26,7 +25,6 @@ public abstract class Tool
 
     //################
     //Constructor
-    //################
 
     public Tool(int id, String title, String image, List<Abyss> abysses) {
         this.id = id;
@@ -37,20 +35,19 @@ public abstract class Tool
 
     //################
     //Methods
-    //################
 
     /*
-    Return Title for Tile
+    Return Title Tool
     */
     abstract protected String getTitle();
 
     /*
-    Return image for Tile
+    Return image Tool
      */
     abstract protected String getImagePng();
 
     /*
-    React to AbyssOrTool
+    React to Tool
     */
     abstract protected String reactToAbyssOrTool(List<Programmer> programmers, Programmer programmer, int boardSize);
 

@@ -11,7 +11,9 @@ public class ToolFactory extends Tile
     //###########
     //ATTRIBUTES
 
-    /* Tool id to Produce*/
+    /*
+    Tool type Id to Produce
+     */
     protected final int toolTypeId;
 
     //################
