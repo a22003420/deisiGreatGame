@@ -34,10 +34,10 @@ public class ToolIDE extends Tool {
     }
 
     /*
-    React to Tool
+    React to Tool IDE
      */
     @Override
-    protected String reactToAbyssOrTool(Programmer programmer, int boardSize) {
-        return (programmer.addTool(this) ? "Fixe!\nSortudo a Ferramenta: " : "Azar!\nJá tinha a Ferramenta: ") + title;
+    protected String reactToAbyssOrTool(List<Programmer> programmers, Programmer programmer, int boardSize) {
+        return (programmer.addTool(this) ? "Sortudo!\nRecohi a Ferramenta: " : "Azar!\nJá tinha a Ferramenta: ") + this.title;
     }
 }

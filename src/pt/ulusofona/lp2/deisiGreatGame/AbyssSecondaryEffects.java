@@ -1,6 +1,7 @@
 package pt.ulusofona.lp2.deisiGreatGame;
 
 import java.awt.*;
+import java.util.List;
 
 /*
 Represents an Abyss of type Exception
@@ -36,13 +37,24 @@ public class AbyssSecondaryEffects extends Abyss
 
     /*
     React to Abyss
+    If not contains required tool go back to previous position
     */
     @Override
-    protected String reactToAbyssOrTool(Programmer programmer, int boardSize) {
-        return title;
+    protected String reactToAbyssOrTool(List<Programmer> programmers, Programmer programmer, int boardSize) {
 
-    }
+        String result = programmer.ContainsToolForAbyss(this);
+        String message = "";
 
+        if(result.isBlank())
+        {
+
+        }
+        else
+        {
+            message = "Sortudo!\nTinha a Ferramenta: " + title + "\nUsei e safei-me";
+        }
+
+        return message;
 /*
     protected void reactToAbyssOrTool(Programmer programmer) {
         //go back to previous-1 position not tile (penultimo)
@@ -60,4 +72,5 @@ public class AbyssSecondaryEffects extends Abyss
     }
 
  */
+    }
 }

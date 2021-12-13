@@ -1,5 +1,7 @@
 package pt.ulusofona.lp2.deisiGreatGame;
 
+import java.util.List;
+
 /*
 Represents a board title empty
  */
@@ -46,7 +48,7 @@ public class Empty extends Tile {
     React to AbyssOrTool
     */
     @Override
-    protected String reactToAbyssOrTool(Programmer programmer, int boardSize){
+    protected String reactToAbyssOrTool(List<Programmer> programmers, Programmer programmer, int boardSize){
         return null;
     }
 }

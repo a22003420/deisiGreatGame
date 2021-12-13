@@ -334,6 +334,9 @@ public class GameManager {
      */
     public String reactToAbyssOrTool()
     {
+        //get programmers
+        List<Programmer> programmers = getProgrammers();
+
         //get current player
         Programmer currentPlayer = getCurrentPlayer();
 
@@ -343,7 +346,7 @@ public class GameManager {
         //add turn to game turns
         addTurn();
 
-        return tile.reactToAbyssOrTool(currentPlayer, getBoardSize());
+        return tile.reactToAbyssOrTool(programmers, currentPlayer, getBoardSize());
     }
 
     /*

@@ -1,5 +1,7 @@
 package pt.ulusofona.lp2.deisiGreatGame;
 
+import java.util.List;
+
 /*
 Represents a board tile of type Abstract Abyss
  */
@@ -82,5 +84,5 @@ public abstract class Abyss extends Tile
     React to Abyss
     */
     @Override
-    abstract protected String reactToAbyssOrTool(Programmer programmer, int boardSize);
+    abstract protected String reactToAbyssOrTool(List<Programmer> programmers, Programmer programmer, int boardSize);
 }

@@ -136,10 +136,16 @@ public class Programmer
     {
         //calculate new current player position
         int newPosition = getBoardPosition()+nrPositions;
+        int positionCheck = 0;
 
-        int positionCheckBoundaries=newPosition>boardSize ? (boardSize-(newPosition-boardSize)) : newPosition;
+        if(newPosition>1) {
+            positionCheck = newPosition > boardSize ? (boardSize - (newPosition - boardSize)) : newPosition;
+        }
+        else {
+            positionCheck = 1;
+        }
 
-        this.positionOnBoard=positionCheckBoundaries;
+        this.positionOnBoard=positionCheck;
     }
 
     /*

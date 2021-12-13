@@ -35,22 +35,23 @@ public class AbyssSyntax extends Abyss
     }
 
     /*
-    React to Abyss
+    React to Abyss Syntax
+    If not contains required tool go back 1 position
     */
     @Override
-    protected String reactToAbyssOrTool(Programmer programmer, int boardSize) {
+    protected String reactToAbyssOrTool(List<Programmer> programmers, Programmer programmer, int boardSize) {
 
         String result = programmer.ContainsToolForAbyss(this);
         String message = "";
 
-        if(result!="")
+        if(result.isBlank())
         {
             programmer.move(boardSize, -1);
-            message = "Azar!\nNão tinha uma Ferramenta!\nVou andar para trás uma casa";
+            message = "Azar!\nNão tinha uma Ferramenta\nVou andar para trás uma casa";
         }
         else
         {
-            message = "Sortudo!\nTinha a Ferramenta!\nUsei e safei-me";
+            message = "Sortudo!\nTinha a Ferramenta: " + title + "\nUsei e safei-me";
         }
 
         return message;

@@ -34,6 +34,29 @@ public class AbyssInfiniteCycle extends Abyss
         return this.image;
     }
 
+    /*
+    React to Abyss
+    If not contains required tool is locked
+    */
+    @Override
+    protected String reactToAbyssOrTool(List<Programmer> programmers, Programmer programmer, int boardSize) {
+
+        String result = programmer.ContainsToolForAbyss(this);
+        String message = "";
+
+        if(result.isBlank())
+        {
+            programmer.lock();
+
+        }
+        else
+        {
+            message = "Sortudo!\nTinha a Ferramenta: " + title + "\nUsei e safei-me";
+        }
+
+
+        return message;
+
     /*@Override
     public void executeEffects(List<Programmer> programmers){
         if(programmers.size()>1){
@@ -46,12 +69,7 @@ public class AbyssInfiniteCycle extends Abyss
         }
     }*/
 
-    /*
-    React to Abyss
-    */
-    @Override
-    protected String reactToAbyssOrTool(Programmer programmer, int boardSize) {
-        return title;
+
 
     }
 

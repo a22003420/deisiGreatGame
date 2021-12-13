@@ -18,7 +18,7 @@ public class ToolExcHandler extends Tool
     //Methods
 
     /*
-    Return title
+    Return title to Tool Exception Handler
      */
     @Override
     protected String getTitle() {
@@ -26,7 +26,7 @@ public class ToolExcHandler extends Tool
     }
 
     /*
-    Return image
+    Return image to Tool Exception Handler
      */
     @Override
     protected String getImagePng() {
@@ -34,11 +34,11 @@ public class ToolExcHandler extends Tool
     }
 
     /*
-    React to Tool
+    React to Tool Exception Handler
      */
     @Override
-    protected String reactToAbyssOrTool(Programmer programmer, int boardSize)
+    protected String reactToAbyssOrTool(List<Programmer> programmers, Programmer programmer, int boardSize)
     {
-        return (programmer.addTool(this) ? "Sortudo!\nAdicionei a Ferramenta: " : "Azar!\nJá tinha a Ferramenta: ") + title;
+        return (programmer.addTool(this) ? "Sortudo!\nRecohi a Ferramenta: " : "Azar!\nJá tinha a Ferramenta: ") + this.title;
     }
 }

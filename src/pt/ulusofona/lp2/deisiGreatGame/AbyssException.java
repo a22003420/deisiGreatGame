@@ -1,5 +1,7 @@
 package pt.ulusofona.lp2.deisiGreatGame;
 
+import java.util.List;
+
 /*
 Represents an Abyss of type Exception
  */
@@ -34,21 +36,22 @@ public class AbyssException extends Abyss
 
     /*
     React to Abyss
+    If not contains required tool go back 2 positions
     */
     @Override
-    protected String reactToAbyssOrTool(Programmer programmer, int boardSize) {
+    protected String reactToAbyssOrTool(List<Programmer> programmers, Programmer programmer, int boardSize) {
 
         String result = programmer.ContainsToolForAbyss(this);
         String message = "";
 
-        if(result!="")
+        if(result.isBlank())
         {
             programmer.move(boardSize, -2);
-            message = "Azar!\nNão tinha uma Ferramenta!\nVou andar para trás duas casa";
+            message = "Azar!\nNão tinha uma Ferramenta\nVou andar para trás duas casa";
         }
         else
         {
-            message = "Sortudo!\nTinha a Ferramenta!\nUsei e safei-me";
+            message = "Sortudo!\nTinha a Ferramenta: " + title + "\nUsei e safei-me";
         }
 
         return message;
