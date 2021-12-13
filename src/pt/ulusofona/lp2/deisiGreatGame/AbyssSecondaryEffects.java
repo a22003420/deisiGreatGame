@@ -1,6 +1,5 @@
 package pt.ulusofona.lp2.deisiGreatGame;
 
-import java.awt.*;
 import java.util.List;
 
 /*
@@ -36,41 +35,27 @@ public class AbyssSecondaryEffects extends Abyss
     }
 
     /*
-    React to Abyss
-    If not contains required tool go back to previous position
+    React to Abyss Secondary Effects
+    If not contains required tool go back to previous previous position
     */
     @Override
     protected String reactToAbyssOrTool(List<Programmer> programmers, Programmer programmer, int boardSize) {
 
-        String result = programmer.ContainsToolForAbyss(this);
-        String message = "";
+        String result = programmer.UseToolOnAbyss(this);
+        String message;
 
         if(result.isBlank())
         {
-
+            int currentPosition = programmer.currentPosition();
+            int previousPreviousPosition = programmer.previousPreviousPosition();
+            int positionsToMove = currentPosition - previousPreviousPosition;
+            programmer.move(boardSize, positionsToMove);
+            message = "Azar!\nNão tinha uma Ferramenta\nVou retroceder " + positionsToMove;
         }
-        else
-        {
-            message = "Sortudo!\nTinha a Ferramenta: " + title + "\nUsei e safei-me";
+        else{
+            message = "Sortudo!\nTinha a Ferramenta: " + result + "\nUsei e safei-me";
         }
 
         return message;
-/*
-    protected void reactToAbyssOrTool(Programmer programmer) {
-        //go back to previous-1 position not tile (penultimo)
-        {
-            //go back to previous position
-            if(!programmer.isLocked()){
-                if(!programmer.ContainsTool()){
-                    programmer.lock();
-                    programmer.move();
-                }else{
-                    programmer.removeTool();
-                }
-            }
-        }
-    }
-
- */
     }
 }

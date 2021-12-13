@@ -1,7 +1,7 @@
 package pt.ulusofona.lp2.deisiGreatGame;
 //Imports
 import org.junit.Test;
-import java.util.ArrayList;
+
 import java.util.List;
 
 import static org.junit.Assert.assertTrue;
@@ -34,12 +34,12 @@ public class TestGameManager {
 
         //generate positions to move
         int nrPositionsToMove = programmerToTest.throwDice();
-        int currentPosition = programmerToTest.getBoardPosition();
+        int currentPosition = programmerToTest.currentPosition();
         int mockNewPosition = currentPosition + nrPositionsToMove;
 
         game1.moveCurrentPlayer(nrPositionsToMove);
 
-        assertTrue("CheckPlayerPosition",programmerToTest.getBoardPosition() == mockNewPosition);
+        assertTrue("CheckPlayerPosition",programmerToTest.currentPosition() == mockNewPosition);
     }
 
     /*
@@ -62,32 +62,33 @@ public class TestGameManager {
         board2[1][3] = "BROWN";
 
         String[][] objects = new String[2][3];
-        objects[0][0] = "1";
-        objects[0][1] = "2";
+        objects[0][0] = "0";
+        objects[0][1] = "1";
         objects[0][2] = "2";
 
-        objects[1][0] = "1";
-        objects[1][1] = "3";
+        objects[1][0] = "0";
+        objects[1][1] = "2";
         objects[1][2] = "3";
 
         game2.createInitialBoard(board2, 8, objects);
 
         List<Programmer> programmersList = game2.getProgrammers();
+        Programmer programmerToTest;
 
         int nrPositionsToMove =1;
-        Programmer programmerToTest = game2.getCurrentPlayer();
+        programmerToTest = game2.getCurrentPlayer();
         game2.moveCurrentPlayer(nrPositionsToMove);
-        assertTrue("CheckPlayerPosition",programmerToTest.getBoardPosition() == 2);
+        assertTrue("CheckPlayerPosition",programmerToTest.currentPosition() == 2);
         String abyssMsg = game2.reactToAbyssOrTool();
-        String xxx = "asd";
 
-        /*
         nrPositionsToMove = 2;
-        Programmer programmerToTest2 = game2.getCurrentPlayer();
+        Programmer programmerToTest1 = game2.getCurrentPlayer();
         game2.moveCurrentPlayer(nrPositionsToMove);
-        assertTrue("CheckPlayerPosition",programmerToTest2.getBoardPosition() == 3);
-        String toolMsg = game2.reactToAbyssOrTool();
-        */
+        assertTrue("CheckPlayerPosition",programmerToTest1.currentPosition() == 3);
+
+        nrPositionsToMove = 1;
+        game2.moveCurrentPlayer(nrPositionsToMove);
+        assertTrue("CheckPlayerPosition",programmerToTest.currentPosition() == 3);
     }
 
     /*
@@ -125,13 +126,13 @@ public class TestGameManager {
         Programmer programmerToTest = game3.getCurrentPlayer();
         game3.moveCurrentPlayer(nrPositionsToMove);
 
-        assertTrue("CheckPlayerPosition",programmerToTest.getBoardPosition() == 5);
+        assertTrue("CheckPlayerPosition",programmerToTest.currentPosition() == 5);
 
         nrPositionsToMove = 4;
         programmerToTest = game3.getCurrentPlayer();
         game3.moveCurrentPlayer(nrPositionsToMove);
 
-        assertTrue("CheckPlayerPosition",programmerToTest.getBoardPosition() == 5);
+        assertTrue("CheckPlayerPosition",programmerToTest.currentPosition() == 5);
 
         System.out.println(game3.getProgrammers(5));
     }

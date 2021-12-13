@@ -35,46 +35,24 @@ public class AbyssFileNotFound extends Abyss
     }
 
     /*
-    React to Abyss
-    If not contains required tool go back to 1 position
+    React to Abyss File Not Found
+    If not contains required tool, goes back 3 position
     */
     @Override
     protected String reactToAbyssOrTool(List<Programmer> programmers, Programmer programmer, int boardSize) {
 
-        String result = programmer.ContainsToolForAbyss(this);
-        String message = "";
+        String result = programmer.UseToolOnAbyss(this);
+        String message;
 
         if(result.isBlank())
         {
-            programmer.move(boardSize, -1);
-            message = "Azar!\nNão tinha uma Ferramenta\nVou andar para trás três casa";
+            programmer.move(boardSize, -3);
+            message = "Azar!\nNão tinha uma Ferramenta\nVou retroceder 3 casas";
         }
         else
         {
-            message = "Sortudo!\nTinha a Ferramenta: " + title + "\nUsei e safei-me";
+            message = "Sortudo!\nTinha a Ferramenta: " + result + "\nUsei e safei-me";
         }
-
         return message;
-
     }
-
-    /*
-    @Override
-    protected void applyEffects(Programmer programmer) {
-        //go back 3 houses
-        if(!programmer.isLocked()){
-            if(!programmer.checkTool(3) && !programmer.checkTool(5)){
-                programmer.setLocked();
-                programmer.setBoardPosition(programmer.getBoardPosition()-3);
-            }else{
-                if(programmer.checkTool(3)){
-                    programmer.removeTool(3);
-                }else if(programmer.checkTool(5)){
-                    programmer.removeTool(5);
-                }
-            }
-        }
-    }
-
-     */
 }

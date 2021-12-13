@@ -26,6 +26,8 @@ public class Tile
      React to: Empty Title, Abyss Tile or Tool Title
      */
     protected String reactToAbyssOrTool(List<Programmer> programmers, Programmer programmer, int boardSize){
+
+        String xxx = "123";
         return reactToAbyssOrTool(programmers, programmer, boardSize);
     }
 }

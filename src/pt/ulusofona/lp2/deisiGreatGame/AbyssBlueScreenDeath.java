@@ -3,7 +3,7 @@ package pt.ulusofona.lp2.deisiGreatGame;
 import java.util.List;
 
 /*
-Represents an Abyss of type Exception
+Represents an Abyss of type Blue Screen of Death
  */
 public class AbyssBlueScreenDeath extends Abyss
 {
@@ -19,7 +19,7 @@ public class AbyssBlueScreenDeath extends Abyss
     //Methods
 
     /*
-    Return title
+    Return title to Abyss Blue Screen of Death
      */
     @Override
     protected String getTitle() {
@@ -27,7 +27,7 @@ public class AbyssBlueScreenDeath extends Abyss
     }
 
     /*
-    Return image
+    Return image to Abyss Blue Screen of Death
      */
     @Override
     protected String getImagePng() {
@@ -35,13 +35,13 @@ public class AbyssBlueScreenDeath extends Abyss
     }
 
     /*
-    React to Abyss
+    React to Abyss Blue Screen of Death
      */
     @Override
     protected String reactToAbyssOrTool(List<Programmer> programmers, Programmer programmer, int boardSize)
     {
-        String result = programmer.ContainsToolForAbyss(this);
-        String message = "";
+        String result = programmer.UseToolOnAbyss(this);
+        String message;
 
         if(result.isBlank())
         {
@@ -50,10 +50,9 @@ public class AbyssBlueScreenDeath extends Abyss
         }
         else
         {
-            message = "Sortudo!\nTinha a Ferramenta: " + title + "\nUsei e safei-me";
+            message = "Sortudo!\nTinha a Ferramenta: " + result + "\nUsei e safei-me";
         }
 
         return message;
     }
-
 }

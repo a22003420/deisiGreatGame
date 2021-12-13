@@ -35,44 +35,28 @@ public class AbyssLogic extends Abyss
     }
 
     /*
-    React to Abyss
+    React to Abyss Logic
     If not contains required tool go back to previous position
     */
     @Override
     protected String reactToAbyssOrTool(List<Programmer> programmers, Programmer programmer, int boardSize) {
 
-        String result = programmer.ContainsToolForAbyss(this);
-        String message = "";
+        String result = programmer.UseToolOnAbyss(this);
+        String message;
 
         if(result.isBlank())
         {
-
+            int currentPosition = programmer.currentPosition();
+            int previousPosition = programmer.previousPosition();
+            int movedPositions = currentPosition - previousPosition;
+            int positionsToMove = movedPositions % 2;
+            programmer.move(boardSize, positionsToMove);
+            message = "Azar!\nNão tinha uma Ferramenta\nVou retroceder " + positionsToMove;
         }
-        else
-        {
-            message = "Sortudo!\nTinha a Ferramenta: " + title + "\nUsei e safei-me";
+        else{
+            message = "Sortudo!\nTinha a Ferramenta: " + result + "\nUsei e safei-me";
         }
 
         return message;
-
-    /*
-    @Override
-    protected void applyEffects(Programmer programmer)
-    {
-        //go back (numero do dado\2) house
-        if(!programmer.isLocked()){
-            if(!programmer.checkTool(3) && !programmer.checkTool(5)){
-                programmer.setLocked();
-                programmer.setBoardPosition(programmer.throwDice()/2);
-            }else{
-                if(programmer.checkTool(3)){
-                    programmer.removeTool(3);
-                }else if(programmer.checkTool(5)){
-                    programmer.removeTool(5);
-                }
-            }
-        }
-    }
-     */
     }
 }

@@ -35,27 +35,26 @@ public class AbyssDuplicatedCode extends Abyss
     }
 
     /*
-    React to Abyss
+    React to Abyss Duplicated Code
     If not contains required tool go back to previous position
     */
     @Override
     protected String reactToAbyssOrTool(List<Programmer> programmers, Programmer programmer, int boardSize) {
 
-        String result = programmer.ContainsToolForAbyss(this);
-        String message = "";
+        String result = programmer.UseToolOnAbyss(this);
+        String message;
 
         if(result.isBlank())
         {
-            int lastPosition = programmer.lastPosition();
-            int currentPosition = programmer.getBoardPosition();
-            int positionsToMoveBack = currentPosition - lastPosition;
-
-            programmer.move(boardSize, positionsToMoveBack);
-            message = "Azar!\nNão tinha uma Ferramenta\nVou voltar ao início";
+            int previousPosition = programmer.previousPosition();
+            int currentPosition = programmer.currentPosition();
+            int positionsToMove = currentPosition - previousPosition;
+            programmer.move(boardSize, positionsToMove);
+            message = "Azar!\nNão tinha uma Ferramenta\nVou regresar à posição anterior";
         }
         else
         {
-            message = "Sortudo!\nTinha a Ferramenta: " + title + "\nUsei e safei-me";
+            message = "Sortudo!\nTinha a Ferramenta: " + result + "\nUsei e safei-me";
         }
 
         return message;

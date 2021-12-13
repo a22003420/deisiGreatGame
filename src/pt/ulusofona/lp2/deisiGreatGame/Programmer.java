@@ -122,12 +122,8 @@ public class Programmer
         return this.color;
     }
 
-    /*
-     Return player game position on board
-    */
-    public Integer getBoardPosition() {
-        return this.positionOnBoard;
-    }
+    //#################
+    //BEGIN METHODS: PROGRAMMER MOVE
 
     /*
      move player position on board
@@ -135,7 +131,7 @@ public class Programmer
     public void move(Integer boardSize, Integer nrPositions)
     {
         //calculate new current player position
-        int newPosition = getBoardPosition()+nrPositions;
+        int newPosition = currentPosition()+nrPositions;
         int positionCheck = 0;
 
         if(newPosition>1) {
@@ -146,24 +142,14 @@ public class Programmer
         }
 
         this.positionOnBoard=positionCheck;
+        logNewPosition(positionCheck);
     }
 
-    /*
-     Return Programmer Status on Game
-     */
-    public boolean inGame(){
-        return status;
-    }
-
-    /*
-     coloca o status a false
-     */
-    public void gameOver(){
-        status=false;
-    }
+    //END METHODS: PROGRAMMER MOVE
+    //#################
 
     //#################
-    //BEGIN METHODS: LOCK
+    //BEGIN METHODS: PROGRAMMER LOCK, INGAME, GAMEOVER
 
     /*
      Check if Programmer is locked
@@ -186,11 +172,25 @@ public class Programmer
         locked=false;
     }
 
-    //END METHODS: LOCK
+    /*
+     Return Programmer Status on Game
+     */
+    public boolean inGame(){
+        return status;
+    }
+
+    /*
+     coloca o status a false
+     */
+    public void gameOver(){
+        status=false;
+    }
+
+    //END METHODS: PROGRAMMER LOCK, INGAME, GAMEOVER
     //#################
 
     //#################
-    //BEGIN METHODS: POSITION
+    //BEGIN METHODS: PROGRAMMER POSITION
 
     /*
      Add new Position
@@ -200,16 +200,36 @@ public class Programmer
     }
 
     /*
+     Return player game position on board
+    */
+    public Integer currentPosition() {
+        return this.positionOnBoard;
+    }
+
+    /*
      Return Previous Position
      */
-    public Integer lastPosition (){
+    public Integer previousPosition(){
+
+        if(positionsOnBoard.size()==0){
+            return 1;
+        }
+
         return positionsOnBoard.get(positionsOnBoard.size()-1);
     }
 
     /*
      Return Previous Previous Position
      */
-    public Integer lastPosition2 (){
+    public Integer previousPreviousPosition(){
+        if(positionsOnBoard.size()==0){
+            return 1;
+        }
+
+        if(positionsOnBoard.size()==1){
+            return positionsOnBoard.get(1);
+        }
+
         return positionsOnBoard.get(positionsOnBoard.size()-2);
     }
 
@@ -220,27 +240,41 @@ public class Programmer
     //BEGIN METHODS: TOOLS
 
     /*
-     Check if programmer contains a tool
+     Check if programmer contains a given tool
      */
-    public boolean ContainsTool(Tool tool){
-        return tools.contains(tool);
+    private boolean ContainsTool(Tool tool){
+        boolean containsTool = tools.contains(tool);
+        return containsTool;
     }
 
     /*
      Check if programmer contains a tool for a given Abyss
+     If true, removes tool from list of tools and returns used tool title
      */
-    public String ContainsToolForAbyss(Abyss abyss)
+    public String UseToolOnAbyss(Abyss abyss)
     {
+        String result="";
+
+        if(tools.size()==0)
+            return result;
+
+        Tool foundTool = null;
         for (Tool tool: tools)
         {
             if(tool.abysses.contains(abyss))
             {
-                removeTool(tool);
-                return tool.getTitle();
+                foundTool = tool;
+                break;
             }
         }
 
-        return "";
+        if(foundTool!=null)
+        {
+            result = foundTool.title;
+            tools.remove(foundTool);
+        }
+
+        return result;
     }
 
     /*
@@ -268,7 +302,7 @@ public class Programmer
             return false;
         }
 
-        if(!ContainsTool(tool)) {
+        if(ContainsTool(tool)) {
             return tools.remove(tool);
         }
 

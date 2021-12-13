@@ -35,27 +35,27 @@ public class AbyssCrash extends Abyss
     }
 
     /*
-    React to Abyss
+    React to Abyss Crash
     If not contains required tool go back to start
     */
     @Override
     protected String reactToAbyssOrTool(List<Programmer> programmers, Programmer programmer, int boardSize) {
 
-        String result = programmer.ContainsToolForAbyss(this);
-        int positions = programmer.getBoardPosition();
-        String message = "";
+        String result = programmer.UseToolOnAbyss(this);
+        String message;
 
         if(result.isBlank())
         {
-            programmer.move(boardSize, positions);
-            message = "Azar!\nNão tinha uma Ferramenta\nVou voltar ao início";
+            int currentPosition = programmer.currentPosition();
+            int positionsToMove = 1 - currentPosition;
+            programmer.move(boardSize, positionsToMove);
+            message = "Azar!\nNão tinha uma Ferramenta\nVou retroceder para o início";
         }
         else
         {
-            message = "Sortudo!\nTinha a Ferramenta: " + title + "\nUsei e safei-me";
+            message = "Sortudo!\nTinha a Ferramenta: " + result + "\nUsei e safei-me";
         }
 
         return message;
-
     }
 }

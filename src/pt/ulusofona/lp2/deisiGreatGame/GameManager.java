@@ -271,7 +271,7 @@ public class GameManager {
         ArrayList<Programmer> programmerList = new ArrayList<>();
         for (Programmer programmer: programmers)
         {
-            if(programmer.getBoardPosition() == position)
+            if(programmer.currentPosition() == position)
             {
                 programmerList.add(programmer);
             }
@@ -295,8 +295,8 @@ public class GameManager {
     /*
     Get current Programmer
      */
-    public Programmer getCurrentPlayer()
-    {
+    public Programmer getCurrentPlayer(){
+
         //fetch programmer list
         List<Programmer> programmerArrayList = getProgrammers();
 
@@ -309,6 +309,13 @@ public class GameManager {
         //calculate current player index
         int index = nrTurns % nrPlayers;
 
+        //check if programmer is locked
+        Programmer currProgrammer = programmerArrayList.get(index);
+        if(currProgrammer.isLocked())
+        {
+            index++;
+        }
+
         //return current player
         return programmerArrayList.get(index);
     }
@@ -316,8 +323,7 @@ public class GameManager {
     /*
     Move current Player given positions
      */
-    public boolean moveCurrentPlayer(int nrPositions)
-    {
+    public boolean moveCurrentPlayer(int nrPositions){
         //check number positions range
         if(nrPositions<1 || nrPositions>6) {
             return false;
@@ -332,8 +338,7 @@ public class GameManager {
     /*
     Reaction to Abyss Title or Tool Factory
      */
-    public String reactToAbyssOrTool()
-    {
+    public String reactToAbyssOrTool(){
         //get programmers
         List<Programmer> programmers = getProgrammers();
 
@@ -341,7 +346,7 @@ public class GameManager {
         Programmer currentPlayer = getCurrentPlayer();
 
         //verify tile
-        Tile tile = tiles.get(currentPlayer.getBoardPosition());
+        Tile tile = tiles.get(currentPlayer.currentPosition());
 
         //add turn to game turns
         addTurn();
@@ -356,11 +361,18 @@ public class GameManager {
 
         List<Programmer> programmerList = getProgrammers();
 
+        //check if there is programmer on final position
         for (Programmer programmer:programmerList) {
-            if(programmer.getBoardPosition()== getBoardSize()){
+            if(programmer.currentPosition()== getBoardSize()){
                 return true;
             }
         }
+
+        //check if there is only one programmer in game
+        if(programmerList.stream().filter(c -> c.inGame()).count()==1){
+            return true;
+        }
+
         return false;
     }
 
@@ -388,7 +400,7 @@ public class GameManager {
         }
 
         //Order programmers descending by Position
-        programmerList.sort(Comparator.comparing(Programmer::getBoardPosition).reversed());
+        programmerList.sort(Comparator.comparing(Programmer::currentPosition).reversed());
 
         int index;
         int nrOfPlayers = programmerList.size();
@@ -396,7 +408,7 @@ public class GameManager {
         {
             Programmer programmer = programmerList.get(index);
 
-            Integer position = programmer.getBoardPosition();
+            Integer position = programmer.currentPosition();
             if(index==0 && position!=getBoardSize()){
                 return resultList;
             }
@@ -414,7 +426,7 @@ public class GameManager {
             }
             else
             {
-                resultList.add(programmer.getName() + " " + programmer.getBoardPosition());
+                resultList.add(programmer.getName() + " " + programmer.currentPosition());
             }
         }
         return resultList;

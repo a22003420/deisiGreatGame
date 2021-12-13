@@ -1,5 +1,6 @@
 package pt.ulusofona.lp2.deisiGreatGame;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /*
@@ -35,43 +36,40 @@ public class AbyssSegmFault extends Abyss
     }
 
     /*
-    React to Abyss
-    If not contains required tool go back to previous position
+    React to Abyss Segmentation Fault
+    If two or more programmer are in current position, all go back 3 positions
      */
     @Override
     protected String reactToAbyssOrTool(List<Programmer> programmers, Programmer programmer, int boardSize) {
 
-        String result = programmer.ContainsToolForAbyss(this);
-        String message = "";
+        String result = programmer.UseToolOnAbyss(this);
+        String message;
 
-        if(result.isBlank())
-        {
+        if (result.isBlank()) {
+            //get programmer position
+            int currProgrammerPosition = programmer.currentPosition();
 
-        }
-        else
-        {
-            message = "Sortudo!\nTinha a Ferramenta: " + title + "\nUsei e safei-me";
+            //list to store found programmers
+            List<Programmer> programmerList = new ArrayList<>();
+
+            //check if other programmers are in the same position
+            for (Programmer programmerCheck : programmers) {
+                if (programmerCheck.currentPosition() == currProgrammerPosition) {
+                    programmerList.add(programmer);
+                }
+            }
+
+            //retreat 3 position if two or more programmer are found on the same position
+            if (programmerList.size() > 1) {
+                for (Programmer programmerToMove : programmerList) {
+                    programmerToMove.move(boardSize, -3);
+                }
+            }
+            message = "Azar!\nNão tinha uma Ferramenta\nFiquei bloqueado";
+        } else {
+            message = "Sortudo!\nTinha a Ferramenta: " + result + "\nUsei e safei-me";
         }
 
         return message;
-    /*
-    @Override
-    public void executeEffects(List<Programmer> programmers){
-        if(programmers.size()>1){
-            for (Programmer programmer: programmers) {
-                applyEffects(programmer);
-            }
-        }
-    }
-
-    @Override
-    protected void reactToAbyssOrTool(Programmer programmer) {
-        //se tiver mais que uma pessoa, ele anda 3 para trás houses neste caso
-        //go back 3 houses
-        if (!programmer.isLocked()) {
-            programmer.lock();
-            programmer.setBoardPosition(programmer.getBoardPosition() - 3);
-        }
-    }*/
     }
 }

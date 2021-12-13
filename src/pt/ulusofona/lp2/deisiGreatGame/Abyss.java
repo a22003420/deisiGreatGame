@@ -85,4 +85,16 @@ public abstract class Abyss extends Tile
     */
     @Override
     abstract protected String reactToAbyssOrTool(List<Programmer> programmers, Programmer programmer, int boardSize);
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Abyss tool = (Abyss) o;
+        return title.equals(tool.title);
+    }
 }

@@ -1,5 +1,5 @@
 package pt.ulusofona.lp2.deisiGreatGame;
-
+//imports
 import java.util.List;
 
 /*
@@ -41,17 +41,17 @@ public class AbyssSyntax extends Abyss
     @Override
     protected String reactToAbyssOrTool(List<Programmer> programmers, Programmer programmer, int boardSize) {
 
-        String result = programmer.ContainsToolForAbyss(this);
-        String message = "";
+        String result = programmer.UseToolOnAbyss(this);
+        String message;
 
         if(result.isBlank())
         {
             programmer.move(boardSize, -1);
-            message = "Azar!\nNão tinha uma Ferramenta\nVou andar para trás uma casa";
+            message = "Azar!\nNão tinha uma Ferramenta\nVou retroceder 1 casa";
         }
         else
         {
-            message = "Sortudo!\nTinha a Ferramenta: " + title + "\nUsei e safei-me";
+            message = "Sortudo!\nTinha a Ferramenta: " + result + "\nUsei e safei-me";
         }
 
         return message;
