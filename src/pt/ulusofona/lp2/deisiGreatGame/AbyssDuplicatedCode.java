@@ -46,7 +46,7 @@ public class AbyssDuplicatedCode extends Abyss
 
         if(result.isBlank())
         {
-            int previousPosition = programmer.previousPosition();
+            int previousPosition = programmer.previousPreviousPosition();
             int currentPosition = programmer.currentPosition();
             int positionsToMove = currentPosition - previousPosition;
             programmer.move(boardSize, positionsToMove);

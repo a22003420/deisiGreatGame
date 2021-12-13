@@ -233,6 +233,25 @@ public class Programmer
         return positionsOnBoard.get(positionsOnBoard.size()-2);
     }
 
+    /*
+     Return Previous Previous Previous Position
+     */
+    public Integer previousPreviousPreviousPosition(){
+        if(positionsOnBoard.size()==0){
+            return 1;
+        }
+
+        if(positionsOnBoard.size()==1){
+            return positionsOnBoard.get(1);
+        }
+
+        if(positionsOnBoard.size()==2){
+            return positionsOnBoard.get(2);
+        }
+
+        return positionsOnBoard.get(positionsOnBoard.size()-3);
+    }
+
     //END METHODS: POSITION
     //#################
 
