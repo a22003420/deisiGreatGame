@@ -26,8 +26,7 @@ enum ProgrammerColor
 /*
 Represents a programmer
  */
-public class Programmer
-{
+public class Programmer {
     //###########
     //ATTRIBUTES
 
@@ -50,6 +49,11 @@ public class Programmer
     Identifies programmer current position on board game
      */
     private int positionOnBoard;
+
+    /*
+    Identifies if programmer is current player
+     */
+    private boolean current;
 
     /*
     Identifies programmer game color
