@@ -1,5 +1,5 @@
 package pt.ulusofona.lp2.deisiGreatGame;
-//Imports
+//imports
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -38,13 +38,16 @@ public class GameManager {
     }
 
     //###########
-    //METHODS
+    //PUBLIC METHODS
+    //###########
+
+    //###########
+    //BEGIN PUBLIC METHODS: BOARD
 
     /*
-    Creates game initial board. does not include Tools and Abyss
+    Creates initial board
      */
-    public boolean createInitialBoard(String[][] playerInfo, int worldSize)
-    {
+    public boolean createInitialBoard(String[][] playerInfo, int worldSize){
         reiniciar();
 
         //check null value
@@ -142,7 +145,7 @@ public class GameManager {
     }
 
     /*
-    Creates game initial board. includes: Empty, Tool Factory and Abyss
+    Creates initial board. includes: Empty, Tool Factory and Abyss Tiles
      */
     public boolean createInitialBoard(String[][] playerInfo, int worldSize, String[][] abyssesAndTools)
     {
@@ -220,7 +223,7 @@ public class GameManager {
     }
 
     /*
-    Get tile image for given position
+    Get tile image
      */
     public String getImagePng(int position){
 
@@ -236,103 +239,6 @@ public class GameManager {
 
         //return other tile images: Empty, ToolFactory and Abyss
         return getTile(position).getImagePng();
-    }
-
-    /*
-    Get all Programmers or only those not defeated
-     */
-    public List<Programmer> getProgrammers(boolean includeDefeated)
-    {
-        if(programmers==null) {
-            return null;
-        }
-
-        return includeDefeated ? this.programmers : programmers.stream().collect(Collectors.filtering(Programmer::inGame, Collectors.toList()));
-    }
-
-    /*
-    Get Programmers ignoring state
-     */
-
-    public List<Programmer> getProgrammers(){
-        return this.programmers==null ? new ArrayList<>() : this.programmers;
-    }
-
-    /*
-    Get Programmers on a given position
-    If none found returns null
-     */
-    public List<Programmer> getProgrammers(int position){
-
-        if(position==0 || position>getBoardSize() || programmers == null){
-            return null;
-        }
-
-        ArrayList<Programmer> programmerList = new ArrayList<>();
-        for (Programmer programmer: programmers)
-        {
-            if(programmer.currentPosition() == position)
-            {
-                programmerList.add(programmer);
-            }
-        }
-
-        if(programmerList.size() == 0){
-            return null;
-        }
-
-        return programmerList;
-    }
-
-    /*
-    Get current Programmer ID
-     */
-    public int getCurrentPlayerID()
-    {
-        return getCurrentPlayer().getId();
-    }
-
-    /*
-    Get current Programmer
-     */
-    public Programmer getCurrentPlayer(){
-
-        //fetch programmer list
-        List<Programmer> programmerArrayList = getProgrammers();
-
-        //calculate number of players
-        int nrPlayers = programmerArrayList.size();
-
-        //nr turns
-        int nrTurns = getNrTurns();
-
-        //calculate current player index
-        int index = nrTurns % nrPlayers;
-
-        //check if programmer is locked
-        Programmer currProgrammer = programmerArrayList.get(index);
-        if(currProgrammer.isLocked())
-        {
-            index++;
-        }
-
-        //return current player
-        return programmerArrayList.get(index);
-    }
-
-    /*
-    Move current Player given positions
-     */
-    public boolean moveCurrentPlayer(int nrPositions){
-        //check number positions range
-        if(nrPositions<1 || nrPositions>6) {
-            return false;
-        }
-
-        //move current programmer
-        getCurrentPlayer().move(getBoardSize(), nrPositions);
-
-        return true;
     }
 
     /*
@@ -432,11 +338,112 @@ public class GameManager {
         return resultList;
     }
 
+    //END PUBLIC METHODS: BOARD
+    //###########
+
+    //###########
+    //BEGIN PUBLIC METHODS: PROGRAMMERS
+
+    /*
+    Get all Programmers or only those not defeated
+     */
+    public List<Programmer> getProgrammers(boolean includeDefeated)
+    {
+        if(programmers==null) {
+            return null;
+        }
+
+        return includeDefeated ? this.programmers : programmers.stream().collect(Collectors.filtering(Programmer::inGame, Collectors.toList()));
+    }
+
+    /*
+    Get Programmers ignoring state
+     */
+    public List<Programmer> getProgrammers(){
+        return this.programmers==null ? new ArrayList<>() : this.programmers;
+    }
+
+    /*
+    Get Programmers on a given position
+    If none found returns null
+     */
+    public List<Programmer> getProgrammers(int position){
+
+        if(position==0 || position>getBoardSize() || programmers == null){
+            return null;
+        }
+
+        ArrayList<Programmer> programmerList = new ArrayList<>();
+        for (Programmer programmer: programmers)
+        {
+            if(programmer.currentPosition() == position)
+            {
+                programmerList.add(programmer);
+            }
+        }
+
+        if(programmerList.size() == 0){
+            return null;
+        }
+
+        return programmerList;
+    }
+
+    /*
+    Get current Programmer ID
+     */
+    public int getCurrentPlayerID()
+    {
+        return getCurrentPlayer().getId();
+    }
+
+    /*
+    Get current Programmer
+     */
+    public Programmer getCurrentPlayer(){
+
+        //fetch programmer list
+        List<Programmer> programmerArrayList = getProgrammers();
+
+        //calculate number of players
+        int nrPlayers = programmerArrayList.size();
+
+        //nr turns
+        int nrTurns = getNrTurns();
+
+        //calculate current player index
+        int index = nrTurns % nrPlayers;
+
+        //check if programmer is locked
+        Programmer currProgrammer = programmerArrayList.get(index);
+        if(currProgrammer.isLocked())
+        {
+            index++;
+        }
+
+        //return current player
+        return programmerArrayList.get(index);
+    }
+
+    /*
+    Move current Player given positions
+     */
+    public boolean moveCurrentPlayer(int nrPositions){
+        //check number positions range
+        if(nrPositions<1 || nrPositions>6) {
+            return false;
+        }
+
+        //move current programmer
+        getCurrentPlayer().move(getBoardSize(), nrPositions);
+
+        return true;
+    }
+
     /*
     Get Programmers Info
      */
-    public String getProgrammersInfo()
-    {
+    public String getProgrammersInfo(){
         //create concatenated programmers with ;
         StringBuilder strProgrammers = new StringBuilder();
         for (Programmer programmer : programmers) {
@@ -454,6 +461,9 @@ public class GameManager {
         return strProgrammers.toString();
     }
 
+    //END PUBLIC METHODS: PROGRAMMERS
+    //###########
+
     /*
     Get About
      */
@@ -466,6 +476,7 @@ public class GameManager {
 
     //################
     //PRIVATE METHODS
+    //################
 
     /*
     Reset current game

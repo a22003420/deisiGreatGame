@@ -1,6 +1,5 @@
 package pt.ulusofona.lp2.deisiGreatGame;
 //Imports
-import java.util.ArrayList;
 import java.util.List;
 
 /*
