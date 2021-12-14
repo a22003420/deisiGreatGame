@@ -263,15 +263,26 @@ public class GameManager {
 
         List<Programmer> programmerList = getProgrammers();
 
+        boolean isGameOver = false;
+
         //check if there is programmer on final position
         for (Programmer programmer:programmerList) {
             if(programmer.currentPosition()== getBoardSize()){
-                return true;
+                isGameOver = true;
+                break;
             }
         }
 
-        //check if there is only one programmer in game
-        return programmerList.stream().filter(Programmer::isInGame).count() == 1;
+        if(!isGameOver) {
+            //check if there is only one programmer in game
+            isGameOver = programmerList.stream().filter(Programmer::isInGame).count() == 1;
+        }
+
+        if(isGameOver) {
+            addTurn();
+        }
+
+        return isGameOver;
     }
 
     /*
