@@ -11,9 +11,9 @@ public class AbyssSegmFault extends Abyss
     //################
     //Constructor
 
-    protected AbyssSegmFault(String title, String image)
+    protected AbyssSegmFault(int id, String title, String image)
     {
-        super(title, image);
+        super(id, title, image);
     }
 
     //################
@@ -40,14 +40,14 @@ public class AbyssSegmFault extends Abyss
     If two or more programmer are in current position, all go back 3 positions
      */
     @Override
-    protected String reactToAbyssOrTool(List<Programmer> programmers, Programmer programmer, int boardSize) {
+    protected String reactToAbyssOrTool(List<Programmer> programmers, Programmer currProgrammer, int boardSize) {
 
-        String result = programmer.UseToolOnAbyss(this);
+        String result = currProgrammer.UseToolOnAbyss(this);
         String message;
 
         if (result.isBlank()) {
             //get programmer position
-            int currProgrammerPosition = programmer.currentPosition();
+            int currProgrammerPosition = currProgrammer.currentPosition();
 
             //list to store found programmers
             List<Programmer> programmerList = new ArrayList<>();
@@ -55,7 +55,7 @@ public class AbyssSegmFault extends Abyss
             //check if other programmers are in the same position
             for (Programmer programmerCheck : programmers) {
                 if (programmerCheck.currentPosition() == currProgrammerPosition) {
-                    programmerList.add(programmer);
+                    programmerList.add(currProgrammer);
                 }
             }
 
@@ -64,8 +64,11 @@ public class AbyssSegmFault extends Abyss
                 for (Programmer programmerToMove : programmerList) {
                     programmerToMove.move(boardSize, -3);
                 }
+                message = "Azar!\nNão tinha uma Ferramenta\nVou recuar 3 casas";
             }
-            message = "Azar!\nNão tinha uma Ferramenta\nFiquei bloqueado";
+            else {
+                message = "Sortudo!\nNão estava ninguém\nSafei-me";
+            }
         } else {
             message = "Sortudo!\nTinha a Ferramenta: " + result + "\nUsei e safei-me";
         }

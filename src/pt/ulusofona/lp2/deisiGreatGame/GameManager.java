@@ -147,8 +147,7 @@ public class GameManager {
     /*
     Creates initial board. includes: Empty, Tool Factory and Abyss Tiles
      */
-    public boolean createInitialBoard(String[][] playerInfo, int worldSize, String[][] abyssesAndTools)
-    {
+    public boolean createInitialBoard(String[][] playerInfo, int worldSize, String[][] abyssesAndTools){
         boolean success = createInitialBoard(playerInfo,  worldSize);
         if(!success) {
             return false;
@@ -218,8 +217,7 @@ public class GameManager {
     Get Tile Title
      */
     public String getTitle(int position){
-        Tile tile = getTile(position);
-        return tile.getTitle();
+        return getTile(position).getTitle();
     }
 
     /*
@@ -245,8 +243,6 @@ public class GameManager {
     Reaction to Abyss Title or Tool Factory
      */
     public String reactToAbyssOrTool(){
-        //get programmers
-        List<Programmer> programmers = getProgrammers();
 
         //get current player
         Programmer currentPlayer = getCurrentPlayer();
@@ -257,7 +253,7 @@ public class GameManager {
         //add turn to game turns
         addTurn();
 
-        return tile.reactToAbyssOrTool(programmers, currentPlayer, getBoardSize());
+        return tile.reactToAbyssOrTool(getProgrammers(), currentPlayer, getBoardSize());
     }
 
     /*
@@ -275,11 +271,7 @@ public class GameManager {
         }
 
         //check if there is only one programmer in game
-        if(programmerList.stream().filter(c -> c.inGame()).count()==1){
-            return true;
-        }
-
-        return false;
+        return programmerList.stream().filter(Programmer::isInGame).count() == 1;
     }
 
     /*
@@ -347,17 +339,16 @@ public class GameManager {
     /*
     Get all Programmers or only those not defeated
      */
-    public List<Programmer> getProgrammers(boolean includeDefeated)
-    {
+    public List<Programmer> getProgrammers(boolean includeDefeated){
         if(programmers==null) {
             return null;
         }
 
-        return includeDefeated ? this.programmers : programmers.stream().collect(Collectors.filtering(Programmer::inGame, Collectors.toList()));
+        return includeDefeated ? this.programmers : programmers.stream().collect(Collectors.filtering(Programmer::isInGame, Collectors.toList()));
     }
 
     /*
-    Get Programmers ignoring state
+    Get all Programmers ignoring state and locked
      */
     public List<Programmer> getProgrammers(){
         return this.programmers==null ? new ArrayList<>() : this.programmers;
@@ -392,21 +383,20 @@ public class GameManager {
     /*
     Get current Programmer ID
      */
-    public int getCurrentPlayerID()
-    {
+    public int getCurrentPlayerID(){
         return getCurrentPlayer().getId();
     }
 
     /*
     Get current Programmer
-     */
+    */
     public Programmer getCurrentPlayer(){
 
         //fetch programmer list
-        List<Programmer> programmerArrayList = getProgrammers();
+        List<Programmer> programmers = getProgrammers();
 
         //calculate number of players
-        int nrPlayers = programmerArrayList.size();
+        int nrPlayers = programmers.size();
 
         //nr turns
         int nrTurns = getNrTurns();
@@ -414,27 +404,26 @@ public class GameManager {
         //calculate current player index
         int index = nrTurns % nrPlayers;
 
-        //check if programmer is locked
-        Programmer currProgrammer = programmerArrayList.get(index);
-        if(currProgrammer.isLocked())
-        {
-            index++;
-        }
-
         //return current player
-        return programmerArrayList.get(index);
+        return programmers.get(index);
     }
 
     /*
-    Move current Player given positions
+    Move current Player n positions
      */
     public boolean moveCurrentPlayer(int nrPositions){
+
         //check number positions range
         if(nrPositions<1 || nrPositions>6) {
             return false;
         }
 
-        //move current programmer
+        //check if current player is locked
+        if(getCurrentPlayer().isLocked()){
+            return false;
+        }
+
+        //send message to programmer to move
         getCurrentPlayer().move(getBoardSize(), nrPositions);
 
         return true;
@@ -481,8 +470,7 @@ public class GameManager {
     /*
     Reset current game
      */
-    private void reiniciar()
-    {
+    private void reiniciar(){
         tiles=new ArrayList<>();
         programmers = new ArrayList<>();
         totalNrTurns = 0;
@@ -491,15 +479,14 @@ public class GameManager {
     /*
     Validate number of Players: [2,4]
     */
-    private boolean isValidNrPlayers(int nrOfPlayers) {
-
+    private boolean isValidNrPlayers(int nrOfPlayers){
         return (nrOfPlayers>1 && nrOfPlayers<5);
     }
 
     /*
     Validate Board Size: >=nrOfPlayers* 2
     */
-    private boolean isValidBoardSize(int boardSize, int nrOfPlayers) {
+    private boolean isValidBoardSize(int boardSize, int nrOfPlayers){
         return (boardSize>=nrOfPlayers* 2);
     }
 
@@ -507,7 +494,7 @@ public class GameManager {
     Returns Board Size: number of tiles
     Subtract 1 unit to skip index
      */
-    private int getBoardSize() {
+    private int getBoardSize(){
         return getPositionIgnoringIndex(this.tiles.size());
     }
 
@@ -521,7 +508,7 @@ public class GameManager {
     /*
     Returns title in a given position
     */
-    private Tile getTile(int position) {
+    private Tile getTile(int position){
         return tiles.get(position);
     }
 
@@ -536,13 +523,9 @@ public class GameManager {
     Orders Programmer List by Id Ascending
     Set Programmer List
      */
-    private void setProgrammerList(ArrayList<Programmer> programmers)
-    {
+    private void setProgrammerList(ArrayList<Programmer> programmers){
         //order list by id ascending
         programmers.sort(Comparator.comparing(Programmer::getId));
-
-        //set first programmer current player
-        programmers.get(0).setCurrent();
 
         //fill programmers
         this.programmers=programmers;
@@ -577,8 +560,7 @@ public class GameManager {
     Validate if color exist on enumerator color
     Validation is made by using uppercase
      */
-    private boolean isValidColorValue(String color)
-    {
+    private boolean isValidColorValue(String color){
         ProgrammerColor[] programmerColorArr = ProgrammerColor.values();
         for (ProgrammerColor colorOnEnum : programmerColorArr){
             if(colorOnEnum.name().equals(color)) {
@@ -592,7 +574,7 @@ public class GameManager {
     Gets position on board
     Subtract 1 unit to skip index 0
      */
-    private int getPositionIgnoringIndex(int position) {
+    private int getPositionIgnoringIndex(int position){
         return position - 1;
     }
 }

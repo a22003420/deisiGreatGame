@@ -10,9 +10,9 @@ public class AbyssSyntax extends Abyss
     //################
     //Constructor
 
-    public AbyssSyntax(String title, String image)
+    public AbyssSyntax(int id, String title, String image)
     {
-        super(title, image);
+        super(id, title, image);
     }
 
     //################
@@ -39,14 +39,14 @@ public class AbyssSyntax extends Abyss
     If not contains required tool go back 1 position
     */
     @Override
-    protected String reactToAbyssOrTool(List<Programmer> programmers, Programmer programmer, int boardSize) {
+    protected String reactToAbyssOrTool(List<Programmer> programmers, Programmer currProgrammer, int boardSize) {
 
-        String result = programmer.UseToolOnAbyss(this);
+        String result = currProgrammer.UseToolOnAbyss(this);
         String message;
 
         if(result.isBlank())
         {
-            programmer.move(boardSize, -1);
+            currProgrammer.move(boardSize, -1);
             message = "Azar!\nNão tinha uma Ferramenta\nVou retroceder 1 casa";
         }
         else

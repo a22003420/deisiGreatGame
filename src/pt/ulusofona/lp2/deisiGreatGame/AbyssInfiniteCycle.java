@@ -10,9 +10,9 @@ public class AbyssInfiniteCycle extends Abyss
     //################
     //Constructor
 
-    protected AbyssInfiniteCycle(String title, String image)
+    protected AbyssInfiniteCycle(int id, String title, String image)
     {
-        super(title, image);
+        super(id, title, image);
     }
 
     //################
@@ -40,9 +40,9 @@ public class AbyssInfiniteCycle extends Abyss
     If other programmer is on the same position, unlock all others, and current programmer is locked
     */
     @Override
-    protected String reactToAbyssOrTool(List<Programmer> programmers, Programmer programmer, int boardSize) {
+    protected String reactToAbyssOrTool(List<Programmer> programmers, Programmer currProgrammer, int boardSize) {
 
-        String result = programmer.UseToolOnAbyss(this);
+        String result = currProgrammer.UseToolOnAbyss(this);
         String message;
 
         if(result.isBlank())
@@ -50,7 +50,7 @@ public class AbyssInfiniteCycle extends Abyss
             message = "Azar!\nNão tinha uma Ferramenta\nFiquei bloqueado";
 
             //get programmer position
-            int currProgrammerPosition = programmer.currentPosition();
+            int currProgrammerPosition = currProgrammer.currentPosition();
 
             //check if other programmers are in the same position
             //if found lock programmer
@@ -59,8 +59,9 @@ public class AbyssInfiniteCycle extends Abyss
                    programmerCheck.unlock();
                 }
             }
+
             //lock current programmer
-            programmer.lock();
+            currProgrammer.lock();
         }
         else
         {

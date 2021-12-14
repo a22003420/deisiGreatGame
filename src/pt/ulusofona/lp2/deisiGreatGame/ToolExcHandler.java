@@ -37,8 +37,8 @@ public class ToolExcHandler extends Tool
     React to Tool Exception Handler
      */
     @Override
-    protected String reactToAbyssOrTool(List<Programmer> programmers, Programmer programmer, int boardSize)
+    protected String reactToAbyssOrTool(List<Programmer> programmers, Programmer currProgrammer, int boardSize)
     {
-        return (programmer.addTool(this) ? "Sortudo!\nRecohi a Ferramenta: " : "Azar!\nJá tinha a Ferramenta: ") + this.title;
+        return (currProgrammer.addTool(this) ? "Sortudo!\nRecohi a Ferramenta: " : "Azar!\nJá tinha a Ferramenta: ") + this.title;
     }
 }

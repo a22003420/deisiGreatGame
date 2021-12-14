@@ -10,9 +10,9 @@ public class AbyssFileNotFound extends Abyss
     //################
     //Constructor
 
-    protected AbyssFileNotFound(String title, String image)
+    protected AbyssFileNotFound(int id, String title, String image)
     {
-        super(title, image);
+        super(id, title, image);
     }
 
     //################
@@ -39,14 +39,14 @@ public class AbyssFileNotFound extends Abyss
     If not contains required tool, goes back 3 position
     */
     @Override
-    protected String reactToAbyssOrTool(List<Programmer> programmers, Programmer programmer, int boardSize) {
+    protected String reactToAbyssOrTool(List<Programmer> programmers, Programmer currProgrammer, int boardSize) {
 
-        String result = programmer.UseToolOnAbyss(this);
+        String result = currProgrammer.UseToolOnAbyss(this);
         String message;
 
         if(result.isBlank())
         {
-            programmer.move(boardSize, -3);
+            currProgrammer.move(boardSize, -3);
             message = "Azar!\nNão tinha uma Ferramenta\nVou retroceder 3 casas";
         }
         else

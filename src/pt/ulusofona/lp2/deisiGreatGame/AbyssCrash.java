@@ -10,9 +10,9 @@ public class AbyssCrash extends Abyss
     //################
     //Constructor
 
-    protected AbyssCrash(String title, String image)
+    protected AbyssCrash(int id, String title, String image)
     {
-        super(title, image);
+        super(id, title, image);
     }
 
     //################
@@ -39,16 +39,16 @@ public class AbyssCrash extends Abyss
     If not contains required tool go back to start
     */
     @Override
-    protected String reactToAbyssOrTool(List<Programmer> programmers, Programmer programmer, int boardSize) {
+    protected String reactToAbyssOrTool(List<Programmer> programmers, Programmer currProgrammer, int boardSize) {
 
-        String result = programmer.UseToolOnAbyss(this);
+        String result = currProgrammer.UseToolOnAbyss(this);
         String message;
 
         if(result.isBlank())
         {
-            int currentPosition = programmer.currentPosition();
+            int currentPosition = currProgrammer.currentPosition();
             int positionsToMove = 1 - currentPosition;
-            programmer.move(boardSize, positionsToMove);
+            currProgrammer.move(boardSize, -positionsToMove);
             message = "Azar!\nNão tinha uma Ferramenta\nVou retroceder para o início";
         }
         else

@@ -10,9 +10,9 @@ public class AbyssSecondaryEffects extends Abyss
     //################
     //Constructor
 
-    protected AbyssSecondaryEffects(String title, String image)
+    protected AbyssSecondaryEffects(int id, String title, String image)
     {
-        super(title, image);
+        super(id, title, image);
     }
 
     //################
@@ -39,17 +39,17 @@ public class AbyssSecondaryEffects extends Abyss
     If not contains required tool go back to previous previous position
     */
     @Override
-    protected String reactToAbyssOrTool(List<Programmer> programmers, Programmer programmer, int boardSize) {
+    protected String reactToAbyssOrTool(List<Programmer> programmers, Programmer currProgrammer, int boardSize) {
 
-        String result = programmer.UseToolOnAbyss(this);
+        String result = currProgrammer.UseToolOnAbyss(this);
         String message;
 
         if(result.isBlank())
         {
-            int currentPosition = programmer.currentPosition();
-            int previousPreviousPosition = programmer.previousPreviousPosition();
+            int currentPosition = currProgrammer.currentPosition();
+            int previousPreviousPosition = currProgrammer.previousPreviousPosition();
             int positionsToMove = currentPosition - previousPreviousPosition;
-            programmer.move(boardSize, positionsToMove);
+            currProgrammer.move(boardSize, -positionsToMove);
             message = "Azar!\nNão tinha uma Ferramenta\nVou retroceder " + positionsToMove;
         }
         else{

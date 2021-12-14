@@ -10,9 +10,9 @@ public class AbyssDuplicatedCode extends Abyss
     //################
     //Constructor
 
-    protected AbyssDuplicatedCode(String title, String image)
+    protected AbyssDuplicatedCode(int id, String title, String image)
     {
-        super(title, image);
+        super(id, title, image);
     }
 
     //################
@@ -39,17 +39,17 @@ public class AbyssDuplicatedCode extends Abyss
     If not contains required tool go back to previous position
     */
     @Override
-    protected String reactToAbyssOrTool(List<Programmer> programmers, Programmer programmer, int boardSize) {
+    protected String reactToAbyssOrTool(List<Programmer> programmers, Programmer currProgrammer, int boardSize) {
 
-        String result = programmer.UseToolOnAbyss(this);
+        String result = currProgrammer.UseToolOnAbyss(this);
         String message;
 
         if(result.isBlank())
         {
-            int previousPosition = programmer.previousPreviousPosition();
-            int currentPosition = programmer.currentPosition();
+            int previousPosition = currProgrammer.previousPosition();
+            int currentPosition = currProgrammer.currentPosition();
             int positionsToMove = currentPosition - previousPosition;
-            programmer.move(boardSize, positionsToMove);
+            currProgrammer.move(boardSize, -positionsToMove);
             message = "Azar!\nNão tinha uma Ferramenta\nVou regresar à posição anterior";
         }
         else

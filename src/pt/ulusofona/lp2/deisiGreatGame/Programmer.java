@@ -1,9 +1,6 @@
 package pt.ulusofona.lp2.deisiGreatGame;
 //Imports
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 /*
 Player game color
@@ -27,6 +24,7 @@ enum ProgrammerColor
 Represents a programmer
  */
 public class Programmer {
+
     //###########
     //ATTRIBUTES
 
@@ -49,11 +47,6 @@ public class Programmer {
     Identifies programmer current position on board game
      */
     private int positionOnBoard;
-
-    /*
-    Identifies if programmer is current player
-     */
-    private boolean current;
 
     /*
     Identifies programmer game color
@@ -90,15 +83,14 @@ public class Programmer {
     languageList: preferred programmer programming languages
     color: programmer color
      */
-    Programmer(int id, String name, List<String> languageList, ProgrammerColor color)
-    {
+    Programmer(int id, String name, List<String> languageList, ProgrammerColor color){
         this.id = id;
         this.name = name;
         this.languages = languageList;
         this.color = color;
         this.positionOnBoard = 1;
         this.status = true;
-        this.positionsOnBoard = new ArrayList<>();
+        this.positionsOnBoard = new ArrayList<Integer>(Arrays.asList(1));
         this.tools = new ArrayList<>();
     }
 
@@ -132,11 +124,11 @@ public class Programmer {
     /*
      move player position on board
      */
-    public void move(Integer boardSize, Integer nrPositions)
-    {
+    public void move(Integer boardSize, Integer nrPositions){
+
         //calculate new current player position
         int newPosition = currentPosition()+nrPositions;
-        int positionCheck = 0;
+        int positionCheck;
 
         if(newPosition>1) {
             positionCheck = newPosition > boardSize ? (boardSize - (newPosition - boardSize)) : newPosition;
@@ -179,8 +171,15 @@ public class Programmer {
     /*
      Return Programmer Status on Game
      */
-    public boolean inGame(){
+    public boolean isInGame(){
         return status;
+    }
+
+    /*
+    Return if Programmer is allowed to be current player
+     */
+    public boolean isActive(){
+        return (isInGame() && !isLocked());
     }
 
     /*
@@ -196,16 +195,8 @@ public class Programmer {
     //#################
     //BEGIN METHODS: PROGRAMMER POSITION
 
-    public void setCurrent(){
-        current = true;
-    }
-
-    public boolean isCurrent() {
-        return current;
-    }
-
     /*
-    Add new Position
+    Log new Position
      */
     public void logNewPosition (int position){
         positionsOnBoard.add(position);
@@ -239,7 +230,7 @@ public class Programmer {
         }
 
         if(positionsOnBoard.size()==1){
-            return positionsOnBoard.get(1);
+            return positionsOnBoard.get(0);
         }
 
         return positionsOnBoard.get(positionsOnBoard.size()-2);
@@ -254,11 +245,11 @@ public class Programmer {
         }
 
         if(positionsOnBoard.size()==1){
-            return positionsOnBoard.get(1);
+            return positionsOnBoard.get(0);
         }
 
         if(positionsOnBoard.size()==2){
-            return positionsOnBoard.get(2);
+            return positionsOnBoard.get(1);
         }
 
         return positionsOnBoard.get(positionsOnBoard.size()-3);
@@ -271,28 +262,21 @@ public class Programmer {
     //BEGIN METHODS: TOOLS
 
     /*
-     Check if programmer contains a given tool
-     */
-    private boolean ContainsTool(Tool tool){
-        boolean containsTool = tools.contains(tool);
-        return containsTool;
-    }
-
-    /*
      Check if programmer contains a tool for a given Abyss
      If true, removes tool from list of tools and returns used tool title
      */
-    public String UseToolOnAbyss(Abyss abyss)
-    {
+    public String UseToolOnAbyss(Abyss abyss){
+
         String result="";
 
-        if(tools.size()==0)
+        if(tools.size()==0) {
             return result;
+        }
 
         Tool foundTool = null;
         for (Tool tool: tools)
         {
-            if(tool.abysses.contains(abyss))
+            if(tool.checkUseOfTool(abyss))
             {
                 foundTool = tool;
                 break;
@@ -313,28 +297,8 @@ public class Programmer {
      */
     public boolean addTool(Tool tool){
 
-        if(tool==null){
-            return false;
-        }
-
-        if(!ContainsTool(tool)) {
+        if(!tools.contains(tool)) {
             return tools.add(tool);
-        }
-
-        return false;
-    }
-
-    /*
-     Remove tool from programmer tools
-     */
-    public boolean removeTool(Tool tool){
-
-        if(tool==null){
-            return false;
-        }
-
-        if(ContainsTool(tool)) {
-            return tools.remove(tool);
         }
 
         return false;
@@ -343,8 +307,8 @@ public class Programmer {
     /*
      Return programmer tools custom string
      */
-    public String showTools()
-    {
+    public String showTools(){
+
         if(tools==null || tools.isEmpty()){
             return "No tools";
         }
@@ -352,11 +316,11 @@ public class Programmer {
         StringBuilder userTools = new StringBuilder();
         for (Tool tools:tools) {
             userTools.append(tools.title);
-            userTools.append(";");
+            userTools.append("; ");
         }
 
         //remove right ;
-        userTools.delete(userTools.length()-1,userTools.length());
+        userTools.delete(userTools.length()-2,userTools.length());
 
         return userTools.toString();
     }
@@ -393,8 +357,7 @@ public class Programmer {
     Throw dice to calculate number of positions to move
     Result must be inside range [1,6]
     */
-    public Integer throwDice()
-    {
+    public Integer throwDice(){
         Random rand = new Random();
         int min = 1;
         int max = 6;
@@ -405,14 +368,14 @@ public class Programmer {
     //Private Methods
     //#################
 
-    // Se true retorna "Em Jogo", caso contrário "Derrotado"
+    // Returns status
     private String showStatus(){
         return status ? "Em Jogo":"Derrotado";
     }
 
     /*
 
-     */
+    */
     private String programmerToolstoString(){
 
         //create concatenated languages with ;

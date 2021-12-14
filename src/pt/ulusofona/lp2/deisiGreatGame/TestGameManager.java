@@ -63,11 +63,11 @@ public class TestGameManager {
 
         String[][] objects = new String[2][3];
         objects[0][0] = "0";
-        objects[0][1] = "1";
+        objects[0][1] = "0";
         objects[0][2] = "2";
 
         objects[1][0] = "0";
-        objects[1][1] = "2";
+        objects[1][1] = "1";
         objects[1][2] = "3";
 
         game2.createInitialBoard(board2, 8, objects);
@@ -78,17 +78,10 @@ public class TestGameManager {
         int nrPositionsToMove =1;
         programmerToTest = game2.getCurrentPlayer();
         game2.moveCurrentPlayer(nrPositionsToMove);
-        assertTrue("CheckPlayerPosition",programmerToTest.currentPosition() == 2);
+        assertTrue("CheckPlayerPosition",programmerToTest.currentPosition() == 1);
         String abyssMsg = game2.reactToAbyssOrTool();
 
-        nrPositionsToMove = 2;
-        Programmer programmerToTest1 = game2.getCurrentPlayer();
-        game2.moveCurrentPlayer(nrPositionsToMove);
-        assertTrue("CheckPlayerPosition",programmerToTest1.currentPosition() == 3);
 
-        nrPositionsToMove = 1;
-        game2.moveCurrentPlayer(nrPositionsToMove);
-        assertTrue("CheckPlayerPosition",programmerToTest.currentPosition() == 3);
     }
 
     /*

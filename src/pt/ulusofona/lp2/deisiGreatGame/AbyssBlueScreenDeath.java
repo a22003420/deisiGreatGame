@@ -10,9 +10,9 @@ public class AbyssBlueScreenDeath extends Abyss
     //################
     //Constructor
 
-    protected AbyssBlueScreenDeath(String title, String image)
+    protected AbyssBlueScreenDeath(int id, String title, String image)
     {
-        super(title, image);
+        super(id, title, image);
     }
 
     //################
@@ -38,14 +38,14 @@ public class AbyssBlueScreenDeath extends Abyss
     React to Abyss Blue Screen of Death
      */
     @Override
-    protected String reactToAbyssOrTool(List<Programmer> programmers, Programmer programmer, int boardSize)
+    protected String reactToAbyssOrTool(List<Programmer> programmers, Programmer currProgrammer, int boardSize)
     {
-        String result = programmer.UseToolOnAbyss(this);
+        String result = currProgrammer.UseToolOnAbyss(this);
         String message;
 
         if(result.isBlank())
         {
-            programmer.gameOver();
+            currProgrammer.gameOver();
             message = "Já fui com os...\nMelhor sorte no próximo jogo";
         }
         else

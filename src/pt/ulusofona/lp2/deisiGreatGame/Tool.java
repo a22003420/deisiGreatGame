@@ -34,7 +34,7 @@ public abstract class Tool
     }
 
     //################
-    //Methods
+    //Abstract Methods
 
     /*
     Return Title Tool
@@ -49,21 +49,20 @@ public abstract class Tool
     /*
     React to Tool
     */
-    abstract protected String reactToAbyssOrTool(List<Programmer> programmers, Programmer programmer, int boardSize);
+    abstract protected String reactToAbyssOrTool(List<Programmer> programmers, Programmer currProgrammer, int boardSize);
 
     /*
     Check if Tool can be used for the given abyss
      */
-    public Tool checkUseOfTool(Abyss abyss)
-    {
-        if(this.abysses.contains(abyss))
-            return this;
-
-        return null;
+    public Boolean checkUseOfTool(Abyss abyss){
+        return this.abysses.contains(abyss);
     }
 
+    //################
+    //Other Methods
+
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(Object o){
         if (this == o) {
             return true;
         }

@@ -111,13 +111,13 @@ public class ToolFactory extends Tile
     React to Tool Factory
     */
     @Override
-    protected String reactToAbyssOrTool(List<Programmer> programmers, Programmer programmer, int boardSize)
+    protected String reactToAbyssOrTool(List<Programmer> programmers, Programmer currProgrammer, int boardSize)
     {
         Tool tool = fabricateTool(this.toolTypeId);
 
         if(tool==null)
             return null;
 
-        return tool.reactToAbyssOrTool(programmers, programmer, boardSize);
+        return tool.reactToAbyssOrTool(programmers, currProgrammer, boardSize);
     }
 }

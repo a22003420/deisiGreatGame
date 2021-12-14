@@ -10,9 +10,9 @@ public class AbyssLogic extends Abyss
     //################
     //Constructor
 
-    public AbyssLogic(String title, String image)
+    public AbyssLogic(int id, String title, String image)
     {
-        super(title, image);
+        super(id, title, image);
     }
 
     //################
@@ -39,19 +39,25 @@ public class AbyssLogic extends Abyss
     If not contains required tool go back to previous position
     */
     @Override
-    protected String reactToAbyssOrTool(List<Programmer> programmers, Programmer programmer, int boardSize) {
+    protected String reactToAbyssOrTool(List<Programmer> programmers, Programmer currProgrammer, int boardSize) {
 
-        String result = programmer.UseToolOnAbyss(this);
+        String result = currProgrammer.UseToolOnAbyss(this);
         String message;
 
         if(result.isBlank())
         {
-            int currentPosition = programmer.currentPosition();
-            int previousPosition = programmer.previousPosition();
+            int currentPosition = currProgrammer.currentPosition();
+            int previousPosition = currProgrammer.previousPosition();
             int movedPositions = currentPosition - previousPosition;
-            int positionsToMove = movedPositions % 2;
-            programmer.move(boardSize, positionsToMove);
-            message = "Azar!\nNão tinha uma Ferramenta\nVou retroceder " + positionsToMove;
+            int positionsToMove = movedPositions / 2;
+            currProgrammer.move(boardSize, -positionsToMove);
+            if(positionsToMove==0) {
+                message = "Sortudo!\nNão tinha uma Ferramenta\nMas não preciso retroceder";
+            }
+            else
+            {
+                message = "Azar!\nNão tinha uma Ferramenta\nVou retroceder " + positionsToMove;
+            }
         }
         else{
             message = "Sortudo!\nTinha a Ferramenta: " + result + "\nUsei e safei-me";
