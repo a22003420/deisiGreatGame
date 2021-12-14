@@ -61,14 +61,22 @@ public class TestGameManager {
         board2[1][2] = "Pyton;TypeScript";
         board2[1][3] = "BROWN";
 
-        String[][] objects = new String[2][3];
+        String[][] objects = new String[4][3];
+        objects[0][0] = "0";
+        objects[0][1] = "0";
+        objects[0][2] = "1";
+
         objects[0][0] = "0";
         objects[0][1] = "0";
         objects[0][2] = "2";
 
+        objects[0][0] = "0";
+        objects[0][1] = "0";
+        objects[0][2] = "3";
+
         objects[1][0] = "0";
-        objects[1][1] = "1";
-        objects[1][2] = "3";
+        objects[1][1] = "0";
+        objects[1][2] = "4";
 
         game2.createInitialBoard(board2, 8, objects);
 
@@ -78,8 +86,8 @@ public class TestGameManager {
         int nrPositionsToMove =1;
         programmerToTest = game2.getCurrentPlayer();
         game2.moveCurrentPlayer(nrPositionsToMove);
-        assertTrue("CheckPlayerPosition",programmerToTest.currentPosition() == 1);
-        String abyssMsg = game2.reactToAbyssOrTool();
+        game2.reactToAbyssOrTool();
+        assertTrue("CheckPlayerPosition",programmerToTest.currentPosition() == 2);
 
 
     }

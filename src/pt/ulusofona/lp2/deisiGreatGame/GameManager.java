@@ -495,7 +495,7 @@ public class GameManager {
     Subtract 1 unit to skip index
      */
     private int getBoardSize(){
-        return getPositionIgnoringIndex(this.tiles.size());
+        return this.tiles.size()-1;
     }
 
     /*
@@ -575,6 +575,7 @@ public class GameManager {
     Subtract 1 unit to skip index 0
      */
     private int getPositionIgnoringIndex(int position){
-        return position - 1;
+        //return position - 1;
+        return position;
     }
 }
