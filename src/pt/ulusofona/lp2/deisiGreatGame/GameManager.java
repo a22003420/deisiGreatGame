@@ -202,10 +202,10 @@ public class GameManager {
             //Fill Tile with object
             switch (typeObjectId) {
                 case 0: //Abyss
-                    tiles.set(getPositionIgnoringIndex(tilePosition), Abyss.createAbyss(subTypeObject));
+                    tiles.set(tilePosition, Abyss.createAbyss(subTypeObject));
                     break;
                 case 1: //Tool Factory
-                    tiles.set(getPositionIgnoringIndex(tilePosition), new ToolFactory(subTypeObject));
+                    tiles.set(tilePosition, new ToolFactory(subTypeObject));
                     break;
             }
         }
@@ -579,14 +579,5 @@ public class GameManager {
             }
         }
         return false;
-    }
-
-    /*
-    Gets position on board
-    Subtract 1 unit to skip index 0
-     */
-    private int getPositionIgnoringIndex(int position){
-        //return position - 1;
-        return position;
     }
 }

@@ -218,7 +218,7 @@ public class Programmer {
             return 1;
         }
 
-        return positionsOnBoard.get(positionsOnBoard.size()-1);
+        return positionsOnBoard.get(positionsOnBoard.size()-2);
     }
 
     /*
@@ -233,7 +233,7 @@ public class Programmer {
             return positionsOnBoard.get(0);
         }
 
-        return positionsOnBoard.get(positionsOnBoard.size()-2);
+        return positionsOnBoard.get(positionsOnBoard.size()-3);
     }
 
     /*
@@ -252,7 +252,7 @@ public class Programmer {
             return positionsOnBoard.get(1);
         }
 
-        return positionsOnBoard.get(positionsOnBoard.size()-3);
+        return positionsOnBoard.get(positionsOnBoard.size()-4);
     }
 
     //END METHODS: POSITION
