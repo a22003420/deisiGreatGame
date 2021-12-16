@@ -20,7 +20,7 @@ public class AbyssSegmFault extends Abyss
     //Methods
 
     /*
-    Return title
+    Return title for Abyss Segmentation Fault
      */
     @Override
     protected String getTitle() {
@@ -28,7 +28,7 @@ public class AbyssSegmFault extends Abyss
     }
 
     /*
-    Return image
+    Return image for Abyss Segmentation Fault
      */
     @Override
     protected String getImagePng() {
@@ -47,22 +47,22 @@ public class AbyssSegmFault extends Abyss
 
         if (result.isBlank()) {
             //get programmer position
-            int currProgrammerPosition = currProgrammer.currentPosition();
+            int currentPlayerPosition = currProgrammer.currentPosition();
 
             //list to store found programmers
-            List<Programmer> programmerList = new ArrayList<>();
+            List<Programmer> playerToMoveList = new ArrayList<>();
 
             //check if other programmers are in the same position
-            for (Programmer programmerCheck : programmers) {
-                if (programmerCheck.currentPosition() == currProgrammerPosition) {
-                    programmerList.add(currProgrammer);
+            for (Programmer playerToCheck : programmers) {
+                if (playerToCheck.currentPosition() == currentPlayerPosition) {
+                    playerToMoveList.add(playerToCheck);
                 }
             }
 
             //retreat 3 position if two or more programmer are found on the same position
-            if (programmerList.size() > 1) {
-                for (Programmer programmerToMove : programmerList) {
-                    programmerToMove.move(boardSize, -3);
+            if (playerToMoveList.size() > 1) {
+                for (Programmer playerToMove : playerToMoveList) {
+                    playerToMove.move(boardSize, -3);
                 }
                 message = "Azar!\nNão tinha uma Ferramenta\nVou recuar 3 casas";
             }
