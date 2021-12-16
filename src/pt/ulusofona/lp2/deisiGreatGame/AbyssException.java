@@ -8,36 +8,14 @@ public class AbyssException extends Abyss
     //################
     //Constructor
     //################
-    protected AbyssException(int id, String title, String image)
-    {
-        super(id,title, image);
+    protected AbyssException(int id, String title,String image, String description,int position) {
+        super(id,title,image,description,position);
     }
 
     //################
     //Methods
     //################
 
-    /*
-    Return title
-     */
-    @Override
-    protected String getTitle() {
-        return this.title;
-    }
-
-    /*
-    Return image
-     */
-    @Override
-    protected String getImagePng() {
-        return this.image;
-    }
-
-    @Override
-    protected void reactToAbyssOrTool(Programmer programmer) {
-    }
-
-    /*
     @Override
     protected void applyEffects(Programmer programmer) {
         //go back 2 houses
@@ -45,6 +23,7 @@ public class AbyssException extends Abyss
             if(!programmer.checkTool(3) && !programmer.checkTool(5)){
                 programmer.setLocked();
                 programmer.setBoardPosition(programmer.getBoardPosition()-2);
+                programmer.setUnlocked();
             }else{
                 if(programmer.checkTool(3)){
                     programmer.removeTool(3);
@@ -54,5 +33,4 @@ public class AbyssException extends Abyss
             }
         }
     }
-     */
 }

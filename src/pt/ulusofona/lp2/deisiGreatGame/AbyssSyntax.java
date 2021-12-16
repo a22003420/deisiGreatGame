@@ -8,36 +8,32 @@ public class AbyssSyntax extends Abyss
     //################
     //Constructor
     //################
-    public AbyssSyntax(int id, String title, String image)
-    {
-        super(id,title, image);
+    public AbyssSyntax(int id, String title,String image, String description,int position) {
+        super(id,title,image,description,position);
     }
 
     //################
     //Methods
     //################
 
-    /*
-    Return title
-     */
     @Override
-    protected String getTitle() {
-        return this.title;
-    }
+    protected void applyEffects(Programmer programmer)
+    {
+        //go back 1 house
+        if(!programmer.isLocked()){
+            if(!programmer.checkTool(4) && !programmer.checkTool(5)){
+                programmer.setLocked();
+                programmer.setBoardPosition(programmer.getBoardPosition()-1);
+                programmer.setUnlocked();
+            }else{
+                if(programmer.checkTool(4)){
+                    programmer.removeTool(4);
+                }else if(programmer.checkTool(5)){
+                    programmer.removeTool(5);
+                }
+            }
+        }
 
-    /*
-    Return image
-     */
-    @Override
-    protected String getImagePng() {
-        return this.image;
-    }
-
-    /*
-    ???
-     */
-    @Override
-    protected void reactToAbyssOrTool(Programmer programmer) {
 
     }
 }

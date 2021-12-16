@@ -5,7 +5,6 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /*
 Represents the Game board Manager
@@ -14,25 +13,35 @@ public class GameManager {
 
     //###########
     //ATTRIBUTES
+    //###########
+
+
+    /*
+    Board size
+     */
+    private int boardSize;
+
+    /*
+    Total number of turns for player
+     */
+    private int totalNrTurns;
 
     /*
     Players on game
      */
-    private List<Programmer> programmers;
+    private ArrayList<Programmer> programmers;
 
     /*
-    Tiles on game
+    Guarda Ferramentas e Abismos num arrayList
      */
-    private ArrayList<Tile> tiles;
 
-    /*
-    Total number of turns
-     */
-    private int totalNrTurns;
+    private ArrayList<ToolAbyss> toolsAndAbysses;
+
 
     //###########
     //REQUIRED Constructor
     //###########
+
     public GameManager(){
         reiniciar();
     }
@@ -42,8 +51,9 @@ public class GameManager {
     //###########
 
     /*
-    Creates game initial board. not includes Tools and Abyss
+    Creates game initial board
      */
+
     public boolean createInitialBoard(String[][] playerInfo, int worldSize)
     {
         reiniciar();
@@ -101,7 +111,7 @@ public class GameManager {
 
             //###
             //Begin: Programming Languages (prevent duplicates and convert to ArrayList<String>
-            List<String> languagesList = fillLanguageList(playerInfo[playerRow][2]);
+            ArrayList<String> languagesList = fillLanguageList(playerInfo[playerRow][2]);
             //End: Programming Languages
             //###
 
@@ -136,130 +146,165 @@ public class GameManager {
             programmerList.add(new Programmer(id, name, languagesList, enumColor));
         }
 
+        //set BoardSize
+        setBoardSize(worldSize);
+
         //sort programmer by ID and set game players
         setProgrammerList(programmerList);
 
         return true;
     }
 
-    /*
-    Creates game initial board. include Tools and Abyss
-     */
-    public boolean createInitialBoard(String[][] playerInfo, int worldSize,String[][] abyssesAndTools)
-    {
-        boolean success = createInitialBoard(playerInfo,  worldSize);
-        if(!success) {
+    boolean createInitialBoard(String[][] playerInfo, int worldSize, String[][] abyssesAndTools){
+
+        if(!createInitialBoard(playerInfo,worldSize)){
             return false;
         }
-
-        this.tiles = new ArrayList<>();
-
-        //######
-        //Create and fill Game Tile
-        int tileRow;
-        for (tileRow = 0; tileRow < worldSize; tileRow++)
-        {
-            tiles.add(new Empty(0, "Casa Vazia"));
-        }
-
-        //fill Objects
-        for (String[] abyssesAndTool : abyssesAndTools)
-        {
-            //#######
-            //validate position
-            int positionOnTile;
+        for (String[]linhas: abyssesAndTools) {
+            // se for abismo é false (0), caso contrário true (1), ferramenta;
+            boolean type="1".equals(linhas[0]);
+            int effectsID, position;
             try {
-                positionOnTile = Integer.parseInt(abyssesAndTool[2]);
-            } catch (Exception e) {
-                return false;
-            }
-            if (positionOnTile > worldSize) {
-                return false;
-            }
+                effectsID=Integer.parseInt(linhas[1]);
 
-            //#######
-            //validate Object Type
-            int typeObjectId; //0 - Abyss; 1 - Tool
-            try {
-                typeObjectId = Integer.parseInt(abyssesAndTool[0]);
-            } catch (Exception e) {
+                position=Integer.parseInt(linhas[2]);
+                if(position<=1 || position>=worldSize){
+                    return false;
+                }
+
+            }catch(NumberFormatException e){
                 return false;
             }
-            if (typeObjectId > 1) {
-                return false;
-            }
+            ToolAbyss toolAbyss;
+            String description;
+            if(type){
+                switch (effectsID){
+                    case 0:
+                        description="";
+                        toolAbyss = new Tool(effectsID,"Herança","inheritance.png"
+                                ,description,position);
+                        break;
+                    case 1:
+                        description="";
+                        toolAbyss = new Tool(effectsID,"",""
+                                ,description,position);
+                        break;
 
-            //#######
-            //validate Object Abyss SubType and ToolFactory
-            int subTypeObject;
-            try {
-                subTypeObject = Integer.parseInt(abyssesAndTool[1]);
-            } catch (Exception e) {
-                return false;
+                    case 2:
+                        description="";
+                        toolAbyss = new Tool(effectsID,"",""
+                                ,description,position);
+                        break;
+                    case 3:
+                        description="";
+                        toolAbyss = new Tool(effectsID,"",""
+                                ,description,position);
+                        break;
+                    case 4:
+                        description="";
+                        toolAbyss = new Tool(effectsID,"",""
+                                ,description,position);
+                        break;
+                    case 5:
+                        description="";
+                        toolAbyss = new Tool(effectsID,"",""
+                                ,description,position);
+                        break;
+                    default:
+                        return false;
+                }
             }
+            else{
+                switch (effectsID){
+                    case 0:
+                        description="";
+                        toolAbyss = new AbyssSyntax(effectsID,"","g"
+                                ,description,position);
+                        break;
+                    case 1:
+                        description="";
+                        toolAbyss = new AbyssLogic(effectsID,"",""
+                                ,description,position);
+                        break;
 
-            Tile tile = tiles.get(positionOnTile);
-
-            //Fill Tile with object
-            switch (typeObjectId) {
-                case 0: //Abyss
-                    tiles.set(positionOnTile, Abyss.createAbyss(subTypeObject));
-                    break;
-                case 1: //Tool Factory
-                    tiles.add(positionOnTile, new ToolFactory(subTypeObject));
-                    break;
+                    case 2:
+                        description="";
+                        toolAbyss = new AbyssSyntax(effectsID,"",""
+                                ,description,position);
+                        break;
+                    case 3:
+                        description="";
+                        toolAbyss = new AbyssSyntax(effectsID,"",""
+                                ,description,position);
+                        break;
+                    case 4:
+                        description="";
+                        toolAbyss = new AbyssSyntax(effectsID,"",""
+                                ,description,position);
+                        break;
+                    case 5:
+                        description="";
+                        toolAbyss = new AbyssSyntax(effectsID,"",""
+                                ,description,position);
+                        break;
+                        // missing case 6
+                        // missing case 7
+                        // missing case 8
+                        // missing case 9
+                    default:
+                        return false;
+                }
             }
+            toolsAndAbysses.add(toolAbyss);
         }
 
         return true;
     }
 
+
+
     /*
-    Get Tile Title
+    Set Board Size
      */
-    public String getTitle(int position){
-        Tile tile = tiles.get(position-1);
-        return tile.getTitle();
+    public void setBoardSize(int boardSize) {
+        this.boardSize=boardSize;
     }
 
     /*
     Get player image for given position
      */
     public String getImagePng(int position){
-        if(position-1==getBoardSize()){
-            return "glory.png";
-        }
 
-        Tile tile = tiles.get(position-1);
-        return tile.getImagePng();
-    }
-
-    /*
-    Get all Programmers or only those not defeated
-     */
-    public List<Programmer> getProgrammers(boolean includeDefeated)
-    {
-        if(programmers==null) {
+        if(position<0 || position>boardSize){
             return null;
         }
 
-        return includeDefeated ? this.programmers : programmers.stream().collect(Collectors.filtering(p-> p.inGame() == true, Collectors.toList()));
+        if(position==boardSize){
+            return "glory.png";
+        }
+
+        
+
+        return null;
     }
 
     /*
-    Get Programmers
+    Get players
      */
-    public List<Programmer> getProgrammers(){
+
+    //Devolve uma lista agora com todos os objects Programmers
+    public ArrayList<Programmer> getProgrammers()
+    {
         return this.programmers==null ? new ArrayList<>() : this.programmers;
     }
 
     /*
-    Get Programmers on a given position
+    Get players on a given position
     If none found returns null
      */
-    public List<Programmer> getProgrammers(int position){
+    public ArrayList<Programmer> getProgrammers(int position){
 
-        if(position==0 || position>getBoardSize() || programmers == null){
+        if(position==0 || position>boardSize || programmers == null){
             return null;
         }
 
@@ -280,7 +325,7 @@ public class GameManager {
     }
 
     /*
-    Get current Programmers ID
+    Get current player ID
      */
     public int getCurrentPlayerID()
     {
@@ -288,12 +333,12 @@ public class GameManager {
     }
 
     /*
-    Get current Programmers
+    Get current player
      */
     public Programmer getCurrentPlayer()
     {
         //fetch programmer list
-        List<Programmer> programmerArrayList = getProgrammers();
+        ArrayList<Programmer> programmerArrayList = getProgrammers();
 
         //calculate number of players
         int nrPlayers = programmerArrayList.size();
@@ -309,8 +354,10 @@ public class GameManager {
     }
 
     /*
-    Move current Player given positions
+    Move current player given positions
      */
+
+    // Alterar
     public boolean moveCurrentPlayer(int nrPositions)
     {
         //check number positions range
@@ -320,19 +367,17 @@ public class GameManager {
 
         //get current player
         Programmer currentPlayer = getCurrentPlayer();
+        //get current player position
+        int currentPlayerPosition = currentPlayer.getBoardPosition();
 
         //get board dimension
         int boardSize = getBoardSize();
 
-        //move programmer
-        currentPlayer.move(boardSize, nrPositions);
+        //calculate new current player position
+        int newPosition = currentPlayerPosition+nrPositions;
 
-        //verify tile
-        Tile tile = tiles.get(currentPlayer.getBoardPosition());
-
-        //react to title
-        tile.reactToAbyssOrTool();
-
+        //set position
+        currentPlayer.setBoardPosition(newPosition>boardSize ? (boardSize-(newPosition-boardSize)) : newPosition);
 
         //add turn to game turns
         addTurn();
@@ -348,7 +393,7 @@ public class GameManager {
         List<Programmer> programmerList = getProgrammers();
 
         for (Programmer programmer:programmerList) {
-            if(programmer.getBoardPosition()== getBoardSize()){
+            if(programmer.getBoardPosition()==boardSize){
                 return true;
             }
         }
@@ -358,9 +403,10 @@ public class GameManager {
     /*
     Get game statistics
      */
-    public List<String> getGameResults() {
+    // Agora devolve uma lista de Strings
+    public ArrayList<String> getGameResults() {
 
-        List<String> resultList = new ArrayList<>();
+        ArrayList<String> resultList = new ArrayList<>();
 
         resultList.add("O GRANDE JOGO DO DEISI");
         resultList.add("");
@@ -388,11 +434,11 @@ public class GameManager {
             Programmer programmer = programmerList.get(index);
 
             Integer position = programmer.getBoardPosition();
-            if(index==0 && position!=getBoardSize()){
+            if(index==0 && position!=boardSize){
                 return resultList;
             }
 
-            if(position==getBoardSize())
+            if(position==boardSize)
             {
                 resultList.add("");
                 resultList.add("VENCEDOR");
@@ -412,29 +458,7 @@ public class GameManager {
     }
 
     /*
-    Get Programmers Info
-     */
-    public String getProgrammersInfo()
-    {
-        //create concatenated programmers with ;
-        StringBuilder strProgrammers = new StringBuilder();
-        for (Programmer programmer : programmers) {
-            strProgrammers.append(" ");
-            strProgrammers.append(programmer.getName());
-            strProgrammers.append(": ");
-            strProgrammers.append(programmer.showTools());
-            strProgrammers.append(" | ");
-        }
-
-        //remove right |
-        strProgrammers.delete(strProgrammers.length()-1,strProgrammers.length());
-
-        //return final string
-        return strProgrammers.toString();
-    }
-
-    /*
-    Get About
+    Get Authors
      */
     public JPanel getAuthorsPanel() {
         JPanel newPanel = new JPanel(new BorderLayout());
@@ -451,8 +475,9 @@ public class GameManager {
      */
     private void reiniciar()
     {
-        tiles=new ArrayList<>();
+        boardSize=0;
         programmers = new ArrayList<>();
+        toolsAndAbysses = new ArrayList<>();
         totalNrTurns = 0;
     }
 
@@ -468,14 +493,15 @@ public class GameManager {
     Validate Board Size: >=nrOfPlayers* 2
     */
     private boolean isValidBoardSize(int boardSize, int nrOfPlayers) {
+
         return (boardSize>=nrOfPlayers* 2);
     }
 
     /*
-    Returns Board Size: number of tiles
+    Returns Board Size
      */
     private int getBoardSize() {
-        return this.tiles.size();
+        return this.boardSize;
     }
 
     /*
@@ -488,7 +514,8 @@ public class GameManager {
     /*
     Add turn to total turns
      */
-    private void addTurn(){
+    private void addTurn()
+    {
         this.totalNrTurns +=1;
     }
 
@@ -507,14 +534,14 @@ public class GameManager {
     /*
     Convert Language String to ArrayList<String>
      */
-    private List<String> fillLanguageList(String languages) {
+    private ArrayList<String> fillLanguageList(String languages) {
 
         if(languages == null || languages.length()==0){
             return null;
         }
 
         //create list of languages
-        List<String> languagesList = new ArrayList<>();
+        ArrayList<String> languagesList = new ArrayList<>();
 
         //split string by ";"
         String[] languagesArr = languages.split(";");

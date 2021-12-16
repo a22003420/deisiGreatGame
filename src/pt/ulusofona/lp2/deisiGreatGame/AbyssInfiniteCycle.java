@@ -1,5 +1,6 @@
 package pt.ulusofona.lp2.deisiGreatGame;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /*
@@ -7,67 +8,43 @@ Represents an Abyss of type Exception
  */
 public class AbyssInfiniteCycle extends Abyss
 {
+
+    //###########
+    //ATTRIBUTES
+    //###########
+
+    /*
+    Guarda o unico Jogador que fica preso neste abismo
+     */
+
+    Programmer trap;
+
+
+
     //################
     //Constructor
     //################
-    protected AbyssInfiniteCycle(int id, String title, String image)
-    {
-        super(id,title, image);
+    protected AbyssInfiniteCycle(int id, String title,String image, String description,int position) {
+        super(id,title,image,description,position);
     }
 
     //################
     //Methods
     //################
 
-    /*
-    Return title
-     */
-    @Override
-    protected String getTitle() {
-        return this.title;
-    }
 
-    /*
-    Return image
-     */
-    @Override
-    protected String getImagePng() {
-        return this.image;
-    }
-
-    /*@Override
-    public void executeEffects(List<Programmer> programmers){
-        if(programmers.size()>1){
-        }
-
-        if(programmers.size()>1){
-            for (Programmer programmer: programmers) {
-                applyEffects(programmer);
-            }
-        }
-    }*/
-
-    @Override
-    protected void reactToAbyssOrTool(Programmer programmer) {
-
-    }
-
-
-
-/*
     @Override
     protected void applyEffects(Programmer programmer) {
         // fica preso na casa até que alguém o substitua/venha salvar;
         // Não pode ter ferramentas nem estar locked;
         if (!programmer.isLocked()) {
-            if (!programmer.checkTool(0)) {
+            if (!programmer.checkTool(1)) {
                 programmer.setLocked();
-                programmer.setBoardPosition(programmer.getBoardPosition());
+              trap.setUnlocked();
+              trap=programmer;
+            }else{
+                programmer.removeTool(1);
             }
-
         }
-
     }
-
- */
 }

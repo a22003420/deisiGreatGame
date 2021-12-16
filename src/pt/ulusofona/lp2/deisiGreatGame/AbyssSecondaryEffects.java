@@ -1,7 +1,5 @@
 package pt.ulusofona.lp2.deisiGreatGame;
 
-import java.awt.*;
-
 /*
 Represents an Abyss of type Exception
  */
@@ -10,50 +8,28 @@ public class AbyssSecondaryEffects extends Abyss
     //################
     //Constructor
     //################
-
-    protected AbyssSecondaryEffects(int id, String title, String image)
-    {
-        super(id,title, image);
+    protected AbyssSecondaryEffects(int id, String title,String image, String description,int position) {
+        super(id,title,image,description,position);
     }
 
     //################
     //Methods
     //################
 
-    /*
-    Return title
-     */
     @Override
-    protected String getTitle() {
-        return this.title;
-    }
-
-    /*
-    Return image
-     */
-    @Override
-    protected String getImagePng() {
-        return this.image;
-    }
-    protected void reactToAbyssOrTool(Programmer programmer){
-
-    }
-
-/*
-    protected void reactToAbyssOrTool(Programmer programmer) {
+    protected void applyEffects(Programmer programmer) {
         //go back to previous-1 position not tile (penultimo)
         {
             //go back to previous position
             if(!programmer.isLocked()){
-                if(!programmer.ContainsTool()){
-                    programmer.lock();
-                    programmer.move();
+                if(!programmer.checkTool(1)){
+                    programmer.setLocked();
+                    programmer.setBoardPosition(programmer.lastPosition2());
+                    programmer.setUnlocked();
                 }else{
-                    programmer.removeTool();
+                    programmer.removeTool(1);
                 }
             }
         }
     }
-
- */
 }
