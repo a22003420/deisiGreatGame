@@ -19,8 +19,7 @@ public class ToolFactory extends Tile
     //################
     //Constructor
 
-    public ToolFactory(int toolTypeId)
-    {
+    public ToolFactory(int toolTypeId){
         this.toolTypeId = toolTypeId;
     }
 
@@ -32,42 +31,46 @@ public class ToolFactory extends Tile
      */
     public static Tool fabricateTool(int toolTypeId)
     {
+        //list to store abysses for each tool
         List<Abyss> abysses = new ArrayList<>();
+
+        //call abyss factory to return required abysses
+        AbyssSingletonFactory abyssFactory = AbyssSingletonFactory.getInstance();
 
         switch (toolTypeId)
         {
             case 0:
-                Abyss duplicated = Abyss.createAbyss(5);
+                Abyss duplicated = abyssFactory.getAbyss(5);
                 abysses.add(duplicated);
                 return new ToolInheritance(toolTypeId, "Herança", "inheritance.png", abysses);
             case 1:
-                Abyss secEffects = Abyss.createAbyss(6);
+                Abyss secEffects = abyssFactory.getAbyss(6);
                 abysses.add(secEffects);
-                Abyss infinite = Abyss.createAbyss(8);
+                Abyss infinite = abyssFactory.getAbyss(8);
                 abysses.add(infinite);
                 return new ToolFuncProg(toolTypeId, "Programação funcional", "functional.png", abysses);
             case 2:
-                Abyss logic = Abyss.createAbyss(1);
+                Abyss logic = abyssFactory.getAbyss(1);
                 abysses.add(logic);
                 return new ToolUnitTest(toolTypeId, "Testes unitários", "unit-tests.png", abysses);
             case 3:
-                Abyss exc = Abyss.createAbyss(2);
+                Abyss exc = abyssFactory.getAbyss(2);
                 abysses.add(exc);
-                Abyss fileNotFound = Abyss.createAbyss(3);
+                Abyss fileNotFound = abyssFactory.getAbyss(3);
                 abysses.add(fileNotFound);
-                return new ToolExcHandler(toolTypeId, "Tratamento de Excepções", "exception.png", abysses);
+                return new ToolExcHandler(toolTypeId, "Tratamento de Excepções", "catch.png", abysses);
             case 4:
-                Abyss syntax = Abyss.createAbyss(0);
+                Abyss syntax = abyssFactory.getAbyss(0);
                 abysses.add(syntax);
                 return new ToolIDE(toolTypeId, "IDE", "IDE.png", abysses);
             case 5:
-                Abyss syntax1 = Abyss.createAbyss(0);
+                Abyss syntax1 = abyssFactory.getAbyss(0);
                 abysses.add(syntax1);
-                Abyss logic1 = Abyss.createAbyss(1);
+                Abyss logic1 = abyssFactory.getAbyss(1);
                 abysses.add(logic1);
-                Abyss exc1 = Abyss.createAbyss(2);
+                Abyss exc1 = abyssFactory.getAbyss(2);
                 abysses.add(exc1);
-                Abyss fileNotFound1 = Abyss.createAbyss(3);
+                Abyss fileNotFound1 = abyssFactory.getAbyss(3);
                 abysses.add(fileNotFound1);
                 return new ToolTeacher(toolTypeId, "Ajuda Do Professor", "ajuda-professor.png", abysses);
         }
