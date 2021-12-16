@@ -57,24 +57,4 @@ public abstract class Tool
     public Boolean checkUseOfTool(Abyss abyss){
         return this.abysses.contains(abyss);
     }
-
-    //################
-    //Other Methods
-
-    @Override
-    public boolean equals(Object o){
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Tool tool = (Tool) o;
-        return id == tool.id;
-    }
-
-    @Override
-    public int hashCode() {
-        return id;
-    }
 }

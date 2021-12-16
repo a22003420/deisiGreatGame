@@ -9,7 +9,7 @@ public class AbyssSingletonFactory {
     //Attributes
 
     //Instance to allow Singleton
-    private static AbyssSingletonFactory instance = null;
+    private static AbyssSingletonFactory abyssFactoryInstance = null;
 
     //object to hold all the abysses to be placed on game tiles
     private static Map<Integer, Object> abysses = new HashMap<>();
@@ -28,7 +28,7 @@ public class AbyssSingletonFactory {
      */
     public static AbyssSingletonFactory getInstance() {
 
-        if (instance == null)
+        if (abyssFactoryInstance == null)
         {
             // create all Abysses to be used on game and to be associated with tools
             abysses.put(0, new AbyssSyntax(0, "Erro de sintaxe", "syntax.png"));
@@ -43,11 +43,11 @@ public class AbyssSingletonFactory {
             abysses.put(9, new AbyssSegmFault(9, "Segmentation Fault", "core-dumped.png"));
 
             //create new instance of Abyss Factory
-            instance =  new AbyssSingletonFactory();
+            abyssFactoryInstance =  new AbyssSingletonFactory();
         }
 
         //return existing instance of Abyss Factory
-        return instance;
+        return abyssFactoryInstance;
     }
 
     /*

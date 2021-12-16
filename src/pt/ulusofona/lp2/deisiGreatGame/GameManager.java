@@ -201,6 +201,8 @@ public class GameManager {
 
             //Initialize all Abyss for the Game
             AbyssSingletonFactory abyssFactory = AbyssSingletonFactory.getInstance();
+            //Initialize all Tool Factory Types for the Game
+            ToolFactorySingletonFactory toolFactoryFactory = ToolFactorySingletonFactory.getInstance();
 
             //Fill Tile with object
             switch (typeObjectId) {
@@ -208,7 +210,7 @@ public class GameManager {
                     tiles.set(tilePosition, abyssFactory.getAbyss(subTypeObject));
                     break;
                 case 1: //Tool Factory
-                    tiles.set(tilePosition, new ToolFactory(subTypeObject));
+                    tiles.set(tilePosition, toolFactoryFactory.getToolFactory(subTypeObject));
                     break;
             }
         }
