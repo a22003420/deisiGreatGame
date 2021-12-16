@@ -155,7 +155,7 @@ public class GameManager {
         return true;
     }
 
-    boolean createInitialBoard(String[][] playerInfo, int worldSize, String[][] abyssesAndTools){
+    public boolean createInitialBoard(String[][] playerInfo, int worldSize, String[][] abyssesAndTools){
 
         if(!createInitialBoard(playerInfo,worldSize)){
             return false;
@@ -283,7 +283,26 @@ public class GameManager {
             return "glory.png";
         }
 
+        for(ToolAbyss toolAbyss: toolsAndAbysses){
+            if(toolAbyss.getPosition()==position){
+                return toolAbyss.getImage();
+            }
+        }
 
+        return null;
+    }
+
+    public String getTitle(int position){
+
+        if(position<0 || position>boardSize){
+            return null;
+        }
+
+        for(ToolAbyss toolAbyss: toolsAndAbysses){
+            if(toolAbyss.getPosition()==position){
+                return toolAbyss.getTitle();
+            }
+        }
 
         return null;
     }
@@ -293,22 +312,33 @@ public class GameManager {
      */
 
     //Devolve uma lista agora com todos os objects Programmers
-    public ArrayList<Programmer> getProgrammers()
+    public List<Programmer> getProgrammers(boolean includeDefeated)
     {
-        return this.programmers==null ? new ArrayList<>() : this.programmers;
+        List<Programmer> programmers = new ArrayList<>();
+        for(Programmer programmer : this.programmers){
+            if(includeDefeated){
+                programmers.add(programmer);
+            }
+            else{
+                if(programmer.inGame()){
+                    programmers.add(programmer);
+                }
+            }
+        }
+            return programmers;
     }
 
     /*
     Get players on a given position
     If none found returns null
      */
-    public ArrayList<Programmer> getProgrammers(int position){
+    public List<Programmer> getProgrammers(int position){
 
         if(position==0 || position>boardSize || programmers == null){
             return null;
         }
 
-        ArrayList<Programmer> programmerList = new ArrayList<>();
+        List<Programmer> programmerList = new ArrayList<>();
         for (Programmer programmer: programmers)
         {
             if(programmer.getBoardPosition() == position)
@@ -338,7 +368,7 @@ public class GameManager {
     public Programmer getCurrentPlayer()
     {
         //fetch programmer list
-        ArrayList<Programmer> programmerArrayList = getProgrammers();
+        List<Programmer> programmerArrayList = getProgrammers(false);
 
         //calculate number of players
         int nrPlayers = programmerArrayList.size();
@@ -351,6 +381,32 @@ public class GameManager {
 
         //return current player
         return programmerArrayList.get(index);
+    }
+
+    /*
+    Get Programmers Info
+     */
+    public String getProgrammersInfo(){
+        //create concatenated programmers with ;
+        StringBuilder strProgrammers = new StringBuilder();
+        for (Programmer programmer : getProgrammers(false)) {
+            strProgrammers.append(programmer.getName());
+            strProgrammers.append(" : ");
+            strProgrammers.append(programmer.showTools());
+            strProgrammers.append(" | ");
+        }
+
+        //remove right |
+        strProgrammers.delete(strProgrammers.length()-3,strProgrammers.length());
+
+        //return final string
+        return strProgrammers.toString();
+    }
+
+    String reactToAbyssOrTool(){
+
+        return null;
+
     }
 
     /*
@@ -367,22 +423,28 @@ public class GameManager {
 
         //get current player
         Programmer currentPlayer = getCurrentPlayer();
-        //get current player position
-        int currentPlayerPosition = currentPlayer.getBoardPosition();
 
-        //get board dimension
-        int boardSize = getBoardSize();
+        if(currentPlayer.inGame() && !currentPlayer.isLocked()) {
 
-        //calculate new current player position
-        int newPosition = currentPlayerPosition+nrPositions;
+            //get current player position
+            int currentPlayerPosition = currentPlayer.getBoardPosition();
 
-        //set position
-        currentPlayer.setBoardPosition(newPosition>boardSize ? (boardSize-(newPosition-boardSize)) : newPosition);
+            //get board dimension
+            int boardSize = getBoardSize();
 
-        //add turn to game turns
-        addTurn();
+            //calculate new current player position
+            int newPosition = currentPlayerPosition + nrPositions;
+
+            //set position
+            currentPlayer.setBoardPosition(newPosition > boardSize ? (boardSize - (newPosition - boardSize)) : newPosition);
+
+            //add turn to game turns
+             //addTurn(); para apagar
+
 
         return true;
+        }
+        return false;
     }
 
     /*
@@ -390,7 +452,7 @@ public class GameManager {
      */
     public boolean gameIsOver(){
 
-        List<Programmer> programmerList = getProgrammers();
+        List<Programmer> programmerList = getProgrammers(false);
 
         for (Programmer programmer:programmerList) {
             if(programmer.getBoardPosition()==boardSize){
@@ -412,7 +474,7 @@ public class GameManager {
         resultList.add("");
         resultList.add("NR. DE TURNOS");
 
-        List<Programmer> programmerList = getProgrammers();
+        List<Programmer> programmerList = getProgrammers(true);
 
         if (programmerList==null || programmerList.size()==0){
             resultList.add("0");
@@ -516,7 +578,7 @@ public class GameManager {
      */
     private void addTurn()
     {
-        this.totalNrTurns +=1;
+        this.totalNrTurns++; // add
     }
 
     /*

@@ -2,6 +2,8 @@ package pt.ulusofona.lp2.deisiGreatGame;
 //Imports
 import org.junit.Test;
 import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.Assert.assertTrue;
 
 public class TestGameManager {
@@ -61,7 +63,7 @@ public class TestGameManager {
 
         game2.createInitialBoard(board2, 20);
 
-        ArrayList<Programmer> programmersList = game2.getProgrammers();
+        List<Programmer> programmersList = game2.getProgrammers(false);
 
         Programmer programmerToTest = game2.getCurrentPlayer();
         assertTrue("CheckPlayerPosition",programmerToTest.getBoardPosition() == 1);
