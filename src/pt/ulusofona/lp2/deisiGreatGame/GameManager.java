@@ -403,10 +403,17 @@ public class GameManager {
         return strProgrammers.toString();
     }
 
-    String reactToAbyssOrTool(){
+    public String reactToAbyssOrTool(){
+        ToolAbyss selectedToolAbyss=null;
+        for (ToolAbyss toolAbyss:toolsAndAbysses){
+            if(toolAbyss.getPosition()==getCurrentPlayer().getBoardPosition()){
+                toolAbyss.executeEffects(getProgrammers(getCurrentPlayer().getBoardPosition()));
+                selectedToolAbyss=toolAbyss;
+            }
+        }
 
-        return null;
-
+        addTurn();
+        return selectedToolAbyss!=null ? selectedToolAbyss.getDescription():null;
     }
 
     /*
@@ -466,9 +473,9 @@ public class GameManager {
     Get game statistics
      */
     // Agora devolve uma lista de Strings
-    public ArrayList<String> getGameResults() {
+    public List<String> getGameResults() {
 
-        ArrayList<String> resultList = new ArrayList<>();
+        List<String> resultList = new ArrayList<>();
 
         resultList.add("O GRANDE JOGO DO DEISI");
         resultList.add("");

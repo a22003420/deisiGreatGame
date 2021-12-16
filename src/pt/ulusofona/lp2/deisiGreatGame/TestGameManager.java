@@ -155,4 +155,15 @@ public class TestGameManager {
 
 
     }
+
+    public void moveCurrentPlayer05(){
+        
+    }
+
+    public void moveCurrentPlayer06(){
+
+    }
+
+
+
 }

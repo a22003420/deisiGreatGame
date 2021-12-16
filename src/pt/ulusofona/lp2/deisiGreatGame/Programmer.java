@@ -253,7 +253,7 @@ public class Programmer
         strLanguages.delete(strLanguages.length()-1,strLanguages.length());
 
         //concatenate and return final string
-        return id + "| " + name + " | " + positionOnBoard + " | " + showTools() + " |" + strLanguages + " | " + showStatus();
+        return id + " | " + name + " | " + positionOnBoard + " | " + showTools() + " |" + strLanguages + " | " + showStatus();
     }
 
     /*
