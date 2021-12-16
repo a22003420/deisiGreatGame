@@ -299,6 +299,10 @@ public class GameManager {
             return null;
         }
 
+        if(position==1){
+            return "start.png";
+        }
+
         if(position==boardSize){
             return "glory.png";
         }
