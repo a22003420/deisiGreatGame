@@ -180,34 +180,34 @@ public class GameManager {
             if(type){
                 switch (effectsID){
                     case 0:
-                        description="";
+                        description="Dia de sorte, tem uma tool Herança";
                         toolAbyss = new Tool(effectsID,"Herança","inheritance.png"
                                 ,description,position);
                         break;
                     case 1:
-                        description="";
-                        toolAbyss = new Tool(effectsID,"",""
+                        description="Dia de sorte, tem uma tool Programação funcional";
+                        toolAbyss = new Tool(effectsID,"Programação funcional","functional.png"
                                 ,description,position);
                         break;
 
                     case 2:
-                        description="";
-                        toolAbyss = new Tool(effectsID,"",""
+                        description="Dia de sorte, tem uma tool Testes unitários";
+                        toolAbyss = new Tool(effectsID,"Testes unitários","unit-tests.png"
                                 ,description,position);
                         break;
                     case 3:
-                        description="";
-                        toolAbyss = new Tool(effectsID,"",""
+                        description="Dia de sorte, tem uma tool Tratamento de Excepções";
+                        toolAbyss = new Tool(effectsID,"Tratamento de Excepções","exception.png"
                                 ,description,position);
                         break;
                     case 4:
-                        description="";
-                        toolAbyss = new Tool(effectsID,"",""
+                        description="Dia de sorte, tem uma tool IDE";
+                        toolAbyss = new Tool(effectsID,"IDE","IDE.png"
                                 ,description,position);
                         break;
                     case 5:
-                        description="";
-                        toolAbyss = new Tool(effectsID,"",""
+                        description="Dia de sorte, tem uma tool Ajuda Do Professor";
+                        toolAbyss = new Tool(effectsID,"Ajuda Do Professor","ajuda-professor.png"
                                 ,description,position);
                         break;
                     default:
@@ -217,40 +217,60 @@ public class GameManager {
             else{
                 switch (effectsID){
                     case 0:
-                        description="";
-                        toolAbyss = new AbyssSyntax(effectsID,"","g"
+                        description="Azar caiu num Abismo";
+                        toolAbyss = new AbyssSyntax(effectsID,"Erro de sintaxe","syntax.png"
                                 ,description,position);
                         break;
                     case 1:
-                        description="";
-                        toolAbyss = new AbyssLogic(effectsID,"",""
+                        description="Azar caiu num Abismo";
+                        toolAbyss = new AbyssLogic(effectsID,"Erro de lógica ","logic.png"
                                 ,description,position);
                         break;
 
                     case 2:
-                        description="";
-                        toolAbyss = new AbyssSyntax(effectsID,"",""
+                        description="Azar caiu num Abismo";
+                        toolAbyss = new AbyssException(effectsID,"Exception","exception.png"
                                 ,description,position);
                         break;
                     case 3:
-                        description="";
-                        toolAbyss = new AbyssSyntax(effectsID,"",""
+                        description="Azar caiu num Abismo";
+                        toolAbyss = new AbyssFileNotFoundException(effectsID,"File Not Found Exception",
+                                "file-not-found-exception.png"
                                 ,description,position);
                         break;
                     case 4:
-                        description="";
-                        toolAbyss = new AbyssSyntax(effectsID,"",""
+                        description="Azar caiu num Abismo";
+                        toolAbyss = new AbyssCrash(effectsID,"Crash",""
                                 ,description,position);
                         break;
                     case 5:
-                        description="";
-                        toolAbyss = new AbyssSyntax(effectsID,"",""
+                        description="Azar caiu num Abismo";
+                        toolAbyss = new AbyssDuplicatedCode(effectsID,"Duplicated Code ","crash.png"
                                 ,description,position);
                         break;
-                        // missing case 6
-                        // missing case 7
-                        // missing case 8
-                        // missing case 9
+                    case 6:
+                        description="Azar caiu num Abismo";
+                        toolAbyss = new AbyssSecondaryEffects(effectsID,"Efeitos secundários "
+                                ,"secondary-effects.png"
+                                ,description,position);
+                        break;
+                    case 7:
+                        description="Azar caiu num Abismo";
+                        toolAbyss = new AbyssBlueScreenOfDeath(effectsID,"Blue Screen of Death","bsod.png"
+                                ,description,position);
+                        break;
+                    case 8:
+                        description="Azar caiu num Abismo";
+                        toolAbyss = new AbyssInfiniteCycle(effectsID,"Ciclo infinito","infinite-loop.png"
+                                ,description,position);
+                        break;
+                    case 9:
+                        description="Azar caiu num Abismo";
+                        toolAbyss = new AbyssSegmentationFault(effectsID,"Segmentation Fault"
+                                ,"core-dumped.png"
+                                ,description,position);
+                        break;
+
                     default:
                         return false;
                 }
