@@ -44,7 +44,7 @@ public class ToolSingletonFactory
             List<Abyss> abyssesToolFuncProg = new ArrayList<>();
             abyssesToolFuncProg.add(abyssFactory.getAbyss(6));
             abyssesToolFuncProg.add(abyssFactory.getAbyss(8));
-            tools.put(1, new ToolFuncProg(1, "Programação funcional", "functional.png", abyssesToolFuncProg));
+            tools.put(1, new ToolFuncProg(1, "Programação Funcional", "functional.png", abyssesToolFuncProg));
 
             List<Abyss> abyssesToolUnitTest = new ArrayList<>();
             abyssesToolUnitTest.add(abyssFactory.getAbyss(1));
