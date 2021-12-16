@@ -283,7 +283,7 @@ public class GameManager {
             return "glory.png";
         }
 
-        
+
 
         return null;
     }
