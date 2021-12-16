@@ -185,8 +185,8 @@ public class GameManager {
                                 ,description,position);
                         break;
                     case 1:
-                        description="Dia de sorte, tem uma tool Programação funcional";
-                        toolAbyss = new Tool(effectsID,"Programação funcional","functional.png"
+                        description="Dia de sorte, tem uma tool Programação Funcional";
+                        toolAbyss = new Tool(effectsID,"Programação Funcional","functional.png"
                                 ,description,position);
                         break;
 
