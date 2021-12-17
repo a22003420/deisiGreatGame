@@ -41,7 +41,7 @@ public class Empty extends Tile {
      */
     @Override
     protected String getImagePng() {
-        return this.image;
+        return null;
     }
 
     /*
