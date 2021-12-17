@@ -93,13 +93,12 @@ public class Programmer {
         this.languages = languageList;
         this.color = color;
         this.status = true;
-        //start position
+        this.positionsOnBoard = new ArrayList<>();
+
+        //log start position
         int startPosition = 1;
-        this.positionOnBoard = 1;
-        //positions
-        ArrayList<Integer> positionsOnBoard = new ArrayList<>();
-        positionsOnBoard.add(startPosition);
-        this.positionsOnBoard = positionsOnBoard;
+        logTurnPosition(startPosition);
+
         //tool
         this.tools = new ArrayList<>();
     }
@@ -203,32 +202,14 @@ public class Programmer {
      */
     public void logTurnPosition(int position){
 
-        /*
-        if(position<1)
-        {
-            position = 1;
-        }
-        */
         positionOnBoard=position;
         positionsOnBoard.add(position);
     }
 
     /*
-    Set player position
-     */
-    public void setPosition(int position){
-        /*
-        if(position<1){
-            position = 1;
-        }
-        */
-        positionOnBoard=position;
-    }
-
-    /*
      Return player game position on board
     */
-    public Integer currentPosition() {
+    public Integer currentPosition(){
         return this.positionOnBoard;
     }
 

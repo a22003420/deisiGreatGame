@@ -192,7 +192,7 @@ public class GameManager {
             }
 
             //#######
-            //validate Object Abyss SubType and ToolFactory
+            //validate Object Abyss Type and Tool Type
             int subTypeObject;
             try {
                 subTypeObject = Integer.parseInt(abyssesAndTool[1]);
@@ -208,9 +208,17 @@ public class GameManager {
             //Fill Tile with object
             switch (typeObjectId) {
                 case 0: //Abyss
+                    if(subTypeObject>9){
+                        return false;
+                    }
+
                     tiles.set(tilePosition, abyssFactory.getAbyss(subTypeObject));
                     break;
                 case 1: //Tool Factory
+                    if(subTypeObject>5){
+                        return false;
+                    }
+
                     tiles.set(tilePosition, toolFactoryFactory.getToolFactory(subTypeObject));
                     break;
             }
