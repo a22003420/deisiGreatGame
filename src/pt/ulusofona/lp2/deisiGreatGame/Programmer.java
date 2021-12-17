@@ -338,16 +338,16 @@ public class Programmer {
         strLanguages.delete(strLanguages.length()-1,strLanguages.length());
 
         // remove right pipe when no tools are present
-        String tools = showTools();
+        /*String tools = showTools();
         if(tools.isEmpty()){
             tools = "";
         }
         else{
             tools= tools + " | ";
-        }
+        }*/
 
         //concatenate and return final string
-        return id + " | " + name + " | " + positionOnBoard + " | " + tools + strLanguages + " | " + showStatus();
+        return id + " | " + name + " | " + positionOnBoard + " | " + showTools() + " | " + strLanguages + " | " + showStatus();
     }
 
     /*
@@ -384,7 +384,7 @@ public class Programmer {
         }
 
         //concatenate and return final string
-        return name + " : " + positionOnBoard + " | " + showTools() + " | " + strLanguages + " | " + showStatus();
+        return name + " : " + positionOnBoard + " | " + showTools() + " |" + strLanguages + " | " + showStatus();
     }
 
 }

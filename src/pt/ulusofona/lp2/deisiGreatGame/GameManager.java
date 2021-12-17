@@ -460,7 +460,7 @@ public class GameManager {
         }
 
         //remove right |
-        strProgrammers.delete(strProgrammers.length()-1,strProgrammers.length());
+        strProgrammers.delete(strProgrammers.length()-3,strProgrammers.length());
 
         //return final string
         return strProgrammers.toString();
