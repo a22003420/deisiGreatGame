@@ -297,11 +297,18 @@ public class Programmer {
      */
     public boolean addTool(Tool tool){
 
-        if(!tools.contains(tool)) {
+        if(!containsTool(tool)) {
             return tools.add(tool);
         }
 
         return false;
+    }
+
+    /*
+     Programmer contains tool
+     */
+    public boolean containsTool(Tool tool){
+        return tools.contains(tool);
     }
 
     /*
@@ -387,7 +394,7 @@ public class Programmer {
         }
 
         //concatenate and return final string
-        return name + " : " + positionOnBoard + " | " + showTools() + " |" + strLanguages + " | " + showStatus();
+        return name + " : " + positionOnBoard + " | " + showTools() + " | " + strLanguages + " | " + showStatus();
     }
 
 }

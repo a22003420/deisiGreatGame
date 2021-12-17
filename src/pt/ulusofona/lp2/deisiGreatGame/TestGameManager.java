@@ -26,6 +26,121 @@ public class TestGameManager{
     Set board size 26
      */
     @Test
+    public void move2CollectTools()
+    {
+        GameManager game = getGameManager();
+        String[][] board = new String[2][4];
+        board[0][0] = "23";
+        board[0][1] = "B";
+        board[0][2] = "C#;Java";
+        board[0][3] = "PURPLE";
+        board[1][0] = "2";
+        board[1][1] = "A";
+        board[1][2] = "Pyton;TypeScript";
+        board[1][3] = "BROWN";
+
+        //Abyss
+        String[][] objects = new String[14][3];
+        //Tool Herança
+        objects[0][0] = "1";
+        objects[0][1] = "0";
+        objects[0][2] = "2";
+        objects[1][0] = "1";
+        objects[1][1] = "0";
+        objects[1][2] = "4";
+        //Tool Functional Programming
+        objects[2][0] = "1";
+        objects[2][1] = "1";
+        objects[2][2] = "5";
+        objects[3][0] = "1";
+        objects[3][1] = "1";
+        objects[3][2] = "7";
+        //Tool Unit Teste
+        objects[4][0] = "1";
+        objects[4][1] = "1";
+        objects[4][2] = "8";
+
+
+        game.createInitialBoard(board, 26, objects);
+        Programmer currentPlayer;
+        int nrPositionsToMove;
+
+        //#####
+        //TURN TO TOOL INHERITANCE
+
+        nrPositionsToMove =1;
+        currentPlayer = game.getCurrentPlayer();
+        boolean success = move(game, nrPositionsToMove);
+        assertEquals("Success Mode", true, success);
+        assertEquals(CURRENT_PLAYER_ID, 2, game.getCurrentPlayerID());
+        assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 2, (int) currentPlayer.currentPosition());
+        assertEquals("Tile Image", "inheritance.png", game.getImagePng(currentPlayer.currentPosition()));
+        assertEquals("Tile Title", "Herança", game.getTitle(currentPlayer.currentPosition()));
+        reactToTitle(game);
+
+        //#####
+        //TURN TO EMPTY
+
+        nrPositionsToMove =2;
+        currentPlayer = game.getCurrentPlayer();
+        move(game, nrPositionsToMove);
+        assertEquals("Success Mode", true, success);
+        assertEquals(CURRENT_PLAYER_ID, 23, game.getCurrentPlayerID());
+        assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 3, (int) currentPlayer.currentPosition());
+        assertEquals("Tile Image", "blank.png", game.getImagePng(currentPlayer.currentPosition()));
+        assertEquals("Tile Title", "Casa Vazia", game.getTitle(currentPlayer.currentPosition()));
+        reactToTitle(game);
+
+        //#####
+        //TURN TO EMPTY
+
+        nrPositionsToMove =2;
+        currentPlayer = game.getCurrentPlayer();
+        move(game, nrPositionsToMove);
+        assertEquals("Success Mode", true, success);
+        assertEquals(CURRENT_PLAYER_ID, 2, game.getCurrentPlayerID());
+        assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 4, (int) currentPlayer.currentPosition());
+        assertEquals("Tile Image", "inheritance.png", game.getImagePng(currentPlayer.currentPosition()));
+        assertEquals("Tile Title", "Herança", game.getTitle(currentPlayer.currentPosition()));
+        reactToTitle(game);
+        assertEquals("Tile Title", "Herança", game.getTitle(currentPlayer.currentPosition()));
+
+        //#####
+        //TURN TO Funcional Programming
+
+        nrPositionsToMove =2;
+        currentPlayer = game.getCurrentPlayer();
+        move(game, nrPositionsToMove);
+        assertEquals("Success Mode", true, success);
+        assertEquals(CURRENT_PLAYER_ID, 23, game.getCurrentPlayerID());
+        assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 5, (int) currentPlayer.currentPosition());
+        assertEquals("Tile Image", "functional.png", game.getImagePng(currentPlayer.currentPosition()));
+        assertEquals("Tile Title", "Programação Funcional", game.getTitle(currentPlayer.currentPosition()));
+        reactToTitle(game);
+
+        //#####
+        //TURN TO Tool Unit Tests
+
+        /*
+        nrPositionsToMove =4;
+        currentPlayer = game.getCurrentPlayer();
+        move(game, nrPositionsToMove);
+        assertEquals("Success Mode", true, success);
+        assertEquals(CURRENT_PLAYER_ID, 2, game.getCurrentPlayerID());
+        assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 8, (int) currentPlayer.currentPosition());
+        assertEquals("Tile Image", "unit-tests.png", game.getImagePng(currentPlayer.currentPosition()));
+        assertEquals("Tile Title", "Testes unitários", game.getTitle(currentPlayer.currentPosition()));
+        reactToTitle(game);
+        assertEquals("Tile Title", "Testes unitários", game.getTitle(currentPlayer.currentPosition()));
+         */
+    }
+
+
+    /*
+    Check game for two players for Infinite Cycle
+    Set board size 26
+     */
+    @Test
     public void move2PlayersFinish()
     {
         GameManager game = getGameManager();
