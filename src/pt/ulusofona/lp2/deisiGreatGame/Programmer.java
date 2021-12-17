@@ -332,10 +332,11 @@ public class Programmer {
         for (String language : languages) {
             strLanguages.append(language);
             strLanguages.append(";");
+            strLanguages.append(" ");
         }
 
         //remove right ;
-        strLanguages.delete(strLanguages.length()-1,strLanguages.length());
+        strLanguages.delete(strLanguages.length()-2,strLanguages.length());
 
         // remove right pipe when no tools are present
         /*String tools = showTools();
