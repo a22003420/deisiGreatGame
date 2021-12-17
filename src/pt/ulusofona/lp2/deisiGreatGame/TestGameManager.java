@@ -822,7 +822,7 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION, 7, (int) currentPlayer.currentPosition());
         move(game, nrPositionsToMove);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 9, (int) currentPlayer.currentPosition());
-        assertEquals("Tile Empty", null, game.getTitle(currentPlayer.currentPosition()));
+        assertEquals("Tile Empty","blank.png", game.getTitle(currentPlayer.currentPosition()));
         assertEquals("Tile Empty", "blank.png", game.getImagePng(currentPlayer.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 9, (int) currentPlayer.currentPosition());

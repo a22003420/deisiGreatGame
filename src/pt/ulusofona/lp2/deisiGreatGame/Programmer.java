@@ -330,7 +330,6 @@ public class Programmer {
         //create concatenated languages with ;
         StringBuilder strLanguages = new StringBuilder();
         for (String language : languages) {
-            strLanguages.append(" ");
             strLanguages.append(language);
             strLanguages.append(";");
         }
@@ -379,13 +378,13 @@ public class Programmer {
         //create concatenated languages with ;
         StringBuilder strLanguages = new StringBuilder();
         for (Tool tool : tools) {
+            strLanguages.append(" ");
             strLanguages.append(tool.getTitle());
             strLanguages.append(";");
         }
 
-
         //concatenate and return final string
-        return name + " : " + positionOnBoard + " | " + showTools() + " |" + strLanguages + " | " + showStatus();
+        return name + " : " + positionOnBoard + " | " + showTools() + " | " + strLanguages + " | " + showStatus();
     }
 
 }
