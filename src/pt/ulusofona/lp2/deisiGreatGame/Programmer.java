@@ -217,7 +217,7 @@ public class Programmer {
     public void setPosition(int position){
 
         if(position<1){
-            position = 1;
+            position = 2;
         }
 
         positionOnBoard=position;
