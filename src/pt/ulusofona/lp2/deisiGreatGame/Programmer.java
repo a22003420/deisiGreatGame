@@ -140,14 +140,14 @@ public class Programmer {
         int newPosition = currentPosition()+nrPositions;
         int newPositionAfterCheck;
 
-        if(newPosition<=1) {
+        if(newPosition<1) {
             newPositionAfterCheck = 1;
         }
         else {
             newPositionAfterCheck = newPosition > boardSize ? (boardSize - (newPosition - boardSize)) : newPosition;
         }
 
-        setPosition(newPositionAfterCheck);
+        /*setPosition(newPositionAfterCheck);*/
         logTurnPosition(newPositionAfterCheck);
     }
 
@@ -203,11 +203,13 @@ public class Programmer {
      */
     public void logTurnPosition(int position){
 
+        /*
         if(position<1)
         {
             position = 1;
         }
-
+        */
+        positionOnBoard=position;
         positionsOnBoard.add(position);
     }
 
@@ -215,11 +217,11 @@ public class Programmer {
     Set player position
      */
     public void setPosition(int position){
-
+        /*
         if(position<1){
-            position = 2;
+            position = 1;
         }
-
+        */
         positionOnBoard=position;
     }
 
