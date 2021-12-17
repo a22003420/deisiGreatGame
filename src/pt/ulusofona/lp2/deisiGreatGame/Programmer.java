@@ -1,5 +1,6 @@
 package pt.ulusofona.lp2.deisiGreatGame;
 //Imports
+import javax.swing.text.Position;
 import java.util.*;
 
 /*
@@ -84,13 +85,20 @@ public class Programmer {
     color: programmer color
      */
     Programmer(int id, String name, List<String> languageList, ProgrammerColor color){
+
         this.id = id;
         this.name = name;
         this.languages = languageList;
         this.color = color;
-        this.positionOnBoard = 1;
         this.status = true;
-        this.positionsOnBoard = new ArrayList<Integer>(Arrays.asList(1));
+        //start position
+        int startPosition = 1;
+        this.positionOnBoard = startPosition;
+        //positions
+        ArrayList<Integer> positionsOnBoard = new ArrayList<>();
+        positionsOnBoard.add(startPosition);
+        this.positionsOnBoard = positionsOnBoard;
+        //tool
         this.tools = new ArrayList<>();
     }
 
@@ -138,7 +146,7 @@ public class Programmer {
         }
 
         this.positionOnBoard=newPositionAfterCheck;
-        logNewPosition(newPositionAfterCheck);
+        logTurnPosition(newPositionAfterCheck);
     }
 
     //END METHODS: PROGRAMMER MOVE
@@ -196,9 +204,15 @@ public class Programmer {
     //BEGIN METHODS: PROGRAMMER POSITION
 
     /*
-    Log new Position
+    Log player position
      */
-    public void logNewPosition (int position){
+    public void logTurnPosition(int position){
+
+        if(position<1)
+        {
+            position = 1;
+        }
+
         positionsOnBoard.add(position);
     }
 
@@ -206,6 +220,16 @@ public class Programmer {
      Return player game position on board
     */
     public Integer currentPosition() {
+        return this.positionOnBoard;
+    }
+
+    /*
+     Return player game position by turn
+    */
+    public Integer getTurnPosition(int turn) {
+
+        ArrayList<Integer> positions = this.positionsOnBoard;
+
         return this.positionOnBoard;
     }
 
@@ -245,33 +269,26 @@ public class Programmer {
 
     /*
      Check if programmer contains a tool for a given Abyss
-     If true, removes tool from list of tools and returns used tool title
+     If true, removes tool from list of tools and returns used tool title, else returns empty
      */
     public String useToolOnAbyss(Abyss abyss){
 
-        String result="";
+        List<Tool> playerTools = this.tools;
 
-        if(tools.size()==0) {
-            return result;
+        if(playerTools.size()==0) {
+            return "";
         }
 
-        Tool foundTool = null;
-        for (Tool tool: tools)
+        for (Tool playerTool: playerTools)
         {
-            if(tool.checkUseOfTool(abyss))
+            if(playerTool.checkUseOfTool(abyss))
             {
-                foundTool = tool;
-                break;
+                playerTools.remove(playerTool);
+                return playerTool.getTitle();
             }
         }
 
-        if(foundTool!=null)
-        {
-            result = foundTool.title;
-            tools.remove(foundTool);
-        }
-
-        return result;
+        return "";
     }
 
     /*
@@ -280,7 +297,7 @@ public class Programmer {
     public boolean addTool(Tool tool){
 
         if(!containsTool(tool)) {
-            return tools.add(tool);
+            return this.tools.add(tool);
         }
 
         return false;
@@ -290,7 +307,7 @@ public class Programmer {
      Programmer contains tool
      */
     public boolean containsTool(Tool tool){
-        return tools.contains(tool);
+        return this.tools.contains(tool);
     }
 
     /*
@@ -366,13 +383,15 @@ public class Programmer {
     //Private Methods
     //#################
 
-    // Returns status
+    /*
+    Returns player status
+     */
     private String showStatus(){
         return status ? "Em Jogo":"Derrotado";
     }
 
     /*
-
+    Returns player tools string
     */
     private String programmerToolsToString(){
 
@@ -387,5 +406,4 @@ public class Programmer {
         //concatenate and return final string
         return name + " : " + positionOnBoard + " | " + showTools() + " | " + strLanguages + " | " + showStatus();
     }
-
 }

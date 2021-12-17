@@ -145,9 +145,10 @@ public class GameManager {
     }
 
     /*
-    Creates initial board. includes: Empty, Tool Factory and Abyss Tiles
+    Creates initial board. includes: Empty, Tool Factory Tile and Abyss Tiles
      */
     public boolean createInitialBoard(String[][] playerInfo, int worldSize, String[][] abyssesAndTools){
+
         boolean success = createInitialBoard(playerInfo,  worldSize);
         if(!success) {
             return false;
@@ -219,14 +220,14 @@ public class GameManager {
     }
 
     /*
-    Get Tile Title
+    Get Tile title for a given position
      */
     public String getTitle(int position){
         return getTile(position).getTitle();
     }
 
     /*
-    Get tile image
+    Get tile image for a given position
      */
     public String getImagePng(int position){
 
@@ -283,9 +284,11 @@ public class GameManager {
             isGameOver = programmerList.stream().filter(Programmer::isInGame).count() == 1;
         }
 
+        /*
         if(isGameOver) {
             addTurn();
         }
+         */
 
         return isGameOver;
     }
@@ -536,14 +539,15 @@ public class GameManager {
     }
 
     /*
-    Orders Programmer List by Id Ascending
+    Orders Programmers by Id Ascending
     Set Programmer List
      */
     private void setProgrammerList(ArrayList<Programmer> programmers){
-        //order list by id ascending
+
+        //order by id ascending
         programmers.sort(Comparator.comparing(Programmer::getId));
 
-        //fill programmers
+        //set programmers
         this.programmers=programmers;
     }
 
