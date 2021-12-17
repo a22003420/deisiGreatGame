@@ -6,12 +6,12 @@ import java.util.List;
 /*
 Represents an Abyss of type Exception
  */
-public class AbyssSegmFault extends Abyss
+public class AbyssSegmentationFault extends Abyss
 {
     //################
     //Constructor
 
-    protected AbyssSegmFault(int id, String title, String image)
+    protected AbyssSegmentationFault(int id, String title, String image)
     {
         super(id, title, image);
     }

@@ -3,14 +3,14 @@ package pt.ulusofona.lp2.deisiGreatGame;
 import java.util.List;
 
 /*
-Represents an Abyss of type Blue Screen of Death
+Represents an Abyss of type Exception
  */
-public class AbyssBlueScreenDeath extends Abyss
+public class AbyssFileNotFoundException extends Abyss
 {
     //################
     //Constructor
 
-    protected AbyssBlueScreenDeath(int id, String title, String image)
+    protected AbyssFileNotFoundException(int id, String title, String image)
     {
         super(id, title, image);
     }
@@ -19,7 +19,7 @@ public class AbyssBlueScreenDeath extends Abyss
     //Methods
 
     /*
-    Return title to Abyss Blue Screen of Death
+    Return title
      */
     @Override
     protected String getTitle() {
@@ -27,7 +27,7 @@ public class AbyssBlueScreenDeath extends Abyss
     }
 
     /*
-    Return image to Abyss Blue Screen of Death
+    Return image
      */
     @Override
     protected String getImagePng() {
@@ -35,24 +35,24 @@ public class AbyssBlueScreenDeath extends Abyss
     }
 
     /*
-    React to Abyss Blue Screen of Death
-     */
+    React to Abyss File Not Found
+    If not contains required tool, goes back 3 position
+    */
     @Override
-    protected String reactToAbyssOrTool(List<Programmer> programmers, Programmer currProgrammer, int boardSize)
-    {
+    protected String reactToAbyssOrTool(List<Programmer> programmers, Programmer currProgrammer, int boardSize) {
+
         String result = currProgrammer.UseToolOnAbyss(this);
         String message;
 
         if(result.isBlank())
         {
-            currProgrammer.gameOver();
-            message = "Já fui com os...\nMelhor sorte no próximo jogo";
+            currProgrammer.move(boardSize, -3);
+            message = "Azar!\nNão tinha uma Ferramenta\nVou retroceder 3 casas";
         }
         else
         {
             message = "Sortudo!\nTinha a Ferramenta: " + result + "\nUsei e safei-me";
         }
-
         return message;
     }
 }
