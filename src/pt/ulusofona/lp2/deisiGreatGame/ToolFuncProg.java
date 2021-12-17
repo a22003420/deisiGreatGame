@@ -38,6 +38,7 @@ public class ToolFuncProg extends Tool {
      */
     @Override
     protected String reactToAbyssOrTool(List<Programmer> programmers, Programmer currProgrammer, int boardSize) {
-        return (currProgrammer.addTool(this) ? "Sortudo!\nRecohi a Ferramenta: " : "Azar!\nJá tinha a Ferramenta: ") + this.title;
+        return (currProgrammer.addTool(this) ? "Sortudo!\nRecohi a Ferramenta: "
+                : "Azar!\nJá tinha a Ferramenta: ") + this.title;
     }
 }

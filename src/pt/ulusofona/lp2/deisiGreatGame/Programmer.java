@@ -88,9 +88,10 @@ public class Programmer {
         this.name = name;
         this.languages = languageList;
         this.color = color;
-        this.positionOnBoard = 1;
         this.status = true;
-        this.positionsOnBoard = new ArrayList<Integer>(Arrays.asList(1));
+        int startPosition= 1;
+        this.positionsOnBoard = new ArrayList<Integer>();
+        this.logPosition(startPosition);
         this.tools = new ArrayList<>();
     }
 
@@ -137,8 +138,7 @@ public class Programmer {
             newPositionAfterCheck = newPosition > boardSize ? (boardSize - (newPosition - boardSize)) : newPosition;
         }
 
-        this.positionOnBoard=newPositionAfterCheck;
-        logNewPosition(newPositionAfterCheck);
+        logPosition(newPositionAfterCheck);
     }
 
     //END METHODS: PROGRAMMER MOVE
@@ -196,9 +196,13 @@ public class Programmer {
     //BEGIN METHODS: PROGRAMMER POSITION
 
     /*
-    Log new Position
+    Log Position
      */
-    public void logNewPosition (int position){
+    public void logPosition(int position){
+        if(position<1){
+            position=1;
+        }
+        this.positionOnBoard=position;
         positionsOnBoard.add(position);
     }
 
@@ -212,48 +216,17 @@ public class Programmer {
     /*
      Return Previous Position
      */
-    public Integer previousPosition(){
+    public Integer previousPosition(int nrPosition){
 
         if(positionsOnBoard.size()==0){
             return 1;
         }
 
-        return positionsOnBoard.get(positionsOnBoard.size()-2);
+        return positionsOnBoard.get(positionsOnBoard.size()-nrPosition);
     }
 
-    /*
-     Return Previous Previous Position
-     */
-    public Integer previousPreviousPosition(){
-        if(positionsOnBoard.size()==0){
-            return 1;
-        }
 
-        if(positionsOnBoard.size()==1){
-            return positionsOnBoard.get(0);
-        }
 
-        return positionsOnBoard.get(positionsOnBoard.size()-3);
-    }
-
-    /*
-     Return Previous Previous Previous Position
-     */
-    public Integer previousPreviousPreviousPosition(){
-        if(positionsOnBoard.size()==0){
-            return 1;
-        }
-
-        if(positionsOnBoard.size()==1){
-            return positionsOnBoard.get(0);
-        }
-
-        if(positionsOnBoard.size()==2){
-            return positionsOnBoard.get(1);
-        }
-
-        return positionsOnBoard.get(positionsOnBoard.size()-4);
-    }
 
     //END METHODS: POSITION
     //#################
@@ -356,8 +329,17 @@ public class Programmer {
         //remove right ;
         strLanguages.delete(strLanguages.length()-1,strLanguages.length());
 
+        String tools = showTools();
+        if(tools.isEmpty()){
+            tools = "";
+        }
+        else{
+            tools= tools+ " |";
+        }
+
         //concatenate and return final string
-        return id + " | " + name + " | " + positionOnBoard + " | " + showTools() + " |" + strLanguages + " | " + showStatus();
+        return id + " | " + name + " | " + positionOnBoard + " | " + tools
+                + strLanguages + " | " + showStatus();
     }
 
     /*
