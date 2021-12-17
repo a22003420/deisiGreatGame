@@ -130,7 +130,7 @@ public class Programmer {
         int newPosition = currentPosition()+nrPositions;
         int newPositionAfterCheck;
 
-        if(newPosition<1) {
+        if(newPosition<=1) {
             newPositionAfterCheck = 1;
         }
         else {
@@ -265,7 +265,7 @@ public class Programmer {
      Check if programmer contains a tool for a given Abyss
      If true, removes tool from list of tools and returns used tool title
      */
-    public String UseToolOnAbyss(Abyss abyss){
+    public String useToolOnAbyss(Abyss abyss){
 
         String result="";
 
@@ -383,7 +383,7 @@ public class Programmer {
     /*
 
     */
-    private String programmerToolstoString(){
+    private String programmerToolsToString(){
 
         //create concatenated languages with ;
         StringBuilder strLanguages = new StringBuilder();

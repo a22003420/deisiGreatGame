@@ -449,12 +449,12 @@ public class GameManager {
     Get Programmers Info
      */
     public String getProgrammersInfo(){
+
         //create concatenated programmers with ;
         StringBuilder strProgrammers = new StringBuilder();
         for (Programmer programmer : programmers) {
-            strProgrammers.append(" ");
             strProgrammers.append(programmer.getName());
-            strProgrammers.append(": ");
+            strProgrammers.append(" : ");
             strProgrammers.append(programmer.showTools());
             strProgrammers.append(" | ");
         }

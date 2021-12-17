@@ -33,7 +33,7 @@ public class Empty extends Tile {
      */
     @Override
     protected String getTitle() {
-        return this.title;
+        return null;
     }
 
     /*

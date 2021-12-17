@@ -40,7 +40,7 @@ public class AbyssBlueScreenOfDeath extends Abyss
     @Override
     protected String reactToAbyssOrTool(List<Programmer> programmers, Programmer currProgrammer, int boardSize)
     {
-        String result = currProgrammer.UseToolOnAbyss(this);
+        String result = currProgrammer.useToolOnAbyss(this);
         String message;
 
         if(result.isBlank())
