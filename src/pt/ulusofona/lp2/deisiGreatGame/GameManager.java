@@ -253,13 +253,10 @@ public class GameManager {
         //get current player
         Programmer currentPlayer = getCurrentPlayer();
 
-        //verify tile
-        Tile tile = tiles.get(currentPlayer.currentPosition());
-
         //add turn to game turns
         addTurn();
 
-        return tile.reactToAbyssOrTool(getProgrammers(), currentPlayer, getBoardSize());
+        return tiles.get(currentPlayer.currentPosition()).reactToAbyssOrTool(getProgrammers(), currentPlayer, getBoardSize());
     }
 
     /*
@@ -283,12 +280,6 @@ public class GameManager {
             //check if there is only one programmer in game
             isGameOver = programmerList.stream().filter(Programmer::isInGame).count() == 1;
         }
-
-        /*
-        if(isGameOver) {
-            addTurn();
-        }
-         */
 
         return isGameOver;
     }

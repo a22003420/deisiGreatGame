@@ -1,7 +1,9 @@
 package pt.ulusofona.lp2.deisiGreatGame;
 //Imports
-import javax.swing.text.Position;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
 
 /*
 Player game color
@@ -93,7 +95,7 @@ public class Programmer {
         this.status = true;
         //start position
         int startPosition = 1;
-        this.positionOnBoard = startPosition;
+        this.positionOnBoard = 1;
         //positions
         ArrayList<Integer> positionsOnBoard = new ArrayList<>();
         positionsOnBoard.add(startPosition);
@@ -145,7 +147,7 @@ public class Programmer {
             newPositionAfterCheck = newPosition > boardSize ? (boardSize - (newPosition - boardSize)) : newPosition;
         }
 
-        this.positionOnBoard=newPositionAfterCheck;
+        setPosition(newPositionAfterCheck);
         logTurnPosition(newPositionAfterCheck);
     }
 
@@ -184,14 +186,7 @@ public class Programmer {
     }
 
     /*
-    Return if Programmer is allowed to be current player
-     */
-    public boolean isActive(){
-        return (isInGame() && !isLocked());
-    }
-
-    /*
-     coloca o status a false
+    Set player status to false
      */
     public void gameOver(){
         status=false;
@@ -217,6 +212,18 @@ public class Programmer {
     }
 
     /*
+    Set player position
+     */
+    public void setPosition(int position){
+
+        if(position<1){
+            position = 1;
+        }
+
+        positionOnBoard=position;
+    }
+
+    /*
      Return player game position on board
     */
     public Integer currentPosition() {
@@ -225,13 +232,14 @@ public class Programmer {
 
     /*
      Return player game position by turn
-    */
+
     public Integer getTurnPosition(int turn) {
 
         ArrayList<Integer> positions = this.positionsOnBoard;
 
         return this.positionOnBoard;
     }
+    */
 
     /*
      Return Previous Position
