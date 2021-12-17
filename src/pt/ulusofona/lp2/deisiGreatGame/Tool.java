@@ -49,8 +49,7 @@ public abstract class Tool
     /*
     React to Tool
     */
-    abstract protected String reactToAbyssOrTool(List<Programmer> programmers, Programmer currProgrammer,
-                                                 int boardSize);
+    abstract protected String reactToAbyssOrTool(List<Programmer> programmers, Programmer currProgrammer, int boardSize);
 
     /*
     Check if Tool can be used for the given abyss

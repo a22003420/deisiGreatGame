@@ -2,6 +2,9 @@ package pt.ulusofona.lp2.deisiGreatGame;
 //Imports
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 public class TestGameManager{
@@ -45,21 +48,44 @@ public class TestGameManager{
         objects[0][0] = "1";
         objects[0][1] = "0";
         objects[0][2] = "2";
+
         objects[1][0] = "1";
         objects[1][1] = "0";
         objects[1][2] = "4";
+
         //Tool Functional Programming
         objects[2][0] = "1";
         objects[2][1] = "1";
         objects[2][2] = "5";
+
         objects[3][0] = "1";
         objects[3][1] = "1";
         objects[3][2] = "7";
+
         //Tool Unit Teste
         objects[4][0] = "1";
-        objects[4][1] = "1";
+        objects[4][1] = "2";
         objects[4][2] = "8";
 
+        //Tool Tratamento Excepcoes
+        objects[5][0] = "1";
+        objects[5][1] = "3";
+        objects[5][2] = "10";
+
+        //Tool IDE
+        objects[6][0] = "1";
+        objects[6][1] = "4";
+        objects[6][2] = "11";
+
+        //Tool Teacher
+        objects[7][0] = "1";
+        objects[7][1] = "5";
+        objects[7][2] = "12";
+
+        //Abyss Syntax
+        objects[8][0] = "0";
+        objects[8][1] = "0";
+        objects[8][2] = "14";
 
         game.createInitialBoard(board, 26, objects);
         Programmer currentPlayer;
@@ -88,7 +114,7 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_ID, 23, game.getCurrentPlayerID());
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 3, (int) currentPlayer.currentPosition());
         assertEquals("Tile Image", "blank.png", game.getImagePng(currentPlayer.currentPosition()));
-        assertEquals("Tile Title", "Casa Vazia", game.getTitle(currentPlayer.currentPosition()));
+        assertEquals("Tile Title", null, game.getTitle(currentPlayer.currentPosition()));
         reactToTitle(game);
 
         //#####
@@ -121,7 +147,6 @@ public class TestGameManager{
         //#####
         //TURN TO Tool Unit Tests
 
-        /*
         nrPositionsToMove =4;
         currentPlayer = game.getCurrentPlayer();
         move(game, nrPositionsToMove);
@@ -131,8 +156,57 @@ public class TestGameManager{
         assertEquals("Tile Image", "unit-tests.png", game.getImagePng(currentPlayer.currentPosition()));
         assertEquals("Tile Title", "Testes unitários", game.getTitle(currentPlayer.currentPosition()));
         reactToTitle(game);
-        assertEquals("Tile Title", "Testes unitários", game.getTitle(currentPlayer.currentPosition()));
-         */
+
+        //#####
+        //TURN TO Tratamento de Excepções
+
+        nrPositionsToMove =5;
+        currentPlayer = game.getCurrentPlayer();
+        move(game, nrPositionsToMove);
+        assertEquals("Success Mode", true, success);
+        assertEquals(CURRENT_PLAYER_ID, 23, game.getCurrentPlayerID());
+        assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 10, (int) currentPlayer.currentPosition());
+        assertEquals("Tile Image", "catch.png", game.getImagePng(currentPlayer.currentPosition()));
+        assertEquals("Tile Title", "Tratamento de Excepções", game.getTitle(currentPlayer.currentPosition()));
+        reactToTitle(game);
+
+        //#####
+        //TURN TO IDE
+
+        nrPositionsToMove =3;
+        currentPlayer = game.getCurrentPlayer();
+        move(game, nrPositionsToMove);
+        assertEquals("Success Mode", true, success);
+        assertEquals(CURRENT_PLAYER_ID, 2, game.getCurrentPlayerID());
+        assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 11, (int) currentPlayer.currentPosition());
+        assertEquals("Tile Image", "IDE.png", game.getImagePng(currentPlayer.currentPosition()));
+        assertEquals("Tile Title", "IDE", game.getTitle(currentPlayer.currentPosition()));
+        reactToTitle(game);
+
+        //#####
+        //TURN TO TEACHER
+
+        nrPositionsToMove =2;
+        currentPlayer = game.getCurrentPlayer();
+        move(game, nrPositionsToMove);
+        assertEquals("Success Mode", true, success);
+        assertEquals(CURRENT_PLAYER_ID, 23, game.getCurrentPlayerID());
+        assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 12, (int) currentPlayer.currentPosition());
+        assertEquals("Tile Image", "ajuda-professor.png", game.getImagePng(currentPlayer.currentPosition()));
+        assertEquals("Tile Title", "Ajuda Do Professor", game.getTitle(currentPlayer.currentPosition()));
+        reactToTitle(game);
+
+        //#####
+        //TURN TO: Abyss Syntax - Goes back 1 position
+
+        nrPositionsToMove =3;
+        Programmer programmerToTest = game.getCurrentPlayer();
+        move(game, nrPositionsToMove);
+        assertEquals(CURRENT_PLAYER_ID, 2, programmerToTest.getId());
+        assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 14, (int) programmerToTest.currentPosition());
+        reactToTitle(game);
+        assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 14, (int) programmerToTest.currentPosition());
+
     }
 
 
@@ -249,7 +323,7 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 4, (int) currentPlayer.currentPosition());
         assertEquals("Tile Title", "Erro de lógica", game.getTitle(currentPlayer.currentPosition()));
         assertEquals("Title Image", "logic.png", game.getImagePng(currentPlayer.currentPosition()));
-        assertEquals("Check Player Previous Position", 1, (int)currentPlayer.previousPosition(-2));
+        assertEquals("Check Player Previous Position", 1, (int)currentPlayer.previousPosition());
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 3, (int) currentPlayer.currentPosition());
 
@@ -339,7 +413,7 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION, 7, (int) currentPlayer.currentPosition());
         move(game, nrPositionsToMove);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 9, (int) currentPlayer.currentPosition());
-        assertEquals("Tile Title", "Casa Vazia", game.getTitle(currentPlayer.currentPosition()));
+        assertEquals("Tile Title", null, game.getTitle(currentPlayer.currentPosition()));
         assertEquals("Tile Image", "blank.png", game.getImagePng(currentPlayer.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 9, (int) currentPlayer.currentPosition());
@@ -353,7 +427,7 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION, 1, (int) currentPlayer.currentPosition());
         move(game, nrPositionsToMove);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 6, (int) currentPlayer.currentPosition());
-        assertEquals("Tile Title", "Casa Vazia", game.getTitle(currentPlayer.currentPosition()));
+        assertEquals("Tile Title", null, game.getTitle(currentPlayer.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 6, (int) currentPlayer.currentPosition());
 
@@ -393,7 +467,7 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION, 9, (int) currentPlayer.currentPosition());
         move(game, nrPositionsToMove);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 13, (int) currentPlayer.currentPosition());
-        assertEquals("Tile Title", "Casa Vazia", game.getTitle(currentPlayer.currentPosition()));
+        assertEquals("Tile Title", null, game.getTitle(currentPlayer.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 13, (int) currentPlayer.currentPosition());
 
@@ -406,7 +480,7 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION, 8, (int) currentPlayer.currentPosition());
         move(game, nrPositionsToMove);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 13, (int) currentPlayer.currentPosition());
-        assertEquals("Tile Title", "Casa Vazia", game.getTitle(currentPlayer.currentPosition()));
+        assertEquals("Tile Title", null, game.getTitle(currentPlayer.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 13, (int) currentPlayer.currentPosition());
 
@@ -419,7 +493,7 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION, 13, (int) currentPlayer.currentPosition());
         move(game, nrPositionsToMove);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 15, (int) currentPlayer.currentPosition());
-        assertEquals("Tile Title", "Casa Vazia", game.getTitle(currentPlayer.currentPosition()));
+        assertEquals("Tile Title", null, game.getTitle(currentPlayer.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 15, (int) currentPlayer.currentPosition());
 
@@ -451,7 +525,7 @@ public class TestGameManager{
         assertEquals("Tile Title", "Efeitos secundários", game.getTitle(currentPlayer.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 13, (int) currentPlayer.currentPosition());
-        assertEquals("Tile Title", "Casa Vazia", game.getTitle(currentPlayer.currentPosition()));
+        assertEquals("Tile Title", null, game.getTitle(currentPlayer.currentPosition()));
         assertFalse("Game is Over", game.gameIsOver());
 
         //#####
@@ -463,7 +537,7 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION, 8, (int) currentPlayer.currentPosition());
         move(game, nrPositionsToMove);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 13, (int) currentPlayer.currentPosition());
-        assertEquals("Tile Title", "Casa Vazia", game.getTitle(currentPlayer.currentPosition()));
+        assertEquals("Tile Title", null, game.getTitle(currentPlayer.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 13, (int) currentPlayer.currentPosition());
 
@@ -476,7 +550,7 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION, 13, (int) currentPlayer.currentPosition());
         move(game, nrPositionsToMove);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 16, (int) currentPlayer.currentPosition());
-        assertEquals("Tile Title", "Casa Vazia", game.getTitle(currentPlayer.currentPosition()));
+        assertEquals("Tile Title", null, game.getTitle(currentPlayer.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 16, (int) currentPlayer.currentPosition());
 
@@ -489,7 +563,7 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION, 13, (int) currentPlayer.currentPosition());
         move(game, nrPositionsToMove);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 18, (int) currentPlayer.currentPosition());
-        assertEquals("Tile Title", "Casa Vazia", game.getTitle(currentPlayer.currentPosition()));
+        assertEquals("Tile Title", null, game.getTitle(currentPlayer.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 18, (int) currentPlayer.currentPosition());
 
@@ -502,7 +576,7 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION, 16, (int) currentPlayer.currentPosition());
         move(game, nrPositionsToMove);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 20, (int) currentPlayer.currentPosition());
-        assertEquals("Tile Title", "Casa Vazia", game.getTitle(currentPlayer.currentPosition()));
+        assertEquals("Tile Title", null, game.getTitle(currentPlayer.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 20, (int) currentPlayer.currentPosition());
 
@@ -658,7 +732,7 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 4, (int) currentPlayer.currentPosition());
         assertEquals("Erro de lógica - Title", "Erro de lógica", game.getTitle(currentPlayer.currentPosition()));
         assertEquals("Erro de lógica - Image", "logic.png", game.getImagePng(currentPlayer.currentPosition()));
-        assertEquals("Check Player Previous Position", 1, (int)currentPlayer.previousPosition(-2));
+        assertEquals("Check Player Previous Position", 1, (int)currentPlayer.previousPosition());
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 3, (int) currentPlayer.currentPosition());
 
@@ -748,7 +822,7 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION, 7, (int) currentPlayer.currentPosition());
         move(game, nrPositionsToMove);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 9, (int) currentPlayer.currentPosition());
-        assertEquals("Tile Empty", "Casa Vazia", game.getTitle(currentPlayer.currentPosition()));
+        assertEquals("Tile Empty", null, game.getTitle(currentPlayer.currentPosition()));
         assertEquals("Tile Empty", "blank.png", game.getImagePng(currentPlayer.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 9, (int) currentPlayer.currentPosition());
@@ -762,7 +836,7 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION, 1, (int) currentPlayer.currentPosition());
         move(game, nrPositionsToMove);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 6, (int) currentPlayer.currentPosition());
-        assertEquals("CURRENT_PLAYER_ID Position Tile", "Casa Vazia", game.getTitle(currentPlayer.currentPosition()));
+        assertEquals("CURRENT_PLAYER_ID Position Tile", null, game.getTitle(currentPlayer.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 6, (int) currentPlayer.currentPosition());
 
@@ -802,7 +876,7 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION, 9, (int) currentPlayer.currentPosition());
         move(game, nrPositionsToMove);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 13, (int) currentPlayer.currentPosition());
-        assertEquals("Check Player B Position Tile", "Casa Vazia", game.getTitle(currentPlayer.currentPosition()));
+        assertEquals("Check Player B Position Tile", null, game.getTitle(currentPlayer.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 13, (int) currentPlayer.currentPosition());
 
@@ -815,7 +889,7 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION, 8, (int) currentPlayer.currentPosition());
         move(game, nrPositionsToMove);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 13, (int) currentPlayer.currentPosition());
-        assertEquals("CURRENT_PLAYER_ID Position Tile", "Casa Vazia", game.getTitle(currentPlayer.currentPosition()));
+        assertEquals("CURRENT_PLAYER_ID Position Tile", null, game.getTitle(currentPlayer.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 13, (int) currentPlayer.currentPosition());
 
@@ -828,7 +902,7 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION, 13, (int) currentPlayer.currentPosition());
         move(game, nrPositionsToMove);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 15, (int) currentPlayer.currentPosition());
-        assertEquals("Check Player B Position Tile 15", "Casa Vazia", game.getTitle(currentPlayer.currentPosition()));
+        assertEquals("Check Player B Position Tile 15", null, game.getTitle(currentPlayer.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 15, (int) currentPlayer.currentPosition());
 
@@ -860,7 +934,7 @@ public class TestGameManager{
         assertEquals("Check Player B Position Tile", "Efeitos secundários", game.getTitle(currentPlayer.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 13, (int) currentPlayer.currentPosition());
-        assertEquals("Check Player B Position Tile", "Casa Vazia", game.getTitle(currentPlayer.currentPosition()));
+        assertEquals("Check Player B Position Tile", null, game.getTitle(currentPlayer.currentPosition()));
         assertFalse("Game is Over", game.gameIsOver());
 
         //#####
@@ -872,7 +946,7 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION, 8, (int) currentPlayer.currentPosition());
         move(game, nrPositionsToMove);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 13, (int) currentPlayer.currentPosition());
-        assertEquals("CURRENT_PLAYER_ID Position Tile", "Casa Vazia", game.getTitle(currentPlayer.currentPosition()));
+        assertEquals("CURRENT_PLAYER_ID Position Tile", null, game.getTitle(currentPlayer.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 13, (int) currentPlayer.currentPosition());
 
@@ -885,7 +959,7 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION, 13, (int) currentPlayer.currentPosition());
         move(game, nrPositionsToMove);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 16, (int) currentPlayer.currentPosition());
-        assertEquals("Check Player B Position Tile 15", "Casa Vazia", game.getTitle(currentPlayer.currentPosition()));
+        assertEquals("Check Player B Position Tile 15", null, game.getTitle(currentPlayer.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 16, (int) currentPlayer.currentPosition());
 
@@ -898,7 +972,7 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION, 13, (int) currentPlayer.currentPosition());
         move(game, nrPositionsToMove);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 18, (int) currentPlayer.currentPosition());
-        assertEquals("CURRENT_PLAYER_ID Position Tile", "Casa Vazia", game.getTitle(currentPlayer.currentPosition()));
+        assertEquals("CURRENT_PLAYER_ID Position Tile", null, game.getTitle(currentPlayer.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 18, (int) currentPlayer.currentPosition());
 
@@ -911,7 +985,7 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION, 16, (int) currentPlayer.currentPosition());
         move(game, nrPositionsToMove);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 20, (int) currentPlayer.currentPosition());
-        assertEquals("Check Player B Position Tile", "Casa Vazia", game.getTitle(currentPlayer.currentPosition()));
+        assertEquals("Check Player B Position Tile", null, game.getTitle(currentPlayer.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 20, (int) currentPlayer.currentPosition());
 
@@ -1051,7 +1125,7 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 4, (int) currentPlayer.currentPosition());
         assertEquals("Erro de lógica - Title", "Erro de lógica", game.getTitle(currentPlayer.currentPosition()));
         assertEquals("Erro de lógica - Image", "logic.png", game.getImagePng(currentPlayer.currentPosition()));
-        assertEquals("Check Player Previous Position", 1, (int)currentPlayer.previousPosition(-2));
+        assertEquals("Check Player Previous Position", 1, (int)currentPlayer.previousPosition());
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 3, (int) currentPlayer.currentPosition());
 
@@ -1140,7 +1214,7 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION, 7, (int) currentPlayer.currentPosition());
         move(game, nrPositionsToMove);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 9, (int) currentPlayer.currentPosition());
-        assertEquals("Tile Empty", "Casa Vazia", game.getTitle(currentPlayer.currentPosition()));
+        assertEquals("Tile Empty", null, game.getTitle(currentPlayer.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 9, (int) currentPlayer.currentPosition());
 
@@ -1153,7 +1227,7 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION, 1, (int) currentPlayer.currentPosition());
         move(game, nrPositionsToMove);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 6, (int) currentPlayer.currentPosition());
-        assertEquals("CURRENT_PLAYER_ID Position Tile", "Casa Vazia", game.getTitle(currentPlayer.currentPosition()));
+        assertEquals("CURRENT_PLAYER_ID Position Tile", null, game.getTitle(currentPlayer.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 6, (int) currentPlayer.currentPosition());
 
@@ -1191,7 +1265,7 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION, 9, (int) currentPlayer.currentPosition());
         move(game, nrPositionsToMove);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 13, (int) currentPlayer.currentPosition());
-        assertEquals("Check Player B Position Tile", "Casa Vazia", game.getTitle(currentPlayer.currentPosition()));
+        assertEquals("Check Player B Position Tile", null, game.getTitle(currentPlayer.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 13, (int) currentPlayer.currentPosition());
 
@@ -1204,7 +1278,7 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION, 8, (int) currentPlayer.currentPosition());
         move(game, nrPositionsToMove);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 13, (int) currentPlayer.currentPosition());
-        assertEquals("CURRENT_PLAYER_ID Position Tile", "Casa Vazia", game.getTitle(currentPlayer.currentPosition()));
+        assertEquals("CURRENT_PLAYER_ID Position Tile", null, game.getTitle(currentPlayer.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 13, (int) currentPlayer.currentPosition());
 
@@ -1217,7 +1291,7 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION, 13, (int) currentPlayer.currentPosition());
         move(game, nrPositionsToMove);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 15, (int) currentPlayer.currentPosition());
-        assertEquals("Check Player B Position Tile 15", "Casa Vazia", game.getTitle(currentPlayer.currentPosition()));
+        assertEquals("Check Player B Position Tile 15", null, game.getTitle(currentPlayer.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 15, (int) currentPlayer.currentPosition());
 
@@ -1248,7 +1322,7 @@ public class TestGameManager{
         assertEquals("Check Player B Position Tile", "Efeitos secundários", game.getTitle(currentPlayer.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 13, (int) currentPlayer.currentPosition());
-        assertEquals("Check Player B Position Tile", "Casa Vazia", game.getTitle(currentPlayer.currentPosition()));
+        assertEquals("Check Player B Position Tile", null, game.getTitle(currentPlayer.currentPosition()));
         assertFalse("Game is Over", game.gameIsOver());
 
         //#####
@@ -1260,7 +1334,7 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION, 8, (int) currentPlayer.currentPosition());
         move(game, nrPositionsToMove);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 13, (int) currentPlayer.currentPosition());
-        assertEquals("CURRENT_PLAYER_ID Position Tile", "Casa Vazia", game.getTitle(currentPlayer.currentPosition()));
+        assertEquals("CURRENT_PLAYER_ID Position Tile", null, game.getTitle(currentPlayer.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 13, (int) currentPlayer.currentPosition());
 
@@ -1273,7 +1347,7 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION, 13, (int) currentPlayer.currentPosition());
         move(game, nrPositionsToMove);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 16, (int) currentPlayer.currentPosition());
-        assertEquals("Check Player B Position Tile 15", "Casa Vazia", game.getTitle(currentPlayer.currentPosition()));
+        assertEquals("Check Player B Position Tile 15", null, game.getTitle(currentPlayer.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 16, (int) currentPlayer.currentPosition());
 
@@ -1286,7 +1360,7 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION, 13, (int) currentPlayer.currentPosition());
         move(game, nrPositionsToMove);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 18, (int) currentPlayer.currentPosition());
-        assertEquals("CURRENT_PLAYER_ID Position Tile", "Casa Vazia", game.getTitle(currentPlayer.currentPosition()));
+        assertEquals("CURRENT_PLAYER_ID Position Tile", null, game.getTitle(currentPlayer.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 18, (int) currentPlayer.currentPosition());
 
@@ -1299,7 +1373,7 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION, 16, (int) currentPlayer.currentPosition());
         move(game, nrPositionsToMove);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 20, (int) currentPlayer.currentPosition());
-        assertEquals("Check Player B Position Tile", "Casa Vazia", game.getTitle(currentPlayer.currentPosition()));
+        assertEquals("Check Player B Position Tile", null, game.getTitle(currentPlayer.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 20, (int) currentPlayer.currentPosition());
 
@@ -1326,7 +1400,7 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION, 20, (int) currentPlayer.currentPosition());
         move(game, nrPositionsToMove);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 21, (int) currentPlayer.currentPosition());
-        assertEquals("Check Player B Position Tile", "Casa Vazia", game.getTitle(currentPlayer.currentPosition()));
+        assertEquals("Check Player B Position Tile", null, game.getTitle(currentPlayer.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 21, (int) currentPlayer.currentPosition());
 
@@ -1467,7 +1541,7 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 4, (int) programmerToTest.currentPosition());
         assertEquals("Abyss: Erro de Lógica - Title", "Erro de lógica", game.getTitle(programmerToTest.currentPosition()));
         assertEquals("Abyss: Erro de Lógica - Image", "logic.png", game.getImagePng(programmerToTest.currentPosition()));
-        assertEquals("Player Position A Ultima", 1, (int)programmerToTest.previousPosition(-2));
+        assertEquals("Player Position A Ultima", 1, (int)programmerToTest.previousPosition());
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION, 3, (int) programmerToTest.currentPosition());
 
@@ -1555,7 +1629,7 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION, 7, (int) programmerToTest.currentPosition());
         move(game, nrPositionsToMove);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 9, (int) programmerToTest.currentPosition());
-        assertEquals("Tile Empty", "Casa Vazia", game.getTitle(programmerToTest.currentPosition()));
+        assertEquals("Tile Empty", null, game.getTitle(programmerToTest.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 9, (int) programmerToTest.currentPosition());
 
@@ -1568,7 +1642,7 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION, 1, (int) programmerToTest.currentPosition());
         move(game, nrPositionsToMove);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 6, (int) programmerToTest.currentPosition());
-        assertEquals("CURRENT_PLAYER_ID Position Tile", "Casa Vazia", game.getTitle(programmerToTest.currentPosition()));
+        assertEquals("CURRENT_PLAYER_ID Position Tile", null, game.getTitle(programmerToTest.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 6, (int) programmerToTest.currentPosition());
 
@@ -1606,7 +1680,7 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION, 9, (int) programmerToTest.currentPosition());
         move(game, nrPositionsToMove);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 13, (int) programmerToTest.currentPosition());
-        assertEquals("Check Player B Position Tile", "Casa Vazia", game.getTitle(programmerToTest.currentPosition()));
+        assertEquals("Check Player B Position Tile", null, game.getTitle(programmerToTest.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 13, (int) programmerToTest.currentPosition());
 
@@ -1619,7 +1693,7 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION, 8, (int) programmerToTest.currentPosition());
         move(game, nrPositionsToMove);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 13, (int) programmerToTest.currentPosition());
-        assertEquals("CURRENT_PLAYER_ID Position Tile", "Casa Vazia", game.getTitle(programmerToTest.currentPosition()));
+        assertEquals("CURRENT_PLAYER_ID Position Tile", null, game.getTitle(programmerToTest.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 13, (int) programmerToTest.currentPosition());
 
@@ -1632,7 +1706,7 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION, 13, (int) programmerToTest.currentPosition());
         move(game, nrPositionsToMove);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 15, (int) programmerToTest.currentPosition());
-        assertEquals("Check Player B Position Tile 15", "Casa Vazia", game.getTitle(programmerToTest.currentPosition()));
+        assertEquals("Check Player B Position Tile 15", null, game.getTitle(programmerToTest.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 15, (int) programmerToTest.currentPosition());
 
@@ -1663,7 +1737,7 @@ public class TestGameManager{
         assertEquals("Check Player B Position Tile", "Efeitos secundários", game.getTitle(programmerToTest.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 13, (int) programmerToTest.currentPosition());
-        assertEquals("Check Player B Position Tile", "Casa Vazia", game.getTitle(programmerToTest.currentPosition()));
+        assertEquals("Check Player B Position Tile", null, game.getTitle(programmerToTest.currentPosition()));
         assertFalse("Game is Over", game.gameIsOver());
 
         //#####
@@ -1675,7 +1749,7 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION, 8, (int) programmerToTest.currentPosition());
         move(game, nrPositionsToMove);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 13, (int) programmerToTest.currentPosition());
-        assertEquals("CURRENT_PLAYER_ID Position Tile", "Casa Vazia", game.getTitle(programmerToTest.currentPosition()));
+        assertEquals("CURRENT_PLAYER_ID Position Tile", null, game.getTitle(programmerToTest.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION, 13, (int) programmerToTest.currentPosition());
 
@@ -1688,7 +1762,7 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION, 13, (int) programmerToTest.currentPosition());
         move(game, nrPositionsToMove);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 16, (int) programmerToTest.currentPosition());
-        assertEquals("Check Player B Position Tile 15", "Casa Vazia", game.getTitle(programmerToTest.currentPosition()));
+        assertEquals("Check Player B Position Tile 15", null, game.getTitle(programmerToTest.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 16, (int) programmerToTest.currentPosition());
 

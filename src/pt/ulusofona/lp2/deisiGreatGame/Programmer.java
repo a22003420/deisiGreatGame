@@ -88,10 +88,9 @@ public class Programmer {
         this.name = name;
         this.languages = languageList;
         this.color = color;
+        this.positionOnBoard = 1;
         this.status = true;
-        int startPosition= 1;
-        this.positionsOnBoard = new ArrayList<Integer>();
-        this.logPosition(startPosition);
+        this.positionsOnBoard = new ArrayList<Integer>(Arrays.asList(1));
         this.tools = new ArrayList<>();
     }
 
@@ -138,7 +137,8 @@ public class Programmer {
             newPositionAfterCheck = newPosition > boardSize ? (boardSize - (newPosition - boardSize)) : newPosition;
         }
 
-        logPosition(newPositionAfterCheck);
+        this.positionOnBoard=newPositionAfterCheck;
+        logNewPosition(newPositionAfterCheck);
     }
 
     //END METHODS: PROGRAMMER MOVE
@@ -196,13 +196,9 @@ public class Programmer {
     //BEGIN METHODS: PROGRAMMER POSITION
 
     /*
-    Log Position
+    Log new Position
      */
-    public void logPosition(int position){
-        if(position<1){
-            position=1;
-        }
-        this.positionOnBoard=position;
+    public void logNewPosition (int position){
         positionsOnBoard.add(position);
     }
 
@@ -216,16 +212,29 @@ public class Programmer {
     /*
      Return Previous Position
      */
-    public Integer previousPosition(int nrPosition){
+    public Integer previousPosition(){
 
         if(positionsOnBoard.size()==0){
             return 1;
         }
 
-        return positionsOnBoard.get(positionsOnBoard.size()-nrPosition);
+        return positionsOnBoard.get(positionsOnBoard.size()-2);
     }
 
+    /*
+     Return Previous Previous Position
+     */
+    public Integer previousPreviousPosition(){
+        if(positionsOnBoard.size()==0){
+            return 1;
+        }
 
+        if(positionsOnBoard.size()==1){
+            return positionsOnBoard.get(0);
+        }
+
+        return positionsOnBoard.get(positionsOnBoard.size()-3);
+    }
 
 
     //END METHODS: POSITION
@@ -321,7 +330,6 @@ public class Programmer {
         //create concatenated languages with ;
         StringBuilder strLanguages = new StringBuilder();
         for (String language : languages) {
-            strLanguages.append(" ");
             strLanguages.append(language);
             strLanguages.append(";");
         }
@@ -329,17 +337,17 @@ public class Programmer {
         //remove right ;
         strLanguages.delete(strLanguages.length()-1,strLanguages.length());
 
+        // remove right pipe when no tools are present
         String tools = showTools();
         if(tools.isEmpty()){
             tools = "";
         }
         else{
-            tools= tools+ " |";
+            tools= tools + " | ";
         }
 
         //concatenate and return final string
-        return id + " | " + name + " | " + positionOnBoard + " | " + tools
-                + strLanguages + " | " + showStatus();
+        return id + " | " + name + " | " + positionOnBoard + " | " + tools + strLanguages + " | " + showStatus();
     }
 
     /*
