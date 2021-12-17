@@ -181,22 +181,27 @@ public class GameManager {
 
             //#######
             //validate Object Type
-            int typeObjectId; //0 - Abyss; 1 - Tool
+            int typeObjectId=-1; //0 - Abyss; 1 - Tool
             try {
                 typeObjectId = Integer.parseInt(abyssesAndTool[0]);
             } catch (Exception e) {
                 return false;
             }
-            if (typeObjectId > 1) {
+            //only 0 - Abyss or 1 - Tool are allowed
+            if (typeObjectId < 0 || typeObjectId > 1) {
                 return false;
             }
 
             //#######
-            //validate Object Abyss Type and Tool Type
-            int subTypeObject;
+            //validate Object Abyss Type and Tool Type is numeric
+            int subTypeObject=-1;
             try {
                 subTypeObject = Integer.parseInt(abyssesAndTool[1]);
             } catch (Exception e) {
+                return false;
+            }
+            //only Abyss Type [0-9] or Tool Type [0-5] are allowed
+            if (subTypeObject < 0 || subTypeObject>9) {
                 return false;
             }
 
@@ -205,22 +210,19 @@ public class GameManager {
             //Initialize all Tool Factory Types for the Game
             ToolFactorySingletonFactory toolFactoryFactory = ToolFactorySingletonFactory.getInstance();
 
-            //Fill Tile with object
+            //Fill Tile with object if valid
             switch (typeObjectId) {
                 case 0: //Abyss
-                    if(subTypeObject>9){
-                        return false;
-                    }
-
                     tiles.set(tilePosition, abyssFactory.getAbyss(subTypeObject));
                     break;
                 case 1: //Tool Factory
                     if(subTypeObject>5){
                         return false;
                     }
-
                     tiles.set(tilePosition, toolFactoryFactory.getToolFactory(subTypeObject));
                     break;
+                default:
+                    return false;
             }
         }
 
