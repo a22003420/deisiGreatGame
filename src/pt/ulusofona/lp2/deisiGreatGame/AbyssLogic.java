@@ -1,4 +1,6 @@
 package pt.ulusofona.lp2.deisiGreatGame;
+//imports
+import java.util.List;
 
 /*
 Represents an Abyss of type Error Logic
@@ -7,32 +9,60 @@ public class AbyssLogic extends Abyss
 {
     //################
     //Constructor
-    //################
-    public AbyssLogic(int id, String title,String image, String description,int position) {
-        super(id,title,image,description,position);
+
+    public AbyssLogic(int id, String title, String image)
+    {
+        super(id, title, image);
     }
 
     //################
     //Methods
-    //################
 
+    /*
+    Return title
+     */
     @Override
-    protected void applyEffects(Programmer programmer)
-    {
-        //go back (numero do dado\2) house
-        if(!programmer.isLocked()){
-            if(!programmer.checkTool(2) && !programmer.checkTool(5)){
-                programmer.setLocked();
-                int diceValue= programmer.getBoardPosition()- programmer.lastPosition();
-                programmer.setBoardPosition(diceValue/2);
-                programmer.setUnlocked();
-            }else{
-                if(programmer.checkTool(2)){
-                    programmer.removeTool(2);
-                }else if(programmer.checkTool(5)){
-                    programmer.removeTool(5);
-                }
+    protected String getTitle() {
+        return this.title;
+    }
+
+    /*
+    Return image
+     */
+    @Override
+    protected String getImagePng() {
+        return this.image;
+    }
+
+    /*
+    React to Abyss Logic
+    If not contains required tool go back to previous position
+    */
+    @Override
+    protected String reactToAbyssOrTool(List<Programmer> programmers, Programmer currProgrammer, int boardSize) {
+
+        String result = currProgrammer.UseToolOnAbyss(this);
+        String message;
+
+        if(result.isBlank())
+        {
+            int currentPosition = currProgrammer.currentPosition();
+            int previousPosition = currProgrammer.previousPosition();
+            int movedPositions = currentPosition - previousPosition;
+            int positionsToMove = movedPositions / 2;
+            currProgrammer.move(boardSize, -positionsToMove);
+            if(positionsToMove==0) {
+                message = "Sortudo!\nNão tinha uma Ferramenta\nMas não preciso retroceder";
+            }
+            else
+            {
+                message = "Azar!\nNão tinha uma Ferramenta\nVou retroceder " + positionsToMove;
             }
         }
+        else{
+            message = "Sortudo!\nTinha a Ferramenta: " + result + "\nUsei e safei-me";
+        }
+
+        return message;
     }
 }
