@@ -1,6 +1,4 @@
 package pt.ulusofona.lp2.deisiGreatGame;
-//imports
-import java.util.List;
 
 /*
 Represents an Abyss of type Exception
@@ -9,54 +7,26 @@ public class AbyssDuplicatedCode extends Abyss
 {
     //################
     //Constructor
-
-    protected AbyssDuplicatedCode(int id, String title, String image)
-    {
-        super(id, title, image);
+    //################
+    protected AbyssDuplicatedCode(int id, String title,String image, String description,int position) {
+        super(id,title,image,description,position);
     }
 
     //################
     //Methods
+    //################
 
-    /*
-    Return title
-     */
     @Override
-    protected String getTitle() {
-        return this.title;
-    }
-
-    /*
-    Return image
-     */
-    @Override
-    protected String getImagePng() {
-        return this.image;
-    }
-
-    /*
-    React to Abyss Duplicated Code
-    If not contains required tool go back to previous position
-    */
-    @Override
-    protected String reactToAbyssOrTool(List<Programmer> programmers, Programmer currProgrammer, int boardSize) {
-
-        String result = currProgrammer.UseToolOnAbyss(this);
-        String message;
-
-        if(result.isBlank())
-        {
-            int previousPosition = currProgrammer.previousPosition();
-            int currentPosition = currProgrammer.currentPosition();
-            int positionsToMove = currentPosition - previousPosition;
-            currProgrammer.move(boardSize, -positionsToMove);
-            message = "Azar!\nNão tinha uma Ferramenta\nVou regresar à posição anterior";
+    protected void applyEffects(Programmer programmer) {
+        //go back to previous position
+        if(!programmer.isLocked()){
+            if(!programmer.checkTool(0)){
+                programmer.setLocked();
+                programmer.setBoardPosition(programmer.lastPosition());
+                programmer.setUnlocked();
+            }else{
+                programmer.removeTool(0);
+            }
         }
-        else
-        {
-            message = "Sortudo!\nTinha a Ferramenta: " + result + "\nUsei e safei-me";
-        }
-
-        return message;
     }
 }

@@ -1,60 +1,34 @@
 package pt.ulusofona.lp2.deisiGreatGame;
 //Imports
-import java.util.List;
+import java.util.ArrayList;
 
 /*
 Represents a tool
 Includes abysses where tool applies
  */
-public abstract class Tool
+public class Tool extends ToolAbyss
 {
     //###########
     //ATTRIBUTES
+    //###########
 
-    /*Tool id */
-    protected final int id;
-
-    /*Tool title*/
-    protected final String title;
-
-    /*Tool image*/
-    protected final String image;
-
-    /*Tool Abysses*/
-    protected final List<Abyss> abysses;
+    // Estão no pai ToolAbyss (title, id)
 
     //################
     //Constructor
+    //################
 
-    public Tool(int id, String title, String image, List<Abyss> abysses) {
-        this.id = id;
-        this.title = title;
-        this.image = image;
-        this.abysses = abysses;
+    public Tool(int id, String title,String image, String description,int position) {
+        super(id,title,image,description,position);
     }
 
     //################
-    //Abstract Methods
+    //Methods
+    //################
 
-    /*
-    Return Title Tool
-    */
-    abstract protected String getTitle();
 
-    /*
-    Return image Tool
-     */
-    abstract protected String getImagePng();
-
-    /*
-    React to Tool
-    */
-    abstract protected String reactToAbyssOrTool(List<Programmer> programmers, Programmer currProgrammer, int boardSize);
-
-    /*
-    Check if Tool can be used for the given abyss
-     */
-    public Boolean checkUseOfTool(Abyss abyss){
-        return this.abysses.contains(abyss);
+    @Override
+    protected void applyEffects(Programmer programmer) {
+        programmer.addTool(this); //passa o objecto para dentro do addTool
     }
 }

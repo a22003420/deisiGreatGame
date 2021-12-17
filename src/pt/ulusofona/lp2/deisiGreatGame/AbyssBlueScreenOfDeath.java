@@ -3,13 +3,13 @@ package pt.ulusofona.lp2.deisiGreatGame;
 /*
 Represents an Abyss of type Exception
  */
-public class AbyssCrash extends Abyss
+public class AbyssBlueScreenOfDeath extends Abyss
 {
     //################
     //Constructor
     //################
 
-    protected AbyssCrash(int id, String title,String image, String description,int position) {
+    protected AbyssBlueScreenOfDeath(int id, String title,String image, String description,int position) {
         super(id,title,image,description,position);
     }
 
@@ -19,11 +19,12 @@ public class AbyssCrash extends Abyss
 
     @Override
     protected void applyEffects(Programmer programmer) {
-        //go back to start (quadrado 1)
+        //loses game
         if(!programmer.isLocked()){
             programmer.setLocked();
-            programmer.setBoardPosition(1);
+            programmer.gameOver();
             programmer.setUnlocked();
         }
+
     }
 }
