@@ -135,8 +135,9 @@ public class Programmer {
         //check max allowed position
         int newPositionAfterCheck = newPosition > boardSize ? (boardSize - (newPosition - boardSize)) : newPosition;
         //check min allowed position
-        if(newPositionAfterCheck<1)
+        if(newPositionAfterCheck<1) {
             newPositionAfterCheck = 1;
+        }
 
         //log new position
         logTurnPosition(newPositionAfterCheck);
