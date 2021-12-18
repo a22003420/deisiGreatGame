@@ -50,6 +50,6 @@ public class AbyssFileNotFoundException extends Abyss
             return "Azar!\nNão tinha uma Ferramenta\nVou retroceder 3 casas";
         }
 
-        return  "Sortudo!\nTinha a Ferramenta: " + result + "\nUsei e safei-me";
+        return  "Sortudo!\nTinha a Ferramenta: " + result + "\nUsei e safei-me!";
     }
 }

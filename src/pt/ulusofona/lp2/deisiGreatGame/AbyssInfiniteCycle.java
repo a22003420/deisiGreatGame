@@ -59,6 +59,6 @@ public class AbyssInfiniteCycle extends Abyss
             return "Azar!\nNão tinha uma Ferramenta\nFiquei bloqueado";
         }
 
-        return "Sortudo!\nTinha a Ferramenta: " + result + "\nUsei e safei-me";
+        return "Sortudo!\nTinha a Ferramenta: " + result + "\nUsei e safei-me!";
     }
 }

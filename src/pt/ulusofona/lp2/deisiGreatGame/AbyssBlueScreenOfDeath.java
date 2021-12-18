@@ -49,6 +49,6 @@ public class AbyssBlueScreenOfDeath extends Abyss
             return "Já fui com os...\nMelhor sorte no próximo jogo";
         }
 
-        return "Sortudo!\nTinha a Ferramenta: " + result + "\nUsei e safei-me";
+        return "Sortudo!\nTinha a Ferramenta: " + result + "\nUsei e safei-me!";
     }
 }

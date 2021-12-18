@@ -261,6 +261,7 @@ public class Programmer {
      */
     public String useToolOnAbyss(Abyss abyss){
 
+        //find programmer tools
         List<Tool> playerTools = this.tools;
 
         if(playerTools.size()==0) {
@@ -269,6 +270,7 @@ public class Programmer {
 
         for (Tool playerTool: playerTools)
         {
+            //is Tool responsibility to check if a given tool is applied to an abyss
             if(playerTool.checkUseOfTool(abyss))
             {
                 playerTools.remove(playerTool);

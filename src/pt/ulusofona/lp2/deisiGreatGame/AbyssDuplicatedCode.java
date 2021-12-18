@@ -53,6 +53,6 @@ public class AbyssDuplicatedCode extends Abyss
             return "Azar!\nNão tinha uma Ferramenta\nVou regresar à posição anterior";
         }
 
-        return  "Sortudo!\nTinha a Ferramenta: " + result + "\nUsei e safei-me";
+        return  "Sortudo!\nTinha a Ferramenta: " + result + "\nUsei e safei-me!";
     }
 }

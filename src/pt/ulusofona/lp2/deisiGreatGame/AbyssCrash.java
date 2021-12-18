@@ -52,6 +52,6 @@ public class AbyssCrash extends Abyss
             return "Azar!\nNão tinha uma Ferramenta\nVou retroceder para o início";
         }
 
-        return "Sortudo!\nTinha a Ferramenta: " + result + "\nUsei e safei-me";
+        return "Sortudo!\nTinha a Ferramenta: " + result + "\nUsei e safei-me!";
     }
 }

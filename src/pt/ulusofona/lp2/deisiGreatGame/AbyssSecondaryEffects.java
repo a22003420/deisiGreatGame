@@ -53,6 +53,6 @@ public class AbyssSecondaryEffects extends Abyss
             return  "Azar!\nNão tinha uma Ferramenta\nVou retroceder " + positionsToMove;
         }
 
-        return  "Sortudo!\nTinha a Ferramenta: " + result + "\nUsei e safei-me";
+        return  "Sortudo!\nTinha a Ferramenta: " + result + "\nUsei e safei-me!";
     }
 }

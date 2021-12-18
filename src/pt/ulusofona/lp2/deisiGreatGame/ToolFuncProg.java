@@ -38,7 +38,7 @@ public class ToolFuncProg extends Tool {
      */
     @Override
     protected String reactToAbyssOrTool(List<Programmer> programmers, Programmer currProgrammer, int boardSize) {
-        //is current programmer responsibility to check if contains a tool
+        //is current programmer responsibility to check if contains a tool and add to tools
         return (currProgrammer.addTool(this) ? "Sortudo!\nRecohi a Ferramenta: " : "Azar!\nJá tinha a Ferramenta: ") + this.title;
     }
 }

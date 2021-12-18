@@ -50,6 +50,6 @@ public class AbyssException extends Abyss
             return "Azar!\nNão tinha uma Ferramenta\nVou retroceder duas casa";
         }
 
-        return  "Sortudo!\nTinha a Ferramenta: " + result + "\nUsei e safei-me";
+        return  "Sortudo!\nTinha a Ferramenta: " + result + "\nUsei e safei-me!";
     }
 }

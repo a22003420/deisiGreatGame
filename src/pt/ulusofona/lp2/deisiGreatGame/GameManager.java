@@ -271,6 +271,7 @@ public class GameManager {
         //add turn to game turns
         addTurn();
 
+        //react to tile
         return tile.reactToAbyssOrTool(programmers, currentPlayer, getBoardSize());
     }
 

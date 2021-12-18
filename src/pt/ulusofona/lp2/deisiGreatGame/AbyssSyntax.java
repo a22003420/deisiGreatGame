@@ -50,6 +50,6 @@ public class AbyssSyntax extends Abyss
             return  "Azar!\nNão tinha uma Ferramenta\nVou retroceder 1 casa";
         }
 
-        return  "Sortudo!\nTinha a Ferramenta: " + result + "\nUsei e safei-me";
+        return  "Sortudo!\nTinha a Ferramenta: " + result + "\nUsei e safei-me!";
     }
 }

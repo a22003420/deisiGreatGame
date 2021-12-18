@@ -59,6 +59,6 @@ public class AbyssSegmentationFault extends Abyss
             }
         }
 
-        return "Sortudo!\nTinha a Ferramenta: " + result + "\nUsei e safei-me";
+        return "Sortudo!\nTinha a Ferramenta: " + result + "\nUsei e safei-me!";
     }
 }
