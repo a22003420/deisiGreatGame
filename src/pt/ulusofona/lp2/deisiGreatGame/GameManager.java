@@ -284,7 +284,7 @@ public class GameManager {
 
         boolean isGameOver = false;
 
-        //check if there is programmer on final position
+        //check if there is a programmer on finish  position
         for (Programmer programmer:programmerList) {
             if(programmer.currentPosition()== getBoardSize()){
                 isGameOver = true;
@@ -363,20 +363,9 @@ public class GameManager {
     //BEGIN PUBLIC METHODS: PROGRAMMERS
 
     /*
-    Get all Programmers or only those not defeated
-     */
-    public List<Programmer> getProgrammers(boolean includeDefeated){
-        if(programmers==null) {
-            return null;
-        }
-
-        return includeDefeated ? this.programmers : programmers.stream().collect(Collectors.filtering(Programmer::isInGame, Collectors.toList()));
-    }
-
-     /*
-    Get Programmers on a given position
-    If none found returns null
-     */
+   Get Programmers on a given position
+   If none found returns null
+    */
     public List<Programmer> getProgrammers(int position){
 
         if(position==0 || position>getBoardSize() || programmers == null){
@@ -397,6 +386,17 @@ public class GameManager {
         }
 
         return programmerList;
+    }
+
+    /*
+    Get all Programmers or only those not defeated
+     */
+    public List<Programmer> getProgrammers(boolean includeDefeated){
+        if(programmers==null) {
+            return null;
+        }
+
+        return includeDefeated ? this.programmers : programmers.stream().collect(Collectors.filtering(Programmer::isInGame, Collectors.toList()));
     }
 
     /*

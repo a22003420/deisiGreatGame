@@ -47,11 +47,6 @@ public class Programmer {
     private final List<String> languages;
 
     /*
-    Identifies programmer current position on board game
-     */
-    private int positionOnBoard;
-
-    /*
     Identifies programmer game color
      */
     private final ProgrammerColor color;
@@ -200,29 +195,16 @@ public class Programmer {
     Log player position
      */
     public void logTurnPosition(int position){
-
-        positionOnBoard=position;
         positionsOnBoard.add(position);
-
     }
 
     /*
-     Return player game position on board
+     Return player last game position on board
     */
     public Integer currentPosition(){
-        return this.positionOnBoard;
+        int size = this.positionsOnBoard.size();
+        return this.positionsOnBoard.get(size-1);
     }
-
-    /*
-     Return player game position by turn
-
-    public Integer getTurnPosition(int turn) {
-
-        ArrayList<Integer> positions = this.positionsOnBoard;
-
-        return this.positionOnBoard;
-    }
-    */
 
     /*
      Return Previous Position
@@ -355,7 +337,7 @@ public class Programmer {
         }*/
 
         //concatenate and return final string
-        return id + " | " + name + " | " + positionOnBoard + " | " + showTools() + " | " + strLanguages + " | " + showStatus();
+        return id + " | " + name + " | " + currentPosition() + " | " + showTools() + " | " + strLanguages + " | " + showStatus();
     }
 
     /*
@@ -394,6 +376,6 @@ public class Programmer {
         }
 
         //concatenate and return final string
-        return name + " : " + positionOnBoard + " | " + showTools() + " | " + strLanguages + " | " + showStatus();
+        return name + " : " + currentPosition() + " | " + showTools() + " | " + strLanguages + " | " + showStatus();
     }
 }
