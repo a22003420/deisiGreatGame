@@ -294,7 +294,7 @@ public class GameManager {
 
         if(!isGameOver) {
             //check if there is only one programmer in game
-            isGameOver = programmerList.stream().filter(Programmer::isInGame).count() == 1;
+            isGameOver = programmerList.stream().filter(Programmer::inGame).count() == 1;
         }
 
         return isGameOver;
@@ -396,7 +396,7 @@ public class GameManager {
             return null;
         }
 
-        return includeDefeated ? this.programmers : programmers.stream().collect(Collectors.filtering(Programmer::isInGame, Collectors.toList()));
+        return includeDefeated ? this.programmers : programmers.stream().collect(Collectors.filtering(Programmer::inGame, Collectors.toList()));
     }
 
     /*
@@ -412,7 +412,7 @@ public class GameManager {
         ArrayList<Programmer> programmerList = new ArrayList<>();
         for (Programmer programmer: programmers)
         {
-            if(programmer.isInGame() && programmer.currentPosition() == position)
+            if(programmer.inGame() && programmer.currentPosition() == position)
             {
                 programmerList.add(programmer);
             }

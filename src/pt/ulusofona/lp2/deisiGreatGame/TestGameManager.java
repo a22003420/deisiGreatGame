@@ -461,7 +461,7 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 4, (int) currentPlayer.currentPosition());
         assertEquals("Tile Title", "Erro de lógica", game.getTitle(currentPlayer.currentPosition()));
         assertEquals("Title Image", "logic.png", game.getImagePng(currentPlayer.currentPosition()));
-        assertEquals("Check Player Previous Position", 1, (int)currentPlayer.previousPosition());
+        assertEquals("Check Player Previous Position", 1, (int)currentPlayer.previousTurnPosition(1));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 3, (int) currentPlayer.currentPosition());
 
@@ -870,7 +870,7 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 4, (int) currentPlayer.currentPosition());
         assertEquals("Erro de lógica - Title", "Erro de lógica", game.getTitle(currentPlayer.currentPosition()));
         assertEquals("Erro de lógica - Image", "logic.png", game.getImagePng(currentPlayer.currentPosition()));
-        assertEquals("Check Player Previous Position", 1, (int)currentPlayer.previousPosition());
+        assertEquals("Check Player Previous Position", 1, (int)currentPlayer.previousTurnPosition(1));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 3, (int) currentPlayer.currentPosition());
 
@@ -1263,7 +1263,7 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 4, (int) currentPlayer.currentPosition());
         assertEquals("Erro de lógica - Title", "Erro de lógica", game.getTitle(currentPlayer.currentPosition()));
         assertEquals("Erro de lógica - Image", "logic.png", game.getImagePng(currentPlayer.currentPosition()));
-        assertEquals("Check Player Previous Position", 1, (int)currentPlayer.previousPosition());
+        assertEquals("Check Player Previous Position", 1, (int)currentPlayer.previousTurnPosition(1));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 3, (int) currentPlayer.currentPosition());
 
@@ -1679,7 +1679,7 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 4, (int) programmerToTest.currentPosition());
         assertEquals("Abyss: Erro de Lógica - Title", "Erro de lógica", game.getTitle(programmerToTest.currentPosition()));
         assertEquals("Abyss: Erro de Lógica - Image", "logic.png", game.getImagePng(programmerToTest.currentPosition()));
-        assertEquals("Player Position A Ultima", 1, (int)programmerToTest.previousPosition());
+        assertEquals("Player Position A Ultima", 1, (int)programmerToTest.previousTurnPosition(1));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION, 3, (int) programmerToTest.currentPosition());
 

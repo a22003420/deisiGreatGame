@@ -47,7 +47,7 @@ public class AbyssLogic extends Abyss
         if(result.isBlank())
         {
             int currentPosition = currProgrammer.currentPosition();
-            int previousPosition = currProgrammer.previousPosition();
+            int previousPosition = currProgrammer.previousTurnPosition(1);
             int movedPositions = currentPosition - previousPosition;
             int positionsToMove = movedPositions / 2;
             currProgrammer.move(boardSize, -positionsToMove);

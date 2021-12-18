@@ -141,6 +141,7 @@ public class Programmer {
             newPositionAfterCheck = newPosition > boardSize ? (boardSize - (newPosition - boardSize)) : newPosition;
         }
 
+        //log new position
         logTurnPosition(newPositionAfterCheck);
     }
 
@@ -174,7 +175,7 @@ public class Programmer {
     /*
      Return Programmer Status on Game
      */
-    public boolean isInGame(){
+    public boolean inGame(){
         return status;
     }
 
@@ -193,43 +194,32 @@ public class Programmer {
 
     /*
     Log player position
-     */
+    */
     public void logTurnPosition(int position){
         positionsOnBoard.add(position);
     }
 
     /*
-     Return player last game position on board
+    Return player last game position on board
     */
     public Integer currentPosition(){
-        int size = this.positionsOnBoard.size();
-        return this.positionsOnBoard.get(size-1);
+        return positionsOnBoard.get(positionsOnBoard.size()-1);
     }
 
     /*
-     Return Previous Position
-     */
-    public Integer previousPosition(){
+    Return Previous Turn Position
+    */
+    public Integer previousTurnPosition(int nrTurns){
 
-        if(positionsOnBoard.size()==0){
-            return 1;
-        }
+        //number of logged positions
+        int size = positionsOnBoard.size()-1;
+        //nrTurns versus logged positions
+        nrTurns = (size < nrTurns) ? nrTurns-1 : nrTurns;
+        //index
+        int index = Math.abs(nrTurns - size);
 
-        return positionsOnBoard.get(positionsOnBoard.size()-2);
+        return positionsOnBoard.get(index);
     }
-
-    /*
-     Return Previous Previous Position
-     */
-    public Integer previousPreviousPosition(){
-
-        if(positionsOnBoard.size()<3){
-            return positionsOnBoard.get(0);
-        }
-
-        return positionsOnBoard.get(positionsOnBoard.size()-3);
-    }
-
 
     //END METHODS: POSITION
     //#################
@@ -269,7 +259,7 @@ public class Programmer {
     public boolean addTool(Tool tool){
 
         if(!containsTool(tool)) {
-            return this.tools.add(tool);
+            return tools.add(tool);
         }
 
         return false;
@@ -279,7 +269,7 @@ public class Programmer {
      Programmer contains tool
      */
     public boolean containsTool(Tool tool){
-        return this.tools.contains(tool);
+        return tools.contains(tool);
     }
 
     /*
@@ -292,8 +282,8 @@ public class Programmer {
         }
 
         StringBuilder userTools = new StringBuilder();
-        for (Tool tools:tools) {
-            userTools.append(tools.title);
+        for (Tool tool:tools) {
+            userTools.append(tool.getTitle());
             userTools.append("; ");
         }
 
@@ -327,15 +317,6 @@ public class Programmer {
         //remove right ;
         strLanguages.delete(strLanguages.length()-2,strLanguages.length());
 
-        // remove right pipe when no tools are present
-        /*String tools = showTools();
-        if(tools.isEmpty()){
-            tools = "";
-        }
-        else{
-            tools= tools + " | ";
-        }*/
-
         //concatenate and return final string
         return id + " | " + name + " | " + currentPosition() + " | " + showTools() + " | " + strLanguages + " | " + showStatus();
     }
@@ -345,10 +326,7 @@ public class Programmer {
     Result must be inside range [1,6]
     */
     public Integer throwDice(){
-        Random rand = new Random();
-        int min = 1;
-        int max = 6;
-        return rand.nextInt(max) + min;
+        return new Random().nextInt(6) + 1;
     }
 
     //#################
