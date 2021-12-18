@@ -54,7 +54,7 @@ public class TestGameManager{
         int nrPositionsToMove =1;
         currentPlayer = game.getCurrentPlayer();
         boolean success = move(game, nrPositionsToMove);
-        assertEquals("Success Mode", true, success);
+        assertTrue("Success Mode", success);
         assertEquals(CURRENT_PLAYER_ID, 2, game.getCurrentPlayerID());
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 2, (int) currentPlayer.currentPosition());
         assertEquals("Tile Image", "duplicated-code.png", game.getImagePng(currentPlayer.currentPosition()));
@@ -91,13 +91,13 @@ public class TestGameManager{
 
         game.createInitialBoard(board, 26, objects);
         Programmer currentPlayer;
-        int nrPositionsToMove=0;
+        int nrPositionsToMove;
         //#####
         //TURN TO ABYSS: Secondary Effects
 
         nrPositionsToMove =6;
         currentPlayer = game.getCurrentPlayer();
-        assertEquals("Success Move", true, move(game, nrPositionsToMove));
+        assertTrue("Success Move", move(game, nrPositionsToMove));
         assertEquals(CURRENT_PLAYER_ID, 2, game.getCurrentPlayerID());
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 7, (int) currentPlayer.currentPosition());
         assertEquals("Tile Image", "secondary-effects.png", game.getImagePng(currentPlayer.currentPosition()));
@@ -108,11 +108,11 @@ public class TestGameManager{
 
         nrPositionsToMove =1;
         currentPlayer = game.getCurrentPlayer();
-        assertEquals("Success Mode", true, move(game, nrPositionsToMove));
+        assertTrue("Success Mode", move(game, nrPositionsToMove));
         assertEquals(CURRENT_PLAYER_ID, 23, game.getCurrentPlayerID());
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 2, (int) currentPlayer.currentPosition());
-        assertEquals("Tile Image", null, game.getImagePng(currentPlayer.currentPosition()));
-        assertEquals("Tile Title", null, game.getTitle(currentPlayer.currentPosition()));
+        assertNull("Tile Image", game.getImagePng(currentPlayer.currentPosition()));
+        assertNull("Tile Title", game.getTitle(currentPlayer.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 2, (int) currentPlayer.currentPosition());
         assertEquals(CURRENT_PLAYER_ID, 2, game.getCurrentPlayerID());
@@ -152,7 +152,7 @@ public class TestGameManager{
         int nrPositionsToMove =1;
         currentPlayer = game.getCurrentPlayer();
         boolean success = move(game, nrPositionsToMove);
-        assertEquals("Success Mode", true, success);
+        assertTrue("Success Mode", success);
         assertEquals(CURRENT_PLAYER_ID, 2, game.getCurrentPlayerID());
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 2, (int) currentPlayer.currentPosition());
         assertEquals("Tile Image", "file-not-found-exception.png", game.getImagePng(currentPlayer.currentPosition()));
@@ -234,8 +234,7 @@ public class TestGameManager{
 
         nrPositionsToMove =1;
         currentPlayer = game.getCurrentPlayer();
-        boolean success = move(game, nrPositionsToMove);
-        assertEquals("Success Mode", true, success);
+        move(game, nrPositionsToMove);
         assertEquals(CURRENT_PLAYER_ID, 2, game.getCurrentPlayerID());
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 2, (int) currentPlayer.currentPosition());
         assertEquals("Tile Image", "inheritance.png", game.getImagePng(currentPlayer.currentPosition()));
@@ -248,11 +247,10 @@ public class TestGameManager{
         nrPositionsToMove =2;
         currentPlayer = game.getCurrentPlayer();
         move(game, nrPositionsToMove);
-        assertEquals("Success Mode", true, success);
         assertEquals(CURRENT_PLAYER_ID, 23, game.getCurrentPlayerID());
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 3, (int) currentPlayer.currentPosition());
-        assertEquals("Tile Image", null, game.getImagePng(currentPlayer.currentPosition()));
-        assertEquals("Tile Title", null, game.getTitle(currentPlayer.currentPosition()));
+        assertNull("Tile Image", game.getImagePng(currentPlayer.currentPosition()));
+        assertNull("Tile Title", game.getTitle(currentPlayer.currentPosition()));
         reactToTitle(game);
 
         //#####
@@ -261,7 +259,6 @@ public class TestGameManager{
         nrPositionsToMove =2;
         currentPlayer = game.getCurrentPlayer();
         move(game, nrPositionsToMove);
-        assertEquals("Success Mode", true, success);
         assertEquals(CURRENT_PLAYER_ID, 2, game.getCurrentPlayerID());
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 4, (int) currentPlayer.currentPosition());
         assertEquals("Tile Image", "inheritance.png", game.getImagePng(currentPlayer.currentPosition()));
@@ -275,7 +272,6 @@ public class TestGameManager{
         nrPositionsToMove =2;
         currentPlayer = game.getCurrentPlayer();
         move(game, nrPositionsToMove);
-        assertEquals("Success Mode", true, success);
         assertEquals(CURRENT_PLAYER_ID, 23, game.getCurrentPlayerID());
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 5, (int) currentPlayer.currentPosition());
         assertEquals("Tile Image", "functional.png", game.getImagePng(currentPlayer.currentPosition()));
@@ -288,7 +284,6 @@ public class TestGameManager{
         nrPositionsToMove =4;
         currentPlayer = game.getCurrentPlayer();
         move(game, nrPositionsToMove);
-        assertEquals("Success Mode", true, success);
         assertEquals(CURRENT_PLAYER_ID, 2, game.getCurrentPlayerID());
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 8, (int) currentPlayer.currentPosition());
         assertEquals("Tile Image", "unit-tests.png", game.getImagePng(currentPlayer.currentPosition()));
@@ -301,7 +296,6 @@ public class TestGameManager{
         nrPositionsToMove =5;
         currentPlayer = game.getCurrentPlayer();
         move(game, nrPositionsToMove);
-        assertEquals("Success Mode", true, success);
         assertEquals(CURRENT_PLAYER_ID, 23, game.getCurrentPlayerID());
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 10, (int) currentPlayer.currentPosition());
         assertEquals("Tile Image", "catch.png", game.getImagePng(currentPlayer.currentPosition()));
@@ -314,7 +308,6 @@ public class TestGameManager{
         nrPositionsToMove =3;
         currentPlayer = game.getCurrentPlayer();
         move(game, nrPositionsToMove);
-        assertEquals("Success Mode", true, success);
         assertEquals(CURRENT_PLAYER_ID, 2, game.getCurrentPlayerID());
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 11, (int) currentPlayer.currentPosition());
         assertEquals("Tile Image", "IDE.png", game.getImagePng(currentPlayer.currentPosition()));
@@ -326,8 +319,8 @@ public class TestGameManager{
 
         nrPositionsToMove =2;
         currentPlayer = game.getCurrentPlayer();
-        move(game, nrPositionsToMove);
-        assertEquals("Success Mode", true, success);
+        boolean success = move(game, nrPositionsToMove);
+        assertTrue("Success Mode", success);
         assertEquals(CURRENT_PLAYER_ID, 23, game.getCurrentPlayerID());
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 12, (int) currentPlayer.currentPosition());
         assertEquals("Tile Image", "ajuda-professor.png", game.getImagePng(currentPlayer.currentPosition()));
@@ -431,7 +424,7 @@ public class TestGameManager{
         nrPositionsToMove =1;
         currentPlayer = game.getCurrentPlayer();
         boolean success = move(game, nrPositionsToMove);
-        assertEquals("Success Mode", true, success);
+        assertTrue("Success Mode", success);
         assertEquals(CURRENT_PLAYER_ID, 2, game.getCurrentPlayerID());
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 2, (int) currentPlayer.currentPosition());
         assertEquals("Tile Image", "syntax.png", game.getImagePng(currentPlayer.currentPosition()));
@@ -551,8 +544,8 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION, 7, (int) currentPlayer.currentPosition());
         move(game, nrPositionsToMove);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 9, (int) currentPlayer.currentPosition());
-        assertEquals("Tile Title", null, game.getTitle(currentPlayer.currentPosition()));
-        assertEquals("Tile Image", null, game.getImagePng(currentPlayer.currentPosition()));
+        assertNull("Tile Title", game.getTitle(currentPlayer.currentPosition()));
+        assertNull("Tile Image", game.getImagePng(currentPlayer.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 9, (int) currentPlayer.currentPosition());
 
@@ -565,7 +558,7 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION, 1, (int) currentPlayer.currentPosition());
         move(game, nrPositionsToMove);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 6, (int) currentPlayer.currentPosition());
-        assertEquals("Tile Title", null, game.getTitle(currentPlayer.currentPosition()));
+        assertNull("Tile Title", game.getTitle(currentPlayer.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 6, (int) currentPlayer.currentPosition());
 
@@ -605,7 +598,7 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION, 9, (int) currentPlayer.currentPosition());
         move(game, nrPositionsToMove);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 13, (int) currentPlayer.currentPosition());
-        assertEquals("Tile Title", null, game.getTitle(currentPlayer.currentPosition()));
+        assertNull("Tile Title", game.getTitle(currentPlayer.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 13, (int) currentPlayer.currentPosition());
 
@@ -618,7 +611,7 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION, 8, (int) currentPlayer.currentPosition());
         move(game, nrPositionsToMove);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 13, (int) currentPlayer.currentPosition());
-        assertEquals("Tile Title", null, game.getTitle(currentPlayer.currentPosition()));
+        assertNull("Tile Title", game.getTitle(currentPlayer.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 13, (int) currentPlayer.currentPosition());
 
@@ -631,12 +624,12 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION, 13, (int) currentPlayer.currentPosition());
         move(game, nrPositionsToMove);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 15, (int) currentPlayer.currentPosition());
-        assertEquals("Tile Title", null, game.getTitle(currentPlayer.currentPosition()));
+        assertNull("Tile Title", game.getTitle(currentPlayer.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 15, (int) currentPlayer.currentPosition());
 
         //#####
-        //TURN TO SECONDARY EFFECTS - Goes back to previous to previous
+        //TURN TO SECONDARY EFFECTS - Goes back to previous turn(2)
 
         nrPositionsToMove =4;
         currentPlayer = game.getCurrentPlayer();
@@ -652,7 +645,7 @@ public class TestGameManager{
         assertFalse("Game is Over", game.gameIsOver());
 
         //#####
-        //TURN TO SECONDARY EFFECTS - Goes back to previous to previous
+        //TURN TO SECONDARY EFFECTS - Goes back to 2 turn
 
         nrPositionsToMove =2;
         currentPlayer = game.getCurrentPlayer();
@@ -663,7 +656,7 @@ public class TestGameManager{
         assertEquals("Tile Title", "Efeitos secundários", game.getTitle(currentPlayer.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 13, (int) currentPlayer.currentPosition());
-        assertEquals("Tile Title", null, game.getTitle(currentPlayer.currentPosition()));
+        assertNull("Tile Title", game.getTitle(currentPlayer.currentPosition()));
         assertFalse("Game is Over", game.gameIsOver());
 
         //#####
@@ -675,7 +668,7 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION, 8, (int) currentPlayer.currentPosition());
         move(game, nrPositionsToMove);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 13, (int) currentPlayer.currentPosition());
-        assertEquals("Tile Title", null, game.getTitle(currentPlayer.currentPosition()));
+        assertNull("Tile Title", game.getTitle(currentPlayer.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 13, (int) currentPlayer.currentPosition());
 
@@ -688,7 +681,7 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION, 13, (int) currentPlayer.currentPosition());
         move(game, nrPositionsToMove);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 16, (int) currentPlayer.currentPosition());
-        assertEquals("Tile Title", null, game.getTitle(currentPlayer.currentPosition()));
+        assertNull("Tile Title", game.getTitle(currentPlayer.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 16, (int) currentPlayer.currentPosition());
 
@@ -701,7 +694,7 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION, 13, (int) currentPlayer.currentPosition());
         move(game, nrPositionsToMove);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 18, (int) currentPlayer.currentPosition());
-        assertEquals("Tile Title", null, game.getTitle(currentPlayer.currentPosition()));
+        assertNull("Tile Title", game.getTitle(currentPlayer.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 18, (int) currentPlayer.currentPosition());
 
@@ -714,7 +707,7 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION, 16, (int) currentPlayer.currentPosition());
         move(game, nrPositionsToMove);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 20, (int) currentPlayer.currentPosition());
-        assertEquals("Tile Title", null, game.getTitle(currentPlayer.currentPosition()));
+        assertNull("Tile Title", game.getTitle(currentPlayer.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 20, (int) currentPlayer.currentPosition());
 
@@ -974,7 +967,7 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION, 1, (int) currentPlayer.currentPosition());
         move(game, nrPositionsToMove);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 6, (int) currentPlayer.currentPosition());
-        assertEquals("CURRENT_PLAYER_ID Position Tile", null, game.getTitle(currentPlayer.currentPosition()));
+        assertNull("CURRENT_PLAYER_ID Position Tile", game.getTitle(currentPlayer.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 6, (int) currentPlayer.currentPosition());
 
@@ -1014,7 +1007,7 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION, 9, (int) currentPlayer.currentPosition());
         move(game, nrPositionsToMove);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 13, (int) currentPlayer.currentPosition());
-        assertEquals("Check Player B Position Tile", null, game.getTitle(currentPlayer.currentPosition()));
+        assertNull("Check Player B Position Tile", game.getTitle(currentPlayer.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 13, (int) currentPlayer.currentPosition());
 
@@ -1027,7 +1020,7 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION, 8, (int) currentPlayer.currentPosition());
         move(game, nrPositionsToMove);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 13, (int) currentPlayer.currentPosition());
-        assertEquals("CURRENT_PLAYER_ID Position Tile", null, game.getTitle(currentPlayer.currentPosition()));
+        assertNull("CURRENT_PLAYER_ID Position Tile", game.getTitle(currentPlayer.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 13, (int) currentPlayer.currentPosition());
 
@@ -1040,12 +1033,12 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION, 13, (int) currentPlayer.currentPosition());
         move(game, nrPositionsToMove);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 15, (int) currentPlayer.currentPosition());
-        assertEquals("Check Player B Position Tile 15", null, game.getTitle(currentPlayer.currentPosition()));
+        assertNull("Check Player B Position Tile 15", game.getTitle(currentPlayer.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 15, (int) currentPlayer.currentPosition());
 
         //#####
-        //TURN TO SECONDARY EFFECTS - Goes back to previous to previous
+        //TURN TO SECONDARY EFFECTS - Goes back to previous turn(2)
 
         nrPositionsToMove =4;
         currentPlayer = game.getCurrentPlayer();
@@ -1061,7 +1054,7 @@ public class TestGameManager{
         assertFalse("Game is Over", game.gameIsOver());
 
         //#####
-        //TURN TO SECONDARY EFFECTS - Goes back to previous to previous
+        //TURN TO SECONDARY EFFECTS - Goes back to previous turn (2)
 
         nrPositionsToMove =2;
         currentPlayer = game.getCurrentPlayer();
@@ -1072,7 +1065,7 @@ public class TestGameManager{
         assertEquals("Check Player B Position Tile", "Efeitos secundários", game.getTitle(currentPlayer.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 13, (int) currentPlayer.currentPosition());
-        assertEquals("Check Player B Position Tile", null, game.getTitle(currentPlayer.currentPosition()));
+        assertNull("Check Player B Position Tile", game.getTitle(currentPlayer.currentPosition()));
         assertFalse("Game is Over", game.gameIsOver());
 
         //#####
@@ -1084,7 +1077,7 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION, 8, (int) currentPlayer.currentPosition());
         move(game, nrPositionsToMove);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 13, (int) currentPlayer.currentPosition());
-        assertEquals("CURRENT_PLAYER_ID Position Tile", null, game.getTitle(currentPlayer.currentPosition()));
+        assertNull("CURRENT_PLAYER_ID Position Tile", game.getTitle(currentPlayer.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 13, (int) currentPlayer.currentPosition());
 
@@ -1097,7 +1090,7 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION, 13, (int) currentPlayer.currentPosition());
         move(game, nrPositionsToMove);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 16, (int) currentPlayer.currentPosition());
-        assertEquals("Check Player B Position Tile 15", null, game.getTitle(currentPlayer.currentPosition()));
+        assertNull("Check Player B Position Tile 15", game.getTitle(currentPlayer.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 16, (int) currentPlayer.currentPosition());
 
@@ -1110,7 +1103,7 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION, 13, (int) currentPlayer.currentPosition());
         move(game, nrPositionsToMove);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 18, (int) currentPlayer.currentPosition());
-        assertEquals("CURRENT_PLAYER_ID Position Tile", null, game.getTitle(currentPlayer.currentPosition()));
+        assertNull("CURRENT_PLAYER_ID Position Tile", game.getTitle(currentPlayer.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 18, (int) currentPlayer.currentPosition());
 
@@ -1123,7 +1116,7 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION, 16, (int) currentPlayer.currentPosition());
         move(game, nrPositionsToMove);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 20, (int) currentPlayer.currentPosition());
-        assertEquals("Check Player B Position Tile", null, game.getTitle(currentPlayer.currentPosition()));
+        assertNull("Check Player B Position Tile", game.getTitle(currentPlayer.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 20, (int) currentPlayer.currentPosition());
 
@@ -1352,7 +1345,7 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION, 7, (int) currentPlayer.currentPosition());
         move(game, nrPositionsToMove);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 9, (int) currentPlayer.currentPosition());
-        assertEquals("Tile Empty", null, game.getTitle(currentPlayer.currentPosition()));
+        assertNull("Tile Empty", game.getTitle(currentPlayer.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 9, (int) currentPlayer.currentPosition());
 
@@ -1365,7 +1358,7 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION, 1, (int) currentPlayer.currentPosition());
         move(game, nrPositionsToMove);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 6, (int) currentPlayer.currentPosition());
-        assertEquals("CURRENT_PLAYER_ID Position Tile", null, game.getTitle(currentPlayer.currentPosition()));
+        assertNull("CURRENT_PLAYER_ID Position Tile", game.getTitle(currentPlayer.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 6, (int) currentPlayer.currentPosition());
 
@@ -1403,7 +1396,7 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION, 9, (int) currentPlayer.currentPosition());
         move(game, nrPositionsToMove);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 13, (int) currentPlayer.currentPosition());
-        assertEquals("Check Player B Position Tile", null, game.getTitle(currentPlayer.currentPosition()));
+        assertNull("Check Player B Position Tile", game.getTitle(currentPlayer.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 13, (int) currentPlayer.currentPosition());
 
@@ -1416,7 +1409,7 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION, 8, (int) currentPlayer.currentPosition());
         move(game, nrPositionsToMove);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 13, (int) currentPlayer.currentPosition());
-        assertEquals("CURRENT_PLAYER_ID Position Tile", null, game.getTitle(currentPlayer.currentPosition()));
+        assertNull("CURRENT_PLAYER_ID Position Tile", game.getTitle(currentPlayer.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 13, (int) currentPlayer.currentPosition());
 
@@ -1429,12 +1422,12 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION, 13, (int) currentPlayer.currentPosition());
         move(game, nrPositionsToMove);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 15, (int) currentPlayer.currentPosition());
-        assertEquals("Check Player B Position Tile 15", null, game.getTitle(currentPlayer.currentPosition()));
+        assertNull("Check Player B Position Tile 15", game.getTitle(currentPlayer.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 15, (int) currentPlayer.currentPosition());
 
         //#####
-        //TURN TO SECONDARY EFFECTS - Goes back to previous to previous
+        //TURN TO SECONDARY EFFECTS - Goes back to previous(2) turn
 
         nrPositionsToMove =4;
         currentPlayer = game.getCurrentPlayer();
@@ -1449,7 +1442,7 @@ public class TestGameManager{
         assertFalse("Game is Over", game.gameIsOver());
 
         //#####
-        //TURN TO SECONDARY EFFECTS - Goes back to previous to previous
+        //TURN TO SECONDARY EFFECTS - Goes back to previous turn(2)
 
         nrPositionsToMove =2;
         currentPlayer = game.getCurrentPlayer();
@@ -1460,7 +1453,7 @@ public class TestGameManager{
         assertEquals("Check Player B Position Tile", "Efeitos secundários", game.getTitle(currentPlayer.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 13, (int) currentPlayer.currentPosition());
-        assertEquals("Check Player B Position Tile", null, game.getTitle(currentPlayer.currentPosition()));
+        assertNull("Check Player B Position Tile", game.getTitle(currentPlayer.currentPosition()));
         assertFalse("Game is Over", game.gameIsOver());
 
         //#####
@@ -1472,7 +1465,7 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION, 8, (int) currentPlayer.currentPosition());
         move(game, nrPositionsToMove);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 13, (int) currentPlayer.currentPosition());
-        assertEquals("CURRENT_PLAYER_ID Position Tile", null, game.getTitle(currentPlayer.currentPosition()));
+        assertNull("CURRENT_PLAYER_ID Position Tile", game.getTitle(currentPlayer.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 13, (int) currentPlayer.currentPosition());
 
@@ -1485,7 +1478,7 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION, 13, (int) currentPlayer.currentPosition());
         move(game, nrPositionsToMove);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 16, (int) currentPlayer.currentPosition());
-        assertEquals("Check Player B Position Tile 15", null, game.getTitle(currentPlayer.currentPosition()));
+        assertNull("Check Player B Position Tile 15", game.getTitle(currentPlayer.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 16, (int) currentPlayer.currentPosition());
 
@@ -1498,7 +1491,7 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION, 13, (int) currentPlayer.currentPosition());
         move(game, nrPositionsToMove);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 18, (int) currentPlayer.currentPosition());
-        assertEquals("CURRENT_PLAYER_ID Position Tile", null, game.getTitle(currentPlayer.currentPosition()));
+        assertNull("CURRENT_PLAYER_ID Position Tile", game.getTitle(currentPlayer.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 18, (int) currentPlayer.currentPosition());
 
@@ -1511,7 +1504,7 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION, 16, (int) currentPlayer.currentPosition());
         move(game, nrPositionsToMove);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 20, (int) currentPlayer.currentPosition());
-        assertEquals("Check Player B Position Tile", null, game.getTitle(currentPlayer.currentPosition()));
+        assertNull("Check Player B Position Tile", game.getTitle(currentPlayer.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 20, (int) currentPlayer.currentPosition());
 
@@ -1538,7 +1531,7 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION, 20, (int) currentPlayer.currentPosition());
         move(game, nrPositionsToMove);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 21, (int) currentPlayer.currentPosition());
-        assertEquals("Check Player B Position Tile", null, game.getTitle(currentPlayer.currentPosition()));
+        assertNull("Check Player B Position Tile", game.getTitle(currentPlayer.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 21, (int) currentPlayer.currentPosition());
 
@@ -1767,7 +1760,7 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION, 7, (int) programmerToTest.currentPosition());
         move(game, nrPositionsToMove);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 9, (int) programmerToTest.currentPosition());
-        assertEquals("Tile Empty", null, game.getTitle(programmerToTest.currentPosition()));
+        assertNull("Tile Empty", game.getTitle(programmerToTest.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 9, (int) programmerToTest.currentPosition());
 
@@ -1780,7 +1773,7 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION, 1, (int) programmerToTest.currentPosition());
         move(game, nrPositionsToMove);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 6, (int) programmerToTest.currentPosition());
-        assertEquals("CURRENT_PLAYER_ID Position Tile", null, game.getTitle(programmerToTest.currentPosition()));
+        assertNull("CURRENT_PLAYER_ID Position Tile", game.getTitle(programmerToTest.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 6, (int) programmerToTest.currentPosition());
 
@@ -1818,7 +1811,7 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION, 9, (int) programmerToTest.currentPosition());
         move(game, nrPositionsToMove);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 13, (int) programmerToTest.currentPosition());
-        assertEquals("Check Player B Position Tile", null, game.getTitle(programmerToTest.currentPosition()));
+        assertNull("Check Player B Position Tile", game.getTitle(programmerToTest.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 13, (int) programmerToTest.currentPosition());
 
@@ -1831,7 +1824,7 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION, 8, (int) programmerToTest.currentPosition());
         move(game, nrPositionsToMove);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 13, (int) programmerToTest.currentPosition());
-        assertEquals("CURRENT_PLAYER_ID Position Tile", null, game.getTitle(programmerToTest.currentPosition()));
+        assertNull("CURRENT_PLAYER_ID Position Tile", game.getTitle(programmerToTest.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 13, (int) programmerToTest.currentPosition());
 
@@ -1844,7 +1837,7 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION, 13, (int) programmerToTest.currentPosition());
         move(game, nrPositionsToMove);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 15, (int) programmerToTest.currentPosition());
-        assertEquals("Check Player B Position Tile 15", null, game.getTitle(programmerToTest.currentPosition()));
+        assertNull("Check Player B Position Tile 15", game.getTitle(programmerToTest.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 15, (int) programmerToTest.currentPosition());
 
@@ -1875,7 +1868,7 @@ public class TestGameManager{
         assertEquals("Check Player B Position Tile", "Efeitos secundários", game.getTitle(programmerToTest.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 13, (int) programmerToTest.currentPosition());
-        assertEquals("Check Player B Position Tile", null, game.getTitle(programmerToTest.currentPosition()));
+        assertNull("Check Player B Position Tile", game.getTitle(programmerToTest.currentPosition()));
         assertFalse("Game is Over", game.gameIsOver());
 
         //#####
@@ -1887,7 +1880,7 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION, 8, (int) programmerToTest.currentPosition());
         move(game, nrPositionsToMove);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 13, (int) programmerToTest.currentPosition());
-        assertEquals("CURRENT_PLAYER_ID Position Tile", null, game.getTitle(programmerToTest.currentPosition()));
+        assertNull("CURRENT_PLAYER_ID Position Tile", game.getTitle(programmerToTest.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION, 13, (int) programmerToTest.currentPosition());
 
@@ -1900,7 +1893,7 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION, 13, (int) programmerToTest.currentPosition());
         move(game, nrPositionsToMove);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 16, (int) programmerToTest.currentPosition());
-        assertEquals("Check Player B Position Tile 15", null, game.getTitle(programmerToTest.currentPosition()));
+        assertNull("Check Player B Position Tile 15", game.getTitle(programmerToTest.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 16, (int) programmerToTest.currentPosition());
 

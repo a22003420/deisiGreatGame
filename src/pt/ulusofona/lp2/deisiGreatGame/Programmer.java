@@ -132,8 +132,10 @@ public class Programmer {
 
         //calculate new current player position
         int newPosition = currentPosition()+nrPositions;
+
         //check max allowed position
         int newPositionAfterCheck = newPosition > boardSize ? (boardSize - (newPosition - boardSize)) : newPosition;
+
         //check min allowed position
         if(newPositionAfterCheck<1) {
             newPositionAfterCheck = 1;

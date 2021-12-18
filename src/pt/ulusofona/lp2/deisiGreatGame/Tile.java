@@ -25,7 +25,7 @@ public class Tile
     /*
     React to Title
      */
-    protected String reactToAbyssOrTool(List<Programmer> programmers, Programmer programmer, int boardSize){
-        return reactToAbyssOrTool(programmers, programmer, boardSize);
+    protected String reactToAbyssOrTool(List<Programmer> programmersInTile, Programmer programmer, int boardSize){
+        return reactToAbyssOrTool(programmersInTile, programmer, boardSize);
     }
 }

@@ -409,20 +409,11 @@ public class GameManager {
             return null;
         }
 
-        ArrayList<Programmer> programmerList = new ArrayList<>();
-        for (Programmer programmer: programmers)
-        {
-            if(programmer.inGame() && programmer.currentPosition() == position)
-            {
-                programmerList.add(programmer);
-            }
-        }
+        List<Programmer> programmerList = getProgrammers(position);
+        if(programmerList.size()==0)
+            return new ArrayList<Programmer>();
 
-        if(programmerList.size() == 0){
-            return null;
-        }
-
-        return programmerList;
+        return programmerList.stream().collect(Collectors.filtering(Programmer::inGame, Collectors.toList()));
     }
 
     /*
