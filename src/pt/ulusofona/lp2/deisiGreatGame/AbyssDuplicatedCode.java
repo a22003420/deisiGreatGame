@@ -41,22 +41,18 @@ public class AbyssDuplicatedCode extends Abyss
     @Override
     protected String reactToAbyssOrTool(List<Programmer> programmers, Programmer currProgrammer, int boardSize) {
 
+        //is current programmer responsibility to check if contains a tool and use the tool
         String result = currProgrammer.useToolOnAbyss(this);
-        String message;
 
         if(result.isBlank())
         {
             int previousPosition = currProgrammer.previousPosition();
             int currentPosition = currProgrammer.currentPosition();
             int positionsToMove = currentPosition - previousPosition;
-            currProgrammer.move(boardSize, -positionsToMove);
-            message = "Azar!\nNão tinha uma Ferramenta\nVou regresar à posição anterior";
-        }
-        else
-        {
-            message = "Sortudo!\nTinha a Ferramenta: " + result + "\nUsei e safei-me";
+            currProgrammer.move(boardSize, previousPosition<currentPosition ? -positionsToMove : positionsToMove);
+            return "Azar!\nNão tinha uma Ferramenta\nVou regresar à posição anterior";
         }
 
-        return message;
+        return  "Sortudo!\nTinha a Ferramenta: " + result + "\nUsei e safei-me";
     }
 }

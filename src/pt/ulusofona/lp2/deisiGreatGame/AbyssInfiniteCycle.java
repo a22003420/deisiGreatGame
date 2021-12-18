@@ -42,32 +42,23 @@ public class AbyssInfiniteCycle extends Abyss
     @Override
     protected String reactToAbyssOrTool(List<Programmer> programmers, Programmer currProgrammer, int boardSize) {
 
+        //is current programmer responsibility to check if contains a tool and use the tool
         String result = currProgrammer.useToolOnAbyss(this);
-        String message;
 
         if(result.isBlank())
         {
-            message = "Azar!\nNão tinha uma Ferramenta\nFiquei bloqueado";
-
-            //get programmer position
-            int currProgrammerPosition = currProgrammer.currentPosition();
-
             //check if other programmers are in the same position
             //if found lock programmer
             for (Programmer programmerCheck: programmers){
-                if(programmerCheck.currentPosition() == currProgrammerPosition){
-                   programmerCheck.unlock();
-                }
+                programmerCheck.unlock();
             }
 
             //lock current programmer
             currProgrammer.lock();
-        }
-        else
-        {
-            message = "Sortudo!\nTinha a Ferramenta: " + result + "\nUsei e safei-me";
+
+            return "Azar!\nNão tinha uma Ferramenta\nFiquei bloqueado";
         }
 
-        return message;
+        return "Sortudo!\nTinha a Ferramenta: " + result + "\nUsei e safei-me";
     }
 }

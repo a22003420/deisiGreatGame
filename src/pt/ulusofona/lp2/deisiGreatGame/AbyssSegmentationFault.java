@@ -42,37 +42,23 @@ public class AbyssSegmentationFault extends Abyss
     @Override
     protected String reactToAbyssOrTool(List<Programmer> programmers, Programmer currProgrammer, int boardSize) {
 
+        //is current programmer responsibility to check if contains a tool and use the tool
         String result = currProgrammer.useToolOnAbyss(this);
-        String message;
 
         if (result.isBlank()) {
-            //get programmer position
-            int currentPlayerPosition = currProgrammer.currentPosition();
-
-            //list to store found programmers
-            List<Programmer> playerToMoveList = new ArrayList<>();
-
-            //check if other programmers are in the same position
-            for (Programmer playerToCheck : programmers) {
-                if (playerToCheck.currentPosition() == currentPlayerPosition) {
-                    playerToMoveList.add(playerToCheck);
-                }
-            }
 
             //retreat 3 position if two or more programmer are found on the same position
-            if (playerToMoveList.size() > 1) {
-                for (Programmer playerToMove : playerToMoveList) {
+            if (programmers.size() > 1) {
+                for (Programmer playerToMove : programmers) {
                     playerToMove.move(boardSize, -3);
                 }
-                message = "Azar!\nNão tinha uma Ferramenta\nVou recuar 3 casas";
+                return  "Azar!\nNão tinha uma Ferramenta\nVou recuar 3 casas";
             }
             else {
-                message = "Sortudo!\nNão estava ninguém\nSafei-me";
+                return  "Sortudo!\nNão estava ninguém\nSafei-me";
             }
-        } else {
-            message = "Sortudo!\nTinha a Ferramenta: " + result + "\nUsei e safei-me";
         }
 
-        return message;
+        return "Sortudo!\nTinha a Ferramenta: " + result + "\nUsei e safei-me";
     }
 }

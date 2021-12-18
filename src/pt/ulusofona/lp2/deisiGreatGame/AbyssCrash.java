@@ -41,21 +41,17 @@ public class AbyssCrash extends Abyss
     @Override
     protected String reactToAbyssOrTool(List<Programmer> programmers, Programmer currProgrammer, int boardSize) {
 
+        //is current programmer responsibility to check if contains a tool and use the tool
         String result = currProgrammer.useToolOnAbyss(this);
-        String message;
 
         if(result.isBlank())
         {
             int currentPosition = currProgrammer.currentPosition();
             int positionsToMove = currentPosition-1;
             currProgrammer.move(boardSize, -positionsToMove);
-            message = "Azar!\nNão tinha uma Ferramenta\nVou retroceder para o início";
-        }
-        else
-        {
-            message = "Sortudo!\nTinha a Ferramenta: " + result + "\nUsei e safei-me";
+            return "Azar!\nNão tinha uma Ferramenta\nVou retroceder para o início";
         }
 
-        return message;
+        return "Sortudo!\nTinha a Ferramenta: " + result + "\nUsei e safei-me";
     }
 }

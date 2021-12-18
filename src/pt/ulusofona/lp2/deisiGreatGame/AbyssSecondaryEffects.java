@@ -41,21 +41,18 @@ public class AbyssSecondaryEffects extends Abyss
     @Override
     protected String reactToAbyssOrTool(List<Programmer> programmers, Programmer currProgrammer, int boardSize) {
 
+        //is current programmer responsibility to check if contains a tool and use the tool
         String result = currProgrammer.useToolOnAbyss(this);
-        String message;
 
         if(result.isBlank())
         {
             int currentPosition = currProgrammer.currentPosition();
-            int previousPreviousPosition = currProgrammer.previousPreviousPosition();
-            int positionsToMove = currentPosition - previousPreviousPosition;
-            currProgrammer.move(boardSize, -positionsToMove);
-            message = "Azar!\nNão tinha uma Ferramenta\nVou retroceder " + positionsToMove;
-        }
-        else{
-            message = "Sortudo!\nTinha a Ferramenta: " + result + "\nUsei e safei-me";
+            int previousPosition = currProgrammer.previousPreviousPosition();
+            int positionsToMove = currentPosition - previousPosition;
+            currProgrammer.move(boardSize, (previousPosition<currentPosition) ? -positionsToMove : positionsToMove);
+            return  "Azar!\nNão tinha uma Ferramenta\nVou retroceder " + positionsToMove;
         }
 
-        return message;
+        return  "Sortudo!\nTinha a Ferramenta: " + result + "\nUsei e safei-me";
     }
 }

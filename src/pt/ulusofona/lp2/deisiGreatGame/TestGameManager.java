@@ -1,10 +1,6 @@
 package pt.ulusofona.lp2.deisiGreatGame;
 //Imports
 import org.junit.Test;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import static org.junit.Assert.*;
 
 public class TestGameManager{
@@ -22,6 +18,138 @@ public class TestGameManager{
     }
     private boolean move(GameManager game, int nrPositionsToMove){
         return game.moveCurrentPlayer(nrPositionsToMove);
+    }
+
+    /*
+    Check game for two players, on first turn move to Abyss File Not Found
+    Set board size 26
+     */
+    @Test
+    public void moveToDuplicatedOnStart()
+    {
+        GameManager game = getGameManager();
+        String[][] board = new String[2][4];
+        board[0][0] = "23";
+        board[0][1] = "B";
+        board[0][2] = "C#;Java";
+        board[0][3] = "PURPLE";
+        board[1][0] = "2";
+        board[1][1] = "A";
+        board[1][2] = "Pyton;TypeScript";
+        board[1][3] = "BROWN";
+
+        //Abyss
+        String[][] objects = new String[2][3];
+        //Abyss: File Not Found
+        objects[0][0] = "0";
+        objects[0][1] = "5";
+        objects[0][2] = "2";
+
+        game.createInitialBoard(board, 26, objects);
+        Programmer currentPlayer;
+
+        //#####
+        //TURN TO ABYSS: Duplicated on Start
+
+        int nrPositionsToMove =1;
+        currentPlayer = game.getCurrentPlayer();
+        boolean success = move(game, nrPositionsToMove);
+        assertEquals("Success Mode", true, success);
+        assertEquals(CURRENT_PLAYER_ID, 2, game.getCurrentPlayerID());
+        assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 2, (int) currentPlayer.currentPosition());
+        assertEquals("Tile Image", "duplicated-code.png", game.getImagePng(currentPlayer.currentPosition()));
+        assertEquals("Tile Title", "Duplicated Code", game.getTitle(currentPlayer.currentPosition()));
+        reactToTitle(game);
+        assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 1, (int) currentPlayer.currentPosition());
+        assertEquals(CURRENT_PLAYER_ID, 23, game.getCurrentPlayerID());
+    }
+
+    /*
+    Check game for two players, on first turn move to Abyss Secondary Effects
+    Set board size 26
+     */
+    @Test
+    public void moveToSecondaryEffectsOnStart()
+    {
+        GameManager game = getGameManager();
+        String[][] board = new String[2][4];
+        board[0][0] = "23";
+        board[0][1] = "B";
+        board[0][2] = "C#;Java";
+        board[0][3] = "PURPLE";
+        board[1][0] = "2";
+        board[1][1] = "A";
+        board[1][2] = "Pyton;TypeScript";
+        board[1][3] = "BROWN";
+
+        //Abyss
+        String[][] objects = new String[1][3];
+        //Abyss: Secondary Effects
+        objects[0][0] = "0";
+        objects[0][1] = "6";
+        objects[0][2] = "2";
+
+        game.createInitialBoard(board, 26, objects);
+        Programmer currentPlayer;
+
+        //#####
+        //TURN TO ABYSS: Secondary Effects on first move
+
+        int nrPositionsToMove =1;
+        currentPlayer = game.getCurrentPlayer();
+        boolean success = move(game, nrPositionsToMove);
+        assertEquals("Success Mode", true, success);
+        assertEquals(CURRENT_PLAYER_ID, 2, game.getCurrentPlayerID());
+        assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 2, (int) currentPlayer.currentPosition());
+        assertEquals("Tile Image", "secondary-effects.png", game.getImagePng(currentPlayer.currentPosition()));
+        assertEquals("Tile Title", "Efeitos secundários", game.getTitle(currentPlayer.currentPosition()));
+        reactToTitle(game);
+        assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 1, (int) currentPlayer.currentPosition());
+        assertEquals(CURRENT_PLAYER_ID, 23, game.getCurrentPlayerID());
+    }
+
+    /*
+    Check game for two players, on first turn move to Abyss File Not Found
+    Set board size 26
+     */
+    @Test
+    public void moveToFileNotFoundOnStart()
+    {
+        GameManager game = getGameManager();
+        String[][] board = new String[2][4];
+        board[0][0] = "23";
+        board[0][1] = "B";
+        board[0][2] = "C#;Java";
+        board[0][3] = "PURPLE";
+        board[1][0] = "2";
+        board[1][1] = "A";
+        board[1][2] = "Pyton;TypeScript";
+        board[1][3] = "BROWN";
+
+        //Abyss
+        String[][] objects = new String[2][3];
+        //Abyss: File Not Found
+        objects[0][0] = "0";
+        objects[0][1] = "3";
+        objects[0][2] = "2";
+
+        game.createInitialBoard(board, 26, objects);
+        Programmer currentPlayer;
+
+        //#####
+        //TURN TO ABYSS: File Not Found on Start
+
+        int nrPositionsToMove =1;
+        currentPlayer = game.getCurrentPlayer();
+        boolean success = move(game, nrPositionsToMove);
+        assertEquals("Success Mode", true, success);
+        assertEquals(CURRENT_PLAYER_ID, 2, game.getCurrentPlayerID());
+        assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 2, (int) currentPlayer.currentPosition());
+        assertEquals("Tile Image", "file-not-found-exception.png", game.getImagePng(currentPlayer.currentPosition()));
+        assertEquals("Tile Title", "File Not Found Exception", game.getTitle(currentPlayer.currentPosition()));
+        reactToTitle(game);
+        assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 1, (int) currentPlayer.currentPosition());
+        assertEquals(CURRENT_PLAYER_ID, 23, game.getCurrentPlayerID());
     }
 
     /*

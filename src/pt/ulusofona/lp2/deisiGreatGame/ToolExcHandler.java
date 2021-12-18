@@ -39,6 +39,7 @@ public class ToolExcHandler extends Tool
     @Override
     protected String reactToAbyssOrTool(List<Programmer> programmers, Programmer currProgrammer, int boardSize)
     {
+        //is current programmer responsibility to check if contains a tool
         return (currProgrammer.addTool(this) ? "Sortudo!\nRecohi a Ferramenta: " : "Azar!\nJá tinha a Ferramenta: ") + this.title;
     }
 }

@@ -40,19 +40,15 @@ public class AbyssBlueScreenOfDeath extends Abyss
     @Override
     protected String reactToAbyssOrTool(List<Programmer> programmers, Programmer currProgrammer, int boardSize)
     {
+        //is current programmer responsibility to check if contains a tool and use the tool
         String result = currProgrammer.useToolOnAbyss(this);
-        String message;
 
         if(result.isBlank())
         {
             currProgrammer.gameOver();
-            message = "Já fui com os...\nMelhor sorte no próximo jogo";
-        }
-        else
-        {
-            message = "Sortudo!\nTinha a Ferramenta: " + result + "\nUsei e safei-me";
+            return "Já fui com os...\nMelhor sorte no próximo jogo";
         }
 
-        return message;
+        return "Sortudo!\nTinha a Ferramenta: " + result + "\nUsei e safei-me";
     }
 }

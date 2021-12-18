@@ -260,13 +260,18 @@ public class GameManager {
      */
     public String reactToAbyssOrTool(){
 
-        //get current player
+        //Title needs to know who is current player
         Programmer currentPlayer = getCurrentPlayer();
+        int position = currentPlayer.currentPosition();
+        Tile tile =  tiles.get(position);
+
+        //Tile needs to know all programmers in game that exist on this tile
+        List<Programmer> programmers = getProgrammers(position, false);
 
         //add turn to game turns
         addTurn();
 
-        return tiles.get(currentPlayer.currentPosition()).reactToAbyssOrTool(getProgrammers(), currentPlayer, getBoardSize());
+        return tile.reactToAbyssOrTool(programmers, currentPlayer, getBoardSize());
     }
 
     /*
@@ -388,6 +393,32 @@ public class GameManager {
         for (Programmer programmer: programmers)
         {
             if(programmer.currentPosition() == position)
+            {
+                programmerList.add(programmer);
+            }
+        }
+
+        if(programmerList.size() == 0){
+            return null;
+        }
+
+        return programmerList;
+    }
+
+    /*
+    Get Programmers in game on a given position
+    If none found returns null
+     */
+    public List<Programmer> getProgrammers(int position, boolean includeDefeated){
+
+        if(position==0 || position>getBoardSize() || programmers == null){
+            return null;
+        }
+
+        ArrayList<Programmer> programmerList = new ArrayList<>();
+        for (Programmer programmer: programmers)
+        {
+            if(programmer.isInGame() && programmer.currentPosition() == position)
             {
                 programmerList.add(programmer);
             }

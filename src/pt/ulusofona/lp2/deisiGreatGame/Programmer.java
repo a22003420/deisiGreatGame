@@ -146,7 +146,6 @@ public class Programmer {
             newPositionAfterCheck = newPosition > boardSize ? (boardSize - (newPosition - boardSize)) : newPosition;
         }
 
-        /*setPosition(newPositionAfterCheck);*/
         logTurnPosition(newPositionAfterCheck);
     }
 
@@ -204,6 +203,7 @@ public class Programmer {
 
         positionOnBoard=position;
         positionsOnBoard.add(position);
+
     }
 
     /*
@@ -240,11 +240,8 @@ public class Programmer {
      Return Previous Previous Position
      */
     public Integer previousPreviousPosition(){
-        if(positionsOnBoard.size()==0){
-            return 1;
-        }
 
-        if(positionsOnBoard.size()==1){
+        if(positionsOnBoard.size()<3){
             return positionsOnBoard.get(0);
         }
 

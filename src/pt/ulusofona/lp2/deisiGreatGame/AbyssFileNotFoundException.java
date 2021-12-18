@@ -41,18 +41,15 @@ public class AbyssFileNotFoundException extends Abyss
     @Override
     protected String reactToAbyssOrTool(List<Programmer> programmers, Programmer currProgrammer, int boardSize) {
 
+        //is current programmer responsibility to check if contains a tool and use the tool
         String result = currProgrammer.useToolOnAbyss(this);
-        String message;
 
         if(result.isBlank())
         {
             currProgrammer.move(boardSize, -3);
-            message = "Azar!\nNão tinha uma Ferramenta\nVou retroceder 3 casas";
+            return "Azar!\nNão tinha uma Ferramenta\nVou retroceder 3 casas";
         }
-        else
-        {
-            message = "Sortudo!\nTinha a Ferramenta: " + result + "\nUsei e safei-me";
-        }
-        return message;
+
+        return  "Sortudo!\nTinha a Ferramenta: " + result + "\nUsei e safei-me";
     }
 }

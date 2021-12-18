@@ -41,8 +41,8 @@ public class AbyssLogic extends Abyss
     @Override
     protected String reactToAbyssOrTool(List<Programmer> programmers, Programmer currProgrammer, int boardSize) {
 
+        //is current programmer responsibility to check if contains a tool and use the tool
         String result = currProgrammer.useToolOnAbyss(this);
-        String message;
 
         if(result.isBlank())
         {
@@ -52,17 +52,12 @@ public class AbyssLogic extends Abyss
             int positionsToMove = movedPositions / 2;
             currProgrammer.move(boardSize, -positionsToMove);
             if(positionsToMove==0) {
-                message = "Sortudo!\nNão tinha uma Ferramenta\nMas não preciso retroceder";
+                return  "Sortudo!\nNão tinha uma Ferramenta\nMas não preciso retroceder";
             }
-            else
-            {
-                message = "Azar!\nNão tinha uma Ferramenta\nVou retroceder " + positionsToMove;
-            }
-        }
-        else{
-            message = "Sortudo!\nTinha a Ferramenta: " + result + "\nUsei e safei-me";
+
+            return  "Azar!\nNão tinha uma Ferramenta\nVou retroceder " + positionsToMove;
         }
 
-        return message;
+        return "Sortudo!\nTinha a Ferramenta: " + result + "\nUsei e safei-me";
     }
 }
