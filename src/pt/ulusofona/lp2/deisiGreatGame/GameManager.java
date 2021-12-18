@@ -450,7 +450,7 @@ public class GameManager {
     }
 
     /*
-    Get Programmers Info 
+    Get Programmers Info
      */
     public String getProgrammersInfo(){
 
