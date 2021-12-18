@@ -311,7 +311,7 @@ public class GameManager {
         resultList.add("");
         resultList.add("NR. DE TURNOS");
 
-        List<Programmer> programmerList = getProgrammers(true);
+        List<Programmer> programmerList = getProgrammers(false);
 
         if (programmerList==null || programmerList.size()==0){
             resultList.add("0");

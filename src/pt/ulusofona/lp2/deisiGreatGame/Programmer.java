@@ -196,6 +196,11 @@ public class Programmer {
     Log player position
     */
     public void logTurnPosition(int position){
+
+        if(position<1) {
+            position = 1;
+        }
+
         positionsOnBoard.add(position);
     }
 
