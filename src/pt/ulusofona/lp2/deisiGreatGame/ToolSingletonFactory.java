@@ -11,7 +11,7 @@ public class ToolSingletonFactory
     //Attributes
 
     //Instance to allow Singleton
-    private static ToolSingletonFactory instance = null;
+    private static ToolSingletonFactory toolFactory = null;
 
     //object to hold all the tools to be used on game
     private static Map<Integer, Object> tools = new HashMap<>();
@@ -30,7 +30,7 @@ public class ToolSingletonFactory
      */
     public static ToolSingletonFactory getInstance() {
 
-        if (instance == null)
+        if (toolFactory == null)
         {
             //call abyss factory to return required abysses
             AbyssSingletonFactory abyssFactory = AbyssSingletonFactory.getInstance();
@@ -67,11 +67,11 @@ public class ToolSingletonFactory
             tools.put(5, new ToolTeacher(5, "Ajuda Do Professor", "ajuda-professor.png", abyssesToolTeacher));
 
             //create new instance of Tool Factory
-            instance =  new ToolSingletonFactory();
+            toolFactory =  new ToolSingletonFactory();
         }
 
         //return existing instance of Tool Factory
-        return instance;
+        return toolFactory;
     }
 
     /*
