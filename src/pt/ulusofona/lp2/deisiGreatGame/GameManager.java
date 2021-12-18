@@ -280,7 +280,7 @@ public class GameManager {
      */
     public boolean gameIsOver(){
 
-        List<Programmer> programmerList = getProgrammers();
+        List<Programmer> programmerList = getProgrammers(true);
 
         boolean isGameOver = false;
 
@@ -311,7 +311,7 @@ public class GameManager {
         resultList.add("");
         resultList.add("NR. DE TURNOS");
 
-        List<Programmer> programmerList = getProgrammers();
+        List<Programmer> programmerList = getProgrammers(true);
 
         if (programmerList==null || programmerList.size()==0){
             resultList.add("0");
@@ -373,14 +373,7 @@ public class GameManager {
         return includeDefeated ? this.programmers : programmers.stream().collect(Collectors.filtering(Programmer::isInGame, Collectors.toList()));
     }
 
-    /*
-    Get all Programmers ignoring state and locked
-     */
-    public List<Programmer> getProgrammers(){
-        return this.programmers==null ? new ArrayList<>() : this.programmers;
-    }
-
-    /*
+     /*
     Get Programmers on a given position
     If none found returns null
      */
@@ -445,7 +438,7 @@ public class GameManager {
     public Programmer getCurrentPlayer(){
 
         //fetch programmer list
-        List<Programmer> programmers = getProgrammers();
+        List<Programmer> programmers = getProgrammers(true);
 
         //calculate number of players
         int nrPlayers = programmers.size();

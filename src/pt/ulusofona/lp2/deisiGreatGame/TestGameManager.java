@@ -87,25 +87,35 @@ public class TestGameManager{
         //Abyss: Secondary Effects
         objects[0][0] = "0";
         objects[0][1] = "6";
-        objects[0][2] = "2";
+        objects[0][2] = "7";
 
         game.createInitialBoard(board, 26, objects);
         Programmer currentPlayer;
-
+        int nrPositionsToMove=0;
         //#####
-        //TURN TO ABYSS: Secondary Effects on first move
+        //TURN TO ABYSS: Secondary Effects
 
-        int nrPositionsToMove =1;
+        nrPositionsToMove =6;
         currentPlayer = game.getCurrentPlayer();
-        boolean success = move(game, nrPositionsToMove);
-        assertEquals("Success Mode", true, success);
+        assertEquals("Success Move", true, move(game, nrPositionsToMove));
         assertEquals(CURRENT_PLAYER_ID, 2, game.getCurrentPlayerID());
-        assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 2, (int) currentPlayer.currentPosition());
+        assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 7, (int) currentPlayer.currentPosition());
         assertEquals("Tile Image", "secondary-effects.png", game.getImagePng(currentPlayer.currentPosition()));
         assertEquals("Tile Title", "Efeitos secundários", game.getTitle(currentPlayer.currentPosition()));
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 1, (int) currentPlayer.currentPosition());
         assertEquals(CURRENT_PLAYER_ID, 23, game.getCurrentPlayerID());
+
+        nrPositionsToMove =1;
+        currentPlayer = game.getCurrentPlayer();
+        assertEquals("Success Mode", true, move(game, nrPositionsToMove));
+        assertEquals(CURRENT_PLAYER_ID, 23, game.getCurrentPlayerID());
+        assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 2, (int) currentPlayer.currentPosition());
+        assertEquals("Tile Image", null, game.getImagePng(currentPlayer.currentPosition()));
+        assertEquals("Tile Title", null, game.getTitle(currentPlayer.currentPosition()));
+        reactToTitle(game);
+        assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 2, (int) currentPlayer.currentPosition());
+        assertEquals(CURRENT_PLAYER_ID, 2, game.getCurrentPlayerID());
     }
 
     /*
