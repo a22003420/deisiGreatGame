@@ -40,7 +40,7 @@ public class AbyssSegmentationFault extends Abyss
     If two or more programmer are in current position, all go back 3 positions
      */
     @Override
-    protected String reactToAbyssOrTool(List<Programmer> programmers, Programmer currProgrammer, int boardSize) {
+    protected String reactToAbyssOrTool(List<Programmer> programmersInPosition, Programmer currProgrammer, int boardSize) {
 
         //is current programmer responsibility to check if contains a tool and use the tool
         String result = currProgrammer.useToolOnAbyss(this);
@@ -48,8 +48,8 @@ public class AbyssSegmentationFault extends Abyss
         if (result.isBlank()) {
 
             //retreat 3 position if two or more programmer are found on the same position
-            if (programmers.size() > 1) {
-                for (Programmer playerToMove : programmers) {
+            if (programmersInPosition.size() > 1) {
+                for (Programmer playerToMove : programmersInPosition) {
                     playerToMove.move(boardSize, -3);
                 }
                 return  "Azar!\nNão tinha uma Ferramenta\nVou recuar 3 casas";

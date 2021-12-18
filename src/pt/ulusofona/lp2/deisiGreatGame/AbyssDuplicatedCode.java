@@ -39,7 +39,7 @@ public class AbyssDuplicatedCode extends Abyss
     If not contains required tool go back to previous position
     */
     @Override
-    protected String reactToAbyssOrTool(List<Programmer> programmers, Programmer currProgrammer, int boardSize) {
+    protected String reactToAbyssOrTool(List<Programmer> programmersInPosition, Programmer currProgrammer, int boardSize) {
 
         //is current programmer responsibility to check if contains a tool and use the tool
         String result = currProgrammer.useToolOnAbyss(this);

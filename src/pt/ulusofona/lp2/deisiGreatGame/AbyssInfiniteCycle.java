@@ -40,7 +40,7 @@ public class AbyssInfiniteCycle extends Abyss
     If other programmer is on the same position, unlock all others, and current programmer is locked
     */
     @Override
-    protected String reactToAbyssOrTool(List<Programmer> programmers, Programmer currProgrammer, int boardSize) {
+    protected String reactToAbyssOrTool(List<Programmer> programmersInPosition, Programmer currProgrammer, int boardSize) {
 
         //is current programmer responsibility to check if contains a tool and use the tool
         String result = currProgrammer.useToolOnAbyss(this);
@@ -49,7 +49,7 @@ public class AbyssInfiniteCycle extends Abyss
         {
             //check if other programmers are in the same position
             //if found lock programmer
-            for (Programmer programmerCheck: programmers){
+            for (Programmer programmerCheck: programmersInPosition){
                 programmerCheck.unlock();
             }
 
