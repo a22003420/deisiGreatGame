@@ -59,37 +59,6 @@ public class GameManager {
 
         reiniciar();
 
-        /*
-        abyssesAndTools = new String[7][3];
-        abyssesAndTools[0][0] = "0";  // 0 = abismo
-        abyssesAndTools[0][1] = "7";  // tipo do abismo
-        abyssesAndTools[0][2] = "4";  // posicao
-
-        abyssesAndTools[1][0] = "0";  // 0 = abismo
-        abyssesAndTools[1][1] = "7";  // tipo do abismo
-        abyssesAndTools[1][2] = "5";  // posicao
-
-        abyssesAndTools[2][0] = "0";  // 0 = abismo
-        abyssesAndTools[2][1] = "7";  // tipo do abismo
-        abyssesAndTools[2][2] = "6";  // posicao
-
-        abyssesAndTools[3][0] = "0";  // 0 = abismo
-        abyssesAndTools[3][1] = "7";  // tipo do abismo
-        abyssesAndTools[3][2] = "7"; // posicao
-
-        abyssesAndTools[4][0] = "0";  // 0 = abismo
-        abyssesAndTools[4][1] = "7";  // tipo do abismo
-        abyssesAndTools[4][2] = "8"; // posicao
-
-        abyssesAndTools[5][0] = "0";  // 0 = abismo
-        abyssesAndTools[5][1] = "7";  // tipo do abismo
-        abyssesAndTools[5][2] = "9"; // posicao
-
-        abyssesAndTools[6][0] = "0";  // 0 = abismo
-        abyssesAndTools[6][1] = "7";  // tipo do abismo
-        abyssesAndTools[6][2] = "2";  // posicao
-        */
-
         //check null value
         if(playerInfo==null){
             return false;
@@ -384,8 +353,6 @@ public class GameManager {
             else
             {
                 loserProgrammerList.add(programmer);
-                //resultList.add(programmer.getName() + " " + programmer.currentPosition());
-
             }
         }
 
@@ -498,8 +465,22 @@ public class GameManager {
         //calculate current player index
         int index = nrTurns % nrPlayers;
 
-        //return current player
-        return programmers.get(index);
+        //return current player if in game or return next player
+        Programmer currentProgrammer = programmers.get(index);
+        if(!currentProgrammer.inGame())
+        {
+            index ++;
+            if(index+1 > programmers.size())
+            {
+                index = 0;
+            }
+            else
+            {
+                currentProgrammer = programmers.get(index);
+            }
+        }
+
+        return currentProgrammer;
     }
 
     /*
