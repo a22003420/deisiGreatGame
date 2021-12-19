@@ -126,7 +126,8 @@ public class Programmer {
     //BEGIN METHODS: PROGRAMMER MOVE
 
     /*
-     move player position on board
+    move player position on board
+    logs new position or updates last position on reacting an abyss
      */
     public void move(Integer boardSize, Integer nrPositions, boolean isReactOnAbyss){
 
@@ -137,9 +138,11 @@ public class Programmer {
         int newPositionAfterCheck = newPosition > boardSize ? (boardSize - (newPosition - boardSize)) : newPosition;
 
         //check min allowed position
+        /*
         if(newPositionAfterCheck<1) {
             newPositionAfterCheck = 1;
         }
+        */
 
         //update last log position
         if(isReactOnAbyss) {
