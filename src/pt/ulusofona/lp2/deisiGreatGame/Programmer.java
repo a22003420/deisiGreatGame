@@ -138,11 +138,9 @@ public class Programmer {
         int newPositionAfterCheck = newPosition > boardSize ? (boardSize - (newPosition - boardSize)) : newPosition;
 
         //check min allowed position
-        /*
         if(newPositionAfterCheck<1) {
             newPositionAfterCheck = 1;
         }
-        */
 
         //update last log position
         if(isReactOnAbyss) {
