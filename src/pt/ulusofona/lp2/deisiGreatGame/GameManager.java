@@ -3,6 +3,7 @@ package pt.ulusofona.lp2.deisiGreatGame;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -355,6 +356,9 @@ public class GameManager {
         //Order programmers descending by Position
         programmerList.sort(Comparator.comparing(Programmer::currentPosition).reversed());
 
+        //list to store all loser programmers
+        List<Programmer> loserProgrammerList = new ArrayList<>();
+
         int index;
         int nrOfPlayers = programmerList.size();
         for (index = 0; index<nrOfPlayers; index++)
@@ -379,9 +383,33 @@ public class GameManager {
             }
             else
             {
-                resultList.add(programmer.getName() + " " + programmer.currentPosition());
+                loserProgrammerList.add(programmer);
+                //resultList.add(programmer.getName() + " " + programmer.currentPosition());
+
             }
         }
+
+        //order by Position Descending
+        if(loserProgrammerList.size()>2)
+        {
+            //first name comparator
+            Comparator<Programmer> compareByPosition = Comparator.comparing( Programmer::currentPosition ).reversed();
+
+            //last name comparator
+            Comparator<Programmer> compareByName = Comparator.comparing( Programmer::getName );
+
+            //Compare by first name and then last name (multiple fields)
+            Comparator<Programmer> compareByPositionAndName = compareByPosition.thenComparing(compareByName);
+
+            //Use Comparator
+            Collections.sort(loserProgrammerList, compareByPositionAndName);
+        }
+
+        for (Programmer loserProgrammer: loserProgrammerList)
+        {
+            resultList.add(loserProgrammer.getName() + " " + loserProgrammer.currentPosition());
+        }
+
         return resultList;
     }
 
