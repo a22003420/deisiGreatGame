@@ -60,6 +60,37 @@ public class GameManager {
         reiniciar();
          */
 
+        /*
+        abyssesAndTools = new String[7][3];
+        abyssesAndTools[0][0] = "0";  // 0 = abismo
+        abyssesAndTools[0][1] = "7";  // tipo do abismo
+        abyssesAndTools[0][2] = "4";  // posicao
+
+        abyssesAndTools[1][0] = "0";  // 0 = abismo
+        abyssesAndTools[1][1] = "7";  // tipo do abismo
+        abyssesAndTools[1][2] = "5";  // posicao
+
+        abyssesAndTools[2][0] = "0";  // 0 = abismo
+        abyssesAndTools[2][1] = "7";  // tipo do abismo
+        abyssesAndTools[2][2] = "6";  // posicao
+
+        abyssesAndTools[3][0] = "0";  // 0 = abismo
+        abyssesAndTools[3][1] = "7";  // tipo do abismo
+        abyssesAndTools[3][2] = "7"; // posicao
+
+        abyssesAndTools[4][0] = "0";  // 0 = abismo
+        abyssesAndTools[4][1] = "7";  // tipo do abismo
+        abyssesAndTools[4][2] = "8"; // posicao
+
+        abyssesAndTools[5][0] = "0";  // 0 = abismo
+        abyssesAndTools[5][1] = "7";  // tipo do abismo
+        abyssesAndTools[5][2] = "9"; // posicao
+
+        abyssesAndTools[6][0] = "0";  // 0 = abismo
+        abyssesAndTools[6][1] = "7";  // tipo do abismo
+        abyssesAndTools[6][2] = "2";  // posicao
+        */
+
         //check null value
         if(playerInfo==null){
             return false;
@@ -158,65 +189,66 @@ public class GameManager {
             tiles.add(new Empty("Casa Vazia", "blank.png"));
         }
 
-        //fill Objects
-        for (String[] abyssesAndTool : abyssesAndTools)
-        {
-            //#######
-            //validate position
-            int tilePosition;
-            try {
-                tilePosition = Integer.parseInt(abyssesAndTool[2]);
-            } catch (Exception e) {
-                return false;
-            }
-            if (tilePosition > worldSize) {
-                return false;
-            }
-
-            //#######
-            //validate Object Type
-            int typeObjectId=-1; //0 - Abyss; 1 - Tool
-            try {
-                typeObjectId = Integer.parseInt(abyssesAndTool[0]);
-            } catch (Exception e) {
-                return false;
-            }
-            //only 0 - Abyss or 1 - Tool are allowed
-            if (typeObjectId < 0 || typeObjectId > 1) {
-                return false;
-            }
-
-            //#######
-            //validate Object Abyss Type and Tool Type is numeric
-            int subTypeObject=-1;
-            try {
-                subTypeObject = Integer.parseInt(abyssesAndTool[1]);
-            } catch (Exception e) {
-                return false;
-            }
-            //only Abyss Type [0-9] or Tool Type [0-5] are allowed
-            if (subTypeObject < 0 || subTypeObject>9) {
-                return false;
-            }
-
-            //Initialize all Abyss for the Game
-            AbyssSingletonFactory abyssFactory = AbyssSingletonFactory.getInstance();
-            //Initialize all Tool Factory Types for the Game
-            ToolFactorySingletonFactory toolFactoryFactory = ToolFactorySingletonFactory.getInstance();
-
-            //Fill Tile with object if valid
-            switch (typeObjectId) {
-                case 0: //Abyss
-                    tiles.set(tilePosition, abyssFactory.getAbyss(subTypeObject));
-                    break;
-                case 1: //Tool Factory
-                    if(subTypeObject>5){
-                        return false;
-                    }
-                    tiles.set(tilePosition, toolFactoryFactory.getToolFactory(subTypeObject));
-                    break;
-                default:
+        if(abyssesAndTools!=null) {
+            //fill Objects
+            for (String[] abyssesAndTool : abyssesAndTools) {
+                //#######
+                //validate position
+                int tilePosition;
+                try {
+                    tilePosition = Integer.parseInt(abyssesAndTool[2]);
+                } catch (Exception e) {
                     return false;
+                }
+                if (tilePosition > worldSize) {
+                    return false;
+                }
+
+                //#######
+                //validate Object Type
+                int typeObjectId = -1; //0 - Abyss; 1 - Tool
+                try {
+                    typeObjectId = Integer.parseInt(abyssesAndTool[0]);
+                } catch (Exception e) {
+                    return false;
+                }
+                //only 0 - Abyss or 1 - Tool are allowed
+                if (typeObjectId < 0 || typeObjectId > 1) {
+                    return false;
+                }
+
+                //#######
+                //validate Object Abyss Type and Tool Type is numeric
+                int subTypeObject = -1;
+                try {
+                    subTypeObject = Integer.parseInt(abyssesAndTool[1]);
+                } catch (Exception e) {
+                    return false;
+                }
+                //only Abyss Type [0-9] or Tool Type [0-5] are allowed
+                if (subTypeObject < 0 || subTypeObject > 9) {
+                    return false;
+                }
+
+                //Initialize all Abyss for the Game
+                AbyssSingletonFactory abyssFactory = AbyssSingletonFactory.getInstance();
+                //Initialize all Tool Factory Types for the Game
+                ToolFactorySingletonFactory toolFactoryFactory = ToolFactorySingletonFactory.getInstance();
+
+                //Fill Tile with object if valid
+                switch (typeObjectId) {
+                    case 0: //Abyss
+                        tiles.set(tilePosition, abyssFactory.getAbyss(subTypeObject));
+                        break;
+                    case 1: //Tool Factory
+                        if (subTypeObject > 5) {
+                            return false;
+                        }
+                        tiles.set(tilePosition, toolFactoryFactory.getToolFactory(subTypeObject));
+                        break;
+                    default:
+                        return false;
+                }
             }
         }
 
