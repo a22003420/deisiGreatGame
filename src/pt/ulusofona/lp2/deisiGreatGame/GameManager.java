@@ -148,10 +148,6 @@ public class GameManager {
         //sort programmer by ID and set game players
         setProgrammerList(programmerList);
 
-        if(abyssesAndTools == null){
-            return true;
-        }
-
         //######
         //Create and fill Game Tile
         this.tiles = new ArrayList<>();
