@@ -48,7 +48,7 @@ public class AbyssCrash extends Abyss
         {
             int currentPosition = currProgrammer.currentPosition();
             int positionsToMove = currentPosition-1;
-            currProgrammer.move(boardSize, -positionsToMove);
+            currProgrammer.move(boardSize, -positionsToMove, true);
             return "Azar!\nNão tinha uma Ferramenta\nVou retroceder para o início";
         }
 

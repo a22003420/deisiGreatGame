@@ -50,7 +50,7 @@ public class AbyssSegmentationFault extends Abyss
             //retreat 3 position if two or more programmer are found on the same position
             if (programmersInPosition.size() > 1) {
                 for (Programmer playerToMove : programmersInPosition) {
-                    playerToMove.move(boardSize, -3);
+                    playerToMove.move(boardSize, -3, true);
                 }
                 return  "Azar!\nNão tinha uma Ferramenta\nVou recuar 3 casas";
             }

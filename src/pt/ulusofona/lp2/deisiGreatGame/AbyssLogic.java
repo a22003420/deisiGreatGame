@@ -50,7 +50,7 @@ public class AbyssLogic extends Abyss
             int previousPosition = currProgrammer.previousTurnPosition(1);
             int movedPositions = currentPosition - previousPosition;
             int positionsToMove = movedPositions / 2;
-            currProgrammer.move(boardSize, -positionsToMove);
+            currProgrammer.move(boardSize, -positionsToMove, true);
             if(positionsToMove==0) {
                 return  "Sortudo!\nNão tinha uma Ferramenta\nMas não preciso retroceder";
             }

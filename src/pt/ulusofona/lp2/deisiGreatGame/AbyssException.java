@@ -46,7 +46,7 @@ public class AbyssException extends Abyss
 
         if(result.isBlank())
         {
-            currProgrammer.move(boardSize, -2);
+            currProgrammer.move(boardSize, -2, true);
             return "Azar!\nNão tinha uma Ferramenta\nVou retroceder duas casa";
         }
 

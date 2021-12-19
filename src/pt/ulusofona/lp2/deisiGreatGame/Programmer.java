@@ -92,7 +92,7 @@ public class Programmer {
 
         //log start position
         int startPosition = 1;
-        logTurnPosition(startPosition);
+        logNewTurnPosition(startPosition);
 
         //tool
         this.tools = new ArrayList<>();
@@ -128,7 +128,7 @@ public class Programmer {
     /*
      move player position on board
      */
-    public void move(Integer boardSize, Integer nrPositions){
+    public void move(Integer boardSize, Integer nrPositions, boolean isReactOnAbyss){
 
         //calculate new current player position
         int newPosition = currentPosition()+nrPositions;
@@ -141,8 +141,13 @@ public class Programmer {
             newPositionAfterCheck = 1;
         }
 
-        //log new position
-        logTurnPosition(newPositionAfterCheck);
+        //update last log position
+        if(isReactOnAbyss) {
+            updateLastLogPosition(newPositionAfterCheck);
+        }
+        else{ //log new position
+            logNewTurnPosition(newPositionAfterCheck);
+        }
     }
 
     //END METHODS: PROGRAMMER MOVE
@@ -193,10 +198,17 @@ public class Programmer {
     //BEGIN METHODS: PROGRAMMER POSITION
 
     /*
-    Log player position
+    Log new player position
     */
-    public void logTurnPosition(int position){
+    public void logNewTurnPosition(int position){
         positionsOnBoard.add(position);
+    }
+
+    /*
+    Update last log position after react to Abyss
+    */
+    public void updateLastLogPosition(int position){
+        positionsOnBoard.set(positionsOnBoard.size()-1, position);
     }
 
     /*

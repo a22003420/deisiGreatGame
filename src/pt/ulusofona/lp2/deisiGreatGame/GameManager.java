@@ -410,8 +410,9 @@ public class GameManager {
         }
 
         List<Programmer> programmerList = getProgrammers(position);
-        if(programmerList.size()==0)
+        if(programmerList.size()==0) {
             return new ArrayList<Programmer>();
+        }
 
         return programmerList.stream().collect(Collectors.filtering(Programmer::inGame, Collectors.toList()));
     }
@@ -460,7 +461,7 @@ public class GameManager {
         }
 
         //send message to programmer to move
-        getCurrentPlayer().move(getBoardSize(), nrPositions);
+        getCurrentPlayer().move(getBoardSize(), nrPositions, false);
 
         return true;
     }

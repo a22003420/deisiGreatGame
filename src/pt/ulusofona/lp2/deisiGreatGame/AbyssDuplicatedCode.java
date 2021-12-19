@@ -49,7 +49,7 @@ public class AbyssDuplicatedCode extends Abyss
             int previousPosition = currProgrammer.previousTurnPosition(1);
             int currentPosition = currProgrammer.currentPosition();
             int positionsToMove = currentPosition - previousPosition;
-            currProgrammer.move(boardSize, previousPosition<currentPosition ? -positionsToMove : positionsToMove);
+            currProgrammer.move(boardSize, previousPosition<currentPosition ? -positionsToMove : positionsToMove, true);
             return "Azar!\nNão tinha uma Ferramenta\nVou regresar à posição anterior";
         }
 

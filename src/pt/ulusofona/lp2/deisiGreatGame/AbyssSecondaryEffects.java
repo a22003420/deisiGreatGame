@@ -49,7 +49,7 @@ public class AbyssSecondaryEffects extends Abyss
             int currentPosition = currProgrammer.currentPosition();
             int previousPosition = currProgrammer.previousTurnPosition(2);
             int positionsToMove = currentPosition - previousPosition;
-            currProgrammer.move(boardSize, (previousPosition<currentPosition) ? -positionsToMove : positionsToMove);
+            currProgrammer.move(boardSize, (previousPosition<currentPosition) ? -positionsToMove : positionsToMove, true);
             return  "Azar!\nNão tinha uma Ferramenta\nVou retroceder " + positionsToMove;
         }
 

@@ -46,7 +46,7 @@ public class AbyssFileNotFoundException extends Abyss
 
         if(result.isBlank())
         {
-            currProgrammer.move(boardSize, -3);
+            currProgrammer.move(boardSize, -3, true);
             return "Azar!\nNão tinha uma Ferramenta\nVou retroceder 3 casas";
         }
 

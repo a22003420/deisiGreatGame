@@ -46,7 +46,7 @@ public class AbyssSyntax extends Abyss
 
         if(result.isBlank())
         {
-            currProgrammer.move(boardSize, -1);
+            currProgrammer.move(boardSize, -1, true);
             return  "Azar!\nNão tinha uma Ferramenta\nVou retroceder 1 casa";
         }
 
