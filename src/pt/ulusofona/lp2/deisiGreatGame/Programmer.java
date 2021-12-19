@@ -333,7 +333,7 @@ public class Programmer {
      */
     @Override
     public String toString(){
-        return id + " | " + name + " | " + currentPosition() + " | " + showTools() + " | " + showLanguages().toString() + " | " + showStatus();
+        return id + " | " + name + " | " + currentPosition().toString() + " | " + showTools().toString() + " | " + showLanguages().toString() + " | " + showStatus();
     }
 
     /*

@@ -48,6 +48,9 @@ public class GameManager {
     Creates initial board
      */
     public boolean createInitialBoard(String[][] playerInfo, int worldSize){
+
+        /*
+
         reiniciar();
 
         //check null value
@@ -141,6 +144,10 @@ public class GameManager {
         //sort programmer by ID and set game players
         setProgrammerList(programmerList);
 
+        */
+
+        createInitialBoard(playerInfo, worldSize, null);
+
         return true;
     }
 
@@ -149,18 +156,111 @@ public class GameManager {
      */
     public boolean createInitialBoard(String[][] playerInfo, int worldSize, String[][] abyssesAndTools){
 
-        boolean success = createInitialBoard(playerInfo,  worldSize);
+        /*boolean success = createInitialBoard(playerInfo,  worldSize);
         if(!success) {
             return false;
         }
+        */
+
+        reiniciar();
+
+        //check null value
+        if(playerInfo==null) {
+            return false;
+        }
+
+        //calculate nr of players
+        int numberOfPlayers = playerInfo.length;
+
+        //check number of players
+        if (!isValidNrPlayers(numberOfPlayers)) {
+            return false;
+        }
+
+        //check board size
+        if (!isValidBoardSize(worldSize, numberOfPlayers)) {
+            return false;
+        }
+
+        //list of programmers/players to fill
+        ArrayList<Programmer> programmerList = new ArrayList<>();
+
+        //iterate over matrix
+        //each row represents a player
+        int playerRow;
+        for (playerRow = 0; playerRow < numberOfPlayers; playerRow++)
+        {
+            //Id
+            int id;
+            try{
+                id = Integer.parseInt(playerInfo[playerRow][0]);
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+
+            //validate min id
+            if(id<1)
+            {
+                return false;
+            }
+
+            //###
+            //Begin:Name
+            String name = playerInfo[playerRow][1];
+            if(name == null || name.isEmpty()) {
+                return false;
+            }
+            //End:Name
+            //###
+
+            //###
+            //Begin: Programming Languages (prevent duplicates and convert to ArrayList<String>
+            List<String> languagesList = fillLanguageList(playerInfo[playerRow][2]);
+            //End: Programming Languages
+            //###
+
+            //####
+            //Begin: Color
+            String color = playerInfo[playerRow][3].toUpperCase();
+            if(!isValidColorValue(color)) {
+                return false;
+            }
+            ProgrammerColor enumColor = ProgrammerColor.valueOf(color.toUpperCase());
+            //End: Color
+            //####
+
+            //validation values on second iteration
+            if(playerRow>0)
+            {
+                for (Programmer programmer : programmerList)
+                {
+                    //validate unique player id
+                    if(programmer.getId() == id) {
+                        return false;
+                    }
+
+                    //validate unique player color
+                    if(programmer.getColor().equals(enumColor)) {
+                        return false;
+                    }
+                }
+            }
+
+            //Create new programmer and add to programmer list
+            programmerList.add(new Programmer(id, name, languagesList, enumColor));
+        }
+
+        //sort programmer by ID and set game players
+        setProgrammerList(programmerList);
 
         this.tiles = new ArrayList<>();
 
         //######
         //Create and fill Game Tile
         int tileRow;
-        for (tileRow = 0; tileRow <= worldSize; tileRow++)
-        {
+        for (tileRow = 0; tileRow <= worldSize; tileRow++){
             tiles.add(new Empty("Casa Vazia", "blank.png"));
         }
 
@@ -213,13 +313,13 @@ public class GameManager {
             //Fill Tile with object if valid
             switch (typeObjectId) {
                 case 0: //Abyss
-                    tiles.set(tilePosition+1, abyssFactory.getAbyss(subTypeObject));
+                    tiles.set(tilePosition, abyssFactory.getAbyss(subTypeObject));
                     break;
                 case 1: //Tool Factory
                     if(subTypeObject>5){
                         return false;
                     }
-                    tiles.set(tilePosition+1, toolFactoryFactory.getToolFactory(subTypeObject));
+                    tiles.set(tilePosition, toolFactoryFactory.getToolFactory(subTypeObject));
                     break;
                 default:
                     return false;
@@ -456,7 +556,7 @@ public class GameManager {
         }
 
         //check if current player is locked
-        if(getCurrentPlayer().isLocked()){
+        if(getCurrentPlayer().isLocked() || !getCurrentPlayer().inGame()){
             return false;
         }
 
@@ -471,9 +571,11 @@ public class GameManager {
      */
     public String getProgrammersInfo(){
 
+        List<Programmer> programmerInGameList =  getProgrammers(false);
+
         //create concatenated programmers with ;
         StringBuilder strProgrammers = new StringBuilder();
-        for (Programmer programmer : programmers) {
+        for (Programmer programmer : programmerInGameList) {
             strProgrammers.append(programmer.getName());
             strProgrammers.append(" : ");
             strProgrammers.append(programmer.showTools());
