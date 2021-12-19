@@ -209,13 +209,13 @@ public class GameManager {
             //Fill Tile with object if valid
             switch (typeObjectId) {
                 case 0: //Abyss
-                    tiles.set(tilePosition, abyssFactory.getAbyss(subTypeObject));
+                    tiles.set(tilePosition +1, abyssFactory.getAbyss(subTypeObject));
                     break;
                 case 1: //Tool Factory
                     if(subTypeObject>5){
                         return false;
                     }
-                    tiles.set(tilePosition, toolFactoryFactory.getToolFactory(subTypeObject));
+                    tiles.set(tilePosition +1, toolFactoryFactory.getToolFactory(subTypeObject));
                     break;
                 default:
                     return false;

@@ -112,6 +112,7 @@ public class Programmer {
         int startPosition = 1;
         logNewTurnPosition(startPosition);
 
+
         //tool
         this.tools = new ArrayList<>();
     }
