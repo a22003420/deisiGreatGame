@@ -264,11 +264,13 @@ public class GameManager {
         //Tile needs to know all programmers in game that exist on this tile
         List<Programmer> programmers = getProgrammers(position, false);
 
+        //react to tile
+        String result = tile.reactToAbyssOrTool(programmers, currentPlayer, getBoardSize());
+
         //add turn to game turns
         addTurn();
 
-        //react to tile
-        return tile.reactToAbyssOrTool(programmers, currentPlayer, getBoardSize());
+        return result;
     }
 
     /*
@@ -446,7 +448,7 @@ public class GameManager {
 
     /*
     Move current Player n positions
-     */
+    */
     public boolean moveCurrentPlayer(int nrPositions){
 
         //check number positions range
@@ -467,7 +469,7 @@ public class GameManager {
 
     /*
     Get Programmers Info
-     */
+    */
     public String getProgrammersInfo(){
 
         List<Programmer> programmerInGameList =  getProgrammers(false);
@@ -493,7 +495,7 @@ public class GameManager {
 
     /*
     Get About
-     */
+    */
     public JPanel getAuthorsPanel() {
         JPanel newPanel = new JPanel(new BorderLayout());
         JLabel label = new JLabel("                 ---João Matos & Rui Fazendeiro---");
@@ -507,7 +509,7 @@ public class GameManager {
 
     /*
     Reset current game
-     */
+    */
     private void reiniciar(){
         tiles=new ArrayList<>();
         programmers = new ArrayList<>();
@@ -531,14 +533,14 @@ public class GameManager {
     /*
     Returns Board Size: number of tiles
     Subtract 1 unit to skip index
-     */
+    */
     private int getBoardSize(){
         return this.tiles.size()-1;
     }
 
     /*
     Returns total number of turns played
-     */
+    */
     private int getNrTurns(){
         return this.totalNrTurns;
     }
@@ -552,7 +554,7 @@ public class GameManager {
 
     /*
     Add turn to total turns
-     */
+    */
     private void addTurn(){
         this.totalNrTurns +=1;
     }
@@ -560,7 +562,7 @@ public class GameManager {
     /*
     Orders Programmers by Id Ascending
     Set Programmer List
-     */
+    */
     private void setProgrammerList(ArrayList<Programmer> programmers){
 
         //order by id ascending
@@ -572,7 +574,7 @@ public class GameManager {
 
     /*
     Convert Language String to ArrayList<String>
-     */
+    */
     private List<String> fillLanguageList(String languages) {
 
         if(languages == null || languages.length()==0){
@@ -598,7 +600,7 @@ public class GameManager {
     /*
     Validate if color exist on enumerator color
     Validation is made by using uppercase
-     */
+    */
     private boolean isValidColorValue(String color){
         ProgrammerColor[] programmerColorArr = ProgrammerColor.values();
         for (ProgrammerColor colorOnEnum : programmerColorArr){

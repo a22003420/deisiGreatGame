@@ -109,7 +109,7 @@ public class Programmer {
         this.positionsOnBoard = new ArrayList<>();
 
         //log start position
-        int startPosition = 1;
+        int startPosition = 0;
         logNewTurnPosition(startPosition);
 
         //tool
