@@ -251,6 +251,11 @@ public class GameManager {
         //sort programmer by ID and set game players
         setProgrammerList(programmerList);
 
+        if(abyssesAndTools == null)
+        {
+            return true;
+        }
+
         this.tiles = new ArrayList<>();
 
         //######
