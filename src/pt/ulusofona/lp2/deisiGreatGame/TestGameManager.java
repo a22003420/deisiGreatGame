@@ -134,7 +134,7 @@ public class TestGameManager{
 
         nrPositionsToMove =1;
         currentPlayer = game.getCurrentPlayer();
-        assertEquals(CURRENT_PLAYER_ID, 23, currentPlayer.getId());
+        assertEquals(CURRENT_PLAYER_ID, 25, currentPlayer.getId());
 
     }
 
