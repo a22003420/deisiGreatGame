@@ -56,7 +56,9 @@ public class GameManager {
      */
     public boolean createInitialBoard(String[][] playerInfo, int worldSize, String[][] abyssesAndTools){
 
+        /*
         reiniciar();
+         */
 
         //check null value
         if(playerInfo==null){
