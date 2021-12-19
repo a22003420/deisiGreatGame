@@ -262,13 +262,11 @@ public class GameManager {
         //Tile needs to know all programmers in game that exist on this tile
         List<Programmer> programmers = getProgrammers(position, false);
 
-        //react to tile
-        String result = tile.reactToAbyssOrTool(programmers, currentPlayer, getBoardSize());
-
         //add turn to game turns
         addTurn();
 
-        return result;
+        //react to tile
+        return tile.reactToAbyssOrTool(programmers, currentPlayer, getBoardSize());
     }
 
     /*
