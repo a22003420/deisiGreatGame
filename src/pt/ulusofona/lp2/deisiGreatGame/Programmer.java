@@ -28,7 +28,7 @@ Player game status
 */
 enum ProgrammerStatus
 {
-    INGAME("Purple"), DEFEATED("Green");
+    INGAME("Em Jogo"), DEFEATED("Derrotado");
     final String status;
 
     ProgrammerStatus(String status) {
@@ -72,7 +72,7 @@ public class Programmer {
     /*
     Identifies programmer status during the game
      */
-    private boolean status;
+    private ProgrammerStatus status;
     /*
 
     Log all positions regarding the programmer
@@ -105,7 +105,7 @@ public class Programmer {
         this.name = name;
         this.languages = languageList;
         this.color = color;
-        this.status = true;
+        this.status = ProgrammerStatus.INGAME;
         this.positionsOnBoard = new ArrayList<>();
 
         //log start position
@@ -200,14 +200,14 @@ public class Programmer {
      Return Programmer Status on Game
      */
     public boolean inGame(){
-        return status;
+        return status == ProgrammerStatus.INGAME;
     }
 
     /*
     Set player status to false
      */
     public void gameOver(){
-        status=false;
+        status=ProgrammerStatus.DEFEATED;
     }
 
     //END METHODS: PROGRAMMER LOCK, INGAME, GAMEOVER
@@ -352,7 +352,7 @@ public class Programmer {
     Returns player status
      */
     private String showStatus(){
-        return status ? "Em Jogo":"Derrotado";
+        return status.toString();
     }
 
     /*
@@ -375,6 +375,4 @@ public class Programmer {
         strLanguages.delete(strLanguages.length()-2,strLanguages.length());
         return strLanguages;
     }
-
-
 }
