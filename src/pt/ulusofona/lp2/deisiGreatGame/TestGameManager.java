@@ -65,6 +65,80 @@ public class TestGameManager{
     }
 
     /*
+    Check game for two players, on first turn move to Abyss File Not Found
+    Set board size 26
+     */
+    @Test
+    public void moveToBlueScreenOnStart()
+    {
+        GameManager game = getGameManager();
+        String[][] board = new String[3][4];
+        board[0][0] = "23";
+        board[0][1] = "B";
+        board[0][2] = "C#;Java";
+        board[0][3] = "PURPLE";
+        board[1][0] = "2";
+        board[1][1] = "A";
+        board[1][2] = "Pyton;TypeScript";
+        board[1][3] = "BROWN";
+        board[2][0] = "25";
+        board[2][1] = "Aaaaa";
+        board[2][2] = "Pyton;TypeScript";
+        board[2][3] = "BLUE";
+
+        //Abyss
+        String[][] objects = new String[2][3];
+        //Abyss: File Not Found
+        objects[0][0] = "0";
+        objects[0][1] = "7";
+        objects[0][2] = "6";
+
+        game.createInitialBoard(board, 26, objects);
+        Programmer currentPlayer;
+
+        //#####
+        //TURN TO ABYSS: Duplicated on Start
+
+        int nrPositionsToMove =5;
+        currentPlayer = game.getCurrentPlayer();
+        boolean success = move(game, nrPositionsToMove);
+        assertEquals(CURRENT_PLAYER_ID, 2, currentPlayer.getId());
+        assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 6, (int) currentPlayer.currentPosition());
+        assertEquals("Tile Image", "bsod.png", game.getImagePng(currentPlayer.currentPosition()));
+        assertEquals("Tile Title", "Blue Screen of Death", game.getTitle(currentPlayer.currentPosition()));
+        reactToTitle(game);
+        assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 6, (int) currentPlayer.currentPosition());
+
+        nrPositionsToMove =5;
+        currentPlayer = game.getCurrentPlayer();
+        move(game, nrPositionsToMove);
+        assertTrue("Success Mode", success);
+        assertEquals(CURRENT_PLAYER_ID, 23, currentPlayer.getId());
+        assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 6, (int) currentPlayer.currentPosition());
+        assertEquals("Tile Image", "bsod.png", game.getImagePng(currentPlayer.currentPosition()));
+        assertEquals("Tile Title", "Blue Screen of Death", game.getTitle(currentPlayer.currentPosition()));
+        reactToTitle(game);
+        assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 6, (int) currentPlayer.currentPosition());
+
+
+        nrPositionsToMove =4;
+        currentPlayer = game.getCurrentPlayer();
+        move(game, nrPositionsToMove);
+        assertTrue("Success Mode", success);
+        assertEquals(CURRENT_PLAYER_ID, 25, currentPlayer.getId());
+        assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 5, (int) currentPlayer.currentPosition());
+        assertEquals("Tile Image", null, game.getImagePng(currentPlayer.currentPosition()));
+        assertEquals("Tile Title", null, game.getTitle(currentPlayer.currentPosition()));
+        reactToTitle(game);
+        assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 5, (int) currentPlayer.currentPosition());
+
+        nrPositionsToMove =1;
+        currentPlayer = game.getCurrentPlayer();
+        assertEquals(CURRENT_PLAYER_ID, 23, currentPlayer.getId());
+
+    }
+
+    /*
     Check game for two players, on first turn move to Abyss Secondary Effects
     Set board size 26
      */

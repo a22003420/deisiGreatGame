@@ -19,16 +19,4 @@ public class TestProgammer
 
 
     }
-
-    /*@Test
-    public void test03Depositar(){
-
-        ContaBancaria conta = new ContaBancaria (20);
-        conta.depositar(100);
-        long saldoEsperado = 120;
-        long saldoObtido = conta.getSaldo();
-        assertEquals(saldoEsperado, saldoObtido);
-
-
-    }*/
 }

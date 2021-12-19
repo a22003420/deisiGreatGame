@@ -465,18 +465,23 @@ public class GameManager {
         //calculate current player index
         int index = nrTurns % nrPlayers;
 
-        //return current player if in game or return next player
+        //return current player if in game or return next player in game
         Programmer currentProgrammer = programmers.get(index);
         if(!currentProgrammer.inGame())
         {
-            index ++;
-            if(index+1 > programmers.size())
+            for (Programmer progammer: programmers)
             {
-                index = 0;
-            }
-            else
-            {
+                index ++;
+                if(index+1 > programmers.size())
+                {
+                    index = 0;
+                }
+
                 currentProgrammer = programmers.get(index);
+                if(currentProgrammer.inGame())
+                {
+                    return currentProgrammer;
+                }
             }
         }
 
