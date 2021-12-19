@@ -49,7 +49,6 @@ public class GameManager {
      */
     public boolean createInitialBoard(String[][] playerInfo, int worldSize){
 
-        /*
 
         reiniciar();
 
@@ -144,7 +143,6 @@ public class GameManager {
         //sort programmer by ID and set game players
         setProgrammerList(programmerList);
 
-        */
 
         createInitialBoard(playerInfo, worldSize, null);
 
