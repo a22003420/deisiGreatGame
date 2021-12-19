@@ -31,7 +31,7 @@ public class Empty extends Tile {
     /*
     Get Title
      */
-    @Override
+    //@Override
     protected String getTitle() {
         return null;
     }
@@ -39,7 +39,7 @@ public class Empty extends Tile {
     /*
     Return image for Empty
      */
-    @Override
+    //@Override
     protected String getImagePng() {
         return null;
     }
@@ -47,7 +47,7 @@ public class Empty extends Tile {
     /*
     React to AbyssOrTool
     */
-    @Override
+    //@Override
     protected String reactToAbyssOrTool(List<Programmer> programmers, Programmer programmer, int boardSize){
         return null;
     }

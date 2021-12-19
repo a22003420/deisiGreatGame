@@ -95,15 +95,15 @@ public class TestGameManager{
         //#####
         //TURN TO ABYSS: Secondary Effects
 
-        nrPositionsToMove =6;
+        nrPositionsToMove =1;
         currentPlayer = game.getCurrentPlayer();
         assertTrue("Success Move", move(game, nrPositionsToMove));
         assertEquals(CURRENT_PLAYER_ID, 2, game.getCurrentPlayerID());
-        assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 7, (int) currentPlayer.currentPosition());
-        assertEquals("Tile Image", "secondary-effects.png", game.getImagePng(currentPlayer.currentPosition()));
-        assertEquals("Tile Title", "Efeitos secundários", game.getTitle(currentPlayer.currentPosition()));
+        assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 2, (int) currentPlayer.currentPosition());
+        assertEquals("Tile Image", null, game.getImagePng(currentPlayer.currentPosition()));
+        assertEquals("Tile Title", null, game.getTitle(currentPlayer.currentPosition()));
         reactToTitle(game);
-        assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 1, (int) currentPlayer.currentPosition());
+        assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 2, (int) currentPlayer.currentPosition());
         assertEquals(CURRENT_PLAYER_ID, 23, game.getCurrentPlayerID());
 
         nrPositionsToMove =1;
@@ -116,6 +116,17 @@ public class TestGameManager{
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 2, (int) currentPlayer.currentPosition());
         assertEquals(CURRENT_PLAYER_ID, 2, game.getCurrentPlayerID());
+
+        nrPositionsToMove =5;
+        currentPlayer = game.getCurrentPlayer();
+        assertTrue("Success Move", move(game, nrPositionsToMove));
+        //assertEquals(CURRENT_PLAYER_ID, 2, game.getCurrentPlayerID());
+        assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 7, (int) currentPlayer.currentPosition());
+        //assertEquals("Tile Image", null, game.getImagePng(currentPlayer.currentPosition()));
+        //assertEquals("Tile Title", null, game.getTitle(currentPlayer.currentPosition()));
+        reactToTitle(game);
+        assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 1, (int) currentPlayer.currentPosition());
+        assertEquals(CURRENT_PLAYER_ID, 23, game.getCurrentPlayerID());
     }
 
     /*

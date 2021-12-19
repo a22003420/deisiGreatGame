@@ -10,8 +10,7 @@ public class Tile
     /*
      Returns Tile Title
     */
-    protected String getTitle()
-    {
+    protected String getTitle(){
         return getTitle();
     }
 

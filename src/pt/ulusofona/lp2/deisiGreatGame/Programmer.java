@@ -24,6 +24,24 @@ enum ProgrammerColor
 }
 
 /*
+Player game status
+*/
+enum ProgrammerStatus
+{
+    INGAME("Purple"), DEFEATED("Green");
+    final String status;
+
+    ProgrammerStatus(String status) {
+        this.status=status;
+    }
+
+    @Override
+    public String toString() {
+        return this.status;
+    }
+}
+
+/*
 Represents a programmer
  */
 public class Programmer {
@@ -128,7 +146,7 @@ public class Programmer {
     /*
     move player position on board
     logs new position or updates last position on reacting an abyss
-     */
+    */
     public void move(Integer boardSize, Integer nrPositions, boolean isReactOnAbyss){
 
         //calculate new current player position
@@ -315,23 +333,7 @@ public class Programmer {
      */
     @Override
     public String toString(){
-
-        //order language list
-        Collections.sort(languages);
-
-        //create concatenated languages with ;
-        StringBuilder strLanguages = new StringBuilder();
-        for (String language : languages) {
-            strLanguages.append(language);
-            strLanguages.append(";");
-            strLanguages.append(" ");
-        }
-
-        //remove right ;
-        strLanguages.delete(strLanguages.length()-2,strLanguages.length());
-
-        //concatenate and return final string
-        return id + " | " + name + " | " + currentPosition() + " | " + showTools() + " | " + strLanguages + " | " + showStatus();
+        return id + " | " + name + " | " + currentPosition() + " | " + showTools() + " | " + showLanguages().toString() + " | " + showStatus();
     }
 
     /*
@@ -354,19 +356,25 @@ public class Programmer {
     }
 
     /*
-    Returns player tools string
-    */
-    private String programmerToolsToString(){
+    Create string to show Programmer Languages
+     */
+    private StringBuilder showLanguages() {
+
+        //order language list
+        Collections.sort(languages);
 
         //create concatenated languages with ;
         StringBuilder strLanguages = new StringBuilder();
-        for (Tool tool : tools) {
-            strLanguages.append(" ");
-            strLanguages.append(tool.getTitle());
+        for (String language : languages) {
+            strLanguages.append(language);
             strLanguages.append(";");
+            strLanguages.append(" ");
         }
 
-        //concatenate and return final string
-        return name + " : " + currentPosition() + " | " + showTools() + " | " + strLanguages + " | " + showStatus();
+        //remove right ;
+        strLanguages.delete(strLanguages.length()-2,strLanguages.length());
+        return strLanguages;
     }
+
+
 }
