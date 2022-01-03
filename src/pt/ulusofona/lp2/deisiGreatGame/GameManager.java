@@ -15,6 +15,7 @@ public class GameManager {
 
     //###########
     //ATTRIBUTES
+    //###########
 
     /*
     Players on game
@@ -546,7 +547,6 @@ public class GameManager {
 
     //################
     //PRIVATE METHODS
-    //################
 
     /*
     Reset current game
