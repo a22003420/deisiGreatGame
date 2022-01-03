@@ -48,20 +48,21 @@ public class GameManager {
     /*
     Creates initial board
      */
-    public boolean createInitialBoard(String[][] playerInfo, int worldSize){
-        return createInitialBoard(playerInfo, worldSize, null);
+    public void createInitialBoard(String[][] playerInfo, int worldSize) throws InvalidInitialBoardException
+    {
+        createInitialBoard(playerInfo, worldSize, null);
     }
 
     /*
     Creates initial board. includes: Empty, Tool Factory Tile and Abyss Tiles
      */
-    public boolean createInitialBoard(String[][] playerInfo, int worldSize, String[][] abyssesAndTools){
-
+    public void createInitialBoard(String[][] playerInfo, int worldSize, String[][] abyssesAndTools) throws InvalidInitialBoardException
+    {
         reiniciar();
 
         //check null value
         if(playerInfo==null){
-            return false;
+            throw new InvalidInitialBoardException("No players info");
         }
 
         //calculate nr of players
@@ -69,12 +70,12 @@ public class GameManager {
 
         //check number of players
         if (!isValidNrPlayers(numberOfPlayers)){
-            return false;
+            throw new InvalidInitialBoardException("Invalid number of players");
         }
 
         //check board size
         if (!isValidBoardSize(worldSize, numberOfPlayers)){
-            return false;
+            throw new InvalidInitialBoardException("Invalid board size");
         }
 
         //list of programmers/players to fill
@@ -92,19 +93,19 @@ public class GameManager {
             }
             catch (Exception e)
             {
-                return false;
+                throw new InvalidInitialBoardException("Invalid player Id");
             }
 
             //validate min id
             if(id<1){
-                return false;
+                throw new InvalidInitialBoardException("Invalid player Id");
             }
 
             //###
             //Begin:Name
             String name = playerInfo[playerRow][1];
             if(name == null || name.isEmpty()){
-                return false;
+                throw new InvalidInitialBoardException("Invalid player name");
             }
             //End:Name
             //###
@@ -119,7 +120,7 @@ public class GameManager {
             //Begin: Color
             String color = playerInfo[playerRow][3].toUpperCase();
             if(!isValidColorValue(color)) {
-                return false;
+                throw new InvalidInitialBoardException("Invalid player color");
             }
             ProgrammerColor enumColor = ProgrammerColor.valueOf(color.toUpperCase());
             //End: Color
@@ -132,12 +133,12 @@ public class GameManager {
                 {
                     //validate unique player id
                     if(programmer.getId() == id){
-                        return false;
+                        throw new InvalidInitialBoardException("Duplicated player Id");
                     }
 
                     //validate unique player color
                     if(programmer.getColor().equals(enumColor)){
-                        return false;
+                        throw new InvalidInitialBoardException("Duplicated player color");
                     }
                 }
             }
@@ -166,10 +167,11 @@ public class GameManager {
                 try {
                     tilePosition = Integer.parseInt(abyssesAndTool[2]);
                 } catch (Exception e) {
-                    return false;
+                    throw new InvalidInitialBoardException("Invalid abyss or tool position");
                 }
+
                 if (tilePosition > worldSize) {
-                    return false;
+                    throw new InvalidInitialBoardException("Invalid abyss or tool position");
                 }
 
                 //#######
@@ -178,11 +180,11 @@ public class GameManager {
                 try {
                     typeObjectId = Integer.parseInt(abyssesAndTool[0]);
                 } catch (Exception e) {
-                    return false;
+                    throw new InvalidInitialBoardException("Invalid tile type");
                 }
                 //only 0 - Abyss or 1 - Tool are allowed
                 if (typeObjectId < 0 || typeObjectId > 1) {
-                    return false;
+                    throw new InvalidInitialBoardException("Invalid tile type");
                 }
 
                 //#######
@@ -191,11 +193,11 @@ public class GameManager {
                 try {
                     subTypeObject = Integer.parseInt(abyssesAndTool[1]);
                 } catch (Exception e) {
-                    return false;
+                    throw new InvalidInitialBoardException("Invalid tile sub type");
                 }
                 //only Abyss Type [0-9] or Tool Type [0-5] are allowed
                 if (subTypeObject < 0 || subTypeObject > 9) {
-                    return false;
+                    throw new InvalidInitialBoardException("Invalid tile sub type");
                 }
 
                 //Initialize all Abyss for the Game
@@ -210,17 +212,15 @@ public class GameManager {
                         break;
                     case 1: //Tool Factory
                         if (subTypeObject > 5) {
-                            return false;
+                            throw new InvalidInitialBoardException("Invalid tile tool factory type");
                         }
                         tiles.set(tilePosition, toolFactoryFactory.getToolFactory(subTypeObject));
                         break;
                     default:
-                        return false;
+                        throw new InvalidInitialBoardException("Invalid tile type");
                 }
             }
         }
-
-        return true;
     }
 
     /*
@@ -414,6 +414,7 @@ public class GameManager {
     Get all Programmers or only those not defeated
      */
     public List<Programmer> getProgrammers(boolean includeDefeated){
+
         if(programmers==null) {
             return null;
         }

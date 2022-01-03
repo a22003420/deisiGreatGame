@@ -25,8 +25,7 @@ public class TestGameManager{
     Set board size 26
      */
     @Test
-    public void moveToDuplicatedOnStart()
-    {
+    public void moveToDuplicatedOnStart() throws InvalidInitialBoardException {
         GameManager game = getGameManager();
         String[][] board = new String[2][4];
         board[0][0] = "23";
@@ -69,7 +68,7 @@ public class TestGameManager{
     Set board size 26
      */
     @Test
-    public void moveToBlueScreenOnStart()
+    public void moveToBlueScreenOnStart() throws InvalidInitialBoardException
     {
         GameManager game = getGameManager();
         String[][] board = new String[3][4];
@@ -143,7 +142,7 @@ public class TestGameManager{
     Set board size 26
      */
     @Test
-    public void moveToSecondaryEffectsOnStart()
+    public void moveToSecondaryEffectsOnStart() throws InvalidInitialBoardException
     {
         GameManager game = getGameManager();
         String[][] board = new String[2][4];
@@ -208,7 +207,7 @@ public class TestGameManager{
     Set board size 26
      */
     @Test
-    public void moveToFileNotFoundOnStart()
+    public void moveToFileNotFoundOnStart() throws InvalidInitialBoardException
     {
         GameManager game = getGameManager();
         String[][] board = new String[2][4];
@@ -252,7 +251,7 @@ public class TestGameManager{
     Set board size 26
      */
     @Test
-    public void move2CollectTools()
+    public void move2CollectTools() throws InvalidInitialBoardException
     {
         GameManager game = getGameManager();
         String[][] board = new String[2][4];
@@ -431,7 +430,7 @@ public class TestGameManager{
     Set board size 26
      */
     @Test
-    public void move2PlayersFinish()
+    public void move2PlayersFinish() throws InvalidInitialBoardException
     {
         GameManager game = getGameManager();
         String[][] board = new String[2][4];
@@ -842,7 +841,7 @@ public class TestGameManager{
     Check game for two players for Infinite Cycle
      */
     @Test
-    public void move2PlayersTestSegmentation()
+    public void move2PlayersTestSegmentation() throws InvalidInitialBoardException
     {
         GameManager game = getGameManager();
         String[][] board = new String[2][4];
@@ -1238,7 +1237,7 @@ public class TestGameManager{
     Check game for two players for Abyss Infinite Cycle
      */
     @Test
-    public void move2PlayersTestInfiniteCycle()
+    public void move2PlayersTestInfiniteCycle() throws InvalidInitialBoardException
     {
         GameManager game = getGameManager();
         String[][] board = new String[2][4];
@@ -1660,7 +1659,7 @@ public class TestGameManager{
     Check game for two players for Abyss Blue Screen on Death
      */
     @Test
-    public void move2PlayersUntilAbyssBlueScreen()
+    public void move2PlayersUntilAbyssBlueScreen() throws InvalidInitialBoardException
     {
         GameManager game = getGameManager();
         String[][] playersData = new String[2][4];
