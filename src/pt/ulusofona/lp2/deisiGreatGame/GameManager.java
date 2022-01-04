@@ -61,7 +61,7 @@ public class GameManager {
 
         //check null value
         if(playerInfo==null){
-            throw new InvalidInitialBoardException("No players info", ExceptionType.GAME, 0);
+            throw new InvalidInitialBoardException("No players info", ExceptionType.GAME);
         }
 
         //calculate nr of players
@@ -69,12 +69,12 @@ public class GameManager {
 
         //check number of players
         if (!isValidNrPlayers(numberOfPlayers)){
-            throw new InvalidInitialBoardException("Invalid number of players", ExceptionType.BOARD, 0);
+            throw new InvalidInitialBoardException("Invalid number of players", ExceptionType.BOARD);
         }
 
         //check board size
         if (!isValidBoardSize(worldSize, numberOfPlayers)){
-            throw new InvalidInitialBoardException("Invalid board size", ExceptionType.BOARD, 0);
+            throw new InvalidInitialBoardException("Invalid board size", ExceptionType.BOARD);
         }
 
         //list of programmers/players to fill
@@ -92,19 +92,19 @@ public class GameManager {
             }
             catch (Exception e)
             {
-                throw new InvalidInitialBoardException("Invalid player Id", ExceptionType.PLAYER, 0);
+                throw new InvalidInitialBoardException("Invalid player Id", ExceptionType.PLAYER);
             }
 
             //validate min id
             if(id<1){
-                throw new InvalidInitialBoardException("Invalid player Id", ExceptionType.PLAYER, 0);
+                throw new InvalidInitialBoardException("Invalid player Id", ExceptionType.PLAYER);
             }
 
             //###
             //Begin:Name
             String name = playerInfo[playerRow][1];
             if(name == null || name.isEmpty()){
-                throw new InvalidInitialBoardException("Invalid player name", ExceptionType.PLAYER, 0);
+                throw new InvalidInitialBoardException("Invalid player name", ExceptionType.PLAYER);
             }
             //End:Name
             //###
@@ -119,7 +119,7 @@ public class GameManager {
             //Begin: Color
             String color = playerInfo[playerRow][3].toUpperCase();
             if(!isValidColorValue(color)) {
-                throw new InvalidInitialBoardException("Invalid player color", ExceptionType.PLAYER, 0);
+                throw new InvalidInitialBoardException("Invalid player color", ExceptionType.PLAYER);
             }
             ProgrammerColor enumColor = ProgrammerColor.valueOf(color.toUpperCase());
             //End: Color
@@ -132,12 +132,12 @@ public class GameManager {
                 {
                     //validate unique player id
                     if(programmer.getId() == id){
-                        throw new InvalidInitialBoardException("Duplicated player Id", ExceptionType.PLAYER, 0);
+                        throw new InvalidInitialBoardException("Duplicated player Id", ExceptionType.PLAYER);
                     }
 
                     //validate unique player color
                     if(programmer.getColor().equals(enumColor)){
-                        throw new InvalidInitialBoardException("Duplicated player color", ExceptionType.PLAYER, 0);
+                        throw new InvalidInitialBoardException("Duplicated player color", ExceptionType.PLAYER);
                     }
                 }
             }
@@ -166,11 +166,11 @@ public class GameManager {
                 try {
                     tilePosition = Integer.parseInt(abyssesAndTool[2]);
                 } catch (Exception e) {
-                    throw new InvalidInitialBoardException("Invalid tile position", ExceptionType.BOARD, 0);
+                    throw new InvalidInitialBoardException("Invalid tile position", ExceptionType.BOARD);
                 }
 
                 if (tilePosition > worldSize) {
-                    throw new InvalidInitialBoardException("Invalid tile position", ExceptionType.BOARD, 0);
+                    throw new InvalidInitialBoardException("Invalid tile position", ExceptionType.BOARD);
                 }
 
                 //#######
@@ -179,11 +179,11 @@ public class GameManager {
                 try {
                     typeObjectId = Integer.parseInt(abyssesAndTool[0]);
                 } catch (Exception e) {
-                    throw new InvalidInitialBoardException("Invalid tile type", ExceptionType.BOARD, 0);
+                    throw new InvalidInitialBoardException("Invalid tile type", ExceptionType.BOARD);
                 }
                 //only 0 - Abyss or 1 - Tool are allowed
                 if (typeObjectId < 0 || typeObjectId > 1) {
-                    throw new InvalidInitialBoardException("Invalid tile type", ExceptionType.BOARD, 0);
+                    throw new InvalidInitialBoardException("Invalid tile type", ExceptionType.BOARD);
                 }
 
                 //#######
@@ -207,13 +207,13 @@ public class GameManager {
                 {
                     case 0: //only Abyss Type [0-9] are allowed
                         if (subTypeObject < 0 || subTypeObject > 9) {
-                            throw new InvalidInitialBoardException("Invalid Abyss", ExceptionType.ABYSS, 0);
+                            throw new InvalidInitialBoardException("Invalid Abyss", ExceptionType.ABYSS, typeObjectId);
                         }
                         tiles.set(tilePosition, abyssFactory.getAbyss(subTypeObject));
                         break;
                     case 1: //only Tool Type [0-5] are allowed
                         if (subTypeObject < 0 || subTypeObject > 5) {
-                            throw new InvalidInitialBoardException("Invalid Tool", ExceptionType.TOOL, 0);
+                            throw new InvalidInitialBoardException("Invalid Tool", ExceptionType.TOOL, typeObjectId);
                         }
                         tiles.set(tilePosition, toolFactoryFactory.getToolFactory(subTypeObject));
                         break;
