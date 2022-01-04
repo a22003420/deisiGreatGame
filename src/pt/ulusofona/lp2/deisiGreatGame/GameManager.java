@@ -49,16 +49,14 @@ public class GameManager {
     /*
     Creates initial board
      */
-    public void createInitialBoard(String[][] playerInfo, int worldSize) throws InvalidInitialBoardException
-    {
+    public void createInitialBoard(String[][] playerInfo, int worldSize) throws InvalidInitialBoardException{
         createInitialBoard(playerInfo, worldSize, null);
     }
 
     /*
     Creates initial board. includes: Empty, Tool Factory Tile and Abyss Tiles
      */
-    public void createInitialBoard(String[][] playerInfo, int worldSize, String[][] abyssesAndTools) throws InvalidInitialBoardException
-    {
+    public void createInitialBoard(String[][] playerInfo, int worldSize, String[][] abyssesAndTools) throws InvalidInitialBoardException{
         reiniciar();
 
         //check null value
