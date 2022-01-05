@@ -28,14 +28,15 @@ fun router(commandType: CommandType) : Function2<GameManager,List<String>,String
 
 }
 
-
-
+/*
+Returns player with first name equals given name
+ */
 fun getPlayer(manager: GameManager, args: List<String>): String?{
     return "ola"
 }
 
 /*
-
+Returns players with a given language
  */
 fun getPlayerByLanguage(){
 
@@ -49,28 +50,28 @@ fun getPolyglots(){
 }
 
 /*
-
+Return
  */
 fun getMostUsedPosition(){
 
 }
 
 /*
-
+Return
  */
 fun getMostUsedPositionAbysses(){
 
 }
 
 /*
-
+Move player given positions
  */
 fun postMove(){
 
 }
 
 /*
-
+Places Abyss on given tile
  */
 fun postAbysses(){
 

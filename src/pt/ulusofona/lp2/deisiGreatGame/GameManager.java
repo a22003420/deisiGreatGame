@@ -545,10 +545,12 @@ public class GameManager {
         return newPanel;
     }
 
+    //###########
+    //BEGIN PUBLIC METHODS: FILE
+
     /*
     load file game
     */
-
     public boolean loadGame(File file){
         return true;
     }
@@ -556,10 +558,12 @@ public class GameManager {
     /*
     save file game
     */
-
     public boolean saveGame(File file){
         return true;
     }
+
+    //END PUBLIC METHODS: FILE
+    //###########
 
     //################
     //PRIVATE METHODS
