@@ -32,6 +32,33 @@ fun getPlayer(manager: GameManager, args: List<String>): String?{
     return "ola"
 }
 
+fun getPlayerByLanguage(){
+
+}
+
+fun getPolyglots(){
+
+}
+
+fun getMostUsedPosition(){
+
+}
+
+fun getMostUsedPositionAbysses(){
+
+}
+
+fun postMove(){
+
+}
+fun postAbysses(){
+
+}
+
+
+
+
+
 // <GET|POST> <COMMAND_NAME> [PARAMETRO_1] [PARAMETRO_2] …
 
     fun main(){
