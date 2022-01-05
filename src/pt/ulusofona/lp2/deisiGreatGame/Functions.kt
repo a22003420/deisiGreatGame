@@ -20,11 +20,13 @@ fun router(commandType: CommandType) : Function2<GameManager,List<String>,String
 
     when (commandType) {
         CommandType.GET -> return ::getPlayer
-        CommandType.POST -> return ::f2
-        else -> return ::f3
+        CommandType.POST -> return ::getPlayer
+        else -> return ::getPlayer
     }
 
 }
+
+
 
 fun getPlayer(manager: GameManager, args: List<String>): String?{
     return "ola"
@@ -37,7 +39,7 @@ fun getPlayer(manager: GameManager, args: List<String>): String?{
 
 
         val routerFn = router(CommandType.GET)
-        val result = routerFn.invoke(GameManager(),List<String>)
+        val result = routerFn.invoke(GameManager(),list)
 
     }
 
