@@ -3,19 +3,8 @@ package pt.ulusofona.lp2.deisiGreatGame;
 /*
 Exception Type
 */
-enum ExceptionType
-{
-    GAME("Jogo"), BOARD("Tabuleiro"), PLAYER("Jogador"), TOOL("Ferramenta"), ABYSS("Abismo");
-    final String type;
-
-    ExceptionType(String type) {
-        this.type=type;
-    }
-
-    @Override
-    public String toString() {
-        return this.type;
-    }
+enum ExceptionType{
+    GAME, BOARD, PLAYER, TOOL, ABYSS;
 }
 
 /*
@@ -33,11 +22,17 @@ public class InvalidInitialBoardException extends Exception {
     //###########
     //Constructor
 
+    /*
+    Constructor for common Exception
+     */
     public InvalidInitialBoardException(String message, ExceptionType type) {
         this.message = message;
         this.type = type;
     }
 
+    /*
+    Constructor for Abyss and Tool Exception
+     */
     public InvalidInitialBoardException(String message, ExceptionType type, int typeId) {
         this.message = message;
         this.type = type;
@@ -53,14 +48,14 @@ public class InvalidInitialBoardException extends Exception {
     }
 
     /*
-    Is Exception Abyss
+    Is Exception to type Abyss
      */
     public boolean isInvalidAbyss(){
         return (type == ExceptionType.ABYSS);
     }
 
     /*
-    Is Exception Tool
+    Is Exception to type Tool
      */
     public boolean isInvalidTool(){
         return (type == ExceptionType.TOOL);

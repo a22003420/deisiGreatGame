@@ -48,7 +48,7 @@ public class ToolFactory extends Tile
         ToolSingletonFactory toolFactory = ToolSingletonFactory.getInstance();
         Tool tool = toolFactory.getTool(this.toolTypeId);
 
-        if(tool==null) {
+        if(tool==null){
             return "";
         }
 
