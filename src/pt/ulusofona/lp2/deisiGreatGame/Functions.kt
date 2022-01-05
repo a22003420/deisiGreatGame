@@ -1,6 +1,8 @@
 package pt.ulusofona.lp2.deisiGreatGame
 
-
+/*
+Enumerator for Command Type
+ */
 enum class CommandType{ GET, POST }
 
 //fun f1(x: Int, y: Int) = x + y
@@ -32,32 +34,47 @@ fun getPlayer(manager: GameManager, args: List<String>): String?{
     return "ola"
 }
 
+/*
+
+ */
 fun getPlayerByLanguage(){
 
 }
 
+/*
+
+ */
 fun getPolyglots(){
 
 }
 
+/*
+
+ */
 fun getMostUsedPosition(){
 
 }
 
+/*
+
+ */
 fun getMostUsedPositionAbysses(){
 
 }
 
+/*
+
+ */
 fun postMove(){
 
 }
+
+/*
+
+ */
 fun postAbysses(){
 
 }
-
-
-
-
 
 // <GET|POST> <COMMAND_NAME> [PARAMETRO_1] [PARAMETRO_2] …
 
