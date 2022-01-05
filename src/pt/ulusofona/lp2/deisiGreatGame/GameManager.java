@@ -2,6 +2,7 @@ package pt.ulusofona.lp2.deisiGreatGame;
 //imports
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -50,6 +51,7 @@ public class GameManager {
     public void createInitialBoard(String[][] playerInfo, int worldSize) throws InvalidInitialBoardException{
         createInitialBoard(playerInfo, worldSize, null);
     }
+
 
     /*
     Creates initial board. includes: Empty, Tool Factory Tile and Abyss Tiles
@@ -543,8 +545,25 @@ public class GameManager {
         return newPanel;
     }
 
+    /*
+    load file game
+    */
+
+    public boolean loadGame(File file){
+        return true;
+    }
+
+    /*
+    save file game
+    */
+
+    public boolean saveGame(File file){
+        return true;
+    }
+
     //################
     //PRIVATE METHODS
+    //################
 
     /*
     Reset current game
