@@ -1,5 +1,6 @@
 package pt.ulusofona.lp2.deisiGreatGame;
 //Imports
+import org.junit.Assert;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -25,7 +26,7 @@ public class TestGameManager{
     Set board size 26
      */
     @Test
-    public void moveToDuplicatedOnStart() throws InvalidInitialBoardException {
+    public void moveToDuplicatedOnStart() {
         GameManager game = getGameManager();
         String[][] board = new String[2][4];
         board[0][0] = "23";
@@ -44,7 +45,13 @@ public class TestGameManager{
         objects[0][1] = "5";
         objects[0][2] = "2";
 
-        game.createInitialBoard(board, 26, objects);
+        try {
+            game.createInitialBoard(board, 26, objects);
+        }
+        catch (Exception ex) {
+            assertEquals("Invalid tile position", ex.getMessage());
+        }
+
         Programmer currentPlayer;
 
         //#####
@@ -68,7 +75,7 @@ public class TestGameManager{
     Set board size 26
      */
     @Test
-    public void moveToBlueScreenOnStart() throws InvalidInitialBoardException
+    public void moveToBlueScreenOnStart()
     {
         GameManager game = getGameManager();
         String[][] board = new String[3][4];
@@ -92,7 +99,13 @@ public class TestGameManager{
         objects[0][1] = "7";
         objects[0][2] = "6";
 
-        game.createInitialBoard(board, 26, objects);
+        try {
+            game.createInitialBoard(board, 26, objects);
+        }
+        catch (Exception ex) {
+            assertEquals("Invalid tile position", ex.getMessage());
+        }
+
         Programmer currentPlayer;
 
         //#####
@@ -142,7 +155,7 @@ public class TestGameManager{
     Set board size 26
      */
     @Test
-    public void moveToSecondaryEffectsOnStart() throws InvalidInitialBoardException
+    public void moveToSecondaryEffectsOnStart()
     {
         GameManager game = getGameManager();
         String[][] board = new String[2][4];
@@ -162,7 +175,13 @@ public class TestGameManager{
         objects[0][1] = "6";
         objects[0][2] = "7";
 
-        game.createInitialBoard(board, 26, objects);
+        try {
+            game.createInitialBoard(board, 26, objects);
+        }
+        catch (Exception ex) {
+            assertEquals("teste", ex.getMessage());
+        }
+
         Programmer currentPlayer;
         int nrPositionsToMove;
         //#####
@@ -207,7 +226,7 @@ public class TestGameManager{
     Set board size 26
      */
     @Test
-    public void moveToFileNotFoundOnStart() throws InvalidInitialBoardException
+    public void moveToFileNotFoundOnStart()
     {
         GameManager game = getGameManager();
         String[][] board = new String[2][4];
@@ -227,7 +246,13 @@ public class TestGameManager{
         objects[0][1] = "3";
         objects[0][2] = "2";
 
-        game.createInitialBoard(board, 26, objects);
+        try {
+            game.createInitialBoard(board, 26, objects);
+        }
+        catch (Exception ex) {
+            assertEquals("Invalid tile position", ex.getMessage());
+        }
+
         Programmer currentPlayer;
 
         //#####
@@ -251,7 +276,7 @@ public class TestGameManager{
     Set board size 26
      */
     @Test
-    public void move2CollectTools() throws InvalidInitialBoardException
+    public void move2CollectTools()
     {
         GameManager game = getGameManager();
         String[][] board = new String[2][4];
@@ -309,7 +334,13 @@ public class TestGameManager{
         objects[8][1] = "0";
         objects[8][2] = "14";
 
-        game.createInitialBoard(board, 26, objects);
+        try {
+            game.createInitialBoard(board, 26, objects);
+        }
+        catch (Exception ex) {
+            assertEquals("Invalid tile position", ex.getMessage());
+        }
+
         Programmer currentPlayer;
         int nrPositionsToMove;
 
@@ -424,13 +455,12 @@ public class TestGameManager{
 
     }
 
-
     /*
     Check game for two players for Infinite Cycle
     Set board size 26
      */
     @Test
-    public void move2PlayersFinish() throws InvalidInitialBoardException
+    public void move2PlayersFinish()
     {
         GameManager game = getGameManager();
         String[][] board = new String[2][4];
@@ -498,7 +528,13 @@ public class TestGameManager{
         objects[13][1] = "9";
         objects[13][2] = "24";
 
-        game.createInitialBoard(board, 26, objects);
+        try {
+            game.createInitialBoard(board, 26, objects);
+        }
+        catch (Exception ex) {
+            assertEquals("teste", ex.getMessage());
+        }
+
         Programmer currentPlayer;
         int nrPositionsToMove;
 
@@ -841,7 +877,7 @@ public class TestGameManager{
     Check game for two players for Infinite Cycle
      */
     @Test
-    public void move2PlayersTestSegmentation() throws InvalidInitialBoardException
+    public void move2PlayersTestSegmentation()
     {
         GameManager game = getGameManager();
         String[][] board = new String[2][4];
@@ -909,7 +945,13 @@ public class TestGameManager{
         objects[13][1] = "9";
         objects[13][2] = "24";
 
-        game.createInitialBoard(board, 79, objects);
+        try {
+            game.createInitialBoard(board, 26, objects);
+        }
+        catch (Exception ex) {
+            assertEquals("teste", ex.getMessage());
+        }
+
         Programmer currentPlayer;
         int nrPositionsToMove = 1;
 
@@ -1237,7 +1279,7 @@ public class TestGameManager{
     Check game for two players for Abyss Infinite Cycle
      */
     @Test
-    public void move2PlayersTestInfiniteCycle() throws InvalidInitialBoardException
+    public void move2PlayersTestInfiniteCycle()
     {
         GameManager game = getGameManager();
         String[][] board = new String[2][4];
@@ -1301,7 +1343,13 @@ public class TestGameManager{
         objects[12][1] = "8";
         objects[12][2] = "22";
 
-        game.createInitialBoard(board, 79, objects);
+        try {
+            game.createInitialBoard(board, 26, objects);
+        }
+        catch (Exception ex) {
+            assertEquals("teste", ex.getMessage());
+        }
+
         Programmer currentPlayer;
         int nrPositionsToMove;
 
@@ -1659,66 +1707,71 @@ public class TestGameManager{
     Check game for two players for Abyss Blue Screen on Death
      */
     @Test
-    public void move2PlayersUntilAbyssBlueScreen() throws InvalidInitialBoardException
+    public void move2PlayersUntilAbyssBlueScreen()
     {
         GameManager game = getGameManager();
-        String[][] playersData = new String[2][4];
-        playersData[0][0] = "23";
-        playersData[0][1] = "B";
-        playersData[0][2] = "C#;Java";
-        playersData[0][3] = "PURPLE";
-        playersData[1][0] = "2";
-        playersData[1][1] = "A";
-        playersData[1][2] = "Pyton;TypeScript";
-        playersData[1][3] = "BROWN";
+        String[][] board = new String[2][4];
+        board[0][0] = "23";
+        board[0][1] = "B";
+        board[0][2] = "C#;Java";
+        board[0][3] = "PURPLE";
+        board[1][0] = "2";
+        board[1][1] = "A";
+        board[1][2] = "Pyton;TypeScript";
+        board[1][3] = "BROWN";
 
-        String[][] objectsData = new String[12][3];
+        String[][] objects = new String[12][3];
         //Abyss Syntax
-        objectsData[0][0] = "0";
-        objectsData[0][1] = "0";
-        objectsData[0][2] = "2";
-        objectsData[1][0] = "0";
-        objectsData[1][1] = "0";
-        objectsData[1][2] = "3";
+        objects[0][0] = "0";
+        objects[0][1] = "0";
+        objects[0][2] = "2";
+        objects[1][0] = "0";
+        objects[1][1] = "0";
+        objects[1][2] = "3";
         //Abyss Logic
-        objectsData[2][0] = "0";
-        objectsData[2][1] = "1";
-        objectsData[2][2] = "4";
-        objectsData[3][0] = "0";
-        objectsData[3][1] = "1";
-        objectsData[3][2] = "5";
+        objects[2][0] = "0";
+        objects[2][1] = "1";
+        objects[2][2] = "4";
+        objects[3][0] = "0";
+        objects[3][1] = "1";
+        objects[3][2] = "5";
         //Abyss Exception
-        objectsData[4][0] = "0";
-        objectsData[4][1] = "2";
-        objectsData[4][2] = "7";
-        objectsData[5][0] = "0";
-        objectsData[5][1] = "2";
-        objectsData[5][2] = "8";
+        objects[4][0] = "0";
+        objects[4][1] = "2";
+        objects[4][2] = "7";
+        objects[5][0] = "0";
+        objects[5][1] = "2";
+        objects[5][2] = "8";
         //Abyss FileNotFound
-        objectsData[6][0] = "0";
-        objectsData[6][1] = "3";
-        objectsData[6][2] = "10";
-        objectsData[7][0] = "0";
-        objectsData[7][1] = "3";
-        objectsData[7][2] = "11";
+        objects[6][0] = "0";
+        objects[6][1] = "3";
+        objects[6][2] = "10";
+        objects[7][0] = "0";
+        objects[7][1] = "3";
+        objects[7][2] = "11";
         //Abyss Crash
-        objectsData[8][0] = "0";
-        objectsData[8][1] = "4";
-        objectsData[8][2] = "12";
+        objects[8][0] = "0";
+        objects[8][1] = "4";
+        objects[8][2] = "12";
         //Abyss Duplicated
-        objectsData[9][0] = "0";
-        objectsData[9][1] = "5";
-        objectsData[9][2] = "14";
+        objects[9][0] = "0";
+        objects[9][1] = "5";
+        objects[9][2] = "14";
         //Abyss Duplicated
-        objectsData[10][0] = "0";
-        objectsData[10][1] = "6";
-        objectsData[10][2] = "17";
+        objects[10][0] = "0";
+        objects[10][1] = "6";
+        objects[10][2] = "17";
         //Blue Screen
-        objectsData[11][0] = "0";
-        objectsData[11][1] = "7";
-        objectsData[11][2] = "19";
+        objects[11][0] = "0";
+        objects[11][1] = "7";
+        objects[11][2] = "19";
 
-        game.createInitialBoard(playersData, 79, objectsData);
+        try {
+            game.createInitialBoard(board, 26, objects);
+        }
+        catch (Exception ex) {
+            assertEquals("teste", ex.getMessage());
+        }
 
         Programmer programmerToTest;
         int nrPositionsToMove;

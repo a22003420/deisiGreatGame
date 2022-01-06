@@ -229,8 +229,6 @@ public class GameManager {
         }
     }
 
-
-
     /*
     Get Tile title for a given position
      */
