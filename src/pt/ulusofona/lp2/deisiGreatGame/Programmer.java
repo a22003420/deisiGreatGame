@@ -1,9 +1,7 @@
 package pt.ulusofona.lp2.deisiGreatGame;
 //Imports
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /*
 Player game color
@@ -325,27 +323,6 @@ public class Programmer {
         return userTools.toString();
     }
 
-    /*
-     Return programmer tools Id to be used on save
-     */
-    public String showToolsToSaveInFile(){
-
-        if(tools==null || tools.isEmpty()){
-            return "";
-        }
-
-        StringBuilder userTools = new StringBuilder();
-        for (Tool tool:tools) {
-            userTools.append(tool.getId());
-            userTools.append("#");
-        }
-
-        //remove right#
-        userTools.delete(userTools.length()-1,userTools.length());
-
-        return userTools.toString();
-    }
-
     //END METHODS: TOOLS
     //#################
 
@@ -371,8 +348,9 @@ public class Programmer {
     <id> | <nome> | <position> | <tools> | <languages> | <status>
      */
     public String getProgrammerDataToSaveOnFile(){
-        return id + "§" + name + "§" + getColor() + "§" + showLanguagesToSaveOnFile().toString() + "§" +
-                showToolsToSaveInFile() + "§" + isLocked() + "§" + showStatus();
+        return id + ";" + name + ";" + getColor() + ";" + getLanguagesDataToSaveInFile() + ";" +
+                getToolsDataToSaveInFile() + ";" + isLocked() + ";" + showStatus() + ";" +
+                getPositionsDataToSaveInFile();
     }
 
     //#################
@@ -407,10 +385,12 @@ public class Programmer {
         return strLanguages;
     }
 
+    //##### HELPER METHODS FOR FILE DATA
+
     /*
-    Create string to show Programmer Languages to save on file
+    Create string for Programmer Languages to save on file
      */
-    private StringBuilder showLanguagesToSaveOnFile() {
+    private String getLanguagesDataToSaveInFile() {
 
         //create concatenated languages with ;
         StringBuilder strLanguages = new StringBuilder();
@@ -421,6 +401,34 @@ public class Programmer {
 
         //remove right#
         strLanguages.delete(strLanguages.length()-1,strLanguages.length());
-        return strLanguages;
+        return strLanguages.toString();
+    }
+
+    /*
+    Create string for Programmer Positions to save on file
+     */
+    private String getPositionsDataToSaveInFile() {
+        return positionsOnBoard.stream().map(String::valueOf) .collect(Collectors.joining("#"));
+    }
+
+    /*
+    Create string for Programmer tools Id to be used on file
+     */
+    private String getToolsDataToSaveInFile(){
+
+        if(tools==null || tools.isEmpty()){
+            return "";
+        }
+
+        StringBuilder userTools = new StringBuilder();
+        for (Tool tool:tools) {
+            userTools.append(tool.getId());
+            userTools.append("#");
+        }
+
+        //remove right#
+        userTools.delete(userTools.length()-1,userTools.length());
+
+        return userTools.toString();
     }
 }

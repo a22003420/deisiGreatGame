@@ -592,13 +592,13 @@ public class GameManager {
             //Begin Game Data
             filewriter.write("\n#BEGIN GAME DATA [Board Size]§[Nr of Turns]§[0 - Tools and 1 - Abyss]\n");
             filewriter.write(getGameDataToSaveOnFile());
-            filewriter.write("\n#END GAME DATA\n");
+            filewriter.write("\n#END GAME DATA");
             //End Game Data
 
             //Begin Player Data
             filewriter.write("\n#BEGIN PLAYERS DATA\n");
             filewriter.write(getProgrammersDataToSaveOnFile());
-            filewriter.write("\n#END PLAYERS DATA\n");
+            filewriter.write("\n#END PLAYERS DATA");
             //Ends Player Data
 
             //Closing the stream
