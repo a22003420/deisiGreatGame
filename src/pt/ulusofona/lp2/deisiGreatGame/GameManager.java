@@ -587,11 +587,20 @@ public class GameManager {
             //Writing date time to the beginning of file
             filewriter.write(date.format(dateFormat));
 
+            String gameData = getGameDataToSaveOnFile();
+            if(gameData.isEmpty()){
+                return false;
+            }
             //Begin Game Data
             filewriter.write("\n#BEGIN GAME DATA [Board Size]§[Nr of Turns]§[0 - Tools and 1 - Abyss]\n");
             filewriter.write(getGameDataToSaveOnFile());
             filewriter.write("\n#END GAME DATA");
             //End Game Data
+
+            String playersData = getProgrammersDataToSaveOnFile();
+            if(playersData.isEmpty()){
+                return false;
+            }
 
             //Begin Player Data
             filewriter.write("\n#BEGIN PLAYERS DATA\n");
@@ -733,15 +742,23 @@ public class GameManager {
     //###### TO USE IN FILE
 
     private String getGameDataToSaveOnFile(){
-        return getBoardSize() +
-                "§" +
-                getNrTurns() +
-                "§" +
-                getTitlesOnBoardDataToSaveOnFile();
+
+        int bordSize = getBoardSize();
+        int nrPlayers = programmers.size();
+
+        if(!isValidNrPlayers(nrPlayers) || !isValidBoardSize(bordSize, nrPlayers) || getTitlesOnBoardDataToSaveOnFile().isEmpty()){
+            return "";
+        }
+
+        return getBoardSize() + "§" + getNrTurns() + "§" + getTitlesOnBoardDataToSaveOnFile();
     }
 
     private String getTitlesOnBoardDataToSaveOnFile()
     {
+        if(tiles.isEmpty()){
+            return "";
+        }
+
         StringBuilder sblAbyssAndTools = new StringBuilder();
 
         //get Abyss or Tool Factory Tiles on board
@@ -768,7 +785,6 @@ public class GameManager {
         if(programmers.isEmpty()){
             return "";
         }
-        
 
         StringBuilder sblPlayers = new StringBuilder();
 
