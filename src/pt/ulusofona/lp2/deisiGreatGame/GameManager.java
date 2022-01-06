@@ -777,7 +777,7 @@ public class GameManager {
         int position = 0;
         for (Tile tile: tiles)
         {
-            if(tile.getTitle()!=null) {
+            if(tile!=null && tile.getTitle()!=null) {
                 sblAbyssAndTools.append(tile);
                 sblAbyssAndTools.append("#");
                 sblAbyssAndTools.append(position);
