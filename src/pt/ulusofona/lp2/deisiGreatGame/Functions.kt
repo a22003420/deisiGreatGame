@@ -81,9 +81,8 @@ fun postMove(gameManager:GameManager, nrSpace: Int) : String {
 
     gameManager.moveCurrentPlayer(nrSpace)
 
-    //return gameManager.reactToAbyssOrTool() ?: "OK"
+    return gameManager.reactToAbyssOrTool() ?: "OK"
 
-    return "OK";
 }
 
 fun postAbyss(gameManager:GameManager, type: Int, pos: Int) : String {
