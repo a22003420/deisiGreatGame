@@ -767,8 +767,10 @@ public class GameManager {
 
     private String getProgrammersDataToSaveOnFile()
     {
-        if(programmers.isEmpty())
+        if(programmers.isEmpty()){
             return "";
+        }
+        
 
         StringBuilder sblPlayers = new StringBuilder();
 
