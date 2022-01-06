@@ -48,4 +48,9 @@ public abstract class Abyss extends Tile
     */
     @Override
     abstract protected String reactToAbyssOrTool(List<Programmer> programmersInTile, Programmer programmer, int boardSize);
+
+    @Override
+    public String toString(){
+        return 0 + "#" + id;
+    }
 }

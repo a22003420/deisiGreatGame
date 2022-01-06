@@ -70,4 +70,9 @@ public class ToolFactory extends Tile
 
         return tool.reactToAbyssOrTool(programmers, currProgrammer, boardSize);
     }
+
+    @Override
+    public String toString(){
+        return 1 + "#" + toolTypeId;
+    }
 }

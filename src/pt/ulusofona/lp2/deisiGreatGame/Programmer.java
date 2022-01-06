@@ -325,6 +325,27 @@ public class Programmer {
         return userTools.toString();
     }
 
+    /*
+     Return programmer tools Id to be used on save
+     */
+    public String showToolsToSaveInFile(){
+
+        if(tools==null || tools.isEmpty()){
+            return "";
+        }
+
+        StringBuilder userTools = new StringBuilder();
+        for (Tool tool:tools) {
+            userTools.append(tool.getId());
+            userTools.append("#");
+        }
+
+        //remove right#
+        userTools.delete(userTools.length()-1,userTools.length());
+
+        return userTools.toString();
+    }
+
     //END METHODS: TOOLS
     //#################
 
@@ -343,6 +364,15 @@ public class Programmer {
     */
     public Integer throwDice(){
         return new Random().nextInt(6) + 1;
+    }
+
+    /*
+    Return programmer custom string to save on file
+    <id> | <nome> | <position> | <tools> | <languages> | <status>
+     */
+    public String getProgrammerDataToSaveOnFile(){
+        return id + "§" + name + "§" + getColor() + "§" + showLanguagesToSaveOnFile().toString() + "§" +
+                showToolsToSaveInFile() + "§" + isLocked() + "§" + showStatus();
     }
 
     //#################
@@ -374,6 +404,23 @@ public class Programmer {
 
         //remove right ;
         strLanguages.delete(strLanguages.length()-2,strLanguages.length());
+        return strLanguages;
+    }
+
+    /*
+    Create string to show Programmer Languages to save on file
+     */
+    private StringBuilder showLanguagesToSaveOnFile() {
+
+        //create concatenated languages with ;
+        StringBuilder strLanguages = new StringBuilder();
+        for (String language : languages) {
+            strLanguages.append(language);
+            strLanguages.append("#");
+        }
+
+        //remove right#
+        strLanguages.delete(strLanguages.length()-1,strLanguages.length());
         return strLanguages;
     }
 }

@@ -2,10 +2,13 @@ package pt.ulusofona.lp2.deisiGreatGame;
 //imports
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
+import java.io.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Scanner;
 import java.util.stream.Collectors;
 
 /*
@@ -154,9 +157,11 @@ public class GameManager {
         //######
         //Create and fill all tiles
         this.tiles = new ArrayList<>();
+
+        Tile emptyTile = new Empty("Casa Vazia", "blank.png");
         int tileRow;
         for (tileRow = 0; tileRow <= worldSize; tileRow++){
-            tiles.add(new Empty("Casa Vazia", "blank.png"));
+            tiles.add(emptyTile);
         }
 
         if(abyssesAndTools!=null) {
@@ -223,6 +228,8 @@ public class GameManager {
             }
         }
     }
+
+
 
     /*
     Get Tile title for a given position
@@ -551,7 +558,18 @@ public class GameManager {
     /*
     load file game
     */
-    public boolean loadGame(File file){
+    public boolean loadGame(File file) {
+
+        try {
+            Scanner reader = new Scanner(file);
+            while(reader.hasNext()) {
+                String line = reader.next();
+            }
+        }
+        catch(FileNotFoundException e) {
+            return false;
+        }
+
         return true;
     }
 
@@ -559,6 +577,47 @@ public class GameManager {
     save file game
     */
     public boolean saveGame(File file){
+
+        FileWriter filewriter = null;
+
+        LocalDateTime date = LocalDateTime.now();
+        DateTimeFormatter dateFormat =   DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+        try {
+
+            filewriter = new FileWriter(file);
+            //Writing date time to the beginning of file
+            filewriter.write(date.format(dateFormat));
+
+            //Begin Game Data
+            filewriter.write("\n#BEGIN GAME DATA [Board Size]§[Nr of Turns]§[0 - Tools and 1 - Abyss]\n");
+            filewriter.write(getGameDataToSaveOnFile());
+            filewriter.write("\n#END GAME DATA\n");
+            //End Game Data
+
+            //Begin Player Data
+            filewriter.write("\n#BEGIN PLAYERS DATA\n");
+            filewriter.write(getProgrammersDataToSaveOnFile());
+            filewriter.write("\n#END PLAYERS DATA\n");
+            //Ends Player Data
+
+            //Closing the stream
+            filewriter.close();
+        }
+        catch(Exception e) {
+            return false;
+        }
+        finally {
+
+            try {
+                if (filewriter != null) {
+                    filewriter.close();
+                }
+            } catch (Exception e) {
+                return false;
+            }
+        }
+
         return true;
     }
 
@@ -671,5 +730,58 @@ public class GameManager {
             }
         }
         return false;
+    }
+
+    //###### TO USE IN FILE
+
+    private String getGameDataToSaveOnFile(){
+        return getBoardSize() +
+                "§" +
+                getNrTurns() +
+                "§" +
+                getTitlesOnBoardDataToSaveOnFile();
+    }
+
+    private String getTitlesOnBoardDataToSaveOnFile()
+    {
+        StringBuilder sblAbyssAndTools = new StringBuilder();
+
+        //get Abyss or Tool Factory Tiles on board
+        int position = 0;
+        for (Tile tile: tiles)
+        {
+            if(tile.getTitle()!=null) {
+                sblAbyssAndTools.append(tile);
+                sblAbyssAndTools.append("#");
+                sblAbyssAndTools.append(position);
+                sblAbyssAndTools.append(";");
+            }
+            position++;
+        }
+
+        //remove right;
+        sblAbyssAndTools.delete(sblAbyssAndTools.length()-1,sblAbyssAndTools.length());
+
+        return sblAbyssAndTools.toString();
+    }
+
+    private String getProgrammersDataToSaveOnFile()
+    {
+        if(programmers.isEmpty())
+            return "";
+
+        StringBuilder sblPlayers = new StringBuilder();
+
+        //get Abyss or Tool Factory Tiles on board
+        for (Programmer programmer: programmers)
+        {
+            sblPlayers.append(programmer.getProgrammerDataToSaveOnFile());
+            sblPlayers.append("§");
+        }
+
+        //remove right;
+        sblPlayers.delete(sblPlayers.length()-1,sblPlayers.length());
+
+        return sblPlayers.toString();
     }
 }

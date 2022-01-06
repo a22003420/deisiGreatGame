@@ -51,10 +51,20 @@ public abstract class Tool
     */
     abstract protected String reactToAbyssOrTool(List<Programmer> programmers, Programmer currProgrammer, int boardSize);
 
+    //################
+    //Non Abstract Methods
+
     /*
     Check if Tool can be used for the given abyss
      */
     public Boolean checkUseOfTool(Abyss abyss){
         return this.abysses.contains(abyss);
+    }
+
+    /*
+    Return Tool Type ID
+     */
+    public int getId(){
+        return id;
     }
 }
