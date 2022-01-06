@@ -559,6 +559,11 @@ public class GameManager {
     public boolean loadGame(File file) {
 
         try {
+
+            if (file.length() == 0){
+                return false;
+            }
+
             Scanner reader = new Scanner(file);
             while(reader.hasNext()) {
                 String line = reader.next();
