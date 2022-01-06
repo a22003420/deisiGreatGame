@@ -1,8 +1,38 @@
 package pt.ulusofona.lp2.deisiGreatGame
 
+enum class CommandType{ GET, POST }
+
+fun selectCommand(type: CommandType) : (GameManager, List<String>) -> String? {
+    return when(type) {
+        CommandType.GET -> ::getCommand
+        CommandType.POST -> ::postCommand
+    }
+}
+
+fun getCommand(gameManager: GameManager, args: List<String>): String? {
+    val list = gameManager.getProgrammers(true)
+
+    return when(args[0]) {
+        "PLAYER" -> getPlayer(list, args[1])
+        "PLAYERS_BY_LANGUAGE" -> getPlayersByLanguage(list, args[1])
+        "POLYGLOTS" -> getPolyglots(list)
+        "MOST_USED_POSITIONS" -> null
+        "MOST_USED_ABYSSES" -> null
+        else -> null
+    }
+}
+
+fun postCommand(gameManager: GameManager, args: List<String>): String? {
+    return when(args[0]) {
+        "MOVE" -> postMove(gameManager, args[1].toInt())
+        "ABYSS" -> postAbyss(gameManager, args[1].toInt(), args[2].toInt())
+        else -> null
+    }
+}
+
+fun router() : (CommandType) -> (GameManager, List<String>) -> String? = ::selectCommand
+
 /*
-Enumerator for Command Type
- */
 enum class CommandType{ GET, POST }
 
 //fun f1(x: Int, y: Int) = x + y
@@ -16,84 +46,50 @@ enum class CommandType{ GET, POST }
         else -> return ::f3
     }
 
-}*/
+}
+*/
+ */
 
-fun router(commandType: CommandType) : Function2<GameManager,List<String>,String?> {
 
-    when (commandType) {
-        CommandType.GET -> return ::getPlayer
-        CommandType.POST -> return ::getPlayer
-        else -> return ::getPlayer
+fun getPlayer(list: List<Programmer>, name: String) : String {
+    val player = list.filter { name in it.name }
+    if(player.isNotEmpty()) {
+        player.forEach { return it.toString() }
     }
-
+    return "Inexistent player"
 }
 
-/*
-Returns player with first name equals given name
- */
-fun getPlayer(manager: GameManager, args: List<String>): String?{
-    return "ola"
+fun getPlayersByLanguage(list: List<Programmer>, lang: String) : String {
+
+    return ""
 }
 
-/*
-Returns players with a given language
- */
-fun getPlayerByLanguage(){
-
+fun getPolyglots(list: List<Programmer>) : String {
+        return ""
 }
 
-/*
-
- */
-fun getPolyglots(){
-
+fun getMostUsedPositions(list: List<Tile>, max: Int) : String {
+    return ""
 }
 
-/*
-Return
- */
-fun getMostUsedPosition(){
-
+fun getMostUsedAbysses(list: List<ToolFactory>, max: Int) : String {
+    return ""
 }
 
-/*
-Return
- */
-fun getMostUsedPositionAbysses(){
 
+fun postMove(gameManager:GameManager, nrSpace: Int) : String {
+
+    gameManager.moveCurrentPlayer(nrSpace)
+
+    //return gameManager.reactToAbyssOrTool() ?: "OK"
+
+    return "OK";
 }
 
-/*
-Move player given positions
- */
-fun postMove(){
-
+fun postAbyss(gameManager:GameManager, type: Int, pos: Int) : String {
+    return gameManager.reactToAbyssOrTool()
 }
 
-/*
-Places Abyss on given tile
- */
-fun postAbysses(){
+fun main() {
 
 }
-
-// <GET|POST> <COMMAND_NAME> [PARAMETRO_1] [PARAMETRO_2] …
-
-    fun main(){
-
-
-        val list: List<String> = listOf("x", "y", "z")
-
-
-        val routerFn = router(CommandType.GET)
-        val result = routerFn.invoke(GameManager(),list)
-
-    }
-
-
-
-/*
-val routerFn = router()
-val commandGetFn = routerFn.invoke(CommandType.GET)
-val result = commandGetFn.invoke(manager, listOf("PLAYER", "Joshua"))
- */
