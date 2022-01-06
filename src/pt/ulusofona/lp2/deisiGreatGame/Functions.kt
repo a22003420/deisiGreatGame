@@ -2,26 +2,6 @@ package pt.ulusofona.lp2.deisiGreatGame
 
 enum class CommandType{ GET, POST }
 
-fun router() : (CommandType) -> (GameManager, List<String>) -> String? = ::selectCommand
-
-/*
-enum class CommandType{ GET, POST }
-
-//fun f1(x: Int, y: Int) = x + y
-//fun f2(x: Int, y: Int) = 2 * x + y
-//fun f3(x: Int, y: Int) = x - y
-/*fun router(commandType: CommandType) : Function2<Int,Int,Int> {
-
-    when (commandType) {
-        CommandType.GET -> return ::f1
-        CommandType.POST -> return ::f2
-        else -> return ::f3
-    }
-
-}
-*/
- */
-
 fun selectCommand(type: CommandType) : (GameManager, List<String>) -> String? {
     return when(type) {
         CommandType.GET -> ::getCommand
@@ -49,6 +29,27 @@ fun postCommand(gameManager: GameManager, args: List<String>): String? {
         else -> null
     }
 }
+
+fun router() : (CommandType) -> (GameManager, List<String>) -> String? = ::selectCommand
+
+/*
+enum class CommandType{ GET, POST }
+
+//fun f1(x: Int, y: Int) = x + y
+//fun f2(x: Int, y: Int) = 2 * x + y
+//fun f3(x: Int, y: Int) = x - y
+/*fun router(commandType: CommandType) : Function2<Int,Int,Int> {
+
+    when (commandType) {
+        CommandType.GET -> return ::f1
+        CommandType.POST -> return ::f2
+        else -> return ::f3
+    }
+
+}
+*/
+ */
+
 
 fun getPlayer(list: List<Programmer>, name: String) : String {
     val player = list.filter { name in it.name }
