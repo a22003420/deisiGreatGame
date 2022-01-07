@@ -540,6 +540,13 @@ public class GameManager {
     //###########
 
     /*
+    Returns title in a given position
+    */
+    public Tile getTile(int position){
+        return tiles.get(position);
+    }
+
+    /*
     Get About
     */
     public JPanel getAuthorsPanel() {
@@ -676,13 +683,6 @@ public class GameManager {
     */
     private int getNrTurns(){
         return this.totalNrTurns;
-    }
-
-    /*
-    Returns title in a given position
-    */
-    public Tile getTile(int position){
-        return tiles.get(position);
     }
 
     /*
