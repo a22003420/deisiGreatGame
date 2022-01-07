@@ -16,8 +16,8 @@ fun getCommand(gameManager: GameManager, args: List<String>): String? {
         "PLAYER" -> getPlayer(list, args[1])
         "PLAYERS_BY_LANGUAGE" -> getPlayersByLanguage(list, args[1])
         "POLYGLOTS" -> getPolyglots(list)
-        "MOST_USED_POSITIONS" -> null
-        "MOST_USED_ABYSSES" -> null
+        "MOST_USED_POSITIONS" -> getMostUsedPositions(list,1)
+        "MOST_USED_ABYSSES" -> getMostUsedAbysses(list,1)
         else -> null
     }
 }
@@ -47,58 +47,67 @@ fun getPlayersByLanguage(list: List<Programmer>, language: String) : String {
 }
 
 
-
-
-/*
-fun getMostUsedPositions(list: List<Tile>, max: Int) : String {
-    val positions =
-            list.sortedWith { c1, c2 -> c1.count - c2.count }
-                    .reversed()
-                    .take(max)
-
-    return positions.joinToString("\n", "", ""){ "${it.position}:${it.count}"}
-}
-
- */
-
-
-
 fun getPolyglots(list: List<Programmer>) : String {
     val programmers = list.filter { programmer->programmer.numberOfLanguages() > 1 }
             .sortedWith { p1, p2 -> p1.numberOfLanguages() - p2.numberOfLanguages() }
     return programmers.joinToString("\n","","") { "${it.getName()}:${it.numberOfLanguages()}" }
 }
 
-fun getMostUsedPositions(list: List<Tile>, max: Int) : String {
-    return ""
+fun getMostUsedPositions(list: List<Programmer>, max: Int) : String {
+    /*
+    var positionList : List<Int> =
+    for(i=
+        e
+    )
+    val positions =
+        list.sortedWith { c1, c2 -> c1.count - c2.count }
+            .reversed()
+            .take(max)
+
+    return positions.joinToString("\n", "", ""){ "${it.position}:${it.count}"}
+    */
+
+    return "";
+
 }
 
-fun getMostUsedAbysses(list: List<ToolFactory>, max: Int) : String {
-    return ""
+fun getMostUsedAbysses(list: List<Programmer>, maximo: Int) : String {
+    /*
+    val positions =
+    list.sortedWith { c1, c2 -> c1.count - c2.count }
+        .reversed()
+        .take(maximo)
+
+    return positions.joinToString("\n", "", ""){ "${it.position}:${it.count}"}
+    */
+
+    return "";
 }
 
 
 
 fun postMove(gameManager:GameManager, nrSpace: Int) : String {
 
-    gameManager.moveCurrentPlayer(nrSpace)
+gameManager.moveCurrentPlayer(nrSpace)
 
-    return gameManager.reactToAbyssOrTool() ?: "OK"
+return gameManager.reactToAbyssOrTool() ?: "OK"
 
 }
 
 fun postAbyss(gameManager:GameManager, type: Int, position: Int) : String {
-    var tile = gameManager.getTile(position)
-    return if(tile!=null){
-        "Position is occupied"
-    }else{
-        //Initialize all Abyss for the Game
-        val abyssFactory = AbyssSingletonFactory.getInstance()
-        tile=abyssFactory.getAbyss(type)
-        "OK"
-    }
+var tile = gameManager.getTile(position)
+return if(tile==null){
+    "Position is occupied"
+}else{
+    //Initialize all Abyss for the Game
+    val abyssFactory = AbyssSingletonFactory.getInstance()
+    tile=abyssFactory.getAbyss(type)
+    "OK"
+}
 }
 
 fun main() {
+
+
 
 }
