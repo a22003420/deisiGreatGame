@@ -94,16 +94,16 @@ return gameManager.reactToAbyssOrTool() ?: "OK"
 
 }
 
-fun postAbyss(gameManager:GameManager, type: Int, position: Int) : String {
-var tile = gameManager.getTile(position)
-return if(tile!=null){
-    "OK"
-}else{
-    //Initialize all Abyss for the Game
-    val abyssFactory = AbyssSingletonFactory.getInstance()
-    tile=abyssFactory.getAbyss(type)
-    "Position is occupied"
-}
+fun postAbyss(gameManager: GameManager, type: Int, position: Int): String {
+    var tile = gameManager.getTile(position)
+    return if (tile == null || tile.title == "Casa Vazia") {
+        //Initialize all Abyss for the Game
+        val abyssFactory = AbyssSingletonFactory.getInstance()
+        tile = abyssFactory.getAbyss(type)
+        "OK"
+    } else {
+        "Position is occupied"
+    }
 }
 
 fun main() {
