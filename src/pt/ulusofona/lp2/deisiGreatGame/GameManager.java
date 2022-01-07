@@ -747,7 +747,7 @@ public class GameManager {
     //###### TO USE IN FILE
 
     /*
-
+    Get Game Data to Save on File
      */
     private String getGameDataToSaveOnFile(){
 
@@ -756,10 +756,12 @@ public class GameManager {
             return "";
         }
 
+        //check if programmers exist on game
         if(programmers==null || programmers.isEmpty()){
             return "";
         }
 
+        //get number of players
         int nrPlayers = programmers.size();
 
         if(!isValidNrPlayers(nrPlayers) || !isValidBoardSize(bordSize, nrPlayers) || getTitlesOnBoardDataToSaveOnFile().isEmpty()){
@@ -770,7 +772,7 @@ public class GameManager {
     }
 
     /*
-
+    Get Tiles on Board to Save on File
      */
     private String getTitlesOnBoardDataToSaveOnFile()
     {
@@ -802,7 +804,7 @@ public class GameManager {
     }
 
     /*
-
+    Get Programmers Data to Save on File
      */
     private String getProgrammersDataToSaveOnFile()
     {
