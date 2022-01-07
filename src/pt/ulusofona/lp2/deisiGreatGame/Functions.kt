@@ -42,12 +42,9 @@ fun getPlayer(list: List<Programmer>, name: String) : String {
 }
 
 fun getPlayersByLanguage(list: List<Programmer>, language: String) : String {
-    return if(list.filter { it.ContainsLanguages(language) }.isNullOrEmpty()) ""
-    else (list.filter { it.ContainsLanguages(language) }.joinToString(",") { it.name })
+    return if(list.filter { it.containsLanguages(language) }.isNullOrEmpty()) ""
+    else (list.filter { it.containsLanguages(language) }.joinToString(",") { it.name })
 }
-
-
-
 
 
 
@@ -67,9 +64,9 @@ fun getMostUsedPositions(list: List<Tile>, max: Int) : String {
 
 
 fun getPolyglots(list: List<Programmer>) : String {
-    val programmers = list.filter { programmer->programmer.NumberOfLanguages() > 1 }
-            .sortedWith { p1, p2 -> p1.NumberOfLanguages() - p2.NumberOfLanguages() }
-    return programmers.joinToString("\n","","") { "${it.getName()}:${it.NumberOfLanguages()}" }
+    val programmers = list.filter { programmer->programmer.numberOfLanguages() > 1 }
+            .sortedWith { p1, p2 -> p1.numberOfLanguages() - p2.numberOfLanguages() }
+    return programmers.joinToString("\n","","") { "${it.getName()}:${it.numberOfLanguages()}" }
 }
 
 fun getMostUsedPositions(list: List<Tile>, max: Int) : String {
