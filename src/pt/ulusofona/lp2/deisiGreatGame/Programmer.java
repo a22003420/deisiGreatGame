@@ -139,6 +139,14 @@ public class Programmer {
         return this.color;
     }
 
+    public Boolean ContainsLanguages(String language){
+        return languages.contains(language);
+    }
+
+    public int NumberOfLanguages(){
+        return languages.size();
+    }
+
     //#################
     //BEGIN METHODS: PROGRAMMER MOVE
 

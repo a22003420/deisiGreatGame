@@ -32,40 +32,44 @@ fun postCommand(gameManager: GameManager, args: List<String>): String? {
 
 fun router() : (CommandType) -> (GameManager, List<String>) -> String? = ::selectCommand
 
-/*
-enum class CommandType{ GET, POST }
-
-//fun f1(x: Int, y: Int) = x + y
-//fun f2(x: Int, y: Int) = 2 * x + y
-//fun f3(x: Int, y: Int) = x - y
-/*fun router(commandType: CommandType) : Function2<Int,Int,Int> {
-
-    when (commandType) {
-        CommandType.GET -> return ::f1
-        CommandType.POST -> return ::f2
-        else -> return ::f3
-    }
-
-}
-*/
- */
-
 
 fun getPlayer(list: List<Programmer>, name: String) : String {
-    val player = list.filter { name in it.name }
-    if(player.isNotEmpty()) {
-        player.forEach { return it.toString() }
+    val programmer = list.filter { name in it.name }
+    if(programmer.isNotEmpty()) {
+        programmer.forEach { return it.toString() }
     }
     return "Inexistent player"
 }
 
-fun getPlayersByLanguage(list: List<Programmer>, lang: String) : String {
-
-    return ""
+fun getPlayersByLanguage(list: List<Programmer>, language: String) : String {
+    return if(list.filter { it.ContainsLanguages(language) }.isNullOrEmpty()) ""
+    else (list.filter { it.ContainsLanguages(language) }.joinToString(",") { it.name })
 }
 
+
+
+
+
+
+
+/*
+fun execGetMostUsedPositions(list: List<Casa>, max: Int) : String {
+    val positions =
+            list.sortedWith { c1, c2 -> c1.count - c2.count }
+                    .reversed()
+                    .take(max)
+
+    return positions.joinToString("\n", "", ""){ "${it.position}:${it.count}"}
+}
+
+ */
+
+
+
 fun getPolyglots(list: List<Programmer>) : String {
-        return ""
+    val programmers = list.filter { programmer->programmer.NumberOfLanguages() > 1 }
+            .sortedWith { p1, p2 -> p1.NumberOfLanguages() - p2.NumberOfLanguages() }
+    return programmers.joinToString("\n","","") { "${it.getName()}:${it.NumberOfLanguages()}" }
 }
 
 fun getMostUsedPositions(list: List<Tile>, max: Int) : String {
@@ -85,8 +89,16 @@ fun postMove(gameManager:GameManager, nrSpace: Int) : String {
 
 }
 
-fun postAbyss(gameManager:GameManager, type: Int, pos: Int) : String {
-    return gameManager.reactToAbyssOrTool()
+fun postAbyss(gameManager:GameManager, type: Int, position: Int) : String {
+    var tile = gameManager.getTile(position)
+    return if(tile!=null){
+        "Position is occupied"
+    }else{
+        //Initialize all Abyss for the Game
+        val abyssFactory = AbyssSingletonFactory.getInstance()
+        tile=abyssFactory.getAbyss(type)
+        "OK"
+    }
 }
 
 fun main() {

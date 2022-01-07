@@ -210,20 +210,19 @@ public class GameManager {
                 //#######
                 //validate Abyss Type and Tool Type
                 //fills tile
-                switch (typeObjectId)
-                {
-                    case 0: //only Abyss Type [0-9] are allowed
+                switch (typeObjectId) {
+                    case 0 -> { //only Abyss Type [0-9] are allowed
                         if (subTypeObject < 0 || subTypeObject > 9) {
                             throw new InvalidInitialBoardException("Invalid Abyss", ExceptionType.ABYSS, typeObjectId);
                         }
                         tiles.set(tilePosition, abyssFactory.getAbyss(subTypeObject));
-                        break;
-                    case 1: //only Tool Type [0-5] are allowed
+                    }
+                    case 1 -> { //only Tool Type [0-5] are allowed
                         if (subTypeObject < 0 || subTypeObject > 5) {
                             throw new InvalidInitialBoardException("Invalid Tool", ExceptionType.TOOL, typeObjectId);
                         }
                         tiles.set(tilePosition, toolFactoryFactory.getToolFactory(subTypeObject));
-                        break;
+                    }
                 }
             }
         }
@@ -676,7 +675,7 @@ public class GameManager {
     /*
     Returns title in a given position
     */
-    private Tile getTile(int position){
+    public Tile getTile(int position){
         return tiles.get(position);
     }
 
