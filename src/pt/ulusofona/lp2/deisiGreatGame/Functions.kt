@@ -96,13 +96,13 @@ return gameManager.reactToAbyssOrTool() ?: "OK"
 
 fun postAbyss(gameManager:GameManager, type: Int, position: Int) : String {
 var tile = gameManager.getTile(position)
-return if(tile==null){
-    "Position is occupied"
+return if(tile!=null){
+    "OK"
 }else{
     //Initialize all Abyss for the Game
     val abyssFactory = AbyssSingletonFactory.getInstance()
     tile=abyssFactory.getAbyss(type)
-    "OK"
+    "Position is occupied"
 }
 }
 
