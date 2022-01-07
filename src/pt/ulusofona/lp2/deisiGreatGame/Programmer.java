@@ -139,10 +139,16 @@ public class Programmer {
         return this.color;
     }
 
+    /*
+
+     */
     public Boolean containsLanguages(String language){
         return languages.contains(language);
     }
 
+    /*
+
+     */
     public int numberOfLanguages(){
         return languages.size();
     }
