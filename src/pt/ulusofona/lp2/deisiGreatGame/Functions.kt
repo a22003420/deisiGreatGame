@@ -53,7 +53,7 @@ fun getPlayersByLanguage(list: List<Programmer>, language: String) : String {
 
 
 /*
-fun execGetMostUsedPositions(list: List<Casa>, max: Int) : String {
+fun getMostUsedPositions(list: List<Tile>, max: Int) : String {
     val positions =
             list.sortedWith { c1, c2 -> c1.count - c2.count }
                     .reversed()
