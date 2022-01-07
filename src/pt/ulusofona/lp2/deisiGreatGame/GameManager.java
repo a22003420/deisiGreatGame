@@ -786,7 +786,9 @@ public class GameManager {
         }
 
         //remove right;
-        sblAbyssAndTools.delete(sblAbyssAndTools.length()-1,sblAbyssAndTools.length());
+        if(sblAbyssAndTools.length()>0) {
+            sblAbyssAndTools.delete(sblAbyssAndTools.length() - 1, sblAbyssAndTools.length());
+        }
 
         return sblAbyssAndTools.toString();
     }
@@ -815,7 +817,9 @@ public class GameManager {
         }
 
         //remove right;
-        sblPlayers.delete(sblPlayers.length()-1,sblPlayers.length());
+        if(sblPlayers.length()>0) {
+            sblPlayers.delete(sblPlayers.length() - 1, sblPlayers.length());
+        }
 
         return sblPlayers.toString();
     }

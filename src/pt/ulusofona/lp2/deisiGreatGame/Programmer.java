@@ -326,7 +326,9 @@ public class Programmer {
         }
 
         //remove right ;
-        userTools.delete(userTools.length()-2,userTools.length());
+        if(userTools.length()>0) {
+            userTools.delete(userTools.length() - 2, userTools.length());
+        }
 
         return userTools.toString();
     }
@@ -394,7 +396,10 @@ public class Programmer {
         }
 
         //remove right ;
-        strLanguages.delete(strLanguages.length()-2,strLanguages.length());
+        if(strLanguages.length()>0) {
+            strLanguages.delete(strLanguages.length() - 2, strLanguages.length());
+        }
+
         return strLanguages;
     }
 
@@ -413,7 +418,10 @@ public class Programmer {
         }
 
         //remove right#
-        strLanguages.delete(strLanguages.length()-1,strLanguages.length());
+        if(strLanguages.length()>0) {
+            strLanguages.delete(strLanguages.length() - 1, strLanguages.length());
+        }
+
         return strLanguages.toString();
     }
 
@@ -440,7 +448,9 @@ public class Programmer {
         }
 
         //remove right#
-        userTools.delete(userTools.length()-1,userTools.length());
+        if(userTools.length()>0) {
+            userTools.delete(userTools.length() - 1, userTools.length());
+        }
 
         return userTools.toString();
     }
