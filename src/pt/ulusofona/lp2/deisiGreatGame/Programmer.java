@@ -140,14 +140,19 @@ public class Programmer {
     }
 
     /*
-
+    Check if Programmer contains given language
      */
-    public Boolean containsLanguages(String language){
+    public Boolean containsLanguage(String language){
+
+        if(language.isEmpty()){
+            return false;
+        }
+
         return languages.contains(language);
     }
 
     /*
-
+    Returns Programmer number of languages
      */
     public int numberOfLanguages(){
         return languages.size();
@@ -416,6 +421,10 @@ public class Programmer {
      */
     private String getLanguagesDataToSaveInFile() {
 
+        if(languages==null || languages.isEmpty()){
+            return "";
+        }
+
         //create concatenated languages with ;
         StringBuilder strLanguages = new StringBuilder();
         for (String language : languages) {
@@ -434,8 +443,13 @@ public class Programmer {
     /*
     Create string for Programmer Positions to save on file
      */
-    private String getPositionsDataToSaveInFile() {
-        return positionsOnBoard.stream().map(String::valueOf) .collect(Collectors.joining("#"));
+    private String getPositionsDataToSaveInFile()
+    {
+        if(positionsOnBoard==null || positionsOnBoard.isEmpty()){
+            return "";
+        }
+
+        return positionsOnBoard.stream().map(String::valueOf).collect(Collectors.joining("#"));
     }
 
     /*

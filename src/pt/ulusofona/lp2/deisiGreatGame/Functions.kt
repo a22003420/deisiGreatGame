@@ -42,8 +42,8 @@ fun getPlayer(list: List<Programmer>, name: String) : String {
 }
 
 fun getPlayersByLanguage(list: List<Programmer>, language: String) : String {
-    return if(list.filter { it.containsLanguages(language) }.isNullOrEmpty()) ""
-    else (list.filter { it.containsLanguages(language) }.joinToString(",") { it.name })
+    return if(list.filter { it.containsLanguage(language) }.isNullOrEmpty()) ""
+    else (list.filter { it.containsLanguage(language) }.joinToString(",") { it.name })
 }
 
 

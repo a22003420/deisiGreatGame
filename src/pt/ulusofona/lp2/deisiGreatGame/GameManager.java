@@ -590,7 +590,7 @@ public class GameManager {
         FileWriter filewriter = null;
 
         LocalDateTime date = LocalDateTime.now();
-        DateTimeFormatter dateFormat =   DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
         String gameData = getGameDataToSaveOnFile();
         if(gameData.isEmpty()){
@@ -752,6 +752,14 @@ public class GameManager {
     private String getGameDataToSaveOnFile(){
 
         int bordSize = getBoardSize();
+        if(bordSize==0){
+            return "";
+        }
+
+        if(programmers==null || programmers.isEmpty()){
+            return "";
+        }
+
         int nrPlayers = programmers.size();
 
         if(!isValidNrPlayers(nrPlayers) || !isValidBoardSize(bordSize, nrPlayers) || getTitlesOnBoardDataToSaveOnFile().isEmpty()){
@@ -766,7 +774,7 @@ public class GameManager {
      */
     private String getTitlesOnBoardDataToSaveOnFile()
     {
-        if(tiles==null || tiles.size()==0){
+        if(tiles==null || tiles.isEmpty()){
             return "";
         }
 
@@ -776,7 +784,7 @@ public class GameManager {
         int position = 0;
         for (Tile tile: tiles)
         {
-            if(tile!=null && tile.getTitle()!=null) {
+            if(tile!=null) {
                 sblAbyssAndTools.append(tile);
                 sblAbyssAndTools.append("#");
                 sblAbyssAndTools.append(position);
