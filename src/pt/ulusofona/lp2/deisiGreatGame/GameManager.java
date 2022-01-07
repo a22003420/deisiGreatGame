@@ -558,6 +558,11 @@ public class GameManager {
     public boolean loadGame(File file) {
 
         try {
+
+            if (file.length() == 0){
+                return false;
+            }
+
             Scanner reader = new Scanner(file);
             while(reader.hasNext()) {
                 String line = reader.next();
@@ -580,26 +585,27 @@ public class GameManager {
         LocalDateTime date = LocalDateTime.now();
         DateTimeFormatter dateFormat =   DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
+        String gameData = getGameDataToSaveOnFile();
+        if(gameData.isEmpty()){
+            return false;
+        }
+
+        String playersData = getProgrammersDataToSaveOnFile();
+        if(playersData.isEmpty()){
+            return false;
+        }
+
         try {
 
             filewriter = new FileWriter(file);
             //Writing date time to the beginning of file
             filewriter.write(date.format(dateFormat));
 
-            String gameData = getGameDataToSaveOnFile();
-            if(gameData.isEmpty()){
-                return false;
-            }
             //Begin Game Data
             filewriter.write("\n#BEGIN GAME DATA [Board Size]§[Nr of Turns]§[0 - Tools and 1 - Abyss]\n");
             filewriter.write(getGameDataToSaveOnFile());
             filewriter.write("\n#END GAME DATA");
             //End Game Data
-
-            String playersData = getProgrammersDataToSaveOnFile();
-            if(playersData.isEmpty()){
-                return false;
-            }
 
             //Begin Player Data
             filewriter.write("\n#BEGIN PLAYERS DATA\n");
@@ -740,6 +746,9 @@ public class GameManager {
 
     //###### TO USE IN FILE
 
+    /*
+
+     */
     private String getGameDataToSaveOnFile(){
 
         int bordSize = getBoardSize();
@@ -752,9 +761,12 @@ public class GameManager {
         return getBoardSize() + "§" + getNrTurns() + "§" + getTitlesOnBoardDataToSaveOnFile();
     }
 
+    /*
+
+     */
     private String getTitlesOnBoardDataToSaveOnFile()
     {
-        if(tiles.isEmpty()){
+        if(tiles==null || tiles.size()==0){
             return "";
         }
 
@@ -764,7 +776,7 @@ public class GameManager {
         int position = 0;
         for (Tile tile: tiles)
         {
-            if(tile.getTitle()!=null) {
+            if(tile!=null && tile.getTitle()!=null) {
                 sblAbyssAndTools.append(tile);
                 sblAbyssAndTools.append("#");
                 sblAbyssAndTools.append(position);
@@ -779,9 +791,12 @@ public class GameManager {
         return sblAbyssAndTools.toString();
     }
 
+    /*
+
+     */
     private String getProgrammersDataToSaveOnFile()
     {
-        if(programmers.isEmpty()){
+        if(programmers==null || programmers.isEmpty()){
             return "";
         }
 
@@ -790,6 +805,11 @@ public class GameManager {
         //get Abyss or Tool Factory Tiles on board
         for (Programmer programmer: programmers)
         {
+            String programmerData = programmer.getProgrammerDataToSaveOnFile();
+            if(programmerData.isEmpty()){
+                return "";
+            }
+
             sblPlayers.append(programmer.getProgrammerDataToSaveOnFile());
             sblPlayers.append("§");
         }

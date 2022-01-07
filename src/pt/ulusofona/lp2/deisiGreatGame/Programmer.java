@@ -356,6 +356,11 @@ public class Programmer {
     <id> | <nome> | <position> | <tools> | <languages> | <status>
      */
     public String getProgrammerDataToSaveOnFile(){
+
+        if(languages==null || languages.isEmpty()){
+            return "";
+        }
+
         return id + ";" + name + ";" + getColor() + ";" + getLanguagesDataToSaveInFile() + ";" +
                 getToolsDataToSaveInFile() + ";" + isLocked() + ";" + showStatus() + ";" +
                 getPositionsDataToSaveInFile();
@@ -420,7 +425,7 @@ public class Programmer {
     }
 
     /*
-    Create string for Programmer tools Id to be used on file
+    Create string for Programmer tools ID to be used on file
      */
     private String getToolsDataToSaveInFile(){
 
