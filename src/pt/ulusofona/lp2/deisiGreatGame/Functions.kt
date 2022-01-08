@@ -121,7 +121,7 @@ Post Abyss on Tile
  */
 fun postAbyss(gameManager: GameManager, type: Int, position: Int): String {
     var tile = gameManager.getTile(position)
-    return if (tile.title == "Casa Vazia") {
+    return if (tile.title == null) {
         //Initialize all Abyss for the Game
         val abyssFactory = AbyssSingletonFactory.getInstance()
         tile = abyssFactory.getAbyss(type)

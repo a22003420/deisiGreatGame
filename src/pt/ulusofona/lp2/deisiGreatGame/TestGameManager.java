@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import static pt.ulusofona.lp2.deisiGreatGame.FunctionsKt.getMostUsedPositions;
+import static pt.ulusofona.lp2.deisiGreatGame.FunctionsKt.postAbyss;
 
 public class TestGameManager{
 
@@ -66,6 +67,8 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_ID, 2, game.getCurrentPlayerID());
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 2, (int) currentPlayer.currentPosition());
         reactToTitle(game);
+
+        String result = postAbyss(game, 1, 1);
 
         String xx = getMostUsedPositions(game.getProgrammers(true), 2);
     }
