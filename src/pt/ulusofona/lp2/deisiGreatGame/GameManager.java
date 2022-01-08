@@ -1,7 +1,5 @@
 package pt.ulusofona.lp2.deisiGreatGame;
 //imports
-
-import com.google.gson.Gson;
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
@@ -13,7 +11,6 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Scanner;
 import java.util.stream.Collectors;
 
 /*
@@ -802,12 +799,6 @@ public class GameManager {
         }
 
         return true;
-
-        /* JSON - NOT IMPLEMENTED
-        GameManager savedGame = new GameManager();
-        Gson gson = new Gson();
-        savedGame= gson.fromJson(line,GameManager.class);
-         */
     }
 
     /*
@@ -856,15 +847,6 @@ public class GameManager {
             filewriter.write(playersData);
             filewriter.write("\n#END PLAYERS DATA");
             //Ends Player Data
-
-            /*
-            //JSON
-            filewriter = new FileWriter(file);
-            //Convert Object GameManager to Json
-            String jSonGameManager = new Gson().toJson(this);;
-            //Write to file
-            filewriter.write(jSonGameManager);
-             */
 
             //Closing the stream
             filewriter.close();
