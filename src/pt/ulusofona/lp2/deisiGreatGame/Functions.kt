@@ -131,10 +131,12 @@ Post Abyss on Tile
  */
 fun postAbyss(gameManager: GameManager, type: Int, position: Int): String {
     var tile = gameManager.getTile(position)
+    var tiles = gameManager.tiles;
+
     return if (tile.title == null) {
         //Initialize all Abyss for the Game
         val abyssFactory = AbyssSingletonFactory.getInstance()
-        tile = abyssFactory.getAbyss(type)
+        tiles[position] = abyssFactory.getAbyss(type)
         "OK"
     } else {
         "Position is occupied"
