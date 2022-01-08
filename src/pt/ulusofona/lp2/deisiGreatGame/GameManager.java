@@ -232,8 +232,6 @@ public class GameManager {
         }
     }
 
-
-
     /*
     Get Tile title for a given position
      */
@@ -591,22 +589,29 @@ public class GameManager {
                 return false;
             }
 
-            Integer savedBoardSize=0;
+            String savedBoardSizeS = gameDataArr[0];
+            if(savedBoardSizeS.isEmpty()){
+                return false;
+            }
+
+            int savedBoardSize;
             try {
-                savedBoardSize = Integer.parseInt(gameDataArr[0]);
+                savedBoardSize = Integer.parseInt(savedBoardSizeS);
             } catch (Exception e) {
                 return false;
             }
-
-            /*
             if(savedBoardSize==0){
                 return false;
             }
-             */
 
-            Integer nrTurns;
+            String nrTurnsS = gameDataArr[1];
+            if(nrTurnsS.isEmpty()){
+                return false;
+            }
+
+            int nrTurns;
             try {
-                nrTurns = Integer.parseInt(gameDataArr[1]);
+                nrTurns = Integer.parseInt(nrTurnsS);
             } catch (Exception e) {
                 return false;
             }
@@ -617,7 +622,7 @@ public class GameManager {
             //line 4 returns: board tiles
             String tilesGameData = lines.get(4);
             String[] tilesGameDataArr = tilesGameData.split("\\|");
-            if(tilesGameDataArr.length != savedBoardSize+1){
+            if(tilesGameDataArr.length != savedBoardSize-1){
                 return false;
             }
 
@@ -625,9 +630,9 @@ public class GameManager {
 
             //create Empty Tile
             Tile emptyTile = getTileEmpty();
-            //Initialize all Abyss for the Game
+            //Abyss for the Game
             AbyssSingletonFactory abyssFactory = getAbyssSingletonFactory();
-            //Initialize all Tool Factory Types for the Game
+            //Tool Factory Types for the Game
             ToolFactorySingletonFactory toolFactoryFactory = getToolFactorySingletonFactory();
 
             //fetch individual tiles: Type;SubType;Position
@@ -688,7 +693,7 @@ public class GameManager {
             //line 7 returns: programmers data
 
             String programmersGameData = lines.get(7);
-            String[] programmersGameDataArr = tilesGameData.split("\\|");
+            String[] programmersGameDataArr = programmersGameData.split("\\|");
             int nrProgrammers = programmersGameDataArr.length;
 
             //validate nr programmers
@@ -701,6 +706,12 @@ public class GameManager {
                 return false;
             }
 
+            //list of programmers to load
+            ArrayList<Programmer> savedProgrammers = new ArrayList<>();
+
+            //Tool singleton factory
+            ToolSingletonFactory toolFactory = ToolSingletonFactory.getInstance();
+
             //fetch individual programmer data:
             for (String programmer: programmersGameDataArr)
             {
@@ -710,6 +721,65 @@ public class GameManager {
                 if(programmerArr.length!=8){
                     return false;
                 }
+
+                //#######
+                //validate Programmer Id
+                int savedProgrammerId;
+                try {
+                    savedProgrammerId = Integer.parseInt(programmerArr[0]);
+                } catch (Exception e) {
+                    return false;
+                }
+                if(savedProgrammerId==0){
+                    return false;
+                }
+
+                //#########
+                //saved programmer name
+                String programmerName = programmerArr[1];
+
+                //#######
+                //saved programmer languages
+                String savedLanguages = programmerArr[3];
+                if(savedLanguages.length()==0){
+                    return false;
+                }
+                String replaceString=savedLanguages.replace('§',';');
+                List<String> languages = fillLanguageList(replaceString);
+                if(languages==null){
+                    return false;
+                }
+
+                //#######
+                //saved programmer color
+                String color = programmerArr[2];
+                if(isValidColorValue(color)){
+                    return false;
+                }
+                ProgrammerColor programmerColor = ProgrammerColor.valueOf(color.toUpperCase());
+
+                //create saved programmer
+                Programmer savedProgrammer = new Programmer(savedProgrammerId, programmerName, languages,
+                        programmerColor);
+
+                //set tools
+                String savedTools = programmerArr[4];
+                if(savedTools.length()>0) {
+                    List<String> savedProgrammerTools = new ArrayList<>();
+                    String[] savedProgrammerToolArr = programmerArr[4].split("§");
+                    for (String toolID : savedProgrammerToolArr) {
+                        int programmerSavedTool = Integer.parseInt(toolID);
+                        savedProgrammer.addTool(toolFactory.getTool(programmerSavedTool));
+                    }
+                }
+                savedProgrammer.unlock();
+                savedProgrammer.inGame();
+
+                ArrayList<Integer> positions = new ArrayList<>();
+                positions.add(0);
+                savedProgrammer.setPositions(positions);
+
+                savedProgrammers.add(savedProgrammer);
             }
 
             //####### END GAME PROGRAMMERS
@@ -719,7 +789,10 @@ public class GameManager {
 
             //load saved game values
             this.totalNrTurns = nrTurns;
-            //this.programmers = savedGame.programmers;
+
+            //sort programmer by ID and set game players
+            setProgrammerList(savedProgrammers);
+
             this.tiles = tiles;
         }
         catch(FileNotFoundException e) {
@@ -730,11 +803,11 @@ public class GameManager {
 
         return true;
 
-            /* JSON - NOT IMPLEMENTED
-            GameManager savedGame = new GameManager();
-            Gson gson = new Gson();
-            savedGame= gson.fromJson(line,GameManager.class);
-             */
+        /* JSON - NOT IMPLEMENTED
+        GameManager savedGame = new GameManager();
+        Gson gson = new Gson();
+        savedGame= gson.fromJson(line,GameManager.class);
+         */
     }
 
     /*

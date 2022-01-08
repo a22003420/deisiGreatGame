@@ -158,6 +158,13 @@ public class Programmer {
         return languages.size();
     }
 
+    /*
+    Updates Programmer positions on load game
+     */
+    public void setPositions(ArrayList<Integer> positionsOnBoard){
+        this.positionsOnBoard = positionsOnBoard;
+    }
+
     //#################
     //BEGIN METHODS: PROGRAMMER MOVE
 
