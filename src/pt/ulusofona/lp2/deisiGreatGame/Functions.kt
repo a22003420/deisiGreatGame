@@ -17,8 +17,8 @@ fun getCommand(gameManager: GameManager, args: List<String>): String? {
         "PLAYER" -> getPlayer(list, args[1])
         "PLAYERS_BY_LANGUAGE" -> getPlayersByLanguage(list, args[1])
         "POLYGLOTS" -> getPolyglots(list)
-        "MOST_USED_POSITIONS" -> getMostUsedPositions(list,1)
-        "MOST_USED_ABYSSES" -> getMostUsedAbysses(list, tiles, 1)
+        "MOST_USED_POSITIONS" -> getMostUsedPositions(list, args[1].toInt())
+        "MOST_USED_ABYSSES" -> getMostUsedAbysses(list, tiles, args[1].toInt())
         else -> null
     }
 }

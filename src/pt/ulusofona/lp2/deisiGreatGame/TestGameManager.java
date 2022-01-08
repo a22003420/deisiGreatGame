@@ -68,9 +68,23 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 2, (int) currentPlayer.currentPosition());
         reactToTitle(game);
 
-        String result = postAbyss(game, 1, 1);
+        nrPositionsToMove =2;
+        currentPlayer = game.getCurrentPlayer();
+        move(game, nrPositionsToMove);
+        assertEquals(CURRENT_PLAYER_ID, 23, game.getCurrentPlayerID());
+        assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 3, (int) currentPlayer.currentPosition());
+        reactToTitle(game);
 
-        String xx = getMostUsedPositions(game.getProgrammers(true), 2);
+        nrPositionsToMove =1;
+        currentPlayer = game.getCurrentPlayer();
+        move(game, nrPositionsToMove);
+        assertEquals(CURRENT_PLAYER_ID, 2, game.getCurrentPlayerID());
+        assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 3, (int) currentPlayer.currentPosition());
+        reactToTitle(game);
+
+        //String result = postAbyss(game, 1, 1);
+
+        assertEquals("2:3\n2:1", getMostUsedPositions(game.getProgrammers(true), 2));
     }
 
     /*
