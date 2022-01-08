@@ -540,6 +540,13 @@ public class GameManager {
     //###########
 
     /*
+    Returns all Tiles
+     */
+    public ArrayList<Tile> getTiles(){
+        return tiles;
+    }
+
+    /*
     Returns title in a given position
     */
     public Tile getTile(int position){
@@ -920,8 +927,8 @@ public class GameManager {
     //Factory
 
     /*
-        Returns a singleton instance of Tool Factory
-     */
+    Returns a singleton instance of Tool Factory
+    */
     private ToolFactorySingletonFactory getToolFactorySingletonFactory(){
         return ToolFactorySingletonFactory.getInstance();
     }
