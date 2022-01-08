@@ -565,11 +565,12 @@ public class GameManager {
     */
     public boolean loadGame(File file) {
 
-        try {
+        //check file
+        if (file.length() == 0 || file == null){
+            return false;
+        }
 
-            if (file.length() == 0){
-                return false;
-            }
+        try {
 
             //fetch all lines in file
             List<String> lines = Files.readAllLines(Paths.get(file.getPath()));
@@ -586,6 +587,7 @@ public class GameManager {
                 return false;
             }
 
+            //validate board size
             String savedBoardSizeS = gameDataArr[0];
             if(savedBoardSizeS.isEmpty()){
                 return false;
@@ -619,7 +621,7 @@ public class GameManager {
             //line 4 returns: board tiles
             String tilesGameData = lines.get(4);
             String[] tilesGameDataArr = tilesGameData.split("\\|");
-            if(tilesGameDataArr.length != savedBoardSize-1){
+            if(tilesGameDataArr.length != savedBoardSize+1){
                 return false;
             }
 
@@ -635,7 +637,7 @@ public class GameManager {
             //fetch individual tiles: Type;SubType;Position
             for (String tile: tilesGameDataArr)
             {
-                if(tile.isEmpty()){
+                if(tile.trim().isEmpty()){
                     tiles.add(emptyTile);
                     continue;
                 }
@@ -703,24 +705,23 @@ public class GameManager {
                 return false;
             }
 
-            //list of programmers to load
+            //list of saved programmers to load
             ArrayList<Programmer> savedProgrammers = new ArrayList<>();
 
-            //Tool singleton factory
+            //Tool singleton factory for add tool to saved programmer
             ToolSingletonFactory toolFactory = ToolSingletonFactory.getInstance();
 
             //fetch individual programmer data:
             for (String programmer: programmersGameDataArr)
             {
-                String[] programmerArr = programmer.split(";");
-
                 //[Id];[Name];[Color];[Languages];[Tools];[Lock];[Status];[Position]
+
+                String[] programmerArr = programmer.split(";");
                 if(programmerArr.length!=8){
                     return false;
                 }
 
-                //#######
-                //validate Programmer Id
+                //### begin saved Programmer Id
                 int savedProgrammerId;
                 try {
                     savedProgrammerId = Integer.parseInt(programmerArr[0]);
@@ -730,36 +731,42 @@ public class GameManager {
                 if(savedProgrammerId==0){
                     return false;
                 }
+                //### end saved Programmer Id
 
-                //#########
-                //saved programmer name
+                //### begin saved programmer name
                 String programmerName = programmerArr[1];
+                if(programmerName.length()==0){
+                    return false;
+                }
+                //### end saved programmer name
 
-                //#######
-                //saved programmer languages
+                //### begin saved programmer languages
                 String savedLanguages = programmerArr[3];
                 if(savedLanguages.length()==0){
                     return false;
                 }
+                //replace in string deliminator § by ; to reuse method
                 String replaceString=savedLanguages.replace('§',';');
+                //fill languages
                 List<String> languages = fillLanguageList(replaceString);
                 if(languages==null){
                     return false;
                 }
+                //### end saved programmer languages
 
-                //#######
-                //saved programmer color
+                //### begin saved programmer color
                 String color = programmerArr[2];
                 if(isValidColorValue(color)){
                     return false;
                 }
                 ProgrammerColor programmerColor = ProgrammerColor.valueOf(color.toUpperCase());
+                //### end saved programmer color
 
                 //create saved programmer
                 Programmer savedProgrammer = new Programmer(savedProgrammerId, programmerName, languages,
                         programmerColor);
 
-                //set tools
+                //### Begin Saved Programmer Tools
                 String savedTools = programmerArr[4];
                 if(savedTools.length()>0) {
                     List<String> savedProgrammerTools = new ArrayList<>();
@@ -769,13 +776,50 @@ public class GameManager {
                         savedProgrammer.addTool(toolFactory.getTool(programmerSavedTool));
                     }
                 }
-                savedProgrammer.unlock();
-                savedProgrammer.inGame();
+                //### End Saved Programmer Tools
 
-                ArrayList<Integer> positions = new ArrayList<>();
-                positions.add(0);
-                savedProgrammer.setPositions(positions);
+                //### Begin Saved Programmer Lock
+                String savedProgrammerLock = programmerArr[5];
+                if(savedProgrammerLock.isEmpty()){
+                    return false;
+                }
+                switch (savedProgrammerLock)
+                {
+                    case "true":
+                        savedProgrammer.lock();
+                        break;
+                    case "false":
+                        savedProgrammer.unlock();
+                        break;
+                    default:
+                        return false;
+                }
+                //### End Saved Programmer Lock
 
+                //### Begin Saved Programmer Status
+                String savedProgrammerStatus = programmerArr[6];
+                if(savedProgrammerStatus.isEmpty()){
+                    return false;
+                }
+                switch (savedProgrammerStatus)
+                {
+                    case "Derrotado":
+                        savedProgrammer.gameOver();
+                        break;
+                }
+                //### End Saved Programmer Status
+
+                //### Begin Saved Programmer Positions
+                String savedProgrammerPositions = programmerArr[7];
+                String[] positions = savedProgrammerPositions.split("§");
+                ArrayList<Integer> programmerPositions = new ArrayList<>();
+                for (String position: positions){
+                    programmerPositions.add(Integer.parseInt(position));
+                }
+                savedProgrammer.setPositions(programmerPositions);
+                //### End Saved Programmer Positions
+
+                //add saved programmer to saved programmer list
                 savedProgrammers.add(savedProgrammer);
             }
 
@@ -805,6 +849,11 @@ public class GameManager {
     save file game
     */
     public boolean saveGame(File file){
+
+        //check file
+        if(file == null || file.getName().length()==0){
+            return false;
+        }
 
         FileWriter filewriter = null;
 
@@ -875,16 +924,27 @@ public class GameManager {
     //PRIVATE METHODS
     //################
 
+    //Factory
+
+    /*
+        Returns a singleton instance of Tool Factory
+     */
     private ToolFactorySingletonFactory getToolFactorySingletonFactory() {
         ToolFactorySingletonFactory toolFactoryFactory = ToolFactorySingletonFactory.getInstance();
         return toolFactoryFactory;
     }
 
+    /*
+    Returns a singleton instance of Abyss Factory
+     */
     private AbyssSingletonFactory getAbyssSingletonFactory() {
         AbyssSingletonFactory abyssFactory = AbyssSingletonFactory.getInstance();
         return abyssFactory;
     }
 
+    /*
+    Creates an empty title
+     */
     private Tile getTileEmpty() {
         Tile emptyTile = new Empty("Casa Vazia", "blank.png");
         return emptyTile;
@@ -1025,15 +1085,30 @@ public class GameManager {
 
         StringBuilder sblAbyssAndTools = new StringBuilder();
 
-        //get Abyss or Tool Factory Tiles on board
-        int position = 0;
+        //get Tiles on board
+        /*int position = 0;
+        int nrTilesOnString = 0;
+         */
         for (Tile tile: tiles)
         {
             if(tile!=null) {
                 sblAbyssAndTools.append(tile.stringToSaveOnFile());
                 sblAbyssAndTools.append("|");
             }
+
+            /*
+            String[] nrTilesOnStringArr= sblAbyssAndTools.toString().split("\\|");
+            int counterArr = 0;
+            for (String check: nrTilesOnStringArr) {
+                if(!check.isEmpty()) {
+                    counterArr++;
+                }
+            }
+
             position++;
+            boolean numCheck = (position == counterArr);
+            String xxx = "check";
+             */
         }
 
         //remove right;

@@ -57,6 +57,6 @@ public class Empty extends Tile {
      */
     //@Override
     protected String stringToSaveOnFile(){
-        return "";
+        return " ";
     }
 }
