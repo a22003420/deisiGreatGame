@@ -53,5 +53,5 @@ public abstract class Abyss extends Tile
     Hack to identify on file type of abyss
      */
     @Override
-    protected String stringToSaveOnFile(){return 0 + "#" + id;};
+    protected String stringToSaveOnFile(){return 0 + ";" + id;};
 }

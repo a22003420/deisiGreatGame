@@ -76,6 +76,6 @@ public class ToolFactory extends Tile
     */
     @Override
     protected String stringToSaveOnFile(){
-        return 1 + "#" + toolTypeId;
+        return 1 + ";" + toolTypeId;
     }
 }

@@ -429,7 +429,7 @@ public class Programmer {
         StringBuilder strLanguages = new StringBuilder();
         for (String language : languages) {
             strLanguages.append(language);
-            strLanguages.append("#");
+            strLanguages.append("§");
         }
 
         //remove right#
@@ -449,7 +449,7 @@ public class Programmer {
             return "";
         }
 
-        return positionsOnBoard.stream().map(String::valueOf).collect(Collectors.joining("#"));
+        return positionsOnBoard.stream().map(String::valueOf).collect(Collectors.joining("§"));
     }
 
     /*
@@ -464,7 +464,7 @@ public class Programmer {
         StringBuilder userTools = new StringBuilder();
         for (Tool tool:tools) {
             userTools.append(tool.getId());
-            userTools.append("#");
+            userTools.append("§");
         }
 
         //remove right#

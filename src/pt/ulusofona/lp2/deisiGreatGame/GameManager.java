@@ -1,14 +1,19 @@
 package pt.ulusofona.lp2.deisiGreatGame;
 //imports
-import com.google.gson.Gson;
 
+import com.google.gson.Gson;
 import javax.swing.*;
 import java.awt.*;
-import java.io.*;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Scanner;
 import java.util.stream.Collectors;
 
 /*
@@ -54,7 +59,6 @@ public class GameManager {
     public void createInitialBoard(String[][] playerInfo, int worldSize) throws InvalidInitialBoardException{
         createInitialBoard(playerInfo, worldSize, null);
     }
-
 
     /*
     Creates initial board. includes: Empty, Tool Factory Tile and Abyss Tiles
@@ -158,7 +162,7 @@ public class GameManager {
         //Create and fill all tiles
         this.tiles = new ArrayList<>();
 
-        Tile emptyTile = new Empty("Casa Vazia", "blank.png");
+        Tile emptyTile = getTileEmpty();
         int tileRow;
         for (tileRow = 0; tileRow <= worldSize; tileRow++){
             tiles.add(emptyTile);
@@ -203,9 +207,9 @@ public class GameManager {
                 }
 
                 //Initialize all Abyss for the Game
-                AbyssSingletonFactory abyssFactory = AbyssSingletonFactory.getInstance();
+                AbyssSingletonFactory abyssFactory = getAbyssSingletonFactory();
                 //Initialize all Tool Factory Types for the Game
-                ToolFactorySingletonFactory toolFactoryFactory = ToolFactorySingletonFactory.getInstance();
+                ToolFactorySingletonFactory toolFactoryFactory = getToolFactorySingletonFactory();
 
                 //#######
                 //validate Abyss Type and Tool Type
@@ -227,6 +231,8 @@ public class GameManager {
             }
         }
     }
+
+
 
     /*
     Get Tile title for a given position
@@ -570,35 +576,165 @@ public class GameManager {
                 return false;
             }
 
-            Scanner reader = new Scanner(file);
-            String line="";
-            while(reader.hasNextLine()) {
-                line = line + " " + reader.next();
+            //fetch all lines in file
+            List<String> lines = Files.readAllLines(Paths.get(file.getPath()));
+            if(lines.size()!=9){
+                return false;
             }
 
-            //load saved game
-            GameManager savedGame = new GameManager();
-            Gson gson = new Gson();
-            savedGame= gson.fromJson(line,GameManager.class);
+            //####### BEGIN GAME DATA
 
-            List<Tile> tilesOnGame = this.tiles;
+            //line 1 returns: nr of tiles and nr of turns
+            String lineGameData = lines.get(1);
+            String[] gameDataArr = lineGameData.split("\\|");
+            if(gameDataArr.length != 2){
+                return false;
+            }
+
+            Integer savedBoardSize=0;
+            try {
+                savedBoardSize = Integer.parseInt(gameDataArr[0]);
+            } catch (Exception e) {
+                return false;
+            }
+
+            /*
+            if(savedBoardSize==0){
+                return false;
+            }
+             */
+
+            Integer nrTurns;
+            try {
+                nrTurns = Integer.parseInt(gameDataArr[1]);
+            } catch (Exception e) {
+                return false;
+            }
+            //######## END GAME DATA
+
+            //####### BEGIN GAME DATA TILES
+
+            //line 4 returns: board tiles
+            String tilesGameData = lines.get(4);
+            String[] tilesGameDataArr = tilesGameData.split("\\|");
+            if(tilesGameDataArr.length != savedBoardSize+1){
+                return false;
+            }
+
+            ArrayList<Tile> tiles = new ArrayList<>();
+
+            //create Empty Tile
+            Tile emptyTile = getTileEmpty();
+            //Initialize all Abyss for the Game
+            AbyssSingletonFactory abyssFactory = getAbyssSingletonFactory();
+            //Initialize all Tool Factory Types for the Game
+            ToolFactorySingletonFactory toolFactoryFactory = getToolFactorySingletonFactory();
+
+            //fetch individual tiles: Type;SubType;Position
+            for (String tile: tilesGameDataArr)
+            {
+                if(tile.isEmpty()){
+                    tiles.add(emptyTile);
+                    continue;
+                }
+
+                //[Type;SubType
+                String[] tileDataArr = tile.split(";");
+
+                //#######
+                //validate Object Type
+                int typeObjectId; //0 - Abyss; 1 - Tool
+                try {
+                    typeObjectId = Integer.parseInt(tileDataArr[0]);
+                } catch (Exception e) {
+                    return false;
+                }
+                //only 0 - Abyss or 1 - Tool are allowed
+                if (typeObjectId < 0 || typeObjectId > 1) {
+                    return false;
+                }
+
+                //#######
+                //validate Object Abyss Type and Tool Type is numeric
+                int subTypeObject;
+                try {
+                    subTypeObject = Integer.parseInt(tileDataArr[1]);
+                } catch (Exception e) {
+                    return false;
+                }
+
+                //#######
+                //validate Abyss Type and Tool Type
+                //fills tile
+                switch (typeObjectId) {
+                    case 0 -> { //only Abyss Type [0-9] are allowed
+                        if (subTypeObject < 0 || subTypeObject > 9) {
+                            return false;
+                        }
+                        tiles.add(abyssFactory.getAbyss(subTypeObject));
+                    }
+                    case 1 -> { //only Tool Type [0-5] are allowed
+                        if (subTypeObject < 0 || subTypeObject > 5) {
+                            return false;
+                        }
+                        tiles.add(toolFactoryFactory.getToolFactory(subTypeObject));
+                    }
+                }
+            }
+            //####### END GAME DATA TILES
+
+            //####### BEGIN GAME PROGRAMMERS
+
+            //line 7 returns: programmers data
+
+            String programmersGameData = lines.get(7);
+            String[] programmersGameDataArr = tilesGameData.split("\\|");
+            int nrProgrammers = programmersGameDataArr.length;
+
+            //validate nr programmers
+            if(!isValidNrPlayers(nrProgrammers)){
+                return false;
+            }
+
+            //validate board size
+            if(!isValidBoardSize(savedBoardSize, nrProgrammers)){
+                return false;
+            }
+
+            //fetch individual programmer data:
+            for (String programmer: programmersGameDataArr)
+            {
+                String[] programmerArr = programmer.split(";");
+
+                //[Id];[Name];[Color];[Languages];[Tools];[Lock];[Status];[Position]
+                if(programmerArr.length!=8){
+                    return false;
+                }
+            }
+
+            //####### END GAME PROGRAMMERS
 
             //reset existing game
             reiniciar();
 
             //load saved game values
-            this.totalNrTurns = savedGame.totalNrTurns;
-            this.programmers = savedGame.programmers;
-
-            List<Tile> tilesSaved = savedGame.tiles;
-
-            String zzz = "1234";
+            this.totalNrTurns = nrTurns;
+            //this.programmers = savedGame.programmers;
+            this.tiles = tiles;
         }
         catch(FileNotFoundException e) {
+            return false;
+        } catch (IOException e) {
             return false;
         }
 
         return true;
+
+            /* JSON - NOT IMPLEMENTED
+            GameManager savedGame = new GameManager();
+            Gson gson = new Gson();
+            savedGame= gson.fromJson(line,GameManager.class);
+             */
     }
 
     /*
@@ -608,11 +744,19 @@ public class GameManager {
 
         FileWriter filewriter = null;
 
+        //final check for game data
         String gameData = getGameDataToSaveOnFile();
         if(gameData.isEmpty()){
             return false;
         }
 
+        //final check for tiles data
+        String tilesData = getTitlesOnBoardDataToSaveOnFile();
+        if(tilesData.isEmpty()){
+            return false;
+        }
+
+        //final check for programmers data
         String playersData = getProgrammersDataToSaveOnFile();
         if(playersData.isEmpty()){
             return false;
@@ -623,14 +767,20 @@ public class GameManager {
             filewriter = new FileWriter(file);
 
             //Begin Game Data
-            filewriter.write("\n#BEGIN GAME DATA [Board Size]§[Nr of Turns]§[0 - Tools and 1 - Abyss]\n");
-            filewriter.write(getGameDataToSaveOnFile());
+            filewriter.write("#BEGIN GAME DATA [Board Size];[Nr of Turns]\n");
+            filewriter.write(gameData);
             filewriter.write("\n#END GAME DATA");
             //End Game Data
 
+            //Begin Game Tiles Data
+            filewriter.write("\n#BEGIN GAME TILES DATA [[] - Empty | 0 - Tools | 1 - Abyss]\n");
+            filewriter.write(tilesData);
+            filewriter.write("\n#END GAME TILES DATA");
+            //End Game Tiles Data
+
             //Begin Player Data
             filewriter.write("\n#BEGIN PLAYERS DATA\n");
-            filewriter.write(getProgrammersDataToSaveOnFile());
+            filewriter.write(playersData);
             filewriter.write("\n#END PLAYERS DATA");
             //Ends Player Data
 
@@ -669,6 +819,21 @@ public class GameManager {
     //################
     //PRIVATE METHODS
     //################
+
+    private ToolFactorySingletonFactory getToolFactorySingletonFactory() {
+        ToolFactorySingletonFactory toolFactoryFactory = ToolFactorySingletonFactory.getInstance();
+        return toolFactoryFactory;
+    }
+
+    private AbyssSingletonFactory getAbyssSingletonFactory() {
+        AbyssSingletonFactory abyssFactory = AbyssSingletonFactory.getInstance();
+        return abyssFactory;
+    }
+
+    private Tile getTileEmpty() {
+        Tile emptyTile = new Empty("Casa Vazia", "blank.png");
+        return emptyTile;
+    }
 
     /*
     Reset current game
@@ -787,11 +952,11 @@ public class GameManager {
         //get number of players
         int nrPlayers = programmers.size();
 
-        if(!isValidNrPlayers(nrPlayers) || !isValidBoardSize(bordSize, nrPlayers) || getTitlesOnBoardDataToSaveOnFile().isEmpty()){
+        if(!isValidNrPlayers(nrPlayers) || !isValidBoardSize(bordSize, nrPlayers)){
             return "";
         }
 
-        return getBoardSize() + "§" + getNrTurns() + "§" + getTitlesOnBoardDataToSaveOnFile();
+        return getBoardSize() + "|" + getNrTurns();
     }
 
     /*
@@ -810,11 +975,8 @@ public class GameManager {
         for (Tile tile: tiles)
         {
             if(tile!=null) {
-                String xxx = tile.stringToSaveOnFile();
                 sblAbyssAndTools.append(tile.stringToSaveOnFile());
-                sblAbyssAndTools.append("#");
-                sblAbyssAndTools.append(position);
-                sblAbyssAndTools.append(";");
+                sblAbyssAndTools.append("|");
             }
             position++;
         }
@@ -846,8 +1008,8 @@ public class GameManager {
                 return "";
             }
 
-            sblPlayers.append(programmer.getProgrammerDataToSaveOnFile());
-            sblPlayers.append("§");
+            sblPlayers.append(programmerData);
+            sblPlayers.append("|");
         }
 
         //remove right;
