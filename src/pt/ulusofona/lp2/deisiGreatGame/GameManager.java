@@ -1,14 +1,14 @@
 package pt.ulusofona.lp2.deisiGreatGame;
 //imports
+import com.google.gson.Gson;
+
 import javax.swing.*;
 import java.awt.*;
 import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Comparator;
+import java.util.*;
 import java.util.List;
-import java.util.Scanner;
 import java.util.stream.Collectors;
 
 /*
@@ -571,9 +571,15 @@ public class GameManager {
             }
 
             Scanner reader = new Scanner(file);
-            while(reader.hasNext()) {
-                String line = reader.next();
+            String line="";
+            while(reader.hasNextLine()) {
+                line = line + " " + reader.next();
             }
+
+            GameManager gm = new GameManager();
+            Gson gson = new Gson();
+            gm= gson.fromJson(line,GameManager.class);
+            int nrTurns = gm.getNrTurns();
         }
         catch(FileNotFoundException e) {
             return false;
@@ -589,9 +595,6 @@ public class GameManager {
 
         FileWriter filewriter = null;
 
-        LocalDateTime date = LocalDateTime.now();
-        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-
         String gameData = getGameDataToSaveOnFile();
         if(gameData.isEmpty()){
             return false;
@@ -604,22 +607,12 @@ public class GameManager {
 
         try {
 
+            //JSON
             filewriter = new FileWriter(file);
-            //Writing date time to the beginning of file
-            filewriter.write(date.format(dateFormat));
-
-            //Begin Game Data
-            filewriter.write("\n#BEGIN GAME DATA [Board Size]§[Nr of Turns]§[0 - Tools and 1 - Abyss]\n");
-            filewriter.write(getGameDataToSaveOnFile());
-            filewriter.write("\n#END GAME DATA");
-            //End Game Data
-
-            //Begin Player Data
-            filewriter.write("\n#BEGIN PLAYERS DATA\n");
-            filewriter.write(getProgrammersDataToSaveOnFile());
-            filewriter.write("\n#END PLAYERS DATA");
-            //Ends Player Data
-
+            //Convert Object GameManager to Json
+            String jSonGameManager = new Gson().toJson(this);;
+            //Write to file
+            filewriter.write(jSonGameManager);
             //Closing the stream
             filewriter.close();
         }
