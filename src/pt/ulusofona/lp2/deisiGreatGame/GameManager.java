@@ -3,7 +3,6 @@ package pt.ulusofona.lp2.deisiGreatGame;
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -474,7 +473,7 @@ public class GameManager {
         Programmer currentProgrammer = programmers.get(index);
         if(!currentProgrammer.inGame())
         {
-            for (Programmer progammer: programmers)
+            for (Programmer programmer: programmers)
             {
                 index ++;
                 if(index+1 > programmers.size())
@@ -566,7 +565,7 @@ public class GameManager {
     public boolean loadGame(File file) {
 
         //check file
-        if (file.length() == 0 || file == null){
+        if (file == null || file.length() == 0){
             return false;
         }
 
@@ -801,11 +800,8 @@ public class GameManager {
                 if(savedProgrammerStatus.isEmpty()){
                     return false;
                 }
-                switch (savedProgrammerStatus)
-                {
-                    case "Derrotado":
-                        savedProgrammer.gameOver();
-                        break;
+                if ("Derrotado".equals(savedProgrammerStatus)) {
+                    savedProgrammer.gameOver();
                 }
                 //### End Saved Programmer Status
 
@@ -835,10 +831,7 @@ public class GameManager {
             setProgrammerList(savedProgrammers);
 
             this.tiles = tiles;
-        }
-        catch(FileNotFoundException e) {
-            return false;
-        } catch (IOException e) {
+        } catch(IOException e) {
             return false;
         }
 
@@ -929,25 +922,22 @@ public class GameManager {
     /*
         Returns a singleton instance of Tool Factory
      */
-    private ToolFactorySingletonFactory getToolFactorySingletonFactory() {
-        ToolFactorySingletonFactory toolFactoryFactory = ToolFactorySingletonFactory.getInstance();
-        return toolFactoryFactory;
+    private ToolFactorySingletonFactory getToolFactorySingletonFactory(){
+        return ToolFactorySingletonFactory.getInstance();
     }
 
     /*
     Returns a singleton instance of Abyss Factory
      */
     private AbyssSingletonFactory getAbyssSingletonFactory() {
-        AbyssSingletonFactory abyssFactory = AbyssSingletonFactory.getInstance();
-        return abyssFactory;
+        return AbyssSingletonFactory.getInstance();
     }
 
     /*
     Creates an empty title
      */
     private Tile getTileEmpty() {
-        Tile emptyTile = new Empty("Casa Vazia", "blank.png");
-        return emptyTile;
+        return new Empty("Casa Vazia", "blank.png");
     }
 
     /*
@@ -1086,29 +1076,12 @@ public class GameManager {
         StringBuilder sblAbyssAndTools = new StringBuilder();
 
         //get Tiles on board
-        /*int position = 0;
-        int nrTilesOnString = 0;
-         */
         for (Tile tile: tiles)
         {
             if(tile!=null) {
                 sblAbyssAndTools.append(tile.stringToSaveOnFile());
                 sblAbyssAndTools.append("|");
             }
-
-            /*
-            String[] nrTilesOnStringArr= sblAbyssAndTools.toString().split("\\|");
-            int counterArr = 0;
-            for (String check: nrTilesOnStringArr) {
-                if(!check.isEmpty()) {
-                    counterArr++;
-                }
-            }
-
-            position++;
-            boolean numCheck = (position == counterArr);
-            String xxx = "check";
-             */
         }
 
         //remove right;
