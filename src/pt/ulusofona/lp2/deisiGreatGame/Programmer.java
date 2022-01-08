@@ -165,6 +165,13 @@ public class Programmer {
         this.positionsOnBoard = positionsOnBoard;
     }
 
+    /*
+    Returns Programmer positions on game
+     */
+    public ArrayList<Integer> getPositions(){
+        return positionsOnBoard;
+    }
+
     //#################
     //BEGIN METHODS: PROGRAMMER MOVE
 

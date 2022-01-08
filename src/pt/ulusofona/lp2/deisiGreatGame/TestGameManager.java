@@ -3,6 +3,7 @@ package pt.ulusofona.lp2.deisiGreatGame;
 import org.junit.Assert;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import static pt.ulusofona.lp2.deisiGreatGame.FunctionsKt.getMostUsedPositions;
 
 public class TestGameManager{
 
@@ -19,6 +20,54 @@ public class TestGameManager{
     }
     private boolean move(GameManager game, int nrPositionsToMove){
         return game.moveCurrentPlayer(nrPositionsToMove);
+    }
+
+
+
+    /*
+    Check game for two players, on first turn move to Abyss File Not Found
+    Set board size 26
+     */
+    @Test
+    public void getMostUsedPositionsKtl(){
+        GameManager game = getGameManager();
+        String[][] board = new String[2][4];
+        board[0][0] = "23";
+        board[0][1] = "B";
+        board[0][2] = "C#;Java";
+        board[0][3] = "PURPLE";
+        board[1][0] = "2";
+        board[1][1] = "A";
+        board[1][2] = "Pyton;TypeScript";
+        board[1][3] = "BROWN";
+
+        //Abyss
+        String[][] objects = new String[2][3];
+        //Abyss: File Not Found
+        objects[0][0] = "0";
+        objects[0][1] = "5";
+        objects[0][2] = "20";
+
+        try {
+            game.createInitialBoard(board, 26, objects);
+        }
+        catch (Exception ex) {
+            assertEquals("Invalid tile position", ex.getMessage());
+        }
+
+        Programmer currentPlayer;
+
+        //#####
+        //TURN TO ABYSS: Duplicated on Start
+
+        int nrPositionsToMove =1;
+        currentPlayer = game.getCurrentPlayer();
+        move(game, nrPositionsToMove);
+        assertEquals(CURRENT_PLAYER_ID, 2, game.getCurrentPlayerID());
+        assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 2, (int) currentPlayer.currentPosition());
+        reactToTitle(game);
+
+        String xx = getMostUsedPositions(game.getProgrammers(true), 2);
     }
 
     /*
