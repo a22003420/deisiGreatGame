@@ -1,7 +1,5 @@
 package pt.ulusofona.lp2.deisiGreatGame
 
-import java.util.ArrayList
-
 enum class CommandType{ GET, POST }
 
 fun selectCommand(type: CommandType) : (GameManager, List<String>) -> String? {
@@ -35,10 +33,10 @@ fun postCommand(gameManager: GameManager, args: List<String>): String? {
 fun router() : (CommandType) -> (GameManager, List<String>) -> String? = ::selectCommand
 
 /*
-
+Get player by name
  */
-fun getPlayer(list: List<Programmer>, name: String) : String {
-    val programmer = list.filter { name in it.name }
+fun getPlayer(programmers: List<Programmer>, name: String) : String {
+    val programmer = programmers.filter { name in it.name }
     if(programmer.isNotEmpty()) {
         programmer.forEach { return it.toString() }
     }
@@ -46,29 +44,29 @@ fun getPlayer(list: List<Programmer>, name: String) : String {
 }
 
 /*
-
+get players by language
  */
-fun getPlayersByLanguage(list: List<Programmer>, language: String) : String {
-    return if(list.filter { it.containsLanguage(language) }.isNullOrEmpty()) ""
-    else (list.filter { it.containsLanguage(language) }.joinToString(",") { it.name })
+fun getPlayersByLanguage(programmers: List<Programmer>, language: String) : String {
+    return if(programmers.filter { it.containsLanguage(language) }.isNullOrEmpty()) ""
+    else (programmers.filter { it.containsLanguage(language) }.joinToString(",") { it.name })
 }
 
 /*
-
+get most polyglot players
  */
-fun getPolyglots(list: List<Programmer>) : String {
-    val programmers = list.filter { programmer->programmer.numberOfLanguages() > 1 }
+fun getPolyglots(programmers: List<Programmer>) : String {
+    val programmers = programmers.filter { programmer->programmer.numberOfLanguages() > 1 }
             .sortedWith { p1, p2 -> p1.numberOfLanguages() - p2.numberOfLanguages() }
     return programmers.joinToString("\n","","") { "${it.getName()}:${it.numberOfLanguages()}" }
 }
 
 /*
-get Most Used Tile Positions
+get Most Tile hits
  */
-fun getMostUsedPositions(listProgrammer: List<Programmer>, max: Int) : String {
+fun getMostUsedPositions(programmers: List<Programmer>, max: Int) : String {
 
     //return all programmers positions in one list
-    val listPositions = mostUsedTiles(listProgrammer)
+    val listPositions = mostUsedTiles(programmers)
 
     //create Map to store position and number of ocurrences for each position
     val frequencyMap: MutableMap<Int, Int> = HashMap()
@@ -85,18 +83,16 @@ fun getMostUsedPositions(listProgrammer: List<Programmer>, max: Int) : String {
     return frequencyMap.toList()
         .sortedBy { (key, value) -> value }.reversed()
         .take(max)
-        .joinToString("\n", "", "") { "${it.first}:${it.second}" }
+        .joinToString("\n", "", "") { "${it.second}:${it.first}" }
 }
 
-fun getMostUsedAbysses(list: List<Programmer>, maximo: Int) : String {
-    /*
-    val positions =
-    list.sortedWith { c1, c2 -> c1.count - c2.count }
-        .reversed()
-        .take(maximo)
+/*
+get Most Abysses hits
+ */
+fun getMostUsedAbysses(programmers: List<Programmer>, maximo: Int) : String {
 
-    return positions.joinToString("\n", "", ""){ "${it.position}:${it.count}"}
-    */
+    //return all programmers positions in one list
+    val listPositions = mostUsedTiles(programmers)
 
     return "";
 }
@@ -104,19 +100,25 @@ fun getMostUsedAbysses(list: List<Programmer>, maximo: Int) : String {
 /*
 Helper function to return all programmers positions
  */
-private fun mostUsedTiles(listProgrammer: List<Programmer>): MutableList<Int> {
+private fun mostUsedTiles(programmers: List<Programmer>): MutableList<Int> {
     //list to store all programmers positions in game
     val listPositions = mutableListOf<Int>()
     //join all programmer positions in one list
-    listProgrammer.forEach { listPositions.addAll(it.positions) }
+    programmers.forEach { listPositions.addAll(it.positions) }
     return listPositions
 }
 
+/*
+Move programmer n tiles
+ */
 fun postMove(gameManager:GameManager, nrSpace: Int) : String {
     gameManager.moveCurrentPlayer(nrSpace)
     return gameManager.reactToAbyssOrTool() ?: "OK"
 }
 
+/*
+Post Abyss on Tile
+ */
 fun postAbyss(gameManager: GameManager, type: Int, position: Int): String {
     var tile = gameManager.getTile(position)
     return if (tile.title == "Casa Vazia") {
@@ -130,7 +132,4 @@ fun postAbyss(gameManager: GameManager, type: Int, position: Int): String {
 }
 
 fun main() {
-
-
-
 }
