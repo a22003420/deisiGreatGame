@@ -576,10 +576,23 @@ public class GameManager {
                 line = line + " " + reader.next();
             }
 
-            GameManager gm = new GameManager();
+            //load saved game
+            GameManager savedGame = new GameManager();
             Gson gson = new Gson();
-            gm= gson.fromJson(line,GameManager.class);
-            int nrTurns = gm.getNrTurns();
+            savedGame= gson.fromJson(line,GameManager.class);
+
+            List<Tile> tilesOnGame = this.tiles;
+
+            //reset existing game
+            reiniciar();
+
+            //load saved game values
+            this.totalNrTurns = savedGame.totalNrTurns;
+            this.programmers = savedGame.programmers;
+
+            List<Tile> tilesSaved = savedGame.tiles;
+
+            String zzz = "1234";
         }
         catch(FileNotFoundException e) {
             return false;
@@ -607,12 +620,29 @@ public class GameManager {
 
         try {
 
+            filewriter = new FileWriter(file);
+
+            //Begin Game Data
+            filewriter.write("\n#BEGIN GAME DATA [Board Size]§[Nr of Turns]§[0 - Tools and 1 - Abyss]\n");
+            filewriter.write(getGameDataToSaveOnFile());
+            filewriter.write("\n#END GAME DATA");
+            //End Game Data
+
+            //Begin Player Data
+            filewriter.write("\n#BEGIN PLAYERS DATA\n");
+            filewriter.write(getProgrammersDataToSaveOnFile());
+            filewriter.write("\n#END PLAYERS DATA");
+            //Ends Player Data
+
+            /*
             //JSON
             filewriter = new FileWriter(file);
             //Convert Object GameManager to Json
             String jSonGameManager = new Gson().toJson(this);;
             //Write to file
             filewriter.write(jSonGameManager);
+             */
+
             //Closing the stream
             filewriter.close();
         }
@@ -780,7 +810,8 @@ public class GameManager {
         for (Tile tile: tiles)
         {
             if(tile!=null) {
-                sblAbyssAndTools.append(tile);
+                String xxx = tile.stringToSaveOnFile();
+                sblAbyssAndTools.append(tile.stringToSaveOnFile());
                 sblAbyssAndTools.append("#");
                 sblAbyssAndTools.append(position);
                 sblAbyssAndTools.append(";");

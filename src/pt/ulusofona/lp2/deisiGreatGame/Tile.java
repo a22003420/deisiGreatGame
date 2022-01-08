@@ -27,4 +27,9 @@ public class Tile
     protected String reactToAbyssOrTool(List<Programmer> programmersInTile, Programmer programmer, int boardSize){
         return reactToAbyssOrTool(programmersInTile, programmer, boardSize);
     }
+
+    /*
+    Hack to identify on saved file empty tile
+    */
+    protected String stringToSaveOnFile(){return stringToSaveOnFile();}
 }

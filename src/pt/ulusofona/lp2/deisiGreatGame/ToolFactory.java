@@ -71,8 +71,11 @@ public class ToolFactory extends Tile
         return tool.reactToAbyssOrTool(programmers, currProgrammer, boardSize);
     }
 
+    /*
+    String Hack to save on file
+    */
     @Override
-    public String toString(){
+    protected String stringToSaveOnFile(){
         return 1 + "#" + toolTypeId;
     }
 }

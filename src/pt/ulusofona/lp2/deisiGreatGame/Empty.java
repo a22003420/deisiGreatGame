@@ -51,4 +51,12 @@ public class Empty extends Tile {
     protected String reactToAbyssOrTool(List<Programmer> programmers, Programmer programmer, int boardSize){
         return null;
     }
+
+    /*
+    String Hack to save on file
+     */
+    //@Override
+    protected String stringToSaveOnFile(){
+        return "";
+    }
 }

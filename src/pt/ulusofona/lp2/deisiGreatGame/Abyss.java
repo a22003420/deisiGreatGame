@@ -50,10 +50,8 @@ public abstract class Abyss extends Tile
     abstract protected String reactToAbyssOrTool(List<Programmer> programmersInTile, Programmer programmer, int boardSize);
 
     /*
-
+    Hack to identify on file type of abyss
      */
     @Override
-    public String toString(){
-        return 0 + "#" + id;
-    }
+    protected String stringToSaveOnFile(){return 0 + "#" + id;};
 }
