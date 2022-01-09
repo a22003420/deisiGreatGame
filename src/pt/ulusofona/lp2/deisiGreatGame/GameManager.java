@@ -507,7 +507,6 @@ public class GameManager {
         Programmer currentPlayer = getCurrentPlayer();
 
         //check if current player is locked
-        //if(getCurrentPlayer().isLocked() || !getCurrentPlayer().inGame()){
         if(currentPlayer.isLocked()){
             return false;
         }
