@@ -32,4 +32,9 @@ public class Tile
     Hack to identify on saved file empty tile
     */
     protected String stringToSaveOnFile(){return stringToSaveOnFile();}
+
+    /*
+    Hack to identify on saved file empty tile
+    */
+    protected String stringToAbyss(){return stringToAbyss();}
 }

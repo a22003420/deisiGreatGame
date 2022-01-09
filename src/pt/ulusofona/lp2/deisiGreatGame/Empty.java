@@ -59,4 +59,9 @@ public class Empty extends Tile {
     protected String stringToSaveOnFile(){
         return " ";
     }
+
+    /*
+    To Identify for function that is not Abyss
+    */
+    protected String stringToAbyss(){return "";}
 }

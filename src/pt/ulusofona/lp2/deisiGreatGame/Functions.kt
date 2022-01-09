@@ -105,22 +105,16 @@ fun getMostUsedAbysses(programmers: List<Programmer>, tiles: ArrayList<Tile>, ma
     for (position in positions)
     {
         //get tile for position
-        val tile = tiles[position]
+        val abyssDsg = tiles[position].stringToAbyss()
 
-        if(tile is Abyss)
-        {
-            val tileTitle = tile.getTitle()
-
-            if(frequencyMap.containsKey(tileTitle))
-            {
-                val counter = frequencyMap[tileTitle]
+        if(abyssDsg.isNotEmpty()) {
+            if (frequencyMap.containsKey(abyssDsg)) {
+                val counter = frequencyMap[abyssDsg]
                 if (counter != null) {
-                    frequencyMap[tileTitle] = counter+1
+                    frequencyMap[abyssDsg] = counter + 1
                 }
-            }
-            else
-            {
-                frequencyMap[tileTitle] = 1
+            } else {
+                frequencyMap[abyssDsg] = 1
             }
         }
     }
@@ -129,7 +123,7 @@ fun getMostUsedAbysses(programmers: List<Programmer>, tiles: ArrayList<Tile>, ma
     return frequencyMap.toList()
         .sortedBy { (_, value) -> value }.reversed()
         .take(max)
-        .joinToString("\n", "", "") { "${it.first}:${it.second}" }
+        .joinToString("\n", "", "") { "${it.first}: ${it.second}" }
 }
 
 /*

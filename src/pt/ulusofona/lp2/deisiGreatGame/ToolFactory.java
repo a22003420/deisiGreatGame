@@ -78,4 +78,9 @@ public class ToolFactory extends Tile
     protected String stringToSaveOnFile(){
         return 1 + ";" + toolTypeId;
     }
+
+    /*
+    To Identify for function that is not Abyss
+    */
+    protected String stringToAbyss(){return "";}
 }
