@@ -89,7 +89,7 @@ public class TestGameManager{
 
         //String result = postAbyss(game, 1, 1);
         //String xxx = "sss";
-        assertEquals("3:2\n1:2", getMostUsedPositions(game.getProgrammers(true), 2));
+        assertEquals("1:3\n3:2", getMostUsedPositions(game.getProgrammers(true), 2));
     }
 
     /*
