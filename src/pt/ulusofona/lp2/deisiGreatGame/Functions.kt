@@ -11,7 +11,7 @@ fun selectCommand(type: CommandType) : (GameManager, List<String>) -> String? {
 
 fun getCommand(gameManager: GameManager, args: List<String>): String? {
     val list = gameManager.getProgrammers(true)
-    val tiles = gameManager.tiles;
+    val tiles = gameManager.tiles
 
     return when(args[0]) {
         "PLAYER" -> getPlayer(list, args[1])
@@ -51,7 +51,7 @@ fun getPlayer(programmers: List<Programmer>, name: String) : String {
 get players by language
  */
 fun getPlayersByLanguage(programmers: List<Programmer>, language: String) : String {
-    return if(programmers.filter { it.containsLanguage(language) }.isNullOrEmpty()) ""
+    return if(programmers.none { it.containsLanguage(language) }) ""
     else (programmers.filter { it.containsLanguage(language) }.joinToString(",") { it.name })
 }
 
@@ -61,7 +61,7 @@ get most polyglot players
 fun getPolyglots(programmers: List<Programmer>) : String {
     val foundProgrammers = programmers.filter { programmer->programmer.numberOfLanguages() > 1 }
             .sortedWith { p1, p2 -> p1.numberOfLanguages() - p2.numberOfLanguages() }
-    return foundProgrammers.joinToString("\n","","") { "${it.getName()}:${it.numberOfLanguages()}" }
+    return foundProgrammers.joinToString("\n","","") { "${it.name}:${it.numberOfLanguages()}" }
 }
 
 /*
@@ -85,7 +85,7 @@ fun getMostUsedPositions(programmers: List<Programmer>, max: Int) : String {
 
     //return max elements sorted descending by number of occurrences
     return frequencyMap.toList()
-        .sortedBy { (key, value) -> value }.reversed()
+        .sortedBy { (_, value) -> value }.reversed()
         .take(max)
         .joinToString("\n", "", "") { "${it.first}:${it.second}" }
 }
@@ -93,27 +93,43 @@ fun getMostUsedPositions(programmers: List<Programmer>, max: Int) : String {
 /*
 get Most Abysses hits
  */
-fun getMostUsedAbysses(programmers: List<Programmer>, tiles: ArrayList<Tile>, maximo: Int) : String {
+fun getMostUsedAbysses(programmers: List<Programmer>, tiles: ArrayList<Tile>, max: Int) : String {
 
     //return all programmers positions in one list
     val positions = mostUsedTiles(programmers)
 
-    //create Map to store position and number of ocurrences for each abyss
-    val frequencyMap: MutableMap<Int, Int> = HashMap()
+    //create Map to store position and number of occurrences for each abyss
+    val frequencyMap: MutableMap<String, Int> = HashMap()
 
     //iterate on all positions
     for (position in positions)
     {
-        //Abyss abyss = new
+        //get tile for position
+        val tile = tiles[position]
 
-        var count = frequencyMap[position]
-        if (count == null) {
-            count = 0
+        if(tile is Abyss)
+        {
+            val tileTitle = tile.getTitle()
+
+            if(frequencyMap.containsKey(tileTitle))
+            {
+                val counter = frequencyMap[tileTitle]
+                if (counter != null) {
+                    frequencyMap[tileTitle] = counter+1
+                }
+            }
+            else
+            {
+                frequencyMap[tileTitle] = 1
+            }
         }
-        frequencyMap[position] = count + 1
     }
 
-    return "";
+    //return max elements sorted descending by number of occurrences
+    return frequencyMap.toList()
+        .sortedBy { (_, value) -> value }.reversed()
+        .take(max)
+        .joinToString("\n", "", "") { "${it.first}:${it.second}" }
 }
 
 /*
@@ -143,8 +159,8 @@ fun postMove(gameManager:GameManager, nrSpace: Int) : String {
 Post Abyss on Tile
  */
 fun postAbyss(gameManager: GameManager, type: Int, position: Int): String {
-    var tile = gameManager.getTile(position)
-    var tiles = gameManager.tiles;
+    val tile = gameManager.getTile(position)
+    val tiles = gameManager.tiles
 
     return if (tile.title == null) {
         //Initialize all Abyss for the Game

@@ -1078,8 +1078,7 @@ public class GameManager {
     /*
     Get Tiles on Board to Save on File
      */
-    private String getTitlesOnBoardDataToSaveOnFile()
-    {
+    private String getTitlesOnBoardDataToSaveOnFile(){
         if(tiles==null || tiles.isEmpty()){
             return "";
         }
@@ -1106,8 +1105,7 @@ public class GameManager {
     /*
     Get Programmers Data to Save on File
      */
-    private String getProgrammersDataToSaveOnFile()
-    {
+    private String getProgrammersDataToSaveOnFile(){
         if(programmers==null || programmers.isEmpty()){
             return "";
         }
