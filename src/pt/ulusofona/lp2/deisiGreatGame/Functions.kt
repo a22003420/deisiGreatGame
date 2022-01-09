@@ -136,7 +136,7 @@ private fun mostUsedTiles(programmers: List<Programmer>): MutableList<Int> {
     val listPositions = mutableListOf<Int>()
     //join all programmer positions in one list
     programmers.forEach { listPositions.addAll(it.positions.
-        filterIndexed{ index, _ ->(index != 0)}) }
+        filterNot { it -> it==1 }) }
 
     return listPositions
 }
