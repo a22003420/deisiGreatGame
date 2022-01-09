@@ -31,6 +31,9 @@ fun postCommand(gameManager: GameManager, args: List<String>): String? {
     }
 }
 
+/*
+Router
+ */
 fun router() : (CommandType) -> (GameManager, List<String>) -> String? = ::selectCommand
 
 /*
@@ -69,7 +72,7 @@ fun getMostUsedPositions(programmers: List<Programmer>, max: Int) : String {
     //return all programmers positions in one list
     val positions = mostUsedTiles(programmers)
 
-    //create Map to store position and number of ocurrences for each position
+    //create Map to store position and number of occurrences for each position
     val frequencyMap: MutableMap<Int, Int> = HashMap()
     for (position in positions)
     {
@@ -79,13 +82,6 @@ fun getMostUsedPositions(programmers: List<Programmer>, max: Int) : String {
         }
         frequencyMap[position] = count + 1
     }
-
-    /*
-    var xxx = frequencyMap.toList()
-        .sortedBy { (key, value) -> value }.reversed()
-        .take(max)
-        .joinToString("\n", "", "") { "${it.first}:${it.second}" }
-    */
 
     //return max elements sorted descending by number of occurrences
     return frequencyMap.toList()
@@ -116,12 +112,13 @@ fun getMostUsedAbysses(programmers: List<Programmer>, tiles: ArrayList<Tile>, ma
 
 /*
 Helper function to return all programmers positions
+Drop first position
  */
 private fun mostUsedTiles(programmers: List<Programmer>): MutableList<Int> {
     //list to store all programmers positions in game
     val listPositions = mutableListOf<Int>()
     //join all programmer positions in one list
-    programmers.forEach { listPositions.addAll(it.positions) }
+    programmers.forEach { listPositions.addAll(it.positions.drop(1)) }
     return listPositions
 }
 
@@ -150,5 +147,8 @@ fun postAbyss(gameManager: GameManager, type: Int, position: Int): String {
     }
 }
 
+/*
+Main function
+ */
 fun main() {
 }

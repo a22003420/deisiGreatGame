@@ -24,7 +24,7 @@ public class TestGameManager{
     }
 
     /*
-    Check game for two players, on first turn move to Abyss File Not Found
+    Check function GetMostUsedPositions - Kotlin
     Set board size 26
      */
     @Test
@@ -87,9 +87,74 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_ID, 2, game.getCurrentPlayerID());
         reactToTitle(game);
 
+        //assertEquals("1:3\n3:2", getMostUsedPositions(game.getProgrammers(true), 2));
+    }
+
+    /*
+    Check function PostAbyss - Kotlin
+    Set board size 26
+     */
+    @Test
+    public void postAbyssKtl(){
+        GameManager game = getGameManager();
+        String[][] board = new String[3][4];
+        board[0][0] = "23";
+        board[0][1] = "B";
+        board[0][2] = "C#;Java";
+        board[0][3] = "PURPLE";
+        board[1][0] = "2";
+        board[1][1] = "A";
+        board[1][2] = "Pyton;TypeScript";
+        board[1][3] = "BROWN";
+        board[2][0] = "24";
+        board[2][1] = "C";
+        board[2][2] = "Pyton;TypeScript";
+        board[2][3] = "GREEN";
+
+        //Abyss
+        String[][] objects = new String[2][3];
+        //Abyss: File Not Found
+        objects[0][0] = "0";
+        objects[0][1] = "5";
+        objects[0][2] = "20";
+
+        try {
+            game.createInitialBoard(board, 26, objects);
+        }
+        catch (Exception ex) {
+            assertEquals("Invalid tile position", ex.getMessage());
+        }
+
+        Programmer currentPlayer;
+
+        //#####
+        //TURN TO ABYSS: Duplicated on Start
+
+        int nrPositionsToMove =1;
+        currentPlayer = game.getCurrentPlayer();
+        move(game, nrPositionsToMove);
+        assertEquals(CURRENT_PLAYER_ID, 2, game.getCurrentPlayerID());
+        reactToTitle(game);
+
+        nrPositionsToMove =2;
+        currentPlayer = game.getCurrentPlayer();
+        move(game, nrPositionsToMove);
+        assertEquals(CURRENT_PLAYER_ID, 23, game.getCurrentPlayerID());
+        reactToTitle(game);
+
+        nrPositionsToMove =1;
+        currentPlayer = game.getCurrentPlayer();
+        move(game, nrPositionsToMove);
+        assertEquals(CURRENT_PLAYER_ID, 24, game.getCurrentPlayerID());
+        reactToTitle(game);
+
+        nrPositionsToMove =1;
+        currentPlayer = game.getCurrentPlayer();
+        move(game, nrPositionsToMove);
+        assertEquals(CURRENT_PLAYER_ID, 2, game.getCurrentPlayerID());
+        reactToTitle(game);
+
         //String result = postAbyss(game, 1, 1);
-        //String xxx = "sss";
-        assertEquals("1:3\n3:2", getMostUsedPositions(game.getProgrammers(true), 2));
     }
 
     /*
@@ -142,14 +207,14 @@ public class TestGameManager{
     }
 
     /*
-    Check game for two players, on first turn move to Abyss File Not Found
+    Check game for two, three or four players, on first turn move to Abyss BSOD
     Set board size 26
      */
     @Test
     public void moveToBlueScreenOnStart()
     {
         GameManager game = getGameManager();
-        String[][] board = new String[4][4];
+        String[][] board = new String[3][4];
         board[0][0] = "23";
         board[0][1] = "B";
         board[0][2] = "C#;Java";
@@ -162,10 +227,12 @@ public class TestGameManager{
         board[2][1] = "C";
         board[2][2] = "Pyton;TypeScript";
         board[2][3] = "GREEN";
+        /*
         board[3][0] = "25";
         board[3][1] = "D";
         board[3][2] = "Pyton;TypeScript";
         board[3][3] = "BLUE";
+        */
 
         //Abyss
         String[][] objects = new String[2][3];
@@ -184,16 +251,17 @@ public class TestGameManager{
         Programmer currentPlayer;
 
         //#####
-        //TURN TO ABYSS: Duplicated on Start
+        //TURN TO ABYSS: Blue Screen of Death
+        //On position 2 there is a Blue Screen of Death Abyss
 
-        int nrPositionsToMove =1; //KILLED
+        int nrPositionsToMove =2; //NOT KILLED
         currentPlayer = game.getCurrentPlayer();
         boolean success = move(game, nrPositionsToMove);
         assertTrue("Success Mode", success);
         assertEquals(CURRENT_PLAYER_ID, 2, game.getCurrentPlayerID());
-        assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 2, (int) currentPlayer.currentPosition());
+        assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 3, (int) currentPlayer.currentPosition());
         reactToTitle(game);
-        assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 2, (int) currentPlayer.currentPosition());
+        //after react check next current player Id
         assertEquals(CURRENT_PLAYER_ID, 23, game.getCurrentPlayerID());
 
         nrPositionsToMove =1; //KILLED
@@ -203,7 +271,7 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_ID, 23, game.getCurrentPlayerID());
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 2, (int) currentPlayer.currentPosition());
         reactToTitle(game);
-        assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 2, (int) currentPlayer.currentPosition());
+         //after react check next current player Id
         assertEquals(CURRENT_PLAYER_ID, 24, game.getCurrentPlayerID());
 
         nrPositionsToMove =2; //NOT KILLED
@@ -213,9 +281,10 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_ID, 24, game.getCurrentPlayerID());
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 3, (int) currentPlayer.currentPosition());
         reactToTitle(game);
-        assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 3, (int) currentPlayer.currentPosition());
-        assertEquals(CURRENT_PLAYER_ID, 25, game.getCurrentPlayerID());
+         //after react check next current player Id
+        assertEquals(CURRENT_PLAYER_ID, 2, game.getCurrentPlayerID());
 
+        /*
         nrPositionsToMove =2;
         currentPlayer = game.getCurrentPlayer();
         boolean success3 = move(game, nrPositionsToMove);
@@ -223,9 +292,9 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_ID, 25, game.getCurrentPlayerID());
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 3, (int) currentPlayer.currentPosition());
         reactToTitle(game);
-        assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 3, (int) currentPlayer.currentPosition());
+        //after react check next current player Id
         assertEquals(CURRENT_PLAYER_ID, 24, game.getCurrentPlayerID());
-
+         */
     }
 
     /*
