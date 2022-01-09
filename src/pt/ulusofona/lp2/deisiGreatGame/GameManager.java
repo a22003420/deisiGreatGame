@@ -473,7 +473,7 @@ public class GameManager {
         Programmer currentProgrammer = programmers.get(index);
         if(!currentProgrammer.inGame())
         {
-            for (Programmer programmer: programmers)
+            for (Programmer ignored : programmers)
             {
                 index ++;
                 if(index+1 > programmers.size())
@@ -731,7 +731,7 @@ public class GameManager {
                     return false;
                 }
 
-                //### begin saved Programmer Id
+                //### start saved Programmer Id
                 int savedProgrammerId;
                 try {
                     savedProgrammerId = Integer.parseInt(programmerArr[0]);
@@ -743,14 +743,14 @@ public class GameManager {
                 }
                 //### end saved Programmer Id
 
-                //### begin saved programmer name
+                //### start saved programmer name
                 String programmerName = programmerArr[1];
                 if(programmerName.length()==0){
                     return false;
                 }
                 //### end saved programmer name
 
-                //### begin saved programmer languages
+                //### start saved programmer languages
                 String savedLanguages = programmerArr[3];
                 if(savedLanguages.length()==0){
                     return false;
@@ -764,7 +764,7 @@ public class GameManager {
                 }
                 //### end saved programmer languages
 
-                //### begin saved programmer color
+                //### start saved programmer color
                 String color = programmerArr[2];
                 if(isValidColorValue(color)){
                     return false;
@@ -776,7 +776,7 @@ public class GameManager {
                 Programmer savedProgrammer = new Programmer(savedProgrammerId, programmerName, languages,
                         programmerColor);
 
-                //### Begin Saved Programmer Tools
+                //### start Saved Programmer Tools
                 String savedTools = programmerArr[4];
                 if(savedTools.length()>0) {
                     List<String> savedProgrammerTools = new ArrayList<>();
@@ -788,7 +788,7 @@ public class GameManager {
                 }
                 //### End Saved Programmer Tools
 
-                //### Begin Saved Programmer Lock
+                //### start Saved Programmer Lock
                 String savedProgrammerLock = programmerArr[5];
                 if(savedProgrammerLock.isEmpty()){
                     return false;
@@ -806,7 +806,7 @@ public class GameManager {
                 }
                 //### End Saved Programmer Lock
 
-                //### Begin Saved Programmer Status
+                //### start Saved Programmer Status
                 String savedProgrammerStatus = programmerArr[6];
                 if(savedProgrammerStatus.isEmpty()){
                     return false;
@@ -816,7 +816,7 @@ public class GameManager {
                 }
                 //### End Saved Programmer Status
 
-                //### Begin Saved Programmer Positions
+                //### start Saved Programmer Positions
                 String savedProgrammerPositions = programmerArr[7];
                 String[] positions = savedProgrammerPositions.split("§");
                 ArrayList<Integer> programmerPositions = new ArrayList<>();

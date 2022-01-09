@@ -87,7 +87,7 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_ID, 2, game.getCurrentPlayerID());
         reactToTitle(game);
 
-        //assertEquals("1:3\n3:2", getMostUsedPositions(game.getProgrammers(true), 2));
+        assertEquals("3:2\n2:2", getMostUsedPositions(game.getProgrammers(true), 2));
     }
 
     /*
