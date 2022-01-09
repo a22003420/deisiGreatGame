@@ -457,8 +457,7 @@ public class Programmer {
     /*
     Create string for Programmer Positions to save on file
      */
-    private String getPositionsDataToSaveInFile()
-    {
+    private String getPositionsDataToSaveInFile(){
         if(positionsOnBoard==null || positionsOnBoard.isEmpty()){
             return "";
         }

@@ -502,13 +502,18 @@ public class GameManager {
             return false;
         }
 
+        //calculate current player
+        //inside getCurrentPlayer is checked if player is inGame
+        Programmer currentPlayer = getCurrentPlayer();
+
         //check if current player is locked
-        if(getCurrentPlayer().isLocked() || !getCurrentPlayer().inGame()){
+        //if(getCurrentPlayer().isLocked() || !getCurrentPlayer().inGame()){
+        if(currentPlayer.isLocked()){
             return false;
         }
 
         //send message to programmer to move
-        getCurrentPlayer().move(getBoardSize(), nrPositions, false);
+        currentPlayer.move(getBoardSize(), nrPositions, false);
 
         return true;
     }

@@ -30,7 +30,7 @@ public class TestGameManager{
     @Test
     public void getMostUsedPositionsKtl(){
         GameManager game = getGameManager();
-        String[][] board = new String[2][4];
+        String[][] board = new String[3][4];
         board[0][0] = "23";
         board[0][1] = "B";
         board[0][2] = "C#;Java";
@@ -39,6 +39,10 @@ public class TestGameManager{
         board[1][1] = "A";
         board[1][2] = "Pyton;TypeScript";
         board[1][3] = "BROWN";
+        board[2][0] = "24";
+        board[2][1] = "C";
+        board[2][2] = "Pyton;TypeScript";
+        board[2][3] = "GREEN";
 
         //Abyss
         String[][] objects = new String[2][3];
@@ -63,21 +67,24 @@ public class TestGameManager{
         currentPlayer = game.getCurrentPlayer();
         move(game, nrPositionsToMove);
         assertEquals(CURRENT_PLAYER_ID, 2, game.getCurrentPlayerID());
-        assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 2, (int) currentPlayer.currentPosition());
         reactToTitle(game);
 
         nrPositionsToMove =2;
         currentPlayer = game.getCurrentPlayer();
         move(game, nrPositionsToMove);
         assertEquals(CURRENT_PLAYER_ID, 23, game.getCurrentPlayerID());
-        assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 3, (int) currentPlayer.currentPosition());
+        reactToTitle(game);
+
+        nrPositionsToMove =1;
+        currentPlayer = game.getCurrentPlayer();
+        move(game, nrPositionsToMove);
+        assertEquals(CURRENT_PLAYER_ID, 24, game.getCurrentPlayerID());
         reactToTitle(game);
 
         nrPositionsToMove =1;
         currentPlayer = game.getCurrentPlayer();
         move(game, nrPositionsToMove);
         assertEquals(CURRENT_PLAYER_ID, 2, game.getCurrentPlayerID());
-        assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 3, (int) currentPlayer.currentPosition());
         reactToTitle(game);
 
         //String result = postAbyss(game, 1, 1);
@@ -142,7 +149,7 @@ public class TestGameManager{
     public void moveToBlueScreenOnStart()
     {
         GameManager game = getGameManager();
-        String[][] board = new String[3][4];
+        String[][] board = new String[4][4];
         board[0][0] = "23";
         board[0][1] = "B";
         board[0][2] = "C#;Java";
@@ -151,17 +158,21 @@ public class TestGameManager{
         board[1][1] = "A";
         board[1][2] = "Pyton;TypeScript";
         board[1][3] = "BROWN";
-        board[2][0] = "25";
-        board[2][1] = "Aaaaa";
+        board[2][0] = "24";
+        board[2][1] = "C";
         board[2][2] = "Pyton;TypeScript";
-        board[2][3] = "BLUE";
+        board[2][3] = "GREEN";
+        board[3][0] = "25";
+        board[3][1] = "D";
+        board[3][2] = "Pyton;TypeScript";
+        board[3][3] = "BLUE";
 
         //Abyss
         String[][] objects = new String[2][3];
         //Abyss: File Not Found
         objects[0][0] = "0";
         objects[0][1] = "7";
-        objects[0][2] = "6";
+        objects[0][2] = "2";
 
         try {
             game.createInitialBoard(board, 26, objects);
@@ -175,42 +186,45 @@ public class TestGameManager{
         //#####
         //TURN TO ABYSS: Duplicated on Start
 
-        int nrPositionsToMove =5;
+        int nrPositionsToMove =1; //KILLED
         currentPlayer = game.getCurrentPlayer();
         boolean success = move(game, nrPositionsToMove);
-        assertEquals(CURRENT_PLAYER_ID, 2, currentPlayer.getId());
-        assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 6, (int) currentPlayer.currentPosition());
-        assertEquals("Tile Image", "bsod.png", game.getImagePng(currentPlayer.currentPosition()));
-        assertEquals("Tile Title", "Blue Screen of Death", game.getTitle(currentPlayer.currentPosition()));
-        reactToTitle(game);
-        assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 6, (int) currentPlayer.currentPosition());
-
-        nrPositionsToMove =5;
-        currentPlayer = game.getCurrentPlayer();
-        move(game, nrPositionsToMove);
         assertTrue("Success Mode", success);
-        assertEquals(CURRENT_PLAYER_ID, 23, currentPlayer.getId());
-        assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 6, (int) currentPlayer.currentPosition());
-        assertEquals("Tile Image", "bsod.png", game.getImagePng(currentPlayer.currentPosition()));
-        assertEquals("Tile Title", "Blue Screen of Death", game.getTitle(currentPlayer.currentPosition()));
+        assertEquals(CURRENT_PLAYER_ID, 2, game.getCurrentPlayerID());
+        assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 2, (int) currentPlayer.currentPosition());
         reactToTitle(game);
-        assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 6, (int) currentPlayer.currentPosition());
+        assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 2, (int) currentPlayer.currentPosition());
+        assertEquals(CURRENT_PLAYER_ID, 23, game.getCurrentPlayerID());
 
-
-        nrPositionsToMove =4;
+        nrPositionsToMove =1; //KILLED
         currentPlayer = game.getCurrentPlayer();
-        move(game, nrPositionsToMove);
-        assertTrue("Success Mode", success);
-        assertEquals(CURRENT_PLAYER_ID, 25, currentPlayer.getId());
-        assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 5, (int) currentPlayer.currentPosition());
-        assertEquals("Tile Image", null, game.getImagePng(currentPlayer.currentPosition()));
-        assertEquals("Tile Title", null, game.getTitle(currentPlayer.currentPosition()));
+        boolean success1 = move(game, nrPositionsToMove);
+        assertTrue("Success Mode", success1);
+        assertEquals(CURRENT_PLAYER_ID, 23, game.getCurrentPlayerID());
+        assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 2, (int) currentPlayer.currentPosition());
         reactToTitle(game);
-        assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 5, (int) currentPlayer.currentPosition());
+        assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 2, (int) currentPlayer.currentPosition());
+        assertEquals(CURRENT_PLAYER_ID, 24, game.getCurrentPlayerID());
 
-        nrPositionsToMove =1;
+        nrPositionsToMove =2; //NOT KILLED
         currentPlayer = game.getCurrentPlayer();
-        assertEquals(CURRENT_PLAYER_ID, 25, currentPlayer.getId());
+        boolean success2 = move(game, nrPositionsToMove);
+        assertTrue("Success Mode", success2);
+        assertEquals(CURRENT_PLAYER_ID, 24, game.getCurrentPlayerID());
+        assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 3, (int) currentPlayer.currentPosition());
+        reactToTitle(game);
+        assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 3, (int) currentPlayer.currentPosition());
+        assertEquals(CURRENT_PLAYER_ID, 25, game.getCurrentPlayerID());
+
+        nrPositionsToMove =2;
+        currentPlayer = game.getCurrentPlayer();
+        boolean success3 = move(game, nrPositionsToMove);
+        assertTrue("Success Mode", success3);
+        assertEquals(CURRENT_PLAYER_ID, 25, game.getCurrentPlayerID());
+        assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 3, (int) currentPlayer.currentPosition());
+        reactToTitle(game);
+        assertEquals(CURRENT_PLAYER_POSITION_AFTER_REACT, 3, (int) currentPlayer.currentPosition());
+        assertEquals(CURRENT_PLAYER_ID, 24, game.getCurrentPlayerID());
 
     }
 
