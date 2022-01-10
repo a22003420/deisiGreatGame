@@ -128,7 +128,7 @@ fun getMostUsedAbysses(programmers: List<Programmer>, tiles: ArrayList<Tile>, ma
     return frequencyMap.toList()
         .sortedBy { (_, value) -> value }.reversed()
         .take(max)
-        .joinToString("\n", "", "") { "${it.first}: ${it.second}" }
+        .joinToString("\n", "", "") {"${it.first}:${it.second}"}
 }
 
 /*
