@@ -724,10 +724,10 @@ public class GameManager {
             //fetch individual programmer data:
             for (String programmer: programmersGameDataArr)
             {
-                //[Id];[Name];[Color];[Languages];[Tools];[Lock];[Status];[Position]
+                //[Id];[Name];[Color];[Languages];[Tools];[Lock];[Status];[Position];[Statistics]
 
                 String[] programmerArr = programmer.split(";");
-                if(programmerArr.length!=8){
+                if(programmerArr.length!=9){
                     return false;
                 }
 
@@ -824,6 +824,16 @@ public class GameManager {
                     programmerPositions.add(Integer.parseInt(position));
                 }
                 savedProgrammer.setPositions(programmerPositions);
+                //### End Saved Programmer Positions
+
+                //### start Saved Programmer Positions
+                String savedStatisticsPositions = programmerArr[8];
+                String[] statistics = savedStatisticsPositions.split("§");
+                ArrayList<Integer> programmerStatistics = new ArrayList<>();
+                for (String statistic: statistics){
+                    programmerStatistics.add(Integer.parseInt(statistic));
+                }
+                savedProgrammer.setPositionsStatistics(programmerPositions);
                 //### End Saved Programmer Positions
 
                 //add saved programmer to saved programmer list

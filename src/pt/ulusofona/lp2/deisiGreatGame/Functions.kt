@@ -10,15 +10,15 @@ fun selectCommand(type: CommandType) : (GameManager, List<String>) -> String? {
 }
 
 fun getCommand(gameManager: GameManager, args: List<String>): String? {
-    val list = gameManager.getProgrammers(true)
+    val programmers = gameManager.getProgrammers(true)
     val tiles = gameManager.tiles
 
     return when(args[0]) {
-        "PLAYER" -> getPlayer(list, args[1])
-        "PLAYERS_BY_LANGUAGE" -> getPlayersByLanguage(list, args[1])
-        "POLYGLOTS" -> getPolyglots(list)
-        "MOST_USED_POSITIONS" -> getMostUsedPositions(list, args[1].toInt())
-        "MOST_USED_ABYSSES" -> getMostUsedAbysses(list, tiles, args[1].toInt())
+        "PLAYER" -> getPlayer(programmers, args[1])
+        "PLAYERS_BY_LANGUAGE" -> getPlayersByLanguage(programmers, args[1])
+        "POLYGLOTS" -> getPolyglots(programmers)
+        "MOST_USED_POSITIONS" -> getMostUsedPositions(programmers, args[1].toInt())
+        "MOST_USED_ABYSSES" -> getMostUsedAbysses(programmers, tiles, args[1].toInt())
         else -> null
     }
 }
@@ -65,7 +65,7 @@ fun getPolyglots(programmers: List<Programmer>) : String {
 }
 
 /*
-get Most Tile hits
+get Most Tile hits statistics
  */
 fun getMostUsedPositions(programmers: List<Programmer>, max: Int) : String {
 
@@ -132,7 +132,7 @@ fun getMostUsedAbysses(programmers: List<Programmer>, tiles: ArrayList<Tile>, ma
 }
 
 /*
-Helper function to return all programmers positions
+Helper function to return all programmers positions statistics
 Skip first index position
  */
 private fun mostUsedTiles(programmers: List<Programmer>): MutableList<Int> {
@@ -142,7 +142,7 @@ private fun mostUsedTiles(programmers: List<Programmer>): MutableList<Int> {
 
     //join all programmer positions statistics in one list excluding position 1
     programmers.forEach { it ->
-        listPositions.addAll(it.positionsStat.
+        listPositions.addAll(it.positionsStatistics.
         filterNot { it==1 }) }
 
     return listPositions

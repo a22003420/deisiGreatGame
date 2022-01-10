@@ -172,12 +172,25 @@ public class Programmer {
         this.positionsOnBoard = positionsOnBoard;
     }
 
+    //#################
+    //BEGIN METHODS: PROGRAMMER STATISTICS
+
+    /*
+    Updates Programmer statistics on load game
+     */
+    public void setPositionsStatistics(ArrayList<Integer> positionsStatistics){
+        this.positionsStatistics = positionsStatistics;
+    }
+
     /*
     Returns Programmer positions on game for statistics
      */
-    public ArrayList<Integer> getPositionsStat(){
+    public ArrayList<Integer> getPositionsStatistics(){
         return positionsStatistics;
     }
+
+    //END METHODS: PROGRAMMER STATISTICS
+    //#################
 
     //#################
     //BEGIN METHODS: PROGRAMMER MOVE
@@ -405,7 +418,7 @@ public class Programmer {
 
         return id + ";" + name + ";" + getColor() + ";" + getLanguagesDataToSaveInFile() + ";" +
                 getToolsDataToSaveInFile() + ";" + isLocked() + ";" + showStatus() + ";" +
-                getPositionsDataToSaveInFile();
+                getPositionsDataToSaveInFile() + ";" +getPositionsStatisticsDataToSaveInFile();
     }
 
     //#################
@@ -477,6 +490,16 @@ public class Programmer {
             return "";
         }
         return positionsOnBoard.stream().map(String::valueOf).collect(Collectors.joining("§"));
+    }
+
+    /*
+    Create string for Programmer Positions to save on file
+     */
+    private String getPositionsStatisticsDataToSaveInFile(){
+        if(positionsStatistics==null || positionsStatistics.isEmpty()){
+            return "";
+        }
+        return positionsStatistics.stream().map(String::valueOf).collect(Collectors.joining("§"));
     }
 
     /*
