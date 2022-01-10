@@ -131,12 +131,14 @@ Helper function to return all programmers positions
 Skip first index position
  */
 private fun mostUsedTiles(programmers: List<Programmer>): MutableList<Int> {
-    //list to store all programmers positions in game
 
+    //list to store all programmers positions statistics in game
     val listPositions = mutableListOf<Int>()
-    //join all programmer positions in one list
-    programmers.forEach { listPositions.addAll(it.positions.
-        filterNot { it -> it==1 }) }
+
+    //join all programmer positions statistics in one list excluding position 1
+    programmers.forEach { it ->
+        listPositions.addAll(it.positionsStat.
+        filterNot { it==1 }) }
 
     return listPositions
 }

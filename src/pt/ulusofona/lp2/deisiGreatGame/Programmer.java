@@ -73,9 +73,15 @@ public class Programmer {
     private ProgrammerStatus status;
     /*
 
+    /*
     Log all positions regarding the programmer
      */
     private ArrayList<Integer> positionsOnBoard;
+
+    /*
+    Log all positions regarding the programmer only for stat
+     */
+    private ArrayList<Integer> positionsStatistics;
 
     /*
     Check if the Programmer is locked or unlocked
@@ -105,11 +111,12 @@ public class Programmer {
         this.color = color;
         this.status = ProgrammerStatus.INGAME;
         this.positionsOnBoard = new ArrayList<>();
+        this.positionsStatistics= new ArrayList<>();
 
         //log start position
         int startPosition = 1;
         logNewTurnPosition(startPosition);
-
+        logNewTurnPositionStatistics(startPosition);
 
         //tool
         this.tools = new ArrayList<>();
@@ -172,6 +179,13 @@ public class Programmer {
         return positionsOnBoard;
     }
 
+    /*
+    Returns Programmer positions on game for statistics
+     */
+    public ArrayList<Integer> getPositionsStat(){
+        return positionsStatistics;
+    }
+
     //#################
     //BEGIN METHODS: PROGRAMMER MOVE
 
@@ -198,6 +212,7 @@ public class Programmer {
         }
         else{ //log new position
             logNewTurnPosition(newPositionAfterCheck);
+            logNewTurnPositionStatistics(newPositionAfterCheck);
         }
     }
 
@@ -253,6 +268,13 @@ public class Programmer {
     */
     public void logNewTurnPosition(int position){
         positionsOnBoard.add(position);
+    }
+
+    /*
+    Log new player position statistics
+    */
+    public void logNewTurnPositionStatistics(int position){
+        positionsStatistics.add(position);
     }
 
     /*
@@ -461,7 +483,6 @@ public class Programmer {
         if(positionsOnBoard==null || positionsOnBoard.isEmpty()){
             return "";
         }
-
         return positionsOnBoard.stream().map(String::valueOf).collect(Collectors.joining("§"));
     }
 
