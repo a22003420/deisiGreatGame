@@ -877,13 +877,13 @@ public class GameManager {
         }
 
         //final check for tiles data
-        String tilesData = getTitlesOnBoardDataToSaveOnFile();
+        String tilesData = getTitlesToSaveOnFile();
         if(tilesData.isEmpty()){
             return false;
         }
 
         //final check for programmers data
-        String playersData = getProgrammersDataToSaveOnFile();
+        String playersData = getProgrammersToSaveOnFile();
         if(playersData.isEmpty()){
             return false;
         }
@@ -1087,7 +1087,7 @@ public class GameManager {
     /*
     Get Tiles on Board to Save on File
      */
-    private String getTitlesOnBoardDataToSaveOnFile(){
+    private String getTitlesToSaveOnFile(){
         if(tiles==null || tiles.isEmpty()){
             return "";
         }
@@ -1114,7 +1114,7 @@ public class GameManager {
     /*
     Get Programmers Data to Save on File
      */
-    private String getProgrammersDataToSaveOnFile(){
+    private String getProgrammersToSaveOnFile(){
         if(programmers==null || programmers.isEmpty()){
             return "";
         }

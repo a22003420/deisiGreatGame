@@ -150,9 +150,10 @@ fun getMostUsedAbysses(programmers: List<Programmer>, tiles: List<Tile>, max: In
         }
     }
 
-    //return max elements sorted descending by number of occurrences
+    //return max abysses sorted descending by number of occurrences
     return frequencyMap.toList()
         .sortedBy { (_, value) -> value }.reversed()
+        .take(max)
         .joinToString("\n", "", "") {"${it.first}:${it.second}"}
 }
 
