@@ -138,8 +138,9 @@ fun getMostUsedAbysses(programmers: List<Programmer>, tiles: List<Tile>, max: In
                 continue
             }
 
-            //check if abyss is already inside frequency map
+            //get abyss tile title
             val tileTile = tile.title
+            //check if abyss tile title is already inside frequency map
             if (!frequencyMap.containsKey(tileTile)) {
                 frequencyMap[tileTile] = 0
                 maxCounter--
