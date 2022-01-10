@@ -158,7 +158,7 @@ public class GameManager {
         //Create and fill all tiles
         this.tiles = new ArrayList<>();
 
-        Tile emptyTile = getTileEmpty();
+        Tile emptyTile = createTileEmpty();
         int tileRow;
         for (tileRow = 0; tileRow <= worldSize; tileRow++){
             tiles.add(emptyTile);
@@ -390,8 +390,8 @@ public class GameManager {
     //BEGIN PUBLIC METHODS: PROGRAMMERS
 
     /*
-   Get Programmers on a given position
-   If none found returns null
+    Get Programmers for a given position
+    If none found returns null
     */
     public List<Programmer> getProgrammers(int position){
 
@@ -428,8 +428,8 @@ public class GameManager {
     }
 
     /*
-    Get Programmers in game on a given position
-    If none found returns null
+    Get all Programmers or only those not defeated for a given position
+    If none is found returns null
      */
     public List<Programmer> getProgrammers(int position, boolean includeDefeated){
 
@@ -551,7 +551,7 @@ public class GameManager {
     }
 
     /*
-    Returns title in a given position
+    Returns title for a given position
     */
     public Tile getTile(int position){
         return tiles.get(position);
@@ -638,7 +638,7 @@ public class GameManager {
             ArrayList<Tile> tiles = new ArrayList<>();
 
             //create Empty Tile
-            Tile emptyTile = getTileEmpty();
+            Tile emptyTile = createTileEmpty();
             //Abyss for the Game
             AbyssSingletonFactory abyssFactory = getAbyssSingletonFactory();
             //Tool Factory Types for the Game
@@ -957,7 +957,7 @@ public class GameManager {
     /*
     Creates an empty title
      */
-    private Tile getTileEmpty() {
+    private Tile createTileEmpty() {
         return new Empty("Casa Vazia", "blank.png");
     }
 
