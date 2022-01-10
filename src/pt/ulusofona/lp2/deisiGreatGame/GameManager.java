@@ -558,6 +558,13 @@ public class GameManager {
     }
 
     /*
+    Returns all Tiles
+     */
+    public List<Tile> getTilesAbyss(){
+        return getTiles().stream().filter(Tile::isAbyss).toList();
+    }
+
+    /*
     Get About
     */
     public JPanel getAuthorsPanel() {

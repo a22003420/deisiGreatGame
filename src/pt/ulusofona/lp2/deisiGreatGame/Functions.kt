@@ -11,14 +11,13 @@ fun selectCommand(type: CommandType) : (GameManager, List<String>) -> String? {
 
 fun getCommand(gameManager: GameManager, args: List<String>): String? {
     val programmers = gameManager.getProgrammers(true)
-    val tiles = gameManager.tiles
 
     return when(args[0]) {
         "PLAYER" -> getPlayer(programmers, args[1])
         "PLAYERS_BY_LANGUAGE" -> getPlayersByLanguage(programmers, args[1])
         "POLYGLOTS" -> getPolyglots(programmers)
         "MOST_USED_POSITIONS" -> getMostUsedPositions(programmers, args[1].toInt())
-        "MOST_USED_ABYSSES" -> getMostUsedAbysses(programmers, tiles, args[1].toInt())
+        "MOST_USED_ABYSSES" -> getMostUsedAbysses(programmers, gameManager.tiles, args[1].toInt())
         else -> null
     }
 }
@@ -70,11 +69,11 @@ get Most Tile hits statistics
 fun getMostUsedPositions(programmers: List<Programmer>, max: Int) : String {
 
     //return all programmers positions statistics in one list
-    val positions = mostUsedTiles(programmers)
+    val positionsStatistics = mostUsedTiles(programmers)
 
     //create Map to store position and number of occurrences for each position
     val frequencyMap: MutableMap<Int, Int> = HashMap()
-    for (position in positions)
+    for (position in positionsStatistics)
     {
         var count = frequencyMap[position]
         if (count == null) {
@@ -93,19 +92,24 @@ fun getMostUsedPositions(programmers: List<Programmer>, max: Int) : String {
 /*
 get Most Abysses hits
  */
-fun getMostUsedAbysses(programmers: List<Programmer>, tiles: ArrayList<Tile>, max: Int) : String {
+fun getMostUsedAbysses(programmers: List<Programmer>, tiles: List<Tile>, max: Int) : String {
 
     //return all programmers positions in one list
-    val positions = mostUsedTiles(programmers)
+    val positionsStatistics = mostUsedTiles(programmers)
 
-    //create Map to store position and number of occurrences for each abyss
+    //create Map to store abyss and number of occurrences for each abyss
     val frequencyMap: MutableMap<String, Int> = HashMap()
 
     //iterate on all positions
-    for (position in positions)
+    var maxCounter = max
+    for (position in positionsStatistics)
     {
-        val tile = tiles[position]
+        if(maxCounter==0){
+            break
+        }
 
+        //check if tile is an abyss
+        val tile = tiles[position]
         if(!tile.isAbyss){
             continue
         }
@@ -122,12 +126,33 @@ fun getMostUsedAbysses(programmers: List<Programmer>, tiles: ArrayList<Tile>, ma
         } else {
             frequencyMap[abyssDsg] = 1
         }
+
+        maxCounter--
+    }
+
+    while (maxCounter>0)
+    {
+        for (tile in tiles)
+        {
+            if(!tile.isAbyss) {
+                continue
+            }
+
+            val tileTile = tile.title
+            if (!frequencyMap.containsKey(tileTile)) {
+                frequencyMap[tileTile] = 0
+                maxCounter--
+                if(maxCounter==0)
+                {
+                    break
+                }
+            }
+        }
     }
 
     //return max elements sorted descending by number of occurrences
     return frequencyMap.toList()
         .sortedBy { (_, value) -> value }.reversed()
-        .take(max)
         .joinToString("\n", "", "") {"${it.first}:${it.second}"}
 }
 
@@ -138,14 +163,14 @@ Skip first index position
 private fun mostUsedTiles(programmers: List<Programmer>): MutableList<Int> {
 
     //list to store all programmers positions statistics in game
-    val listPositions = mutableListOf<Int>()
+    val positionsStatistics = mutableListOf<Int>()
 
     //join all programmer positions statistics in one list excluding position 1
     programmers.forEach { it ->
-        listPositions.addAll(it.positionsStatistics.
+        positionsStatistics.addAll(it.positionsStatistics.
         filterNot { it==1 }) }
 
-    return listPositions
+    return positionsStatistics
 }
 
 /*

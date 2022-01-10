@@ -29,12 +29,12 @@ public class Tile
     }
 
     /*
-    Hack to identify on saved file empty tile
+    To identify on saved file the tile
     */
     protected String stringToSaveOnFile(){return stringToSaveOnFile();}
 
     /*
-    Hack to identify on saved file empty tile
+    Identify that tile is an Abyss
     */
     protected boolean isAbyss(){return isAbyss();}
 }

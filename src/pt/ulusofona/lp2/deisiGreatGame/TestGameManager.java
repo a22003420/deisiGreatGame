@@ -1,6 +1,5 @@
 package pt.ulusofona.lp2.deisiGreatGame;
 //Imports
-import org.junit.Assert;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import static pt.ulusofona.lp2.deisiGreatGame.FunctionsKt.getMostUsedPositions;
@@ -51,6 +50,9 @@ public class TestGameManager{
         objects[0][0] = "0";
         objects[0][1] = "7";
         objects[0][2] = "5";
+        objects[1][0] = "0";
+        objects[1][1] = "5";
+        objects[1][2] = "3";
 
         try {
             game.createInitialBoard(board, 26, objects);
@@ -96,8 +98,7 @@ public class TestGameManager{
         reactToTitle(game);
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 4, (int) currentPlayer.currentPosition());
 
-        String xx = getMostUsedAbysses(game.getProgrammers(true), game.getTiles(), 2);
-        //assertEquals("4:3\n5:2", getMostUsedAbysses(game.getProgrammers(true), game.getTiles(), 2));
+        assertEquals("Blue Screen of Death:1\nDuplicated Code:0", getMostUsedAbysses(game.getProgrammers(true), game.getTiles(), 2));
     }
 
     /*
