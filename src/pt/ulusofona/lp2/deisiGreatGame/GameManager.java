@@ -558,13 +558,6 @@ public class GameManager {
     }
 
     /*
-    Returns all Tiles
-     */
-    public List<Tile> getTilesAbyss(){
-        return getTiles().stream().filter(Tile::isAbyss).toList();
-    }
-
-    /*
     Get About
     */
     public JPanel getAuthorsPanel() {
@@ -786,7 +779,6 @@ public class GameManager {
                 //### start Saved Programmer Tools
                 String savedTools = programmerArr[4];
                 if(savedTools.length()>0) {
-                    List<String> savedProgrammerTools = new ArrayList<>();
                     String[] savedProgrammerToolArr = programmerArr[4].split("§");
                     for (String toolID : savedProgrammerToolArr) {
                         int programmerSavedTool = Integer.parseInt(toolID);
@@ -824,8 +816,8 @@ public class GameManager {
                 //### End Saved Programmer Status
 
                 //### start Saved Programmer Positions
-                String savedProgrammerPositions = programmerArr[7];
-                String[] positions = savedProgrammerPositions.split("§");
+                String savedPositions = programmerArr[7];
+                String[] positions = savedPositions.split("§");
                 ArrayList<Integer> programmerPositions = new ArrayList<>();
                 for (String position: positions){
                     programmerPositions.add(Integer.parseInt(position));
@@ -835,12 +827,12 @@ public class GameManager {
 
                 //### start Saved Programmer Positions
                 String savedStatisticsPositions = programmerArr[8];
-                String[] statistics = savedStatisticsPositions.split("§");
+                String[] positionsStatistic = savedStatisticsPositions.split("§");
                 ArrayList<Integer> programmerStatistics = new ArrayList<>();
-                for (String statistic: statistics){
+                for (String statistic: positionsStatistic){
                     programmerStatistics.add(Integer.parseInt(statistic));
                 }
-                savedProgrammer.setPositionsStatistics(programmerPositions);
+                savedProgrammer.setPositionsStatistics(programmerStatistics);
                 //### End Saved Programmer Positions
 
                 //add saved programmer to saved programmer list

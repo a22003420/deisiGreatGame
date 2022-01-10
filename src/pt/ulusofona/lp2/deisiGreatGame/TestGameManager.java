@@ -240,7 +240,7 @@ public class TestGameManager{
         move(game, nrPositionsToMove);
         reactToTitle(game);
 
-        String result = postAbyss(game, 1, 1);
+        assertEquals("OK",postAbyss(game, 1, 1));
     }
 
     /*
