@@ -173,13 +173,6 @@ public class Programmer {
     }
 
     /*
-    Returns Programmer positions on game
-     */
-    public ArrayList<Integer> getPositions(){
-        return positionsOnBoard;
-    }
-
-    /*
     Returns Programmer positions on game for statistics
      */
     public ArrayList<Integer> getPositionsStat(){

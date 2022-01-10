@@ -63,5 +63,5 @@ public class Empty extends Tile {
     /*
     To Identify for function that is not Abyss
     */
-    protected String stringToAbyss(){return "";}
+    protected boolean isAbyss(){return false;}
 }

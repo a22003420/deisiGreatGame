@@ -36,5 +36,5 @@ public class Tile
     /*
     Hack to identify on saved file empty tile
     */
-    protected String stringToAbyss(){return stringToAbyss();}
+    protected boolean isAbyss(){return isAbyss();}
 }

@@ -69,7 +69,7 @@ get Most Tile hits
  */
 fun getMostUsedPositions(programmers: List<Programmer>, max: Int) : String {
 
-    //return all programmers positions in one list
+    //return all programmers positions statistics in one list
     val positions = mostUsedTiles(programmers)
 
     //create Map to store position and number of occurrences for each position
@@ -104,18 +104,23 @@ fun getMostUsedAbysses(programmers: List<Programmer>, tiles: ArrayList<Tile>, ma
     //iterate on all positions
     for (position in positions)
     {
-        //get tile for position
-        val abyssDsg = tiles[position].stringToAbyss()
+        val tile = tiles[position]
 
-        if(abyssDsg.isNotEmpty()) {
-            if (frequencyMap.containsKey(abyssDsg)) {
-                val counter = frequencyMap[abyssDsg]
-                if (counter != null) {
-                    frequencyMap[abyssDsg] = counter + 1
-                }
-            } else {
-                frequencyMap[abyssDsg] = 1
+        if(!tile.isAbyss){
+            continue
+        }
+
+        //get tile for abyss
+        val abyssDsg = tiles[position].title
+
+        //fill frequency map
+        if (frequencyMap.containsKey(abyssDsg)) {
+            val counter = frequencyMap[abyssDsg]
+            if (counter != null) {
+                frequencyMap[abyssDsg] = counter + 1
             }
+        } else {
+            frequencyMap[abyssDsg] = 1
         }
     }
 

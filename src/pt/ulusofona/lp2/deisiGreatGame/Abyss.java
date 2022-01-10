@@ -56,8 +56,8 @@ public abstract class Abyss extends Tile
     protected String stringToSaveOnFile(){return 0 + ";" + id;};
 
     /*
-    Hack to identify on file type of abyss
+    Hack to identify abyss
     */
     @Override
-    protected String stringToAbyss(){return "Exception:" + id + " " + getTitle();}
+    protected boolean isAbyss(){return true;}
 }

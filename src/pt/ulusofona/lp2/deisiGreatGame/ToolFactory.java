@@ -82,5 +82,6 @@ public class ToolFactory extends Tile
     /*
     To Identify for function that is not Abyss
     */
-    protected String stringToAbyss(){return "";}
+    @Override
+    protected boolean isAbyss(){return false;}
 }
