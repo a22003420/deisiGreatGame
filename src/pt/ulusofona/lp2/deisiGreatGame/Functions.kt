@@ -100,14 +100,11 @@ fun getMostUsedAbysses(programmers: List<Programmer>, tiles: List<Tile>, max: In
     //create Map to store abyss and number of occurrences for each abyss
     val frequencyMap: MutableMap<String, Int> = HashMap()
 
-    //iterate on all positions
+    //iterate on all positions to find if position is an abyss
+    //use maxCounter to check if number of occurrences are satisfied
     var maxCounter = max
     for (position in positionsStatistics)
     {
-        if(maxCounter==0){
-            break
-        }
-
         //check if tile is an abyss
         val tile = tiles[position]
         if(!tile.isAbyss){
@@ -130,14 +127,18 @@ fun getMostUsedAbysses(programmers: List<Programmer>, tiles: List<Tile>, max: In
         maxCounter--
     }
 
+    //check if number of occurrences are satisfied
     while (maxCounter>0)
     {
+        //iterate on tiles
         for (tile in tiles)
         {
+            //check if file is an abyss
             if(!tile.isAbyss) {
                 continue
             }
 
+            //check if abyss is already inside frequency map
             val tileTile = tile.title
             if (!frequencyMap.containsKey(tileTile)) {
                 frequencyMap[tileTile] = 0
