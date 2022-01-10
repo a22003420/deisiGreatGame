@@ -80,7 +80,7 @@ public class ToolFactory extends Tile
     }
 
     /*
-    To Identify for function that is not Abyss
+    To Identify that is not an Abyss
     */
     @Override
     protected boolean isAbyss(){return false;}

@@ -34,7 +34,7 @@ public class Tile
     protected String stringToSaveOnFile(){return stringToSaveOnFile();}
 
     /*
-    Identify that tile is an Abyss
+    To check if tile is an Abyss
     */
     protected boolean isAbyss(){return isAbyss();}
 }

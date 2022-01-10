@@ -61,7 +61,7 @@ public class Empty extends Tile {
     }
 
     /*
-    To Identify for function that is not Abyss
+    To Identify that is not Abyss
     */
     protected boolean isAbyss(){return false;}
 }
