@@ -72,7 +72,6 @@ fun getMostUsedPositions(programmers: List<Programmer>, max: Int) : String {
     val positionsStatistics = mostUsedTiles(programmers)
 
     return positionsStatistics
-        .filter { it !=2 }
         .groupingBy { it }
         .eachCount()
         .toList()
