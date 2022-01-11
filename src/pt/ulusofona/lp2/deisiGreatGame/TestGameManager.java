@@ -326,6 +326,9 @@ public class TestGameManager{
         objects[0][0] = "0";
         objects[0][1] = "7";
         objects[0][2] = "2";
+        objects[1][0] = "1";
+        objects[1][1] = "1";
+        objects[1][2] = "3";
 
         try {
             game.createInitialBoard(board, 26, objects);
@@ -355,6 +358,9 @@ public class TestGameManager{
         assertEquals(CURRENT_PLAYER_ID, 23, game.getCurrentPlayerID());
         boolean success1 = move(game, nrPositionsToMove);
         assertTrue("Success Mode", success1);
+        assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 2, (int) currentPlayer.currentPosition());
+        assertTrue("Check is Abyss", game.getTile(2).isAbyss());
+        assertEquals("Abyss String","0;7", game.getTile(2).stringToSaveOnFile());
         assertEquals(CURRENT_PLAYER_POSITION_AFTER_MOVE, 2, (int) currentPlayer.currentPosition());
         reactToTitle(game);
          //after react check next current player Id

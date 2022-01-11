@@ -69,22 +69,14 @@ get Most Tile hits statistics
 fun getMostUsedPositions(programmers: List<Programmer>, max: Int) : String {
 
     //return all programmers positions statistics in one list
-    val positionsStatistics = mostUsedTiles(programmers)
+    var positionsStatistics = mostUsedTiles(programmers)
 
-    //create Map to store position and number of occurrences for each position
-    val frequencyMap: MutableMap<Int, Int> = HashMap()
-    for (position in positionsStatistics)
-    {
-        var count = frequencyMap[position]
-        if (count == null) {
-            count = 0
-        }
-        frequencyMap[position] = count + 1
-    }
-
-    //return max elements sorted descending by number of occurrences
-    return frequencyMap.toList()
-        .sortedBy { (key, value) -> value }.reversed()
+    return positionsStatistics
+        .filter { it !=2 }
+        .groupingBy { it }
+        .eachCount()
+        .toList()
+        .sortedByDescending { it.second }
         .take(max)
         .joinToString("\n", "", "") { "${it.first}:${it.second}" }
 }
@@ -169,8 +161,8 @@ private fun mostUsedTiles(programmers: List<Programmer>): MutableList<Int> {
     val positionsStatistics = mutableListOf<Int>()
 
     //join all programmer positions statistics in one list excluding position 1
-    programmers.forEach { it ->
-        positionsStatistics.addAll(it.positionsStatistics.
+    programmers.
+        forEach { it -> positionsStatistics.addAll(it.positionsStatistics.
         filterNot { it==1 }) }
 
     return positionsStatistics
@@ -203,6 +195,6 @@ fun postAbyss(gameManager: GameManager, type: Int, position: Int): String {
 
 /*
 Main function
- */
+
 fun main() {
-}
+} */

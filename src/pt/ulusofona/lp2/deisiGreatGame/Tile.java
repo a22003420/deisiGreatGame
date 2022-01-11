@@ -36,5 +36,7 @@ public class Tile
     /*
     To check if tile is an Abyss
     */
-    protected boolean isAbyss(){return isAbyss();}
+    protected boolean isAbyss(){
+        return isAbyss();
+    }
 }
