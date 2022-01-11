@@ -180,11 +180,11 @@ fun postMove(gameManager:GameManager, nrSpace: Int) : String {
 Post Abyss on Tile
  */
 fun postAbyss(gameManager: GameManager, type: Int, position: Int): String {
-    var tile = gameManager.getTile(position)
 
-    return if (tile.title == null) {
+    return if (gameManager.getTitle(position) == null) {
         //Initialize all Abyss for the Game
-        tile = AbyssSingletonFactory.getInstance().getAbyss(type)
+        val abyssFactory = AbyssSingletonFactory.getInstance()
+        gameManager.setTileObject(position, abyssFactory.getAbyss(type))
         "OK"
     } else {
         "Position is occupied"

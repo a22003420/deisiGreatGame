@@ -558,6 +558,14 @@ public class GameManager {
     }
 
     /*
+    Set Object on Tile
+     */
+    public void setTileObject(int position, Tile tile)
+    {
+        tiles.set(position, tile);
+    }
+
+    /*
     Get About
     */
     public JPanel getAuthorsPanel() {
