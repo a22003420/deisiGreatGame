@@ -195,6 +195,6 @@ fun postAbyss(gameManager: GameManager, type: Int, position: Int): String {
 
 /*
 Main function
-
+ */
 fun main() {
-} */
+}
