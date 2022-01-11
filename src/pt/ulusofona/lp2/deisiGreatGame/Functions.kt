@@ -69,7 +69,7 @@ get Most Tile hits statistics
 fun getMostUsedPositions(programmers: List<Programmer>, max: Int) : String {
 
     //return all programmers positions statistics in one list
-    var positionsStatistics = mostUsedTiles(programmers)
+    val positionsStatistics = mostUsedTiles(programmers)
 
     return positionsStatistics
         .filter { it !=2 }
