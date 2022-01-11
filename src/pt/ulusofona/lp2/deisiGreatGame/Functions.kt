@@ -84,7 +84,7 @@ fun getMostUsedPositions(programmers: List<Programmer>, max: Int) : String {
 
     //return max elements sorted descending by number of occurrences
     return frequencyMap.toList()
-        .sortedBy { (_, value) -> value }.reversed()
+        .sortedBy { (key, value) -> value }.reversed()
         .take(max)
         .joinToString("\n", "", "") { "${it.first}:${it.second}" }
 }
